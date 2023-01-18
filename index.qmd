@@ -1,0 +1,9 @@
+# Preface {.unnumbered}
+
+The notets are a Quarto book; for details visit <https://quarto.org/docs/books>.
+
+
+The notes are a joint effort of the instructor and the students in
+STAT 3255/5255, Spring 2023.
+
+

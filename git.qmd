@@ -1,0 +1,27 @@
+# Project Management with Git
+
+Many tutorials are available in different formats. Here is a [YouTube video
+``Git and GitHub for Beginners --- Crash
+Course''](https://www.youtube.com/watch?v=RGOj5yH7evk)
+<!-- https://www.youtube.com/watch?v=USjZcfj8yxE). -->
+The video also covers GitHub, a cloud service for Git. Other similar services
+are, for example, [bitbucket](bitbucket.org) and [GitLab](gitlab.com). A cloud
+service gives you a cloud back up of your work and makes collaboration with
+co-workers easy.
+
+
+Here is a collection of [online Git exersices](https://gitexercises.fracz.com)
+that I used for Git training in other courses that I taught.
+
+
+Tips on using Git:
+
++ Use the command line interface instead of the web interface (e.g., upload on GitHub)
++ Make frequent small commits instead of rare large commits.
++ Make commit messages informative and meaningful.
++ Name your files/folders by some reasonable convention. 
+    - Lower cases are better than upper cases.
+    - No blanks in file/folder names.
++ Keep the repo clean by not tracking generated files.
++ Creat a `.gitignore` file for better output from `git status`.
++ Keep the linewidth of sources to under 80 for better `git diff` view.

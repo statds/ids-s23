@@ -1,0 +1,84 @@
+# Introduction
+
+## What Is Data Science?
+
+One widely accepted concept is the three pillars of data science:
+mathematics/statistics, computer science, and domain knowledge.
+
+In her 2014 Presidential Address, Prof. Bin Yu, then President of the
+Institute of Mathematical Statistics, gave an interesting definition:
+$$
+\mbox{Data Science} =
+\mbox{S}\mbox{D}\mbox{C}^3,
+$$
+where S is Statistics, D is domain/science knowledge, and
+the three C's are computing, collaboration/teamwork, and communication
+to outsiders.
+
+
+## Expectations from This Course
+
++ Proficiency in project management with Git.
++ Proficiency in project report with Quarto.
++ Hands-on experience with real-world data science project.
++ Competency in using Python and its extensions for data science.
++ Full grasp of the meaning of the results from data science algorithms.
++ Basic understanding the principles of the data science methods.
+
+
+## Computing Environment
+
+All setups are operating system dependent. As soon as possible, stay away from
+Windows. Otherwise, good luck (you will need it).
+
+### Command Line Interface
+
+On Linux or MacOS, simply open a terminal.
+
+On Windows, several options can be considered.
+
++ Cygwin (with X): <https://x.cygwin.com>
++ Git Bash: <https://www.gitkraken.com/blog/what-is-git-bash>
+
+To jump start, here is a tutorial:
+[Ubunto Linux for beginners](https://ubuntu.com/tutorials/command-line-for-beginners).
+
+At least, you need to know how to handle files and traverse across directories.
+
+### Python
+
+Set up Python on your computer:
+
+- Python 3.
+- Python package manager __miniconda__ or __pip__.
+- Integrated Development Environment (IDE) (Jupyter Notebook; RStudio; VS Code; Emacs; etc.)
+
+Readability is important!
+Check your Python coding styles against the recommended styles:
+<https://peps.python.org/pep-0008/>. A good place to start if the Section on
+"Code Lay-out". 
+
+## Data Challenges
+
++ [ASA Data Challenge Expo](https://community.amstat.org/dataexpo/home)
++ [Kaggle](https://www.kaggle.com)
++ [DrivenData](https://www.drivendata.org)
++ [Top 10 Data Science Competitions in
+  2023](https://www.knowledgehut.com/blog/data-science/data-science-competitions)
+  
+## Wishlist
+
+This is a wish list from all members of the class (alphabetical
+order). Add yours; note the syntax of nested list in Markdown.
+
++ Last, First
+    - Complete ...
+    - Become proficient ...
++ Yan, Jun
+    - Make data science more accessible to undergraduates
+    - Co-develop a Quarto Book in collaboration with the students
+
+### Presentation Orders
+
+Wait until next week to let the class size settle.
+

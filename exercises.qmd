@@ -1,0 +1,4 @@
+# Exercises
+
+1. This is an Git exercise.
+
