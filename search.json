@@ -1,0 +1,58 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Introduction to Data Science",
+    "section": "",
+    "text": "Preface\nThe notets are a Quarto book; for details visit https://quarto.org/docs/books.\nThe notes are a joint effort of the instructor and the students in STAT 3255/5255, Spring 2023."
+  },
+  {
+    "objectID": "intro.html#what-is-data-science",
+    "href": "intro.html#what-is-data-science",
+    "title": "1  Introduction",
+    "section": "1.1 What Is Data Science?",
+    "text": "1.1 What Is Data Science?\nOne widely accepted concept is the three pillars of data science: mathematics/statistics, computer science, and domain knowledge.\nIn her 2014 Presidential Address, Prof. Bin Yu, then President of the Institute of Mathematical Statistics, gave an interesting definition: \\[\n\\mbox{Data Science} =\n\\mbox{S}\\mbox{D}\\mbox{C}^3,\n\\] where S is Statistics, D is domain/science knowledge, and the three C’s are computing, collaboration/teamwork, and communication to outsiders."
+  },
+  {
+    "objectID": "intro.html#expectations-from-this-course",
+    "href": "intro.html#expectations-from-this-course",
+    "title": "1  Introduction",
+    "section": "1.2 Expectations from This Course",
+    "text": "1.2 Expectations from This Course\n\nProficiency in project management with Git.\nProficiency in project report with Quarto.\nHands-on experience with real-world data science project.\nCompetency in using Python and its extensions for data science.\nFull grasp of the meaning of the results from data science algorithms.\nBasic understanding the principles of the data science methods."
+  },
+  {
+    "objectID": "intro.html#computing-environment",
+    "href": "intro.html#computing-environment",
+    "title": "1  Introduction",
+    "section": "1.3 Computing Environment",
+    "text": "1.3 Computing Environment\nAll setups are operating system dependent. As soon as possible, stay away from Windows. Otherwise, good luck (you will need it).\n\n1.3.1 Command Line Interface\nOn Linux or MacOS, simply open a terminal.\nOn Windows, several options can be considered.\n\nCygwin (with X): https://x.cygwin.com\nGit Bash: https://www.gitkraken.com/blog/what-is-git-bash\n\nTo jump start, here is a tutorial: Ubunto Linux for beginners.\nAt least, you need to know how to handle files and traverse across directories.\n\n\n1.3.2 Python\nSet up Python on your computer:\n\nPython 3.\nPython package manager miniconda or pip.\nIntegrated Development Environment (IDE) (Jupyter Notebook; RStudio; VS Code; Emacs; etc.)\n\nReadability is important! Check your Python coding styles against the recommended styles: https://peps.python.org/pep-0008/. A good place to start if the Section on “Code Lay-out”."
+  },
+  {
+    "objectID": "intro.html#data-challenges",
+    "href": "intro.html#data-challenges",
+    "title": "1  Introduction",
+    "section": "1.4 Data Challenges",
+    "text": "1.4 Data Challenges\n\nASA Data Challenge Expo\nKaggle\nDrivenData\nTop 10 Data Science Competitions in 2023"
+  },
+  {
+    "objectID": "intro.html#wishlist",
+    "href": "intro.html#wishlist",
+    "title": "1  Introduction",
+    "section": "1.5 Wishlist",
+    "text": "1.5 Wishlist\nThis is a wish list from all members of the class (alphabetical order). Add yours; note the syntax of nested list in Markdown.\n\nLast, First\n\nComplete …\nBecome proficient …\n\nYan, Jun\n\nMake data science more accessible to undergraduates\nCo-develop a Quarto Book in collaboration with the students\n\n\n\n1.5.1 Presentation Orders\nWait until next week to let the class size settle."
+  },
+  {
+    "objectID": "git.html",
+    "href": "git.html",
+    "title": "2  Project Management with Git",
+    "section": "",
+    "text": "Many tutorials are available in different formats. Here is a YouTube video ``Git and GitHub for Beginners — Crash Course’’  The video also covers GitHub, a cloud service for Git. Other similar services are, for example, bitbucket and GitLab. A cloud service gives you a cloud back up of your work and makes collaboration with co-workers easy.\nHere is a collection of online Git exersices that I used for Git training in other courses that I taught.\nTips on using Git:\n\nUse the command line interface instead of the web interface (e.g., upload on GitHub)\nMake frequent small commits instead of rare large commits.\nMake commit messages informative and meaningful.\nName your files/folders by some reasonable convention.\n\nLower cases are better than upper cases.\nNo blanks in file/folder names.\n\nKeep the repo clean by not tracking generated files.\nCreat a .gitignore file for better output from git status.\nKeep the linewidth of sources to under 80 for better git diff view.\n\nTo set up GitHub (other services like Bitbucket or GitLab are similar), you need to\n\nGenerate an SSH key if you don’t have one already.\nSign up an GitHub account.\nAdd the SSH key to your GitHub account\n\nThe most frequently used Git commands are: + git clone + git pull + git status + git add + git remove + git commit + git push"
+  },
+  {
+    "objectID": "exercises.html",
+    "href": "exercises.html",
+    "title": "3  Exercises",
+    "section": "",
+    "text": "Practice Git.\n\nClone the ids-23 repo to your own computer.\nAdd your name and wishes to the Wishlist; commit with an informative message.\nRemove the Last, First entry from the list; commit.\nCreate a new file called add.qmd containing a few lines of texts; commit.\nRemove add.qmd (pretending that this is by accident; commit.\nRecover the accidently removed file add.qmd; commit.\nPut the repo into the GitHub Classroom homework repo and push.\nMake a pull-request to the ids-23 repo."
+  }
+]
