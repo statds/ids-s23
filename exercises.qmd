@@ -1,12 +1,14 @@
 # Exercises
 
-1. Practice Git.
-    1. Clone the `ids-23` repo to your own computer.
+1. Pick up Git basics and set up an account at GitHub if you don't have
+   one. Please practice the tips on Git in the notes. My grader will check the
+   repo.
+    1. Clone the `ids-s23` repo to your own computer.
     1. Add your name and wishes to the Wishlist; commit with an informative message.
 	1. Remove the `Last, First` entry from the list; commit.
 	1. Create a new file called `add.qmd` containing a few lines of texts; commit.
 	1. Remove `add.qmd` (pretending that this is by accident; commit.
-    1. Recover the accidently removed file `add.qmd`; commit.
+    1. Recover the accidently removed file `add.qmd`; add a few more lines; commit.
 	1. Put the repo into the GitHub Classroom homework repo and push.
-	1. Make a pull-request to the `ids-23` repo.
+
 	
