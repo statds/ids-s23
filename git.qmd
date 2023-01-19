@@ -25,3 +25,20 @@ Tips on using Git:
 + Keep the repo clean by not tracking generated files.
 + Creat a `.gitignore` file for better output from `git status`.
 + Keep the linewidth of sources to under 80 for better `git diff` view.
+
+
+To set up GitHub (other services like Bitbucket or GitLab are similar), you need to
+
++ Generate an SSH key if you don't have one already.
++ Sign up an GitHub account.
++ Add the SSH key to your GitHub account
+
+
+The most frequently used Git commands are:
+  + `git clone`
+  + `git pull`
+  + `git status`
+  + `git add`
+  + `git remove`
+  + `git commit`
+  + `git push`
