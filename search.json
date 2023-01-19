@@ -53,6 +53,6 @@
     "href": "exercises.html",
     "title": "3  Exercises",
     "section": "",
-    "text": "Practice Git.\n\nClone the ids-23 repo to your own computer.\nAdd your name and wishes to the Wishlist; commit with an informative message.\nRemove the Last, First entry from the list; commit.\nCreate a new file called add.qmd containing a few lines of texts; commit.\nRemove add.qmd (pretending that this is by accident; commit.\nRecover the accidently removed file add.qmd; commit.\nPut the repo into the GitHub Classroom homework repo and push.\nMake a pull-request to the ids-23 repo."
+    "text": "Pick up Git basics and set up an account at GitHub if you don’t have one. Please practice the tips on Git in the notes. My grader will check the repo.\n\nClone the ids-s23 repo to your own computer.\nAdd your name and wishes to the Wishlist; commit with an informative message.\nRemove the Last, First entry from the list; commit.\nCreate a new file called add.qmd containing a few lines of texts; commit.\nRemove add.qmd (pretending that this is by accident; commit.\nRecover the accidently removed file add.qmd; add a few more lines; commit.\nPut the repo into the GitHub Classroom homework repo and push."
   }
 ]
