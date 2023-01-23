@@ -71,6 +71,9 @@ Check your Python coding styles against the recommended styles:
 This is a wish list from all members of the class (alphabetical
 order). Add yours; note the syntax of nested list in Markdown.
 
++ Sullivan, Collin
+    - get an A
+    - learn data science
 + Win, Marlins
     - Run my own deep learning algorithm on a real dataset
     - Become proficient with Git
