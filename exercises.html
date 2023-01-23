@@ -61,6 +61,7 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 </head>
 
@@ -146,7 +147,7 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 <ol type="1">
-<li>Pick up Git basics and set up an account at GitHub if you don’t have one. Please practice the tips on Git in the notes. Make sure you have at least 10 commits in the repo, each with informative message. Keep checking the status of your repo with <code>git status</code>. My grader will grade the repo.
+<li><p>Pick up Git basics and set up an account at GitHub if you don’t have one. Please practice the tips on Git in the notes. Make sure you have at least 10 commits in the repo, each with informative message. Keep checking the status of your repo with <code>git status</code>. My grader will grade the repo.</p>
 <ol type="1">
 <li>Clone the <code>ids-s23</code> repo to your own computer.</li>
 <li>Add your name and wishes to the Wishlist; commit with an informative message.</li>
@@ -156,8 +157,19 @@ ul.task-list li input[type="checkbox"] {
 <li>Recover the accidently removed file <code>add.qmd</code>; add a long line (a paragraph without a hard break); add a short line (under 80 characters); commit.</li>
 <li>Change one word in the long line and one word in the short line; commit.</li>
 <li>Use <code>git diff</code> to see the difference between the last two commits.</li>
-<li>Put the repo into the GitHub Classroom homework repo and push.</li>
+<li>Put the repo into the GitHub Classroom homework repo with <code>git remote add</code> and <code>git push</code>.</li>
 </ol></li>
+<li><p>Get ready for contributing to the classnotes.</p>
+<ol type="1">
+<li>Create a fork of the <code>ids-s23</code> repo into your own GitHub account.</li>
+<li>Clone it to your local computer.</li>
+<li>Make a new branch to experiment with your changes.</li>
+<li>Checkout your branch and add your wishes to the wish list; push to your GitHub account.</li>
+<li>Make a pull request to my <code>ids-s23</code> repo from your fork at GitHub. Make sure you have clear messages to document the changes.</li>
+</ol></li>
+<li><p>Write a function to demonstrate the Monty Hall problem through simulation. The function takes two arguments <code>ndoors</code> and <code>ntrials</code>, representing the number of doors in the experiment and the number of trails in a simulation, respectively. The function should return the proportion of wins for both the switch and no-switch strategy. Apply your function with 3 doors and 5 doors, both with 1000 trials. Include sufficient text around the code to explain your them.</p></li>
+<li><p>Write a function to do a Monte Carlo approximation of <span class="math inline">\(\pi\)</span>. The function takes a Monte Carlo sample size <code>n</code> as input, and returns a point estimate of <span class="math inline">\(\pi\)</span> and a 95% confidence interval. Apply your function with sample size 1000, 2000, 4000, and 8000. Comment on the results.</p></li>
+<li><p>Find the first 10-digit prime number occurring in consecutive digits of <span class="math inline">\(e\)</span>. This was a <a href="http://mathworld.wolfram.com/news/2004-10-13/google/">Google recruiting ad</a></p></li>
 </ol>
 
 
