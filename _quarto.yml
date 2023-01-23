@@ -10,6 +10,7 @@ book:
     - index.qmd
     - intro.qmd
     - git.qmd
+    - quarto.qmd
     - exercises.qmd
     - references.qmd
 
