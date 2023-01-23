@@ -72,8 +72,11 @@ This is a wish list from all members of the class (alphabetical
 order). Add yours; note the syntax of nested list in Markdown.
 
 + Sullivan, Collin
-    - get an A
-    - learn data science
+    - I would like to learn to be able to use data science well enough to get a job in the field
+    - Discover if this area of statistics is one that I am passionate about
+    - Gain some project experience that I can cite or reference in interviews
+    - Be able to speak intelligently about data science and it's facets
+    - Gain practical experience
 + Win, Marlins
     - Run my own deep learning algorithm on a real dataset
     - Become proficient with Git
