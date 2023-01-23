@@ -39,7 +39,7 @@
     "href": "intro.html#wishlist",
     "title": "1  Introduction",
     "section": "1.5 Wishlist",
-    "text": "1.5 Wishlist\nThis is a wish list from all members of the class (alphabetical order). Add yours; note the syntax of nested list in Markdown.\n\nLast, First\n\nComplete …\nBecome proficient …\n\nYan, Jun\n\nMake data science more accessible to undergraduates\nCo-develop a Quarto Book in collaboration with the students\n\n\n\n1.5.1 Presentation Orders\nWait until next week to let the class size settle."
+    "text": "1.5 Wishlist\nThis is a wish list from all members of the class (alphabetical order). Add yours; note the syntax of nested list in Markdown.\n\nWin, Marlins\n\nRun my own deep learning algorithm on a real dataset\nBecome proficient with Git\n\nYan, Jun\n\nMake data science more accessible to undergraduates\nCo-develop a Quarto Book in collaboration with the students\n\n\n\n1.5.1 Presentation Orders\nWait until next week to let the class size settle."
   },
   {
     "objectID": "git.html",
