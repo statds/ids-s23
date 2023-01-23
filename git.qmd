@@ -35,10 +35,11 @@ To set up GitHub (other services like Bitbucket or GitLab are similar), you need
 
 
 The most frequently used Git commands are:
-  + `git clone`
-  + `git pull`
-  + `git status`
-  + `git add`
-  + `git remove`
-  + `git commit`
-  + `git push`
+
++ `git clone`
++ `git pull`
++ `git status`
++ `git add`
++ `git remove`
++ `git commit`
++ `git push`
