@@ -70,7 +70,7 @@ Check your Python coding styles against the recommended styles:
 
 This is a wish list from all members of the class (alphabetical
 order). Add yours; note the syntax of nested list in Markdown.
-+ Mastrorilli, Ginamarie 
++ 
     - Become more comfortable with git. 
     - Increase my ability to learn new programs. 
 + Win, Marlins
