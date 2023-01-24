@@ -71,6 +71,9 @@ Check your Python coding styles against the recommended styles:
 This is a wish list from all members of the class (alphabetical
 order). Add yours; note the syntax of nested list in Markdown.
 
++ Lunetta, Giovanni
+    - Learn to properly clean a dataset
+    - Become proficient in building a machine learning model
 + Mastrorilli, Ginamarie 
     - Become more comfortable with git. 
     - Increase my ability to learn new programs. 
@@ -89,9 +92,6 @@ order). Add yours; note the syntax of nested list in Markdown.
 + Yeung, Shannon
     - Learn more about Git
     - get aa more well rounded understanding of data science
-+ Lunetta, Giovanni
-    - Learn to properly clean a dataset
-    - Become proficient in building a machine learning model
 
 ### Presentation Orders
 
