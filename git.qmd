@@ -14,7 +14,27 @@ Here is a collection of [online Git exersices](https://gitexercises.fracz.com)
 that I used for Git training in other courses that I taught.
 
 
-Tips on using Git:
+## Set Up
+
+
+To set up GitHub (other services like Bitbucket or GitLab are similar), you need to
+
++ Generate an SSH key if you don't have one already.
++ Sign up an GitHub account.
++ Add the SSH key to your GitHub account
+
+
+## Most Frequently Used Git Commands
+
++ `git clone`
++ `git pull`
++ `git status`
++ `git add`
++ `git remove`
++ `git commit`
++ `git push`
+
+## Tips on using Git:
 
 + Use the command line interface instead of the web interface (e.g., upload on GitHub)
 + Make frequent small commits instead of rare large commits.
@@ -27,19 +47,12 @@ Tips on using Git:
 + Keep the linewidth of sources to under 80 for better `git diff` view.
 
 
-To set up GitHub (other services like Bitbucket or GitLab are similar), you need to
+## Pull Request
+To contribute to an open source project (e.g., our classnotes), use pull
+requests. [Pull requests](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests)
+"let you tell others about changes you've pushed to a branch in a repository on
+GitHub. Once a pull request is opened, you can discuss and review the potential
+changes with collaborators and add follow-up commits before your changes are
+merged into the base branch."
 
-+ Generate an SSH key if you don't have one already.
-+ Sign up an GitHub account.
-+ Add the SSH key to your GitHub account
-
-
-The most frequently used Git commands are:
-
-+ `git clone`
-+ `git pull`
-+ `git status`
-+ `git add`
-+ `git remove`
-+ `git commit`
-+ `git push`
+Watch this YouTube video: [GitHub pull requests in 100 seconds](https://youtu.be/8lGpZkjnkt4).
