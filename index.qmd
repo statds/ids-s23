@@ -7,3 +7,16 @@ The notes are a joint effort of the instructor and the students in
 STAT 3255/5255, Spring 2023.
 
 
+An interesting quote from @vanderplas2022python:
+
+> When a technologically-minded person is asked to help a friend, family member,
+> or colleague with a computer problem, most of the time it's less a matter of
+> knowing the answer as much as knowing how to quickly find an unknown
+> answer. In data science it's the same: searchable web resources such as online
+> documentation, mailing-list threads, and StackOverflow answers contain a
+> wealth of information, even (especially?) if it is a topic you've found
+> yourself searching before. Being an effective practitioner of data science is
+> less about memorizing the tool or command you should use for every possible
+> situation, and more about learning to effectively find the information you
+> don't know, whether through a web search engine or another means.
+
