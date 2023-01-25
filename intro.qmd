@@ -71,6 +71,10 @@ Check your Python coding styles against the recommended styles:
 This is a wish list from all members of the class (alphabetical
 order). Add yours; note the syntax of nested list in Markdown.
 
++ Yang Kang,Chua
+    - Learn more about git and github
+    - Learn more about machine learning technique
+    - Apply data science knowlegde to my research
 + Win, Marlins
     - Run my own deep learning algorithm on a real dataset
     - Become proficient with Git
