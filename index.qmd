@@ -7,7 +7,7 @@ The notes are a joint effort of the instructor and the students in
 STAT 3255/5255, Spring 2023.
 
 
-An interesting quote from @vanderplas2022python:
+An interesting quote from @vanderplas2016python:
 
 > When a technologically-minded person is asked to help a friend, family member,
 > or colleague with a computer problem, most of the time it's less a matter of
