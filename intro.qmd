@@ -43,7 +43,10 @@ On Windows, several options can be considered.
 To jump start, here is a tutorial:
 [Ubunto Linux for beginners](https://ubuntu.com/tutorials/command-line-for-beginners).
 
-At least, you need to know how to handle files and traverse across directories.
+At least, you need to know how to handle files and traverse across
+directories. The tab completion and introspection supports are very useful.
+
+
 
 ### Python
 
