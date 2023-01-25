@@ -1,4 +1,4 @@
 Few lines
 of text
-Long Line Long Line Long Line Long Line Long Line Long Line Long Line Long Line Long Line Long Line Long Line Long LineLong Line Long Line Long Line Long Line
-Short line
+Long space Long Line Long Line Long Line Long Line Long Line Long Line Long Line Long Line Long Line Long Line Long LineLong Line Long Line Long Line Long Line
+Short space
