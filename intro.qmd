@@ -80,6 +80,7 @@ order). Add yours; note the syntax of nested list in Markdown.
     - Learn more about command prompts in Git Bash
     - Learn more about data science principles
     - Learn better programming techniques in Python
+    - Become better in simulation techniques.
 + Lunetta, Giovanni
     - Learn to properly clean a dataset
     - Become proficient in building a machine learning model
