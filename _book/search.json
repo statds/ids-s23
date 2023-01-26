@@ -1,0 +1,37 @@
+[
+  {
+    "objectID": "intro.html#what-is-data-science",
+    "href": "intro.html#what-is-data-science",
+    "title": "1  Introduction",
+    "section": "1.1 What Is Data Science?",
+    "text": "1.1 What Is Data Science?\nOne widely accepted concept is the three pillars of data science: mathematics/statistics, computer science, and domain knowledge.\nIn her 2014 Presidential Address, Prof. Bin Yu, then President of the Institute of Mathematical Statistics, gave an interesting definition: \\[\n\\mbox{Data Science} =\n\\mbox{S}\\mbox{D}\\mbox{C}^3,\n\\] where S is Statistics, D is domain/science knowledge, and the three C’s are computing, collaboration/teamwork, and communication to outsiders."
+  },
+  {
+    "objectID": "intro.html#expectations-from-this-course",
+    "href": "intro.html#expectations-from-this-course",
+    "title": "1  Introduction",
+    "section": "1.2 Expectations from This Course",
+    "text": "1.2 Expectations from This Course\n\nProficiency in project management with Git.\nProficiency in project report with Quarto.\nHands-on experience with real-world data science project.\nCompetency in using Python and its extensions for data science.\nFull grasp of the meaning of the results from data science algorithms.\nBasic understanding the principles of the data science methods."
+  },
+  {
+    "objectID": "intro.html#computing-environment",
+    "href": "intro.html#computing-environment",
+    "title": "1  Introduction",
+    "section": "1.3 Computing Environment",
+    "text": "1.3 Computing Environment\nAll setups are operating system dependent. As soon as possible, stay away from Windows. Otherwise, good luck (you will need it).\n\n1.3.1 Command Line Interface\nOn Linux or MacOS, simply open a terminal.\nOn Windows, several options can be considered.\n\nCygwin (with X): https://x.cygwin.com\nGit Bash: https://www.gitkraken.com/blog/what-is-git-bash\n\nTo jump start, here is a tutorial: Ubunto Linux for beginners.\nAt least, you need to know how to handle files and traverse across directories. The tab completion and introspection supports are very useful.\n\n\n1.3.2 Python\nSet up Python on your computer:\n\nPython 3.\nPython package manager miniconda or pip.\nIntegrated Development Environment (IDE) (Jupyter Notebook; RStudio; VS Code; Emacs; etc.)\n\nI will be using IPython and Jupyter Notebook in class.\nReadability is important! Check your Python coding styles against the recommended styles: https://peps.python.org/pep-0008/. A good place to start is the Section on “Code Lay-out”."
+  },
+  {
+    "objectID": "intro.html#data-challenges",
+    "href": "intro.html#data-challenges",
+    "title": "1  Introduction",
+    "section": "1.4 Data Challenges",
+    "text": "1.4 Data Challenges\n\nASA Data Challenge Expo\nKaggle\nDrivenData\nTop 10 Data Science Competitions in 2023"
+  },
+  {
+    "objectID": "intro.html#wishlist",
+    "href": "intro.html#wishlist",
+    "title": "1  Introduction",
+    "section": "1.5 Wishlist",
+    "text": "1.5 Wishlist\nThis is a wish list from all members of the class (alphabetical order). Add yours; note the syntax of nested list in Markdown.\n\nLunetta, Giovanni\n\nLearn to properly clean a dataset\nBecome proficient in building a machine learning model\n\nMastrorilli, Ginamarie\n\nBecome more comfortable with git.\nIncrease my ability to learn new programs.\n\nNhan, Nathan\n\nProperly learn how to use Git\nIncrease my understanding of data science and data collection\n\nSullivan, Collin\n\nI would like to learn to be able to use data science well enough to get a job in the field\nDiscover if this area of statistics is one that I am passionate about\nGain some project experience that I can cite or reference in interviews\nBe able to speak intelligently about data science and it’s facets\nGain practical experience\n\nWin, Marlins\n\nRun my own deep learning algorithm on a real dataset\nBecome proficient with Git\n\nYan, Jun\n\nMake data science more accessible to undergraduates\nCo-develop a Quarto Book in collaboration with the students\n\nYeung, Shannon\n\nLearn more about Git\nget aa more well rounded understanding of data science\n\n\n\n1.5.1 Presentation Orders\nWait until next week to let the class size settle."
+  }
+]
