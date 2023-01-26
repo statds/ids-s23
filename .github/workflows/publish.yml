@@ -24,7 +24,7 @@ jobs:
 
       - name: Set Up Virtual Environment and Install dependencies
         run: |
-          python -m venv env
+          python -m venv env jupyter
           source env/bin/activate
           python -m pip install --upgrade pip
           # export PKG_CONFIG_PATH=/usr/local/bin/pkgconfig
