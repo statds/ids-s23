@@ -75,7 +75,9 @@ Check your Python coding styles against the recommended styles:
 
 This is a wish list from all members of the class (alphabetical
 order). Add yours; note the syntax of nested list in Markdown.
-
++ Cummins, Patrick
+    - Learn Git and how to manage data science projects within Github
+    - Learn how to implement SVM, Naive Bayes, and Random Forest algorithms
 + Lunetta, Giovanni
     - Learn to properly clean a dataset
     - Become proficient in building a machine learning model
@@ -100,7 +102,6 @@ order). Add yours; note the syntax of nested list in Markdown.
 + Yeung, Shannon
     - Learn more about Git
     - get aa more well rounded understanding of data science
-
 ### Presentation Orders
 
 Wait until next week to let the class size settle.
