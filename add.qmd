@@ -1,3 +1,0 @@
-This is another test.
-This file will be edited.
-Proceed to next step.
