@@ -1,3 +1,0 @@
-This is a test.
-Adding from Git Bash is successful.
-Proceeding to delete and readd from the next homework step.
