@@ -76,7 +76,6 @@ Check your Python coding styles against the recommended styles:
 This is a wish list from all members of the class (alphabetical
 order). Add yours; note the syntax of nested list in Markdown.
 
-+ Cheu, Catherine
     - Learn more about command prompts in Git Bash
     - Learn more about data science principles
     - Learn better programming techniques in Python
