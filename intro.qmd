@@ -97,6 +97,10 @@ order). Add yours; note the syntax of nested list in Markdown.
 + Yan, Jun
     - Make data science more accessible to undergraduates
     - Co-develop a Quarto Book in collaboration with the students
++ Yang Kang, Chua
+    - Learn more about git and github
+    - Apply Data Science skill to my research
+    - Develop a new machine learning model
 + Yeung, Shannon
     - Learn more about Git
     - get aa more well rounded understanding of data science
