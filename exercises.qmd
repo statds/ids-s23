@@ -12,8 +12,8 @@
     1. Recover the accidently removed file `add.qmd`; add a long line (a
        paragraph without a hard break); add a short line (under 80 characters);
        commit.
-    1. Change one word in the long line and one word in the short line; commit.
-	1. Use `git diff` to see the difference between the last two commits.
+    1. Change one word in the long line and one word in the short line; use
+	`git diff` to see the difference from the last commit; commit.
 	1. Put the repo into the GitHub Classroom homework repo with `git remote add` and `git push`.
 
 1. Get ready for contributing to the classnotes.

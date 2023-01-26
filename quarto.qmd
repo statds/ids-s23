@@ -18,3 +18,5 @@ course.
 
 To get started, see documentation at
 [Quarto](https://quarto.org/docs/get-started/).
+
+This is an extra line.
