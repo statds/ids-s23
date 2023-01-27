@@ -89,6 +89,11 @@ order). Add yours; note the syntax of nested list in Markdown.
 + Nhan, Nathan
     - Properly learn how to use Git 
     - Increase my understanding of data science and data collection
++ Parchekani, Kian
+    - Learn how to use Git, Quarto
+    - Get an introduction to data science
+    - Learn if a career in this field is right for me
+    - Collaborate with others and gain project experience
 + Sullivan, Collin
     - I would like to learn to be able to use data science well enough to get a job in the field
     - Discover if this area of statistics is one that I am passionate about
