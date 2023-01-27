@@ -1,2 +1,0 @@
-this is my add.qmd for the first assignment,
-I am still learning how to use GitHub, bare with me.
