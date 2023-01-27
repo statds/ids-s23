@@ -80,6 +80,9 @@ order). Add yours; note the syntax of nested list in Markdown.
     - Learn how to use Git proficiently
     - Gain practical experience using data science methods
     - Learn to use python libraries for data science
++ Cummins, Patrick
+    - practice Git skills
+    - learn how to implement ML algorithms in Python
 + Lunetta, Giovanni
     - Learn to properly clean a dataset
     - Become proficient in building a machine learning model
