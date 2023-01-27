@@ -22,21 +22,6 @@ jobs:
           # uncomment below and fill to pin a version
           # version: 0.9.600
 
-      - name: Install Python and Dependencies
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.10'
-          cache: 'pip'
-      - run: pip install jupyter
-          
-      - name: Set Up Virtual Environment and Install dependencies
-        run: |
-          python -m venv env jupyter
-          source env/bin/activate
-          python -m pip install --upgrade pip
-          # export PKG_CONFIG_PATH=/usr/local/bin/pkgconfig
-          pip install -r requirements.txt
-          
       - name: Render and Publish
         uses: quarto-dev/quarto-actions/publish@v2
         with:
