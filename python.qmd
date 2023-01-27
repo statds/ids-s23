@@ -205,3 +205,21 @@ append_42(x)
 ```
 Note that both `x` and `y` have been appended by $42$.
 
+## Number Representation
+
+Numers in a computer's memory are represented by binary styles (on and
+off of bits).
+
+### Integers
+If not careful, It is easy to be bitten by overflow with integers when
+using Numpy and Pandas in Python.
+
+
+```{python}
+import numpy as np
+
+x = np.array(2**63 - 1 , dtype='int')
+x
+# This should be the largest number numpy can display, with
+# the default int8 type (64 bits)
+```
