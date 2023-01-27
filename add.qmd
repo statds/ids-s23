@@ -1,3 +1,0 @@
-This is another test file.
-Edits will be made to get used to Git Bash.
-Proceed to next step.
