@@ -16,7 +16,7 @@ Of course, Quarto can be used to write homework, exams, and reports in this
 course.
 
 
-To get started, see documentation at:
+To get started, see documentation at
 [Quarto](https://quarto.org/docs/get-started/).
 
 This is an extra line.
