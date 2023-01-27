@@ -1,3 +1,7 @@
 This is a final version.
 This is created to test commands.
 Hopefully, this file is okay.
+
+This file is successfully restored from a previous commit. This was a hard task to do. I hope that I can understand how to perform commands better in Git Bash and understand the syntax better.
+
+This is a short line for homework purposes.
