@@ -1,3 +1,0 @@
-This is another test as the file is gone.
-This will help understand Git Bash.
-This is a new version as the previous disappeared when uncommitting.
