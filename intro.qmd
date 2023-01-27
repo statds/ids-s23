@@ -95,6 +95,8 @@ order). Add yours; note the syntax of nested list in Markdown.
     - Gain some project experience that I can cite or reference in interviews
     - Be able to speak intelligently about data science and it's facets
     - Gain practical experience
++ Wang, Chaoyang
+    - Learn Deep Learning and application on Finance
 + Win, Marlins
     - Run my own deep learning algorithm on a real dataset
     - Become proficient with Git
