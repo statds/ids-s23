@@ -55,7 +55,7 @@ decimal.Decimal(1).exp().to_eng_string()
 decimal.Decimal(1).exp().to_eng_string()[2:]
 ```
 
-## Important Libraries
+## **Important Libraries**
 
 + NumPy
 + pandas
