@@ -1,3 +1,0 @@
-This is a version of add.qmd
-This is used to test commands.
-This version is created as previous was corrupted.
