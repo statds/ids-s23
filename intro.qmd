@@ -76,6 +76,9 @@ Check your Python coding styles against the recommended styles:
 This is a wish list from all members of the class (alphabetical
 order). Add yours; note the syntax of nested list in Markdown.
 
++ Zheng, Michael
+    - Become more comfortable with git
+    - Learn how to complete a data science project from start to finish
 + Bedard, Kaitlyn 
     - Learn how to use Git proficiently
     - Gain practical experience using data science methods
