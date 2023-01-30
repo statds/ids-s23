@@ -63,6 +63,12 @@ Check your Python coding styles against the recommended styles:
 <https://peps.python.org/pep-0008/>. A good place to start is the Section on
 "Code Lay-out". 
 
+
+Online books on Python for data science:
+
++  [“Python Data Science Handbook: Essential Tools for Working with Data,” First Edition](https://jakevdp.github.io/PythonDataScienceHandbook/), by Jake VanderPlas, O’Reilly Media, 2016. 
+2. [“Python for Data Analysis: Data Wrangling with Pan- das, NumPy, and IPython.” Third Edition](https://wesmckinney.com/book/), by Wes McK- inney, O’Reilly Media, 2022. 
+
 ## Data Challenges
 
 + [ASA Data Challenge Expo](https://community.amstat.org/dataexpo/home)

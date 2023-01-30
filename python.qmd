@@ -214,7 +214,6 @@ off of bits).
 If not careful, It is easy to be bitten by overflow with integers when
 using Numpy and Pandas in Python.
 
-
 ```{python}
 import numpy as np
 
@@ -222,4 +221,68 @@ x = np.array(2**63 - 1 , dtype='int')
 x
 # This should be the largest number numpy can display, with
 # the default int8 type (64 bits)
+```
+
+What if we increment it by 1?
+```{python}
+y = np.array(x + 1, dtype='int')
+y
+# Because of the overflow, it becomes negative!
+```
+For vanilla Python, the overflow errors are checked and more digits
+are allocated when needed, at the cost of being slow.
+```{python}
+2**63 * 1000
+```
+This number is 1000 times largger than the prior number,
+but still displayed perfectly without any overflows
+
+### Floating Number
+
+Standard double-precision floating point number uses 64 bits. Among
+them, 1 is for sign, 11 is for exponent, and 52 are fraction significand,
+See <https://en.wikipedia.org/wiki/Double-precision_floating-point_format>.
+The bottom line is that, of course, not every real number is exactly
+representable.
+
+
+```{python}
+0.1 + 0.1 + 0.1 == 0.3
+```
+
+```{python}
+0.3 - 0.2 == 0.1
+```
+What is really going on?
+```{python}
+import decimal
+decimal.Decimal(0.1)
+```
+
+
+Because the mantissa bits are limited, it can not represent a floating point
+that's both very big and very precise. Most computers can represent all integers
+up to $2^{53}$, after that it starts skipping numbers.
+
+```{python}
+2.1**53 + 1 == 2.1**53
+
+# Find a number larger than 2 to the 53rd
+```
+
+```{python}
+x = 2.1**53
+for i in range(1000000):
+    x = x + 1
+x == 2.1**53
+```
+We add 1 to `x` by 1000000 times, but it still equal to its initial
+value,  2.1**53. This is because this number is too big that computer
+can't handle it with precision like add 1.
+
+Machine epsilon is the smallest positive floating-point number `x` such that
+`1 + x != 1`.
+```{python}
+print(np.finfo(float).eps)
+print(np.finfo(np.float32).eps)
 ```
