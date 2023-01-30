@@ -113,7 +113,51 @@ order). Add yours; note the syntax of nested list in Markdown.
     - Learn more about Git
     - get aa more well rounded understanding of data science
 
+
 ### Presentation Orders
 
-Wait until next week to let the class size settle.
+The topic presentation order is set up in class.
+```{python}
+presenters = ["Alsubai,	Nadia",
+			  "Bedard, Kaitlyn",
+			  "Cheu, Catherine",
+			  "Chua, Yang Kang",
+			  "Cummins, Patrick",
+			  "Ho, Garrick",
+			  "Jones, Courtney",
+			  "Karandikar, Shivaram",
+			  "Lunetta, Giovanni",
+			  "Mastrorilli, Ginamarie",
+			  "Nguyen, Christine",
+			  "Nhan, Nathan",
+			  "Noel, Luke",
+			  "Parchekani, Kian",
+			  "Shen, Tong",
+			  "Sullivan, Colin",
+			  "Wang, Chaoyang",
+			  "Whitney, William",
+			  "Yeung, Shannon",
+			  "Yi, Guanghong",
+			  "Zheng, Michael"]
 
+import random
+random.seed(123) # jointly set by the class on 01/30/2023
+random.sample(presenters, len(presenters))
+```
+
+## Presentation Task Board
+
+Here is a list of tasks:
+
++ Data manipulation with `pandas`, part 1
++ Data manipulation with `pandas`, part 2
++ Data visualization with `matplotlib`
++ Grammer of graphics for python `plotnine`
++ Show your Data in a Google map
++ More ...
+
+
+Please use the following table to sign up.
+
+ Date | Presenter             | Topic
+02/06 |                       | 
