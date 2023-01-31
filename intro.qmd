@@ -89,6 +89,11 @@ order). Add yours; note the syntax of nested list in Markdown.
     - Learn how to use Git proficiently
     - Gain practical experience using data science methods
     - Learn to use python libraries for data science
++ Cheu, Catherine
+    - Learn more about command prompts in Git Bash
+    - Learn more about data science principles
+    - Learn better programming techniques in Python
+    - Become better in simulation techniques.
 + Karandikar, Shivaram
     - Understand the workflow and life cycle of a data science project.
     - Learn how to code efficiently.
