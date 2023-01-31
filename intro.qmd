@@ -198,3 +198,4 @@ Please use the following table to sign up.
 
  Date | Presenter             | Topic
 02/06 |                       | 
+02/08 | Garrick Ho            | `pandas` part 1
