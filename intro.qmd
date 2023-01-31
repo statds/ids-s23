@@ -110,6 +110,9 @@ order). Add yours; note the syntax of nested list in Markdown.
     - Gain practical experience
 + Wang, Chaoyang
     - Learn Deep Learning and application on Finance
++ Alsubai, Nadia 
+    - Become familiar with both machine learning and deep learning
+    - Become proficient in at least one machine or deep learning library for Python
 + Win, Marlins
     - Run my own deep learning algorithm on a real dataset
     - Become proficient with Git
