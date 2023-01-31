@@ -133,6 +133,9 @@ order). Add yours; note the syntax of nested list in Markdown.
 + Yeung, Shannon
     - Learn more about Git
     - get aa more well rounded understanding of data science
++ Noel, Luke
+    - Become proficient in Git/Github
+    - Learn data science techniques like deep/machine learning, etc.
 
 
 ### Presentation Orders
