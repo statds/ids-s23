@@ -2,12 +2,10 @@
 
 Many tutorials are available in different formats. Here is a [YouTube video
 ``Git and GitHub for Beginners --- Crash
-Course''](https://www.youtube.com/watch?v=RGOj5yH7evk)
-<!-- https://www.youtube.com/watch?v=USjZcfj8yxE). -->
-The video also covers GitHub, a cloud service for Git. Other similar services
-are, for example, [bitbucket](bitbucket.org) and [GitLab](gitlab.com). A cloud
-service gives you a cloud back up of your work and makes collaboration with
-co-workers easy.
+Course''](https://www.youtube.com/watch?v=RGOj5yH7evk).
+The video also covers GitHub, a cloud service for Git which provides a cloud
+back up of your work and makes collaboration with co-workers easy. Similar
+services are, for example, [bitbucket](bitbucket.org) and [GitLab](gitlab.com).
 
 
 Here is a collection of [online Git exersices](https://gitexercises.fracz.com)
@@ -15,7 +13,6 @@ that I used for Git training in other courses that I taught.
 
 
 ## Set Up
-
 
 To set up GitHub (other services like Bitbucket or GitLab are similar), you need to
 
