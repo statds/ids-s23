@@ -144,7 +144,7 @@ presenters = ["Alsubai,	Nadia",
 			  "Zheng, Michael"]
 
 import random
-random.seed(123) # jointly set by the class on 01/30/2023
+random.seed(71323498112697523) # jointly set by the class on 01/30/2023
 random.sample(presenters, len(presenters))
 ```
 
