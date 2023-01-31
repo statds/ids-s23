@@ -94,6 +94,10 @@ order). Add yours; note the syntax of nested list in Markdown.
     - Learn more about data science principles
     - Learn better programming techniques in Python
     - Become better in simulation techniques.
++ Ho,Garrick
+    - I want to be more confident with git
+    - Be able to create a data science project
+    - Learn more about data science
 + Karandikar, Shivaram
     - Understand the workflow and life cycle of a data science project.
     - Learn how to code efficiently.
