@@ -43,7 +43,10 @@ On Windows, several options can be considered.
 To jump start, here is a tutorial:
 [Ubunto Linux for beginners](https://ubuntu.com/tutorials/command-line-for-beginners).
 
-At least, you need to know how to handle files and traverse across directories.
+At least, you need to know how to handle files and traverse across
+directories. The tab completion and introspection supports are very useful.
+
+
 
 ### Python
 
@@ -53,10 +56,18 @@ Set up Python on your computer:
 - Python package manager __miniconda__ or __pip__.
 - Integrated Development Environment (IDE) (Jupyter Notebook; RStudio; VS Code; Emacs; etc.)
 
+I will be using IPython and Jupyter Notebook in class.
+
 Readability is important!
 Check your Python coding styles against the recommended styles:
-<https://peps.python.org/pep-0008/>. A good place to start if the Section on
+<https://peps.python.org/pep-0008/>. A good place to start is the Section on
 "Code Lay-out". 
+
+
+Online books on Python for data science:
+
++  [“Python Data Science Handbook: Essential Tools for Working with Data,” First Edition](https://jakevdp.github.io/PythonDataScienceHandbook/), by Jake VanderPlas, O’Reilly Media, 2016. 
+2. [“Python for Data Analysis: Data Wrangling with Pan- das, NumPy, and IPython.” Third Edition](https://wesmckinney.com/book/), by Wes McK- inney, O’Reilly Media, 2022. 
 
 ## Data Challenges
 
@@ -74,6 +85,25 @@ order). Add yours; note the syntax of nested list in Markdown.
 + 
 =======
 
++ Zheng, Michael
+    - Become more comfortable with git
+    - Learn how to complete a data science project from start to finish
++ Bedard, Kaitlyn 
+    - Learn how to use Git proficiently
+    - Gain practical experience using data science methods
+    - Learn to use python libraries for data science
++ Cheu, Catherine
+    - Learn more about command prompts in Git Bash
+    - Learn more about data science principles
+    - Learn better programming techniques in Python
+    - Become better in simulation techniques.
++ Ho,Garrick
+    - I want to be more confident with git
+    - Be able to create a data science project
+    - Learn more about data science
++ Karandikar, Shivaram
+    - Understand the workflow and life cycle of a data science project.
+    - Learn how to code efficiently.
 + Lunetta, Giovanni
     - Learn to properly clean a dataset
     - Become proficient in building a machine learning model
@@ -81,23 +111,121 @@ order). Add yours; note the syntax of nested list in Markdown.
 >>>>>>> 7ae899a7e7e000eed3fb6365407e599611824f5f
     - Become more comfortable with git. 
     - Increase my ability to learn new programs. 
++ Nguyen, Christine 
+    - Become proficient in Git and apply it. 
+    - Build my Python programming skills further.
++ Nhan, Nathan
+    - Properly learn how to use Git 
+    - Increase my understanding of data science and data collection
++ Parchekani, Kian
+    - Learn how to use Git, Quarto
+    - Get an introduction to data science
+    - Learn if a career in this field is right for me
+    - Collaborate with others and gain project experience
++ Shen, Tong
+    - Get familiar with machine learning
+    - Learn how to deal with big secondary data
+    - Gain some experiences with python 
 + Sullivan, Collin
     - I would like to learn to be able to use data science well enough to get a job in the field
     - Discover if this area of statistics is one that I am passionate about
     - Gain some project experience that I can cite or reference in interviews
     - Be able to speak intelligently about data science and it's facets
     - Gain practical experience
++ Wang, Chaoyang
+    - Learn Deep Learning and application on Finance
++ Alsubai, Nadia 
+    - Become familiar with both machine learning and deep learning
+    - Become proficient in at least one machine or deep learning library for Python
 + Win, Marlins
     - Run my own deep learning algorithm on a real dataset
     - Become proficient with Git
 + Yan, Jun
     - Make data science more accessible to undergraduates
     - Co-develop a Quarto Book in collaboration with the students
++ Yang Kang, Chua
+    - Learn more about git and github
+    - Apply Data Science skill to my research
+    - Develop a new machine learning model
 + Yeung, Shannon
     - Learn more about Git
     - get aa more well rounded understanding of data science
++ Noel, Luke
+    - Become proficient in Git/Github
+    - Learn data science techniques like deep/machine learning, etc.
+
 
 ### Presentation Orders
 
-Wait until next week to let the class size settle.
+The topic presentation order is set up in class.
+```{python}
+presenters = ["Alsubai, Nadia",
+			  "Bedard, Kaitlyn",
+			  "Cheu, Catherine",
+			  "Chua, Yang Kang",
+			  "Cummins, Patrick",
+			  "Ho, Garrick",
+			  "Jones, Courtney",
+			  "Karandikar, Shivaram",
+			  "Lunetta, Giovanni",
+			  "Mastrorilli, Ginamarie",
+			  "Nguyen, Christine",
+			  "Nhan, Nathan",
+			  "Noel, Luke",
+			  "Parchekani, Kian",
+			  "Shen, Tong",
+			  "Sullivan, Colin",
+			  "Wang, Chaoyang",
+			  "Whitney, William",
+			  "Yeung, Shannon",
+			  "Yi, Guanghong",
+			  "Zheng, Michael"]
 
+import random
+random.seed(71323498112697523) # jointly set by the class on 01/30/2023
+random.sample(presenters, len(presenters))
+```
+
+## Presentation Task Board
+
+Here is a list of tasks:
+
++ Import/Export data
++ Descriptive statistics
++ Statistical hypothesis tests `scypy.stats`
++ Model formulas with `patsy`
++ Statistical models with `statsmodels`
++ Data visualization with `matplotlib`
++ Grammer of graphics for python `plotnine`
++ Handling spatial data with `geopandas`
++ Show your Data in a Google map with `gmplot`
++ Calling C/C++ from Python
++ Calling R from Python and vice versa
++ Develop a Python module
+
+
+Please use the following table to sign up.
+  <!-- W  |  'Yeung, Shannon', -->
+
+   Date  | Presenter              | Topic
+  ------ | ---------------------- | ------
+  02/06  | Cheu, Catherine        |
+  02/08  | Ho, Garrick            |
+  02/13  | Mastrorilli, Ginamarie |
+  02/13  | Yi, Guanghong          |
+  02/15  | Karandikar, Shivaram   |
+  02/20  | Chua, Yang Kang        |
+  02/20  | Jones, Courtney        |
+  02/22  | Sullivan, Colin        |
+  02/27  | Shen, Tong             |
+  02/27  | Alsubai, Nadia         |
+  03/01  | Bedard, Kaitlyn        |
+  03/06  | Nhan, Nathan           |
+  03/08  | Parchekani, Kian       |
+  03/20  | Noel, Luke             |
+  03/20  | Whitney, William       |
+  03/22  | Wang, Chaoyang         |
+  03/27  | Nguyen, Christine      |
+  03/27  | Cummins, Patrick       |
+  03/29  | Zheng, Michael         |
+  04/03  | Lunetta, Giovanni      |

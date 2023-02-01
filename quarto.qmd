@@ -13,8 +13,10 @@ technical publishing. From the official websites, Quarto can be used to:
   figure panels, callouts, advanced layout, and more.
   
 Of course, Quarto can be used to write homework, exams, and reports in this
-course,.
+course.
 
 
 To get started, see documentation at
 [Quarto](https://quarto.org/docs/get-started/).
+
+This is an extra line.
