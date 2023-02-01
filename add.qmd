@@ -1,5 +1,0 @@
-Homework to add new qmd file for data science. 
-
-This is Gina adding a long line (or a paragraph) without a hard break. This is for Homework 1 of Data Science. I will be commiting this to git. 
-
-Hello this is me. 
