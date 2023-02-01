@@ -211,7 +211,7 @@ Please use the following table to sign up.
   ------ | ---------------------- | ------
   02/06  | Cheu, Catherine        |
   02/08  | Ho, Garrick            |
-  02/13  | Mastrorilli, Ginamarie |Statistical models with statsmodels
+  02/13  | Mastrorilli, Ginamarie |Pandas (2nd Half)
   02/13  | Yi, Guanghong          |
   02/15  | Karandikar, Shivaram   |
   02/20  | Chua, Yang Kang        |
