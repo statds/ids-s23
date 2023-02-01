@@ -181,4 +181,4 @@ Here is a list of tasks:
 Please use the following table to sign up.
 
  Date | Presenter             | Topic
-02/06 |                       | 
+02/06 | Catherine Cheu        | Introduction to matplotlib in Python
