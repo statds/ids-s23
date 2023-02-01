@@ -155,7 +155,7 @@ order). Add yours; note the syntax of nested list in Markdown.
 
 The topic presentation order is set up in class.
 ```{python}
-presenters = ["Alsubai,	Nadia",
+presenters = ["Alsubai, Nadia",
 			  "Bedard, Kaitlyn",
 			  "Cheu, Catherine",
 			  "Chua, Yang Kang",
@@ -195,6 +195,27 @@ Here is a list of tasks:
 
 
 Please use the following table to sign up.
+  <!-- W  |  'Yeung, Shannon', -->
 
- Date | Presenter             | Topic
-02/06 |                       | 
+   Date  | Presenter              | Topic
+  ------ | ---------------------- | ------
+  02/06  | Cheu, Catherine        |
+  02/08  | Ho, Garrick            |
+  02/13  | Mastrorilli, Ginamarie |
+  02/13  | Yi, Guanghong          |
+  02/15  | Karandikar, Shivaram   |
+  02/20  | Chua, Yang Kang        |
+  02/20  | Jones, Courtney        |
+  02/22  | Sullivan, Colin        |
+  02/27  | Shen, Tong             |
+  02/27  | Alsubai, Nadia         |
+  03/01  | Bedard, Kaitlyn        |
+  03/06  | Nhan, Nathan           |
+  03/08  | Parchekani, Kian       |
+  03/20  | Noel, Luke             |
+  03/20  | Whitney, William       |
+  03/22  | Wang, Chaoyang         |
+  03/27  | Nguyen, Christine      |
+  03/27  | Cummins, Patrick       |
+  03/29  | Zheng, Michael         |
+  04/03  | Lunetta, Giovanni      |
