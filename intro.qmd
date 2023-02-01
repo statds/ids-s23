@@ -186,12 +186,18 @@ random.sample(presenters, len(presenters))
 
 Here is a list of tasks:
 
-+ Data manipulation with `pandas`, part 1
-+ Data manipulation with `pandas`, part 2
++ Import/Export data
++ Descriptive statistics
++ Statistical hypothesis tests `scypy.stats`
++ Model formulas with `patsy`
++ Statistical models with `statsmodels`
 + Data visualization with `matplotlib`
 + Grammer of graphics for python `plotnine`
-+ Show your Data in a Google map
-+ More ...
++ Handling spatial data with `geopandas`
++ Show your Data in a Google map with `gmplot`
++ Calling C/C++ from Python
++ Calling R from Python and vice versa
++ Develop a Python module
 
 
 Please use the following table to sign up.
