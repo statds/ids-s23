@@ -1,0 +1,32 @@
+# NYC Crash Data
+
+
+Consider the NYC Crash Data in January 2022.
+
+```{python}
+import pandas as pd
+
+jan22 = pd.read_csv("data/nyc_mv_collisions_202201.csv")
+jan22.head()
+jan22.describe()
+```
+
+Frequency tables for categorical variables.
+```{python}
+jan22["BOROUGH"].value_counts(dropna=False)
+# jan22["ZIP CODE"].value_counts(dropna=False)
+```
+
+Questions from Dr. Douglas Bates:
+
++ The `CRASH_DATE`s are all in the correct month and there are no missing values
++ There are no missing values in the `CRASH_TIME`s but there are 117 values of exactly `00:00:00`. Is this a matter of bad luck when the clock strikes midnight?
++ Over 1/3 of the `ZIP_CODE` and `BOROUGH` values are missing. There are the same number of missing values in these columns - do they always co-occur? If `LATITUDE` and `LONGITUDE` are available, can they be used to infer the `ZIP_CODE`?
++ There are 178 unique non-missing `ZIP_CODE` values as stated in the Jamboree description. (“Trust, but verify.”) Is there really a zip code of 10000 in New York?
++ There are 20 values of 0.0 for `LATITUDE` and `LONGITUDE`? These are obviously incorrect - should they be coded as missing?
++ Is it redundant to keep the `LOCATIO` in addition to `LATITUDE` and `LONGITUDE`?
++ The `COLLISION_ID` is unique to each row and can be used as a key. The values are not consecutive - why not?
++ The `NUMBER_OF_...` columns seem reasonable. A further consistency check is suggested in the Jamboree tasks.
++ In the `CONTRIBUTING_FACTOR`_... columns, is `Unspecified` different from `missing`?
++ The codes in the `VEHICLE_TYPE_CODE_...` columns are the usual hodge-podge of results from “free-form” data entry. Should `unk`, `UNK`, `UNKNOWN`, and `Unknown` be converted to missing?
++ In contrast, the codes in the `CONTRIBUTING_FACTOR_...` columns appear to be standardized (not sure why `Illnes` isn’t `Illness`).

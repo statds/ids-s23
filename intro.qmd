@@ -151,11 +151,12 @@ order). Add yours; note the syntax of nested list in Markdown.
     - Learn data science techniques like deep/machine learning, etc.
 
 
+
 ### Presentation Orders
 
 The topic presentation order is set up in class.
 ```{python}
-presenters = ["Alsubai,	Nadia",
+presenters = ["Alsubai, Nadia",
 			  "Bedard, Kaitlyn",
 			  "Cheu, Catherine",
 			  "Chua, Yang Kang",
@@ -186,16 +187,53 @@ random.sample(presenters, len(presenters))
 
 Here is a list of tasks:
 
-+ Data manipulation with `pandas`, part 1
-+ Data manipulation with `pandas`, part 2
++ Import/Export data
++ Descriptive statistics
++ Statistical hypothesis tests `scypy.stats`
++ Model formulas with `patsy`
++ Statistical models with `statsmodels`
 + Data visualization with `matplotlib`
 + Grammer of graphics for python `plotnine`
-+ Show your Data in a Google map
-+ More ...
++ Handling spatial data with `geopandas`
++ Show your Data in a Google map with `gmplot`
++ Calling C/C++ from Python
++ Calling R from Python and vice versa
++ Develop a Python module
 
 
 Please use the following table to sign up.
+  <!-- W  |  'Yeung, Shannon', -->
 
- Date | Presenter             | Topic
-02/06 |                       | 
-02/08 | Garrick Ho            | `pandas` part 1
+   Date  | Presenter              | Topic
+  ------ | ---------------------- | ------
+  02/06  | Cheu, Catherine        | Introduction to matplotlib in Python
+  02/08  | Ho, Garrick            | Pandas part 1
+  02/13  | Mastrorilli, Ginamarie | Pandas part 2
+  02/13  | Yi, Guanghong          | Grammer of graphics for python `plotnine`
+  02/15  | Karandikar, Shivaram   |
+  02/20  | Chua, Yang Kang        |
+  02/20  | Jones, Courtney        |
+  02/22  | Sullivan, Colin        |
+  02/27  | Shen, Tong             | Decision tree with `scikit-learn`
+  02/27  | Alsubai, Nadia         |
+  03/01  | Bedard, Kaitlyn        |
+  03/06  | Nhan, Nathan           |
+  03/08  | Parchekani, Kian       |
+  03/20  | Noel, Luke             |
+  03/20  | Whitney, William       |
+  03/22  | Wang, Chaoyang         |
+  03/27  | Nguyen, Christine      |
+  03/27  | Cummins, Patrick       |
+  03/29  | Zheng, Michael         |
+  04/03  | Lunetta, Giovanni      |
+
+## Contribute to the Class Notes
+
++ Start a new branch and switch to the new branch.
++ On the new branch, add a qmd file for your presentation
++ Edit `_quarto.yml` add a line for your qmd file to include it in the notes.
++ Work on your qmd file, test with `quarto render`.
++ When satisfied, commit and make a pull request.
+
+I have added a template file `mysection.qmd` and a new line to `_quarto.yml`
+as an example.
