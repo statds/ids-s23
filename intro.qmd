@@ -146,6 +146,10 @@ order). Add yours; note the syntax of nested list in Markdown.
 + Yeung, Shannon
     - Learn more about Git
     - get aa more well rounded understanding of data science
++ Yi, Guanghong
+    - Know more about Data Science, and what Data Scientists do
+    - Do one(or more) real life data science project, and gain some practical experience.
+    
 + Noel, Luke
     - Become proficient in Git/Github
     - Learn data science techniques like deep/machine learning, etc.
