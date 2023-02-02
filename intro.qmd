@@ -225,3 +225,14 @@ Please use the following table to sign up.
   03/27  | Cummins, Patrick       |
   03/29  | Zheng, Michael         |
   04/03  | Lunetta, Giovanni      |
+
+## Contribute to the Class Notes
+
++ Start a new branch and switch to the new branch.
++ On the new branch, add a qmd file for your presentation
++ Edit `_quarto.yml` add a line for your qmd file to include it in the notes.
++ Work on your qmd file, test with `quarto render`.
++ When satisfied, commit and make a pull request.
+
+I have added a template file `mysection.qmd` and a new line to `_quarto.yml`
+as an example.
