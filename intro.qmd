@@ -207,8 +207,8 @@ Please use the following table to sign up.
    Date  | Presenter              | Topic
   ------ | ---------------------- | ------
   02/06  | Cheu, Catherine        | Introduction to matplotlib in Python
-  02/08  | Ho, Garrick            |
-  02/13  | Mastrorilli, Ginamarie |
+  02/08  | Ho, Garrick            | Pandas part 1
+  02/13  | Mastrorilli, Ginamarie | Pandas part 2
   02/13  | Yi, Guanghong          | Grammer of graphics for python `plotnine`
   02/15  | Karandikar, Shivaram   |
   02/20  | Chua, Yang Kang        |
