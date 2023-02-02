@@ -151,6 +151,7 @@ order). Add yours; note the syntax of nested list in Markdown.
     - Learn data science techniques like deep/machine learning, etc.
 
 
+
 ### Presentation Orders
 
 The topic presentation order is set up in class.
@@ -208,7 +209,7 @@ Please use the following table to sign up.
   02/06  | Cheu, Catherine        |
   02/08  | Ho, Garrick            |
   02/13  | Mastrorilli, Ginamarie |
-  02/13  | Yi, Guanghong          |
+  02/13  | Yi, Guanghong          | Grammer of graphics for python `plotnine`
   02/15  | Karandikar, Shivaram   |
   02/20  | Chua, Yang Kang        |
   02/20  | Jones, Courtney        |
