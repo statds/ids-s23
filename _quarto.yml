@@ -12,6 +12,7 @@ book:
     - git.qmd
     - quarto.qmd
     - python.qmd
+    - nycrash.qmd
     - exercises.qmd
     - references.qmd
 
