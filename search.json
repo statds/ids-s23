@@ -49,6 +49,13 @@
     "text": "1.6 Presentation Task Board\nHere is a list of tasks:\n\nImport/Export data\nDescriptive statistics\nStatistical hypothesis tests scypy.stats\nModel formulas with patsy\nStatistical models with statsmodels\nData visualization with matplotlib\nGrammer of graphics for python plotnine\nHandling spatial data with geopandas\nShow your Data in a Google map with gmplot\nCalling C/C++ from Python\nCalling R from Python and vice versa\nDevelop a Python module\n\nPlease use the following table to sign up. \n\n\n\nDate\nPresenter\nTopic\n\n\n\n\n02/06\nCheu, Catherine\n\n\n\n02/08\nHo, Garrick\n\n\n\n02/13\nMastrorilli, Ginamarie\n\n\n\n02/13\nYi, Guanghong\n\n\n\n02/15\nKarandikar, Shivaram\n\n\n\n02/20\nChua, Yang Kang\n\n\n\n02/20\nJones, Courtney\n\n\n\n02/22\nSullivan, Colin\n\n\n\n02/27\nShen, Tong\n\n\n\n02/27\nAlsubai, Nadia\n\n\n\n03/01\nBedard, Kaitlyn\n\n\n\n03/06\nNhan, Nathan\n\n\n\n03/08\nParchekani, Kian\n\n\n\n03/20\nNoel, Luke\n\n\n\n03/20\nWhitney, William\n\n\n\n03/22\nWang, Chaoyang\n\n\n\n03/27\nNguyen, Christine\n\n\n\n03/27\nCummins, Patrick\n\n\n\n03/29\nZheng, Michael\n\n\n\n04/03\nLunetta, Giovanni"
   },
   {
+    "objectID": "intro.html#contribute-to-the-class-notes",
+    "href": "intro.html#contribute-to-the-class-notes",
+    "title": "1  Introduction",
+    "section": "1.7 Contribute to the Class Notes",
+    "text": "1.7 Contribute to the Class Notes\n\nStart a new branch and switch to the new branch.\nOn the new branch, add a qmd file for your presentation\nEdit _quarto.yml add a line for your qmd file to include it in the notes.\nWork on your qmd file, test with quarto render.\nWhen satisfied, commit and make a pull request.\n\nI have added a template file mysection.qmd and a new line to _quarto.yml as an example."
+  },
+  {
     "objectID": "git.html#set-up",
     "href": "git.html#set-up",
     "title": "2  Project Management with Git",
@@ -126,9 +133,44 @@
     "text": "4.6 Number Representation\nNumers in a computer’s memory are represented by binary styles (on and off of bits).\n\n4.6.1 Integers\nIf not careful, It is easy to be bitten by overflow with integers when using Numpy and Pandas in Python.\n\nimport numpy as np\n\nx = np.array(2**63 - 1 , dtype='int')\nx\n# This should be the largest number numpy can display, with\n# the default int8 type (64 bits)\n\narray(9223372036854775807)\n\n\nWhat if we increment it by 1?\n\ny = np.array(x + 1, dtype='int')\ny\n# Because of the overflow, it becomes negative!\n\narray(-9223372036854775808)\n\n\nFor vanilla Python, the overflow errors are checked and more digits are allocated when needed, at the cost of being slow.\n\n2**63 * 1000\n\n9223372036854775808000\n\n\nThis number is 1000 times largger than the prior number, but still displayed perfectly without any overflows\n\n\n4.6.2 Floating Number\nStandard double-precision floating point number uses 64 bits. Among them, 1 is for sign, 11 is for exponent, and 52 are fraction significand, See https://en.wikipedia.org/wiki/Double-precision_floating-point_format. The bottom line is that, of course, not every real number is exactly representable.\n\n0.1 + 0.1 + 0.1 == 0.3\n\nFalse\n\n\n\n0.3 - 0.2 == 0.1\n\nFalse\n\n\nWhat is really going on?\n\nimport decimal\ndecimal.Decimal(0.1)\n\nDecimal('0.1000000000000000055511151231257827021181583404541015625')\n\n\nBecause the mantissa bits are limited, it can not represent a floating point that’s both very big and very precise. Most computers can represent all integers up to \\(2^{53}\\), after that it starts skipping numbers.\n\n2.1**53 + 1 == 2.1**53\n\n# Find a number larger than 2 to the 53rd\n\nTrue\n\n\n\nx = 2.1**53\nfor i in range(1000000):\n    x = x + 1\nx == 2.1**53\n\nTrue\n\n\nWe add 1 to x by 1000000 times, but it still equal to its initial value, 2.1**53. This is because this number is too big that computer can’t handle it with precision like add 1.\nMachine epsilon is the smallest positive floating-point number x such that 1 + x != 1.\n\nprint(np.finfo(float).eps)\nprint(np.finfo(np.float32).eps)\n\n2.220446049250313e-16\n1.1920929e-07"
   },
   {
+    "objectID": "nycrash.html",
+    "href": "nycrash.html",
+    "title": "5  NYC Crash Data",
+    "section": "",
+    "text": "Consider the NYC Crash Data in January 2022.\n\nimport pandas as pd\n\njan22 = pd.read_csv(\"data/nyc_mv_collisions_202201.csv\")\njan22.head()\njan22.describe()\n\n\n\n\n\n  \n    \n      \n      ZIP CODE\n      LATITUDE\n      LONGITUDE\n      NUMBER OF PERSONS INJURED\n      NUMBER OF PERSONS KILLED\n      NUMBER OF PEDESTRIANS INJURED\n      NUMBER OF PEDESTRIANS KILLED\n      NUMBER OF CYCLIST INJURED\n      NUMBER OF CYCLIST KILLED\n      NUMBER OF MOTORIST INJURED\n      NUMBER OF MOTORIST KILLED\n      COLLISION_ID\n    \n  \n  \n    \n      count\n      5025.000000\n      7097.000000\n      7097.000000\n      7659.000000\n      7659.000000\n      7659.000000\n      7659.000000\n      7659.000000\n      7659.0\n      7659.000000\n      7659.000000\n      7.659000e+03\n    \n    \n      mean\n      10908.957015\n      40.609463\n      -73.705503\n      0.404753\n      0.002350\n      0.084345\n      0.001306\n      0.021935\n      0.0\n      0.287505\n      0.000914\n      4.495510e+06\n    \n    \n      std\n      514.740028\n      2.160598\n      3.919451\n      0.726622\n      0.048425\n      0.290332\n      0.036113\n      0.149131\n      0.0\n      0.692545\n      0.030220\n      2.338111e+03\n    \n    \n      min\n      10000.000000\n      0.000000\n      -74.249980\n      0.000000\n      0.000000\n      0.000000\n      0.000000\n      0.000000\n      0.0\n      0.000000\n      0.000000\n      4.491064e+06\n    \n    \n      25%\n      10459.000000\n      40.665085\n      -73.960370\n      0.000000\n      0.000000\n      0.000000\n      0.000000\n      0.000000\n      0.0\n      0.000000\n      0.000000\n      4.493532e+06\n    \n    \n      50%\n      11209.000000\n      40.712505\n      -73.917310\n      0.000000\n      0.000000\n      0.000000\n      0.000000\n      0.000000\n      0.0\n      0.000000\n      0.000000\n      4.495533e+06\n    \n    \n      75%\n      11354.000000\n      40.786957\n      -73.862274\n      1.000000\n      0.000000\n      0.000000\n      0.000000\n      0.000000\n      0.0\n      0.000000\n      0.000000\n      4.497480e+06\n    \n    \n      max\n      11697.000000\n      40.909206\n      0.000000\n      8.000000\n      1.000000\n      3.000000\n      1.000000\n      2.000000\n      0.0\n      8.000000\n      1.000000\n      4.500594e+06\n    \n  \n\n\n\n\nFrequency tables for categorical variables.\n\njan22[\"BOROUGH\"].value_counts(dropna=False)\n# jan22[\"ZIP CODE\"].value_counts(dropna=False)\n\nNaN              2634\nBROOKLYN         1744\nQUEENS           1393\nBRONX             948\nMANHATTAN         737\nSTATEN ISLAND     203\nName: BOROUGH, dtype: int64\n\n\nQuestions from Dr. Douglas Bates:\n\nThe CRASH_DATEs are all in the correct month and there are no missing values\nThere are no missing values in the CRASH_TIMEs but there are 117 values of exactly 00:00:00. Is this a matter of bad luck when the clock strikes midnight?\nOver 1/3 of the ZIP_CODE and BOROUGH values are missing. There are the same number of missing values in these columns - do they always co-occur? If LATITUDE and LONGITUDE are available, can they be used to infer the ZIP_CODE?\nThere are 178 unique non-missing ZIP_CODE values as stated in the Jamboree description. (“Trust, but verify.”) Is there really a zip code of 10000 in New York?\nThere are 20 values of 0.0 for LATITUDE and LONGITUDE? These are obviously incorrect - should they be coded as missing?\nIs it redundant to keep the LOCATIO in addition to LATITUDE and LONGITUDE?\nThe COLLISION_ID is unique to each row and can be used as a key. The values are not consecutive - why not?\nThe NUMBER_OF_... columns seem reasonable. A further consistency check is suggested in the Jamboree tasks.\nIn the CONTRIBUTING_FACTOR_… columns, is Unspecified different from missing?\nThe codes in the VEHICLE_TYPE_CODE_... columns are the usual hodge-podge of results from “free-form” data entry. Should unk, UNK, UNKNOWN, and Unknown be converted to missing?\nIn contrast, the codes in the CONTRIBUTING_FACTOR_... columns appear to be standardized (not sure why Illnes isn’t Illness)."
+  },
+  {
+    "objectID": "mysection.html#introduction",
+    "href": "mysection.html#introduction",
+    "title": "6  My Presentation Topic",
+    "section": "6.1 Introduction",
+    "text": "6.1 Introduction\nPut an overview here. Use Markdown syntax."
+  },
+  {
+    "objectID": "mysection.html#sub-topic-1",
+    "href": "mysection.html#sub-topic-1",
+    "title": "6  My Presentation Topic",
+    "section": "6.2 Sub Topic 1",
+    "text": "6.2 Sub Topic 1\nPut materials on topic 1 here\nPython examples can be put into python code chunks:\n\nimport pandas as pd\n\n# do something"
+  },
+  {
+    "objectID": "mysection.html#sub-topic-2",
+    "href": "mysection.html#sub-topic-2",
+    "title": "6  My Presentation Topic",
+    "section": "6.3 Sub Topic 2",
+    "text": "6.3 Sub Topic 2\nPut materials on topic 2 here."
+  },
+  {
+    "objectID": "mysection.html#conclusion",
+    "href": "mysection.html#conclusion",
+    "title": "6  My Presentation Topic",
+    "section": "6.4 Conclusion",
+    "text": "6.4 Conclusion\nPut sumaries here."
+  },
+  {
     "objectID": "exercises.html",
     "href": "exercises.html",
-    "title": "5  Exercises",
+    "title": "7  Exercises",
     "section": "",
     "text": "Pick up Git basics and set up an account at GitHub if you don’t have one. Please practice the tips on Git in the notes. Make sure you have at least 10 commits in the repo, each with informative message. Keep checking the status of your repo with git status. My grader will grade the repo.\n\nClone the ids-s23 repo to your own computer.\nAdd your name and wishes to the Wishlist; commit with an informative message.\nRemove the Last, First entry from the list; commit.\nCreate a new file called add.qmd containing a few lines of texts; commit.\nRemove add.qmd (pretending that this is by accident; commit.\nRecover the accidently removed file add.qmd; add a long line (a paragraph without a hard break); add a short line (under 80 characters); commit.\nChange one word in the long line and one word in the short line; use git diff to see the difference from the last commit; commit.\nPut the repo into the GitHub Classroom homework repo with git remote add and git push.\n\nGet ready for contributing to the classnotes.\n\nCreate a fork of the ids-s23 repo into your own GitHub account.\nClone it to your local computer.\nMake a new branch to experiment with your changes.\nCheckout your branch and add your wishes to the wish list; push to your GitHub account.\nMake a pull request to my ids-s23 repo from your fork at GitHub. Make sure you have clear messages to document the changes.\n\nWrite a function to demonstrate the Monty Hall problem through simulation. The function takes two arguments ndoors and ntrials, representing the number of doors in the experiment and the number of trails in a simulation, respectively. The function should return the proportion of wins for both the switch and no-switch strategy. Apply your function with 3 doors and 5 doors, both with 1000 trials. Include sufficient text around the code to explain your them.\nWrite a function to do a Monte Carlo approximation of \\(\\pi\\). The function takes a Monte Carlo sample size n as input, and returns a point estimate of \\(\\pi\\) and a 95% confidence interval. Apply your function with sample size 1000, 2000, 4000, and 8000. Comment on the results.\nFind the first 10-digit prime number occurring in consecutive digits of \\(e\\). This was a Google recruiting ad"
   },
