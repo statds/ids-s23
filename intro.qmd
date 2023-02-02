@@ -149,7 +149,6 @@ order). Add yours; note the syntax of nested list in Markdown.
 + Noel, Luke
     - Become proficient in Git/Github
     - Learn data science techniques like deep/machine learning, etc.
-    111
 
 
 
