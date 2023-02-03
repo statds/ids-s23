@@ -98,6 +98,10 @@ order). Add yours; note the syntax of nested list in Markdown.
     - I want to be more confident with git
     - Be able to create a data science project
     - Learn more about data science
++ Jones, Courtney 
+    - Become proficient in Git and VS Code
+    - Deepen my understanding of data science
+    - Become comfortable with the Terminal on my computer
 + Karandikar, Shivaram
     - Understand the workflow and life cycle of a data science project.
     - Learn how to code efficiently.
