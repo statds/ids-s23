@@ -219,7 +219,7 @@ Please use the following table to sign up.
   02/20  | Jones, Courtney        |
   02/22  | Sullivan, Colin        |
   02/27  | Shen, Tong             | Decision tree with `scikit-learn`
-  02/27  | Alsubai, Nadia         |
+  02/27  | Alsubai, Nadia         | Web Scraping with Beautiful Soup
   03/01  | Bedard, Kaitlyn        |
   03/06  | Nhan, Nathan           |
   03/08  | Parchekani, Kian       |
