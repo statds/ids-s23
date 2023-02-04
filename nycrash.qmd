@@ -30,3 +30,32 @@ Questions from Dr. Douglas Bates:
 + In the `CONTRIBUTING_FACTOR`_... columns, is `Unspecified` different from `missing`?
 + The codes in the `VEHICLE_TYPE_CODE_...` columns are the usual hodge-podge of results from “free-form” data entry. Should `unk`, `UNK`, `UNKNOWN`, and `Unknown` be converted to missing?
 + In contrast, the codes in the `CONTRIBUTING_FACTOR_...` columns appear to be standardized (not sure why `Illnes` isn’t `Illness`).
+
+## Filling the Missing Zip Codes by Reverse Geocoding
+
+Install package `uszipcode` first.
+
+<!-- ```{python} -->
+<!-- from uszipcode import SearchEngine -->
+<!-- <\!-- search = SearchEngine(simple_zipcode=True) -\-> -->
+<!-- <\!-- from uszipcode import Zipcode -\-> -->
+<!-- <\!-- import numpy as np -\-> -->
+
+<!-- <\!-- ## define zipcode search function -\-> -->
+<!-- <\!-- def get_zipcode(lat, lon): -\-> -->
+<!-- <\!--     result = search.by_coordinates(lat = lat, lng = lon, returns = 1) -\-> -->
+<!-- <\!--     return result[0].zipcode -\-> -->
+
+<!-- <\!-- #load columns from dataframe -\-> -->
+<!-- <\!-- lat = df_shooting['Latitude'] -\-> -->
+<!-- <\!-- lon = df_shooting['Longitude'] -\-> -->
+
+<!-- <\!-- #define latitude/longitude for function -\-> -->
+<!-- <\!-- df = pd.DataFrame({'lat':lat, 'lon':lon}) -\-> -->
+
+<!-- <\!-- #add new column with generated zip-code -\-> -->
+<!-- <\!-- df['zipcode'] = df.apply(lambda x: get_zipcode(x.lat,x.lon), axis=1) -\-> -->
+
+<!-- <\!-- #print result -\-> -->
+<!-- <\!-- print(df) -\-> -->
+<!-- ``` -->
