@@ -209,7 +209,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </nav>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#filling-the-missing-zip-codes-by-reverse-geocoding" id="toc-filling-the-missing-zip-codes-by-reverse-geocoding" class="nav-link active" data-scroll-target="#filling-the-missing-zip-codes-by-reverse-geocoding"><span class="toc-section-number">5.1</span>  Filling the Missing Zip Codes by Reverse Geocoding</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -414,8 +420,31 @@ Name: BOROUGH, dtype: int64</code></pre>
 <li>The codes in the <code>VEHICLE_TYPE_CODE_...</code> columns are the usual hodge-podge of results from “free-form” data entry. Should <code>unk</code>, <code>UNK</code>, <code>UNKNOWN</code>, and <code>Unknown</code> be converted to missing?</li>
 <li>In contrast, the codes in the <code>CONTRIBUTING_FACTOR_...</code> columns appear to be standardized (not sure why <code>Illnes</code> isn’t <code>Illness</code>).</li>
 </ul>
+<section id="filling-the-missing-zip-codes-by-reverse-geocoding" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="filling-the-missing-zip-codes-by-reverse-geocoding"><span class="header-section-number">5.1</span> Filling the Missing Zip Codes by Reverse Geocoding</h2>
+<p>Install package <code>uszipcode</code> first.</p>
+<!-- ```{python} -->
+<!-- from uszipcode import SearchEngine -->
+<!-- <\!-- search = SearchEngine(simple_zipcode=True) -\-> -->
+<!-- <\!-- from uszipcode import Zipcode -\-> -->
+<!-- <\!-- import numpy as np -\-> -->
+<!-- <\!-- ## define zipcode search function -\-> -->
+<!-- <\!-- def get_zipcode(lat, lon): -\-> -->
+<!-- <\!--     result = search.by_coordinates(lat = lat, lng = lon, returns = 1) -\-> -->
+<!-- <\!--     return result[0].zipcode -\-> -->
+<!-- <\!-- #load columns from dataframe -\-> -->
+<!-- <\!-- lat = df_shooting['Latitude'] -\-> -->
+<!-- <\!-- lon = df_shooting['Longitude'] -\-> -->
+<!-- <\!-- #define latitude/longitude for function -\-> -->
+<!-- <\!-- df = pd.DataFrame({'lat':lat, 'lon':lon}) -\-> -->
+<!-- <\!-- #add new column with generated zip-code -\-> -->
+<!-- <\!-- df['zipcode'] = df.apply(lambda x: get_zipcode(x.lat,x.lon), axis=1) -\-> -->
+<!-- <\!-- #print result -\-> -->
+<!-- <\!-- print(df) -\-> -->
+<!-- ``` -->
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

@@ -189,6 +189,16 @@ ul.task-list li input[type="checkbox"] {
 <li><p>Write a function to demonstrate the Monty Hall problem through simulation. The function takes two arguments <code>ndoors</code> and <code>ntrials</code>, representing the number of doors in the experiment and the number of trails in a simulation, respectively. The function should return the proportion of wins for both the switch and no-switch strategy. Apply your function with 3 doors and 5 doors, both with 1000 trials. Include sufficient text around the code to explain your them.</p></li>
 <li><p>Write a function to do a Monte Carlo approximation of <span class="math inline">\(\pi\)</span>. The function takes a Monte Carlo sample size <code>n</code> as input, and returns a point estimate of <span class="math inline">\(\pi\)</span> and a 95% confidence interval. Apply your function with sample size 1000, 2000, 4000, and 8000. Comment on the results.</p></li>
 <li><p>Find the first 10-digit prime number occurring in consecutive digits of <span class="math inline">\(e\)</span>. This was a <a href="http://mathworld.wolfram.com/news/2004-10-13/google/">Google recruiting ad</a></p></li>
+<li><p>The NYC motor vehicle collisions data with documentation is available from <a href="https://data.cityofnewyork.us/Public-Safety/Motor-Vehicle-Collisions-Crashes/h9gi-nx95">NYC Open Data</a>. The raw data needs some cleaning.</p>
+<ol type="1">
+<li>Use the filter from the website to download the crash data of January 2023; save it under a directory <code>data</code> with an informative name (e.g., <code>nyc_crashes_202301.csv</code>).</li>
+<li>Get basic summaries of each variable: missing percentage; descriptive statistics for continuous variables; frequency tables for discrete variables.</li>
+<li>Are the <code>LATITUDE</code> and <code>LONGITIDE</code> values all look legitimate? If not (e.g., zeroes), code them as missing values.</li>
+<li>Are the missing patterns of “ON STREET NAME” and “LATITUDE” the same? Summarize the missing patterns by a cross table. If “ON STREET NAME” and “CROSS STREET NAME” are available, use geocoding to fill the “LATITUDE” and “LONGITUDE”.</li>
+<li>Are <code>ZIP CODE</code> and <code>BOROUGH</code> always missing together? If <code>LATITUDE</code> and <code>LONGITUDE</code> are available, use reverse geocoding to fill the <code>ZIP CODE</code> and <code>BOROUGH</code>.</li>
+<li>Print the whole frequency table of <code>CONTRIBUTING FACTOR VEHICLE 1</code>. Convert lower cases to uppercases and check the frequencies again.</li>
+<li>Provided an opportunity to meet the data provider, what suggestions do you have to make the data better based on your data exploration experience?</li>
+</ol></li>
 </ol>
 
 
