@@ -28,6 +28,9 @@ plt.show()
 
 ```
 
+We could start plotting another plot, but we have not saved our scatterplot as an object. Thus, it will get overridden by whatever we plot next.
+If we want to keep a plot, we can save as a subplot shown as follows.
+
 ## Animation
 
 Animations can also be done through matplotlib. This requires the use of the animation submodule which has a variety functions that can be used to plot animations.
