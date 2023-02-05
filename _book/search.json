@@ -1,0 +1,37 @@
+[
+  {
+    "objectID": "mysection.html#introduction",
+    "href": "mysection.html#introduction",
+    "title": "6  Introduction to matplotlib",
+    "section": "6.1 Introduction",
+    "text": "6.1 Introduction\nThe matplotlib library can provide methods in plotting and arranging data visually in order to help viewers understand the main concepts of the data analysis. In this chapter, a progression of graphs will be shown to demonstrate some of the capabilities the library has to graph and plot data."
+  },
+  {
+    "objectID": "mysection.html#how-to-use",
+    "href": "mysection.html#how-to-use",
+    "title": "6  Introduction to matplotlib",
+    "section": "6.2 How to Use",
+    "text": "6.2 How to Use\nThe library is not part of the defaults used in Python. To install, use either pip or Anaconda.\n\nimport pandas as pd\nimport numpy as np\nimport matplotlib.pyplot as plt\n\nnp.random.seed(8465);\n\nx = np.random.uniform(0,3,10);\ny = np.random.uniform(0,3,10);\nz = np.random.uniform(0,3,10);\n\nplt.scatter(x,y)\nplt.show()"
+  },
+  {
+    "objectID": "mysection.html#sub-topic-2",
+    "href": "mysection.html#sub-topic-2",
+    "title": "6  Introduction to matplotlib",
+    "section": "6.3 Sub Topic 2",
+    "text": "6.3 Sub Topic 2\nPut materials on topic 2 here."
+  },
+  {
+    "objectID": "mysection.html#conclusion",
+    "href": "mysection.html#conclusion",
+    "title": "6  Introduction to matplotlib",
+    "section": "6.4 Conclusion",
+    "text": "6.4 Conclusion"
+  },
+  {
+    "objectID": "mysection.html#animation",
+    "href": "mysection.html#animation",
+    "title": "6  Introduction to matplotlib",
+    "section": "6.3 Animation",
+    "text": "6.3 Animation\nThe animation submodule in the matplotlib library can help design animations through several functions. The main function requires a set of inputs that can be expressed through other functions."
+  }
+]
