@@ -8,8 +8,6 @@
 
 The library is not part of the defaults used in Python. To install, use either pip or Anaconda.
 
-Python examples can be put into `python` code chunks:
-
 ```{python}
 import pandas as pd
 import numpy as np
@@ -24,13 +22,10 @@ z = np.random.uniform(0,3,10);
 plt.scatter(x,y)
 plt.show()
 
-# do something
 ```
 
-## Sub Topic 2
+## Animation
 
 Put materials on topic 2 here.
 
 ## Conclusion
-
-Put sumaries here.
