@@ -28,4 +28,6 @@ plt.show()
 
 ## Animation
 
+The animation submodule in the matplotlib library can help design animations through several functions. The main function requires a set of inputs that can be expressed through other functions.
+
 ## Conclusion
