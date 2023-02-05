@@ -17,6 +17,13 @@ import matplotlib.pyplot as plt
 
 np.random.seed(8465);
 
+x = np.random.uniform(0,3,10);
+y = np.random.uniform(0,3,10);
+z = np.random.uniform(0,3,10);
+
+plt.scatter(x,y)
+plt.show()
+
 # do something
 ```
 
