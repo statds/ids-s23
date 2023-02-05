@@ -32,6 +32,6 @@
     "href": "mysection.html#animation",
     "title": "6  Introduction to matplotlib",
     "section": "6.3 Animation",
-    "text": "6.3 Animation\nThe animation submodule in the matplotlib library can help design animations through several functions. The main function requires a set of inputs that can be expressed through other functions."
+    "text": "6.3 Animation\nAnimations can also be done through matplotlib. This requires the use of the animation submodule which has a variety functions that can be used to plot animations. Inputs required include the frames and other functions needed to update the plots per frame."
   }
 ]
