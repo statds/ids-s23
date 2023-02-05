@@ -11,7 +11,7 @@
     "href": "mysection.html#how-to-use",
     "title": "6  Introduction to matplotlib",
     "section": "6.2 How to Use",
-    "text": "6.2 How to Use\nThe library is not part of the defaults used in Python. To install, use either pip or Anaconda.\n\nimport pandas as pd\nimport numpy as np\nimport matplotlib.pyplot as plt\n\nnp.random.seed(8465);\n\nx = np.random.uniform(0,3,10);\ny = np.random.uniform(0,3,10);\nz = np.random.uniform(0,3,10);\n\nplt.scatter(x,y)\nplt.show()"
+    "text": "6.2 How to Use\nThe library is not part of the defaults used in Python. To install, use either pip or Anaconda.\n\nimport pandas as pd\nimport numpy as np\nimport matplotlib.pyplot as plt\n\nnp.random.seed(8465);\n\nx = np.random.uniform(0,3,10);\ny = np.random.uniform(0,3,10);\nz = np.random.uniform(0,3,10);\n\nplt.scatter(x,y)\nplt.show()\n\n\n\n\nCustomization of plots can be done through different functions. For instance:\n\nplt.xlabel('X')\nplt.ylabel('Y')\nplt.show()"
   },
   {
     "objectID": "mysection.html#sub-topic-2",
