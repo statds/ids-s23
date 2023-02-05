@@ -26,6 +26,11 @@ plt.show()
 
 ```
 
+Customization of plots can be done through different functions. For instance:
+
+```{python}
+```
+
 ## Animation
 
 Animations can also be done through matplotlib. This requires the use of the animation submodule which has a variety functions that can be used to plot animations.
