@@ -3,6 +3,8 @@
 
 ## Introduction
 
+The matplotlib library can provide methods in plotting and arranging data visually in order to help viewers understand the main concepts of the data analysis.
+In this chapter, a progression of graphs will be shown to demonstrate some of the capabilities the library has to graph and plot data.
 
 ## How to Use
 
@@ -25,7 +27,5 @@ plt.show()
 ```
 
 ## Animation
-
-Put materials on topic 2 here.
 
 ## Conclusion
