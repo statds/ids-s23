@@ -22,16 +22,10 @@ y = np.random.uniform(0,3,10);
 z = np.random.uniform(0,3,10);
 
 plt.scatter(x,y)
-plt.show()
-
-```
-
-Customization of plots can be done through different functions. For instance:
-
-```{python}
 plt.xlabel('X')
 plt.ylabel('Y')
 plt.show()
+
 ```
 
 ## Animation
