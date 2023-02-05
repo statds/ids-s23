@@ -29,6 +29,9 @@ plt.show()
 Customization of plots can be done through different functions. For instance:
 
 ```{python}
+plt.xlabel('X')
+plt.ylabel('Y')
+plt.show()
 ```
 
 ## Animation
