@@ -314,6 +314,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="animation" class="level2" data-number="6.3">
 <h2 data-number="6.3" class="anchored" data-anchor-id="animation"><span class="header-section-number">6.3</span> Animation</h2>
 <p>Animations can also be done through matplotlib. This requires the use of the animation submodule which has a variety functions that can be used to plot animations. Inputs required include the frames and other functions needed to update the plots per frame.</p>
+<div class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.animation <span class="im">as</span> animation</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> updatept(<span class="va">self</span>):</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    z <span class="op">=</span> <span class="dv">10</span><span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We can use the FuncAnimation(args,updatept(),frames) to update.</p>
 </section>
 <section id="conclusion" class="level2" data-number="6.4">
 <h2 data-number="6.4" class="anchored" data-anchor-id="conclusion"><span class="header-section-number">6.4</span> Conclusion</h2>
