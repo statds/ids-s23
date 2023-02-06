@@ -213,7 +213,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#filling-the-missing-zip-codes-by-reverse-geocoding" id="toc-filling-the-missing-zip-codes-by-reverse-geocoding" class="nav-link active" data-scroll-target="#filling-the-missing-zip-codes-by-reverse-geocoding"><span class="toc-section-number">5.1</span>  Filling the Missing Zip Codes by Reverse Geocoding</a></li>
+  <li><a href="#first-glance" id="toc-first-glance" class="nav-link active" data-scroll-target="#first-glance"><span class="toc-section-number">5.1</span>  First Glance</a></li>
+  <li><a href="#some-cleaning" id="toc-some-cleaning" class="nav-link" data-scroll-target="#some-cleaning"><span class="toc-section-number">5.2</span>  Some Cleaning</a></li>
+  <li><a href="#filling-the-missing-zip-codes-by-reverse-geocoding" id="toc-filling-the-missing-zip-codes-by-reverse-geocoding" class="nav-link" data-scroll-target="#filling-the-missing-zip-codes-by-reverse-geocoding"><span class="toc-section-number">5.3</span>  Filling the Missing Zip Codes by Reverse Geocoding</a></li>
   </ul>
 </nav>
     </div>
@@ -237,6 +239,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </header>
 
+<section id="first-glance" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="first-glance"><span class="header-section-number">5.1</span> First Glance</h2>
 <p>Consider the NYC Crash Data in January 2022.</p>
 <div class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
@@ -394,8 +398,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <p>Frequency tables for categorical variables.</p>
 <div class="cell" data-execution_count="2">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>jan22[<span class="st">"BOROUGH"</span>].value_counts(dropna<span class="op">=</span><span class="va">False</span>)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co"># jan22["ZIP CODE"].value_counts(dropna=False)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>jan22[<span class="st">"BOROUGH"</span>].value_counts(dropna<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="2">
 <pre><code>NaN              2634
 BROOKLYN         1744
@@ -406,6 +409,461 @@ STATEN ISLAND     203
 Name: BOROUGH, dtype: int64</code></pre>
 </div>
 </div>
+<p>Some tables are too long.</p>
+<div class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># jan22["CONTRIBUTING FACTOR VEHICLE 1"].value_counts(dropna=False)</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> pd.option_context(<span class="st">'display.max_rows'</span>, <span class="va">None</span>):</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(jan22[<span class="st">"VEHICLE TYPE CODE 1"</span>].value_counts(dropna<span class="op">=</span><span class="va">False</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Sedan                                  3685
+Station Wagon/Sport Utility Vehicle    2766
+Taxi                                    205
+Bus                                     151
+Pick-up Truck                           148
+Box Truck                               120
+NaN                                     120
+Bike                                     54
+Tractor Truck Diesel                     49
+Van                                      49
+Ambulance                                39
+E-Bike                                   30
+PK                                       25
+Garbage or Refuse                        24
+Dump                                     20
+Motorcycle                               20
+E-Scooter                                18
+Convertible                              14
+Snow Plow                                11
+Flat Bed                                 11
+Carry All                                 9
+Tractor Truck Gasoline                    8
+Tanker                                    8
+AMBULANCE                                 5
+Moped                                     4
+Chassis Cab                               4
+Concrete Mixer                            3
+Armored Truck                             3
+FIRE TRUCK                                3
+Tow Truck / Wrecker                       3
+4 dr sedan                                2
+Flat Rack                                 2
+Stake or Rack                             2
+LIMO                                      2
+FIRETRUCK                                 2
+3-Door                                    2
+Truck                                     1
+FORD                                      1
+Bulk Agriculture                          1
+unk                                       1
+tr                                        1
+Fire truck                                1
+M2                                        1
+Tow Truck                                 1
+FDNY TRUCK                                1
+Pas (4dr s                                1
+Ambu                                      1
+moped                                     1
+Delivery                                  1
+Backhoe                                   1
+PICK UP TR                                1
+D2                                        1
+Passenger                                 1
+Beverage Truck                            1
+Motorized Home                            1
+DELV                                      1
+Carriage                                  1
+SELF                                      1
+MOTOR SCOO                                1
+TRAILER                                   1
+Pedicab                                   1
+PICK-UP TR                                1
+Refrigerated Van                          1
+Motorbike                                 1
+Motorscooter                              1
+Firetruck                                 1
+School Bus                                1
+Power shov                                1
+passenger                                 1
+UTILITY                                   1
+Minibike                                  1
+Lunch Wagon                               1
+Forklift                                  1
+USPS small                                1
+Name: VEHICLE TYPE CODE 1, dtype: int64</code></pre>
+</div>
+</div>
+<p>Cross-tables</p>
+<div class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>pd.crosstab(index <span class="op">=</span> jan22[<span class="st">"CONTRIBUTING FACTOR VEHICLE 1"</span>],</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>            columns <span class="op">=</span> jan22[<span class="st">"BOROUGH"</span>], dropna <span class="op">=</span> <span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="4">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th>BOROUGH</th>
+      <th>BRONX</th>
+      <th>BROOKLYN</th>
+      <th>MANHATTAN</th>
+      <th>QUEENS</th>
+      <th>STATEN ISLAND</th>
+    </tr>
+    <tr>
+      <th>CONTRIBUTING FACTOR VEHICLE 1</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Accelerator Defective</th>
+      <td>0</td>
+      <td>2</td>
+      <td>0</td>
+      <td>3</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>Aggressive Driving/Road Rage</th>
+      <td>3</td>
+      <td>9</td>
+      <td>6</td>
+      <td>5</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>Alcohol Involvement</th>
+      <td>24</td>
+      <td>27</td>
+      <td>15</td>
+      <td>37</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>Animals Action</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>Backing Unsafely</th>
+      <td>36</td>
+      <td>61</td>
+      <td>33</td>
+      <td>56</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>Brakes Defective</th>
+      <td>2</td>
+      <td>8</td>
+      <td>1</td>
+      <td>5</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>Cell Phone (hand-Held)</th>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>Driver Inattention/Distraction</th>
+      <td>186</td>
+      <td>392</td>
+      <td>187</td>
+      <td>330</td>
+      <td>41</td>
+    </tr>
+    <tr>
+      <th>Driver Inexperience</th>
+      <td>16</td>
+      <td>20</td>
+      <td>19</td>
+      <td>18</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <th>Driverless/Runaway Vehicle</th>
+      <td>4</td>
+      <td>2</td>
+      <td>2</td>
+      <td>1</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>Drugs (illegal)</th>
+      <td>1</td>
+      <td>2</td>
+      <td>2</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>Failure to Keep Right</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>3</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>Failure to Yield Right-of-Way</th>
+      <td>51</td>
+      <td>126</td>
+      <td>39</td>
+      <td>155</td>
+      <td>22</td>
+    </tr>
+    <tr>
+      <th>Fatigued/Drowsy</th>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>2</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>Fell Asleep</th>
+      <td>5</td>
+      <td>10</td>
+      <td>4</td>
+      <td>6</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>Following Too Closely</th>
+      <td>27</td>
+      <td>66</td>
+      <td>33</td>
+      <td>86</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <th>Glare</th>
+      <td>1</td>
+      <td>4</td>
+      <td>2</td>
+      <td>2</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>Illnes</th>
+      <td>1</td>
+      <td>2</td>
+      <td>2</td>
+      <td>3</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>Lost Consciousness</th>
+      <td>2</td>
+      <td>1</td>
+      <td>2</td>
+      <td>1</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>Obstruction/Debris</th>
+      <td>1</td>
+      <td>1</td>
+      <td>4</td>
+      <td>0</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>Other Vehicular</th>
+      <td>23</td>
+      <td>36</td>
+      <td>20</td>
+      <td>12</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <th>Outside Car Distraction</th>
+      <td>3</td>
+      <td>1</td>
+      <td>2</td>
+      <td>4</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>Oversized Vehicle</th>
+      <td>7</td>
+      <td>2</td>
+      <td>4</td>
+      <td>2</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>Passenger Distraction</th>
+      <td>1</td>
+      <td>2</td>
+      <td>2</td>
+      <td>2</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>Passing Too Closely</th>
+      <td>32</td>
+      <td>68</td>
+      <td>40</td>
+      <td>57</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <th>Passing or Lane Usage Improper</th>
+      <td>28</td>
+      <td>64</td>
+      <td>27</td>
+      <td>64</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <th>Pavement Defective</th>
+      <td>4</td>
+      <td>0</td>
+      <td>1</td>
+      <td>2</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>Pavement Slippery</th>
+      <td>44</td>
+      <td>36</td>
+      <td>10</td>
+      <td>44</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>Pedestrian/Bicyclist/Other Pedestrian Error/Confusion</th>
+      <td>7</td>
+      <td>12</td>
+      <td>14</td>
+      <td>2</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>Physical Disability</th>
+      <td>1</td>
+      <td>2</td>
+      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>Prescription Medication</th>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>Reaction to Uninvolved Vehicle</th>
+      <td>8</td>
+      <td>12</td>
+      <td>12</td>
+      <td>10</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>Steering Failure</th>
+      <td>1</td>
+      <td>2</td>
+      <td>1</td>
+      <td>3</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>Tinted Windows</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>Tire Failure/Inadequate</th>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>Traffic Control Device Improper/Non-Working</th>
+      <td>0</td>
+      <td>2</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>Traffic Control Disregarded</th>
+      <td>20</td>
+      <td>37</td>
+      <td>26</td>
+      <td>50</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <th>Turning Improperly</th>
+      <td>32</td>
+      <td>38</td>
+      <td>12</td>
+      <td>34</td>
+      <td>12</td>
+    </tr>
+    <tr>
+      <th>Unsafe Lane Changing</th>
+      <td>16</td>
+      <td>23</td>
+      <td>17</td>
+      <td>11</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>Unsafe Speed</th>
+      <td>38</td>
+      <td>44</td>
+      <td>14</td>
+      <td>51</td>
+      <td>7</td>
+    </tr>
+    <tr>
+      <th>Unspecified</th>
+      <td>303</td>
+      <td>597</td>
+      <td>175</td>
+      <td>308</td>
+      <td>53</td>
+    </tr>
+    <tr>
+      <th>View Obstructed/Limited</th>
+      <td>11</td>
+      <td>14</td>
+      <td>3</td>
+      <td>11</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+</section>
+<section id="some-cleaning" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="some-cleaning"><span class="header-section-number">5.2</span> Some Cleaning</h2>
 <p>Questions from Dr.&nbsp;Douglas Bates:</p>
 <ul>
 <li>The <code>CRASH_DATE</code>s are all in the correct month and there are no missing values</li>
@@ -420,28 +878,1532 @@ Name: BOROUGH, dtype: int64</code></pre>
 <li>The codes in the <code>VEHICLE_TYPE_CODE_...</code> columns are the usual hodge-podge of results from “free-form” data entry. Should <code>unk</code>, <code>UNK</code>, <code>UNKNOWN</code>, and <code>Unknown</code> be converted to missing?</li>
 <li>In contrast, the codes in the <code>CONTRIBUTING_FACTOR_...</code> columns appear to be standardized (not sure why <code>Illnes</code> isn’t <code>Illness</code>).</li>
 </ul>
-<section id="filling-the-missing-zip-codes-by-reverse-geocoding" class="level2" data-number="5.1">
-<h2 data-number="5.1" class="anchored" data-anchor-id="filling-the-missing-zip-codes-by-reverse-geocoding"><span class="header-section-number">5.1</span> Filling the Missing Zip Codes by Reverse Geocoding</h2>
-<p>Install package <code>uszipcode</code> first.</p>
-<!-- ```{python} -->
-<!-- from uszipcode import SearchEngine -->
-<!-- <\!-- search = SearchEngine(simple_zipcode=True) -\-> -->
-<!-- <\!-- from uszipcode import Zipcode -\-> -->
-<!-- <\!-- import numpy as np -\-> -->
-<!-- <\!-- ## define zipcode search function -\-> -->
-<!-- <\!-- def get_zipcode(lat, lon): -\-> -->
-<!-- <\!--     result = search.by_coordinates(lat = lat, lng = lon, returns = 1) -\-> -->
-<!-- <\!--     return result[0].zipcode -\-> -->
-<!-- <\!-- #load columns from dataframe -\-> -->
-<!-- <\!-- lat = df_shooting['Latitude'] -\-> -->
-<!-- <\!-- lon = df_shooting['Longitude'] -\-> -->
-<!-- <\!-- #define latitude/longitude for function -\-> -->
-<!-- <\!-- df = pd.DataFrame({'lat':lat, 'lon':lon}) -\-> -->
-<!-- <\!-- #add new column with generated zip-code -\-> -->
-<!-- <\!-- df['zipcode'] = df.apply(lambda x: get_zipcode(x.lat,x.lon), axis=1) -\-> -->
-<!-- <\!-- #print result -\-> -->
-<!-- <\!-- print(df) -\-> -->
-<!-- ``` -->
+<div class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> pd.option_context(<span class="st">'display.max_rows'</span>, <span class="va">None</span>):</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(jan22[<span class="st">"CRASH TIME"</span>].value_counts())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>0:00     117
+15:00    100
+14:00     86
+17:00     78
+12:00     75
+8:00      75
+16:00     74
+10:00     73
+9:00      72
+13:00     68
+19:00     62
+18:00     62
+8:30      59
+11:30     58
+17:30     56
+14:30     53
+20:00     53
+11:00     51
+10:30     46
+21:00     45
+18:30     45
+7:00      45
+16:30     44
+19:30     44
+22:00     43
+9:30      42
+15:30     42
+13:30     41
+6:00      41
+23:00     41
+6:30      38
+20:30     34
+12:30     33
+8:40      32
+14:50     32
+7:30      31
+8:15      29
+4:00      28
+14:40     27
+14:45     25
+15:40     25
+8:20      25
+16:40     24
+18:15     24
+8:45      24
+5:00      24
+11:50     24
+16:15     24
+9:50      24
+22:30     23
+11:15     23
+5:30      23
+17:20     23
+16:50     22
+23:30     22
+4:30      22
+10:15     22
+17:50     22
+17:40     22
+17:45     21
+19:15     21
+19:50     20
+22:20     20
+13:50     20
+18:10     20
+15:15     20
+7:50      20
+17:15     20
+8:50      20
+16:35     20
+21:50     20
+11:45     20
+19:45     20
+18:45     19
+15:45     19
+18:50     19
+15:20     19
+0:30      19
+2:00      19
+16:45     18
+18:25     18
+8:10      18
+9:10      18
+7:15      18
+3:00      18
+18:40     18
+22:50     18
+0:15      18
+9:45      18
+18:20     17
+23:50     17
+15:50     17
+10:20     17
+7:45      17
+15:35     17
+12:50     17
+9:15      17
+23:15     16
+21:45     16
+20:40     16
+12:40     16
+13:40     16
+6:45      16
+15:55     15
+16:10     15
+21:30     15
+16:20     15
+14:20     15
+1:30      15
+17:10     15
+13:45     15
+7:20      15
+20:45     15
+22:45     15
+9:20      15
+15:10     15
+19:40     14
+20:15     14
+14:15     14
+12:45     14
+11:25     14
+12:20     14
+19:20     14
+4:15      14
+8:25      14
+5:50      14
+17:55     14
+11:40     14
+21:15     14
+20:35     14
+0:40      14
+11:20     14
+7:10      14
+6:50      14
+23:20     13
+17:05     13
+13:15     13
+12:15     13
+14:35     13
+16:05     13
+10:40     13
+22:15     13
+10:45     13
+17:25     13
+14:10     13
+23:40     13
+5:40      13
+7:05      13
+0:10      13
+21:20     13
+8:55      13
+17:35     12
+11:35     12
+15:25     12
+21:35     12
+9:40      12
+6:20      12
+4:20      12
+0:20      12
+13:20     12
+11:10     12
+18:35     12
+8:35      11
+6:10      11
+18:05     11
+20:50     11
+2:50      11
+2:30      11
+1:00      11
+16:24     11
+16:25     11
+7:40      11
+20:20     11
+6:55      11
+7:55      11
+15:05     10
+22:40     10
+6:25      10
+9:25      10
+0:45      10
+1:50      10
+19:55     10
+0:05      10
+12:55     10
+6:15      10
+10:50     10
+14:05     10
+5:20      10
+19:10     10
+4:55       9
+21:40      9
+2:05       9
+21:10      9
+18:58      9
+12:10      9
+10:10      9
+18:55      9
+5:55       9
+4:45       9
+8:05       9
+1:15       9
+23:55      9
+15:44      9
+22:05      9
+22:25      9
+13:35      9
+10:25      8
+13:05      8
+22:35      8
+4:35       8
+15:48      8
+14:25      8
+10:35      8
+5:45       8
+12:35      8
+2:25       8
+4:25       8
+15:58      8
+3:15       8
+1:45       8
+14:49      8
+13:25      8
+0:25       8
+12:25      8
+19:25      8
+12:05      8
+0:50       8
+2:55       8
+17:33      8
+1:35       8
+2:45       8
+14:55      7
+0:01       7
+1:25       7
+3:30       7
+0:34       7
+7:25       7
+17:58      7
+6:40       7
+12:14      7
+22:55      7
+10:05      7
+18:06      7
+14:14      7
+23:05      7
+1:20       7
+16:09      7
+4:10       7
+14:12      7
+3:20       7
+6:05       7
+9:05       7
+23:10      7
+18:38      7
+15:21      7
+12:27      7
+23:45      7
+13:10      7
+7:35       7
+10:33      7
+4:50       7
+16:55      7
+13:14      7
+19:35      6
+21:05      6
+14:44      6
+11:01      6
+15:33      6
+12:02      6
+3:45       6
+20:19      6
+1:55       6
+2:40       6
+12:48      6
+9:55       6
+20:25      6
+5:05       6
+8:51       6
+18:19      6
+16:48      6
+11:55      6
+19:46      6
+20:10      6
+8:04       6
+17:32      6
+13:55      6
+20:18      6
+23:39      6
+17:21      6
+18:07      6
+7:27       6
+5:25       6
+3:40       6
+23:41      6
+6:03       6
+17:12      6
+1:10       6
+8:26       6
+2:20       6
+5:10       6
+20:43      6
+8:58       6
+17:44      5
+15:43      5
+3:35       5
+15:56      5
+11:06      5
+18:27      5
+22:10      5
+23:25      5
+14:37      5
+12:44      5
+13:31      5
+18:14      5
+16:42      5
+15:11      5
+18:48      5
+16:27      5
+20:08      5
+16:43      5
+6:35       5
+16:28      5
+21:49      5
+17:22      5
+18:54      5
+14:07      5
+22:38      5
+17:13      5
+17:14      5
+16:04      5
+15:53      5
+5:46       5
+8:18       5
+23:06      5
+15:24      5
+17:02      5
+15:19      5
+20:55      5
+4:05       5
+10:55      5
+17:19      5
+21:03      5
+16:46      5
+9:28       5
+15:03      5
+17:18      5
+23:11      5
+20:22      5
+10:57      5
+22:01      5
+15:51      5
+17:16      5
+8:07       5
+8:11       5
+18:22      5
+12:18      5
+16:23      5
+21:58      5
+3:50       5
+12:57      5
+21:46      5
+21:25      5
+6:24       5
+9:23       5
+14:57      5
+15:42      5
+15:38      5
+9:35       5
+15:13      5
+9:34       5
+17:53      5
+16:12      5
+5:33       5
+13:13      5
+19:39      5
+6:58       5
+20:36      5
+20:09      5
+2:07       5
+17:27      5
+2:18       5
+11:26      5
+7:03       5
+0:07       5
+16:14      5
+18:03      5
+14:11      5
+15:27      5
+19:05      4
+12:28      4
+6:18       4
+8:22       4
+14:58      4
+14:42      4
+19:21      4
+23:32      4
+13:32      4
+15:54      4
+14:02      4
+3:25       4
+11:05      4
+8:03       4
+20:26      4
+9:56       4
+4:27       4
+17:48      4
+22:47      4
+3:55       4
+7:49       4
+18:34      4
+1:16       4
+11:11      4
+7:46       4
+22:14      4
+7:11       4
+19:53      4
+8:17       4
+22:34      4
+14:43      4
+16:41      4
+23:01      4
+12:37      4
+21:55      4
+17:06      4
+21:33      4
+13:28      4
+18:01      4
+7:54       4
+14:53      4
+6:37       4
+10:28      4
+18:51      4
+16:37      4
+19:52      4
+21:13      4
+17:37      4
+13:08      4
+21:48      4
+16:22      4
+19:24      4
+2:35       4
+19:44      4
+17:47      4
+13:07      4
+18:04      4
+8:41       4
+18:17      4
+9:08       4
+11:43      4
+18:24      4
+18:28      4
+23:35      4
+13:39      4
+13:01      4
+8:38       4
+20:06      4
+13:53      4
+20:44      4
+3:24       4
+12:03      4
+15:31      4
+2:12       4
+19:04      4
+0:35       4
+20:24      4
+19:48      4
+2:10       4
+8:31       4
+20:05      4
+23:47      4
+15:32      4
+19:18      4
+19:19      4
+8:21       4
+16:02      4
+16:33      4
+19:51      4
+14:16      4
+14:03      4
+9:57       4
+23:49      4
+19:29      4
+10:02      4
+21:06      4
+13:17      4
+10:59      4
+18:08      4
+16:07      4
+16:47      4
+11:16      4
+5:18       4
+22:43      4
+21:17      4
+0:47       4
+17:57      4
+16:29      4
+20:37      4
+9:39       4
+15:14      4
+1:40       4
+10:01      4
+15:08      4
+8:08       4
+14:06      4
+20:54      4
+8:02       4
+0:54       4
+21:16      4
+17:36      4
+6:56       4
+11:07      3
+7:01       3
+11:47      3
+23:37      3
+14:56      3
+23:42      3
+3:54       3
+13:52      3
+10:32      3
+17:11      3
+23:34      3
+10:47      3
+4:40       3
+20:31      3
+16:26      3
+20:39      3
+3:05       3
+18:41      3
+18:43      3
+9:24       3
+9:26       3
+16:11      3
+8:37       3
+17:23      3
+12:41      3
+8:28       3
+14:08      3
+4:34       3
+14:21      3
+17:24      3
+12:11      3
+15:07      3
+19:49      3
+9:12       3
+7:14       3
+12:53      3
+12:47      3
+12:09      3
+1:02       3
+10:38      3
+19:06      3
+4:04       3
+17:29      3
+12:19      3
+3:52       3
+8:57       3
+17:38      3
+10:09      3
+17:08      3
+22:29      3
+10:12      3
+23:43      3
+14:17      3
+2:04       3
+13:36      3
+0:22       3
+10:53      3
+18:23      3
+6:38       3
+20:33      3
+0:52       3
+9:51       3
+20:42      3
+0:17       3
+7:41       3
+2:44       3
+21:28      3
+19:02      3
+22:33      3
+15:02      3
+11:31      3
+9:38       3
+12:23      3
+16:52      3
+16:36      3
+0:09       3
+23:23      3
+14:26      3
+0:23       3
+1:05       3
+16:01      3
+16:49      3
+19:34      3
+9:37       3
+0:31       3
+18:11      3
+12:06      3
+3:10       3
+13:02      3
+2:23       3
+1:08       3
+1:21       3
+22:18      3
+23:44      3
+11:38      3
+19:01      3
+9:48       3
+16:44      3
+9:46       3
+2:58       3
+14:38      3
+4:11       3
+13:27      3
+9:44       3
+9:22       3
+18:44      3
+14:29      3
+22:02      3
+8:13       3
+14:41      3
+16:18      3
+22:39      3
+7:04       3
+11:49      3
+6:27       3
+8:29       3
+19:27      3
+18:29      3
+19:26      3
+13:18      3
+12:56      3
+4:33       3
+11:33      3
+7:22       3
+12:21      3
+21:09      3
+8:48       3
+3:48       3
+2:15       3
+6:17       3
+19:58      3
+8:14       3
+12:24      3
+14:48      3
+21:43      3
+19:16      3
+16:39      3
+1:48       3
+7:08       3
+2:47       3
+4:48       3
+18:16      3
+12:26      3
+14:04      3
+16:38      3
+7:07       3
+5:15       3
+4:43       3
+4:36       3
+17:09      3
+15:12      3
+14:31      3
+15:47      3
+18:53      3
+12:36      3
+15:22      3
+15:16      3
+0:55       3
+1:39       3
+12:58      3
+19:07      3
+7:12       3
+5:48       3
+12:22      3
+21:14      3
+5:53       3
+16:53      3
+18:21      3
+16:21      3
+9:42       3
+11:28      3
+11:02      3
+12:54      3
+22:53      3
+1:22       3
+16:13      3
+11:13      3
+15:17      3
+11:12      3
+13:43      3
+13:26      3
+18:47      3
+14:46      3
+9:21       3
+5:03       3
+16:34      3
+12:04      3
+14:22      3
+18:49      3
+18:46      3
+21:38      3
+3:58       3
+19:36      3
+20:34      3
+22:16      3
+19:47      3
+1:28       3
+13:48      3
+10:13      3
+17:04      3
+10:11      3
+5:29       3
+17:26      3
+7:33       3
+14:59      2
+23:33      2
+7:26       2
+5:42       2
+20:57      2
+10:23      2
+2:06       2
+10:56      2
+6:19       2
+15:36      2
+15:52      2
+1:24       2
+12:42      2
+23:29      2
+6:31       2
+11:42      2
+2:48       2
+6:49       2
+6:09       2
+19:32      2
+8:19       2
+14:09      2
+14:13      2
+5:07       2
+14:24      2
+10:58      2
+21:53      2
+7:47       2
+19:54      2
+17:52      2
+10:48      2
+17:03      2
+1:57       2
+3:06       2
+13:56      2
+17:28      2
+2:54       2
+11:58      2
+20:07      2
+11:48      2
+22:28      2
+10:27      2
+19:43      2
+0:04       2
+3:29       2
+15:28      2
+14:52      2
+14:01      2
+16:56      2
+1:38       2
+11:09      2
+11:14      2
+21:36      2
+8:23       2
+0:46       2
+7:37       2
+6:14       2
+11:44      2
+6:23       2
+4:56       2
+4:47       2
+7:44       2
+0:51       2
+7:31       2
+20:53      2
+10:37      2
+4:59       2
+10:03      2
+22:26      2
+13:41      2
+6:46       2
+2:17       2
+4:58       2
+22:59      2
+9:43       2
+5:08       2
+8:43       2
+4:24       2
+3:04       2
+11:52      2
+22:24      2
+0:36       2
+21:34      2
+20:52      2
+20:01      2
+17:46      2
+17:54      2
+21:11      2
+23:36      2
+7:59       2
+22:48      2
+23:48      2
+5:36       2
+22:56      2
+20:56      2
+11:46      2
+23:59      2
+9:59       2
+15:34      2
+19:37      2
+18:12      2
+8:47       2
+15:46      2
+5:21       2
+11:18      2
+16:06      2
+19:22      2
+9:18       2
+20:14      2
+12:12      2
+14:34      2
+18:59      2
+19:12      2
+11:56      2
+18:26      2
+6:21       2
+18:13      2
+21:42      2
+1:53       2
+16:16      2
+5:16       2
+15:41      2
+0:41       2
+10:46      2
+23:13      2
+12:07      2
+10:42      2
+10:34      2
+2:14       2
+0:02       2
+19:28      2
+8:34       2
+11:34      2
+23:27      2
+12:01      2
+2:16       2
+8:42       2
+21:47      2
+2:32       2
+23:31      2
+2:36       2
+14:47      2
+5:28       2
+0:27       2
+4:17       2
+22:31      2
+0:12       2
+16:59      2
+22:04      2
+22:58      2
+11:27      2
+2:42       2
+5:09       2
+15:18      2
+1:37       2
+6:28       2
+17:07      2
+8:44       2
+17:49      2
+9:06       2
+4:32       2
+1:04       2
+17:34      2
+13:44      2
+22:23      2
+12:08      2
+5:35       2
+6:07       2
+13:34      2
+0:14       2
+10:41      2
+11:32      2
+18:56      2
+13:38      2
+4:23       2
+20:04      2
+20:11      2
+13:24      2
+21:24      2
+12:34      2
+18:09      2
+0:53       2
+22:07      2
+21:39      2
+0:58       2
+23:02      2
+3:42       2
+20:17      2
+9:58       2
+13:59      2
+0:43       2
+3:46       2
+8:09       2
+23:19      2
+3:44       2
+11:39      2
+11:22      2
+19:03      2
+12:32      2
+6:47       2
+23:04      2
+2:13       2
+21:37      2
+7:43       2
+12:29      2
+22:46      2
+23:16      2
+11:24      2
+9:16       2
+21:44      2
+19:17      2
+1:12       2
+3:08       2
+6:51       2
+13:21      2
+9:07       2
+0:08       2
+1:07       2
+3:14       2
+10:21      2
+11:54      2
+2:34       2
+12:13      2
+2:11       2
+1:11       2
+4:19       2
+6:36       2
+6:08       2
+23:12      2
+20:47      2
+14:54      2
+18:52      2
+6:22       2
+4:52       2
+14:33      2
+0:11       2
+9:31       2
+23:38      2
+22:19      2
+14:27      2
+13:58      2
+19:38      2
+1:32       2
+7:06       2
+23:51      2
+2:56       2
+8:24       2
+16:17      2
+10:43      2
+14:39      2
+13:22      2
+0:32       2
+8:39       2
+6:54       2
+1:13       2
+2:08       2
+19:59      2
+6:59       2
+10:24      2
+10:36      2
+21:32      2
+19:31      2
+20:23      2
+21:07      2
+7:32       2
+2:39       2
+5:06       2
+10:51      2
+21:23      2
+0:38       2
+8:27       2
+8:54       2
+6:13       2
+9:53       2
+7:42       2
+21:22      2
+16:32      2
+10:08      2
+1:03       2
+9:03       2
+7:58       2
+10:04      2
+8:56       2
+13:12      2
+15:59      2
+20:38      2
+0:03       2
+6:53       2
+5:27       2
+20:41      2
+0:42       2
+19:33      2
+7:39       2
+12:46      1
+15:29      1
+10:49      1
+17:59      1
+6:34       1
+3:38       1
+3:57       1
+9:52       1
+11:17      1
+21:51      1
+9:32       1
+12:17      1
+23:52      1
+18:37      1
+3:41       1
+2:33       1
+13:49      1
+12:52      1
+0:39       1
+20:28      1
+1:34       1
+22:08      1
+16:54      1
+5:39       1
+8:01       1
+14:23      1
+1:06       1
+21:04      1
+5:37       1
+3:13       1
+1:59       1
+1:46       1
+23:56      1
+9:29       1
+7:13       1
+23:17      1
+3:17       1
+6:04       1
+15:49      1
+2:43       1
+3:21       1
+11:51      1
+5:14       1
+10:31      1
+19:08      1
+1:01       1
+10:54      1
+9:09       1
+5:56       1
+21:26      1
+21:19      1
+13:11      1
+4:46       1
+20:48      1
+4:42       1
+6:16       1
+13:19      1
+7:52       1
+16:58      1
+0:49       1
+22:41      1
+8:36       1
+12:51      1
+17:17      1
+8:52       1
+2:52       1
+13:51      1
+21:08      1
+12:31      1
+22:12      1
+3:22       1
+13:47      1
+23:07      1
+8:12       1
+22:11      1
+3:07       1
+9:04       1
+5:49       1
+0:44       1
+4:37       1
+2:21       1
+19:42      1
+2:19       1
+22:54      1
+13:16      1
+18:39      1
+11:37      1
+9:13       1
+19:14      1
+19:13      1
+22:27      1
+20:29      1
+3:11       1
+23:24      1
+22:49      1
+5:24       1
+20:16      1
+11:23      1
+0:18       1
+1:26       1
+0:57       1
+18:31      1
+19:11      1
+1:14       1
+3:33       1
+7:28       1
+18:02      1
+10:14      1
+7:19       1
+0:16       1
+19:41      1
+1:19       1
+6:11       1
+21:21      1
+8:49       1
+22:36      1
+3:02       1
+23:09      1
+10:19      1
+13:57      1
+9:33       1
+5:13       1
+17:51      1
+3:37       1
+1:33       1
+20:02      1
+4:39       1
+15:37      1
+3:53       1
+5:11       1
+2:27       1
+10:29      1
+14:32      1
+4:12       1
+17:42      1
+5:38       1
+5:12       1
+17:43      1
+8:46       1
+3:01       1
+4:18       1
+11:29      1
+11:21      1
+10:16      1
+17:41      1
+17:01      1
+5:31       1
+20:32      1
+11:41      1
+6:33       1
+13:33      1
+1:47       1
+23:54      1
+22:06      1
+13:42      1
+21:52      1
+21:56      1
+9:41       1
+7:36       1
+13:37      1
+8:16       1
+3:32       1
+18:36      1
+7:56       1
+1:43       1
+16:51      1
+15:06      1
+7:57       1
+3:09       1
+7:24       1
+21:27      1
+6:57       1
+5:17       1
+9:17       1
+4:03       1
+0:33       1
+1:42       1
+14:36      1
+2:09       1
+7:51       1
+3:59       1
+16:31      1
+7:18       1
+8:06       1
+15:57      1
+21:57      1
+10:17      1
+7:09       1
+9:14       1
+18:32      1
+13:04      1
+0:28       1
+3:16       1
+21:54      1
+4:53       1
+2:49       1
+6:02       1
+1:49       1
+1:41       1
+2:53       1
+23:58      1
+2:41       1
+21:41      1
+15:01      1
+22:22      1
+4:06       1
+0:06       1
+10:44      1
+4:16       1
+5:22       1
+6:26       1
+0:24       1
+6:12       1
+0:37       1
+20:46      1
+23:18      1
+2:29       1
+23:03      1
+19:57      1
+21:01      1
+11:08      1
+23:46      1
+7:23       1
+22:03      1
+4:51       1
+12:33      1
+2:38       1
+5:41       1
+9:01       1
+20:49      1
+2:22       1
+17:56      1
+3:03       1
+2:31       1
+19:09      1
+1:23       1
+7:16       1
+20:13      1
+5:47       1
+14:19      1
+5:44       1
+0:48       1
+18:33      1
+14:28      1
+1:17       1
+7:29       1
+12:43      1
+18:57      1
+19:56      1
+13:06      1
+13:03      1
+7:38       1
+3:28       1
+10:18      1
+6:44       1
+23:28      1
+23:26      1
+18:42      1
+21:18      1
+1:29       1
+20:12      1
+12:38      1
+11:04      1
+20:21      1
+1:58       1
+12:16      1
+17:39      1
+1:09       1
+13:46      1
+1:36       1
+9:47       1
+8:59       1
+16:19      1
+2:37       1
+3:43       1
+0:29       1
+12:59      1
+20:58      1
+1:18       1
+3:36       1
+4:01       1
+7:53       1
+13:29      1
+21:59      1
+22:51      1
+4:38       1
+2:24       1
+3:18       1
+4:22       1
+7:48       1
+19:23      1
+4:28       1
+4:09       1
+22:37      1
+4:14       1
+22:44      1
+15:39      1
+22:09      1
+4:54       1
+Name: CRASH TIME, dtype: int64</code></pre>
+</div>
+</div>
+<p>For example, here are some cleaning steps:</p>
+<div class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>jan22[<span class="st">"CONTRIBUTING FACTOR VEHICLE 1"</span>] <span class="op">=</span> (</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    jan22[<span class="st">"CONTRIBUTING FACTOR VEHICLE 1"</span>].replace([<span class="st">"Unspecified"</span>], np.nan))</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>jan22[<span class="st">"CONTRIBUTING FACTOR VEHICLE 2"</span>] <span class="op">=</span> (</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    jan22[<span class="st">"CONTRIBUTING FACTOR VEHICLE 2"</span>].replace([<span class="st">"Unspecified"</span>], np.nan))</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>jan22[<span class="st">"CONTRIBUTING FACTOR VEHICLE 3"</span>] <span class="op">=</span> (</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>    jan22[<span class="st">"CONTRIBUTING FACTOR VEHICLE 3"</span>].replace([<span class="st">"Unspecified"</span>], np.nan))</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>jan22[<span class="st">"CONTRIBUTING FACTOR VEHICLE 4"</span>] <span class="op">=</span> (</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>    jan22[<span class="st">"CONTRIBUTING FACTOR VEHICLE 4"</span>].replace([<span class="st">"Unspecified"</span>], np.nan))</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>jan22[<span class="st">"CONTRIBUTING FACTOR VEHICLE 5"</span>] <span class="op">=</span> (</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>    jan22[<span class="st">"CONTRIBUTING FACTOR VEHICLE 5"</span>].replace([<span class="st">"Unspecified"</span>], np.nan))</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>jan22[<span class="st">"LATITUDE"</span>] <span class="op">=</span> jan22[<span class="st">"LATITUDE"</span>].replace([<span class="fl">0.0</span>], np.nan)</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>jan22[<span class="st">"LONGITUDE"</span>] <span class="op">=</span> jan22[<span class="st">"LONGITUDE"</span>].replace([<span class="fl">0.0</span>], np.nan)</span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>jan22.describe()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="6">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>ZIP CODE</th>
+      <th>LATITUDE</th>
+      <th>LONGITUDE</th>
+      <th>NUMBER OF PERSONS INJURED</th>
+      <th>NUMBER OF PERSONS KILLED</th>
+      <th>NUMBER OF PEDESTRIANS INJURED</th>
+      <th>NUMBER OF PEDESTRIANS KILLED</th>
+      <th>NUMBER OF CYCLIST INJURED</th>
+      <th>NUMBER OF CYCLIST KILLED</th>
+      <th>NUMBER OF MOTORIST INJURED</th>
+      <th>NUMBER OF MOTORIST KILLED</th>
+      <th>COLLISION_ID</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>count</th>
+      <td>5025.000000</td>
+      <td>7077.000000</td>
+      <td>7077.000000</td>
+      <td>7659.000000</td>
+      <td>7659.000000</td>
+      <td>7659.000000</td>
+      <td>7659.000000</td>
+      <td>7659.000000</td>
+      <td>7659.0</td>
+      <td>7659.000000</td>
+      <td>7659.000000</td>
+      <td>7.659000e+03</td>
+    </tr>
+    <tr>
+      <th>mean</th>
+      <td>10908.957015</td>
+      <td>40.724228</td>
+      <td>-73.913799</td>
+      <td>0.404753</td>
+      <td>0.002350</td>
+      <td>0.084345</td>
+      <td>0.001306</td>
+      <td>0.021935</td>
+      <td>0.0</td>
+      <td>0.287505</td>
+      <td>0.000914</td>
+      <td>4.495510e+06</td>
+    </tr>
+    <tr>
+      <th>std</th>
+      <td>514.740028</td>
+      <td>0.083768</td>
+      <td>0.086007</td>
+      <td>0.726622</td>
+      <td>0.048425</td>
+      <td>0.290332</td>
+      <td>0.036113</td>
+      <td>0.149131</td>
+      <td>0.0</td>
+      <td>0.692545</td>
+      <td>0.030220</td>
+      <td>2.338111e+03</td>
+    </tr>
+    <tr>
+      <th>min</th>
+      <td>10000.000000</td>
+      <td>40.502340</td>
+      <td>-74.249980</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>4.491064e+06</td>
+    </tr>
+    <tr>
+      <th>25%</th>
+      <td>10459.000000</td>
+      <td>40.665474</td>
+      <td>-73.960440</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>4.493532e+06</td>
+    </tr>
+    <tr>
+      <th>50%</th>
+      <td>11209.000000</td>
+      <td>40.712696</td>
+      <td>-73.917564</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>4.495533e+06</td>
+    </tr>
+    <tr>
+      <th>75%</th>
+      <td>11354.000000</td>
+      <td>40.787506</td>
+      <td>-73.862816</td>
+      <td>1.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>4.497480e+06</td>
+    </tr>
+    <tr>
+      <th>max</th>
+      <td>11697.000000</td>
+      <td>40.909206</td>
+      <td>-73.701920</td>
+      <td>8.000000</td>
+      <td>1.000000</td>
+      <td>3.000000</td>
+      <td>1.000000</td>
+      <td>2.000000</td>
+      <td>0.0</td>
+      <td>8.000000</td>
+      <td>1.000000</td>
+      <td>4.500594e+06</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+</section>
+<section id="filling-the-missing-zip-codes-by-reverse-geocoding" class="level2" data-number="5.3">
+<h2 data-number="5.3" class="anchored" data-anchor-id="filling-the-missing-zip-codes-by-reverse-geocoding"><span class="header-section-number">5.3</span> Filling the Missing Zip Codes by Reverse Geocoding</h2>
+<p>The package <code>uszipcode</code> is the most powerful and easy to use programmable zipcode database in Python. It provides information about 42,724 zipcodes in the US with data crawled from &lt;data.census.gov&gt;. See <a href="https://uszipcode.readthedocs.io/index.html">its documentation</a> for details.</p>
+<div class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> uszipcode <span class="im">import</span> SearchEngine</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>sr <span class="op">=</span> SearchEngine()</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>sr.by_zipcode(<span class="st">"10001"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="7">
+<pre><code>SimpleZipcode(zipcode='10001', zipcode_type='STANDARD', major_city='New York', post_office_city='New York, NY', common_city_list=['New York'], county='New York County', state='NY', lat=40.75, lng=-74.0, timezone='America/New_York', radius_in_miles=0.9090909090909091, area_code_list='718,917,347,646', population=21102, population_density=33959.0, land_area_in_sqmi=0.62, water_area_in_sqmi=0.0, housing_units=12476, occupied_housing_units=11031, median_home_value=650200, median_household_income=81671, bounds_west=-74.008621, bounds_east=-73.984076, bounds_north=40.759731, bounds_south=40.743451)</code></pre>
+</div>
+</div>
+<p>We can use <code>uszipcode</code> to reverse geocode a point by its coordinates. The returned zipcode can be used to handle missing zipcode.</p>
+<div class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>z <span class="op">=</span> sr.by_coordinates(<span class="fl">40.769993</span>, <span class="op">-</span><span class="fl">73.915825</span>, radius <span class="op">=</span> <span class="dv">1</span>)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>z[<span class="dv">0</span>].zipcode</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>z[<span class="dv">0</span>].median_home_value</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="8">
+<pre><code>597700</code></pre>
+</div>
+</div>
+<p>Once we have found the zipcode, we can find its borough. See the <a href="https://bklyndesigns.com/new-york-city-zip-code/">complete NYC zip code list</a>.</p>
+<div class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> nyczip2burough(<span class="bu">zip</span>):</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    nzip <span class="op">=</span> <span class="bu">int</span>(<span class="bu">zip</span>)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> nzip <span class="op">&gt;=</span> <span class="dv">10001</span> <span class="kw">and</span> nzip <span class="op">&lt;=</span> <span class="dv">10282</span>:</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">"MANHATTAN"</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> nzip <span class="op">&gt;=</span> <span class="dv">10301</span> <span class="kw">and</span> nzip <span class="op">&lt;=</span> <span class="dv">10314</span>:</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">"STATEN ISLAND"</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> nzip <span class="op">&gt;=</span> <span class="dv">10451</span> <span class="kw">and</span> nzip <span class="op">&lt;=</span> <span class="dv">10475</span>:</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">"BRONX"</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> nzip <span class="op">&gt;=</span> <span class="dv">11004</span> <span class="kw">and</span> nzip <span class="op">&lt;=</span> <span class="dv">11109</span>:</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">"QUEENS"</span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> nzip <span class="op">&gt;=</span> <span class="dv">11351</span> <span class="kw">and</span> nzip <span class="op">&lt;=</span> <span class="dv">11697</span>:</span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">"QUEENS"</span></span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> nzip <span class="op">&gt;=</span> <span class="dv">11201</span> <span class="kw">and</span> nzip <span class="op">&lt;=</span> <span class="dv">11256</span>:</span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">"BROOKLYN"</span></span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> np.nan</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Let’s try it out:</p>
+<div class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>nyczip2burough(z[<span class="dv">0</span>].zipcode)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="10">
+<pre><code>'QUEENS'</code></pre>
+</div>
+</div>
 
 
 </section>

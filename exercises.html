@@ -194,7 +194,8 @@ ul.task-list li input[type="checkbox"] {
 <li>Use the filter from the website to download the crash data of January 2023; save it under a directory <code>data</code> with an informative name (e.g., <code>nyc_crashes_202301.csv</code>).</li>
 <li>Get basic summaries of each variable: missing percentage; descriptive statistics for continuous variables; frequency tables for discrete variables.</li>
 <li>Are the <code>LATITUDE</code> and <code>LONGITIDE</code> values all look legitimate? If not (e.g., zeroes), code them as missing values.</li>
-<li>Are the missing patterns of “ON STREET NAME” and “LATITUDE” the same? Summarize the missing patterns by a cross table. If “ON STREET NAME” and “CROSS STREET NAME” are available, use geocoding to fill the “LATITUDE” and “LONGITUDE”.</li>
+<li>If <code>OFF STREET NAME</code> is not missing, are there any missing <code>LATITUDE</code> and <code>LONGITUDE</code>? If so, geocode the addresses.</li>
+<li>(Optional) Are the missing patterns of <code>ON STREET NAME</code> and <code>LATITUDE" the same?     Summarize the missing patterns by a cross table. If</code>ON STREET NAME<code>and</code>CROSS STREET NAME<code>are available, use geocoding by intersection to fill     the</code>LATITUDE<code>and</code>LONGITUDE`.</li>
 <li>Are <code>ZIP CODE</code> and <code>BOROUGH</code> always missing together? If <code>LATITUDE</code> and <code>LONGITUDE</code> are available, use reverse geocoding to fill the <code>ZIP CODE</code> and <code>BOROUGH</code>.</li>
 <li>Print the whole frequency table of <code>CONTRIBUTING FACTOR VEHICLE 1</code>. Convert lower cases to uppercases and check the frequencies again.</li>
 <li>Provided an opportunity to meet the data provider, what suggestions do you have to make the data better based on your data exploration experience?</li>
