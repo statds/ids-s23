@@ -90,7 +90,7 @@ Inputs required include the frames and other functions needed to update the plot
 import matplotlib.animation as animation
 
 def updatept(self):
-	x = 5;
+	z = 10;
 
 ```
 
