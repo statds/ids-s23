@@ -11,7 +11,7 @@
     "href": "mysection.html#how-to-use",
     "title": "6  Introduction to matplotlib",
     "section": "6.2 How to Use",
-    "text": "6.2 How to Use\nThe library is not part of the defaults used in Python. To install, use either pip or Anaconda.\n\nimport pandas as pd\nimport numpy as np\nimport matplotlib.pyplot as plt\n\nnp.random.seed(8465);\n\nx = np.random.uniform(0,3,10);\ny = np.random.uniform(0,3,10);\nz = np.random.uniform(0,3,10);\n\nplt.scatter(x,y)\nplt.xlabel('X')\nplt.ylabel('Y')\nplt.show()\n\n\n\n\nWe could start plotting another plot, but we have not saved our scatterplot as an object. Thus, it will get overridden by whatever we plot next. If we want to keep a plot, we can save as a subplot shown as follows."
+    "text": "6.2 How to Use\nThe library is not part of the defaults used in Python. To install, use either pip or Anaconda.\n\nimport pandas as pd\nimport numpy as np\nimport matplotlib.pyplot as plt\n\nnp.random.seed(8465);\n\nx = np.random.uniform(0,3,10);\ny = np.random.uniform(0,3,10);\nz = np.random.uniform(0,3,10);\n\nplt.scatter(x,y)\nplt.xlabel('X')\nplt.ylabel('Y')\nplt.show()\n\n\n\n\nWe could start plotting another plot, but we have not saved our scatterplot as an object. Thus, it will get overridden by whatever we plot next. If we want to keep a plot, we can save as a figure object. In addition, if we need multiple plots together, we can use a subplot shown as follows.\n\nfig,(ax,ax1) = plt.subplots(1,2,figsize = (4,3))\n\nax.plot(x,z,label = \"Line Graph\")\nax1.scatter(x,y,z,label = \"Scatter in 3D\")\nax.legend()\nax1.legend()\nplt.show()"
   },
   {
     "objectID": "mysection.html#sub-topic-2",
@@ -25,7 +25,7 @@
     "href": "mysection.html#conclusion",
     "title": "6  Introduction to matplotlib",
     "section": "6.4 Conclusion",
-    "text": "6.4 Conclusion"
+    "text": "6.4 Conclusion\nWe have demonstrated some capabilities of the matplotlib library but more complex methods of plotting and arranging visual elements can be found in the documentation."
   },
   {
     "objectID": "mysection.html#animation",

@@ -263,7 +263,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><img src="mysection_files/figure-html/cell-2-output-1.png" width="589" height="429"></p>
 </div>
 </div>
-<p>We could start plotting another plot, but we have not saved our scatterplot as an object. Thus, it will get overridden by whatever we plot next. If we want to keep a plot, we can save as a subplot shown as follows.</p>
+<p>We could start plotting another plot, but we have not saved our scatterplot as an object. Thus, it will get overridden by whatever we plot next. If we want to keep a plot, we can save as a figure object. In addition, if we need multiple plots together, we can use a subplot shown as follows.</p>
+<div class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>fig,(ax,ax1) <span class="op">=</span> plt.subplots(<span class="dv">1</span>,<span class="dv">2</span>,figsize <span class="op">=</span> (<span class="dv">4</span>,<span class="dv">3</span>))</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>ax.plot(x,z,label <span class="op">=</span> <span class="st">"Line Graph"</span>)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>ax1.scatter(x,y,z,label <span class="op">=</span> <span class="st">"Scatter in 3D"</span>)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>ax.legend()</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>ax1.legend()</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="mysection_files/figure-html/cell-3-output-1.png" width="347" height="263"></p>
+</div>
+</div>
 </section>
 <section id="animation" class="level2" data-number="6.3">
 <h2 data-number="6.3" class="anchored" data-anchor-id="animation"><span class="header-section-number">6.3</span> Animation</h2>
@@ -271,6 +283,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </section>
 <section id="conclusion" class="level2" data-number="6.4">
 <h2 data-number="6.4" class="anchored" data-anchor-id="conclusion"><span class="header-section-number">6.4</span> Conclusion</h2>
+<p>We have demonstrated some capabilities of the matplotlib library but more complex methods of plotting and arranging visual elements can be found in the documentation.</p>
 
 
 </section>
