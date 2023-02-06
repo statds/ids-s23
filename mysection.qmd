@@ -33,7 +33,8 @@ If we want to keep a plot, we can save as a figure object. In addition, if we ne
 
 ```{python}
 
-fig,(ax,ax1) = plt.subplots(1,2,figsize = (5,5))
+fig,(ax,ax1) = plt.subplots(1,2,figsize = (4,3))
+
 ax = plt.plot(x,z,label = "Line Graph")
 ax1 = plt.scatter(x,y,z,label = "Scatter in 3D")
 ax.legend()
