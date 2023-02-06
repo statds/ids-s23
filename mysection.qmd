@@ -31,6 +31,16 @@ plt.show()
 We could start plotting another plot, but we have not saved our scatterplot as an object. Thus, it will get overridden by whatever we plot next.
 If we want to keep a plot, we can save as a figure object. In addition, if we need multiple plots together, we can use a subplot shown as follows.
 
+```{python}
+
+fig, (ax,ax1) = plt.subplot(1,2,figsize(5,5))
+ax = plt.plot(x,z,label = "Line Graph")
+ax1 = plt.scatter(x,y,z,label = "Scatter in 3D")
+ax.legend()
+ax1.legend()
+plt.show()
+```
+
 ## Animation
 
 Animations can also be done through matplotlib. This requires the use of the animation submodule which has a variety functions that can be used to plot animations.
