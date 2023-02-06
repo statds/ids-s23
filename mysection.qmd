@@ -29,7 +29,10 @@ plt.show()
 ```
 
 We could start plotting another plot, but we have not saved our scatterplot as an object. Thus, it will get overridden by whatever we plot next.
-If we want to keep a plot, we can save as a subplot shown as follows.
+If we want to keep a plot, we can save as a figure object. In addition, if we need multiple plots together, we can use a subplot shown as follows.
+
+```{python}
+```
 
 ## Animation
 
@@ -37,3 +40,6 @@ Animations can also be done through matplotlib. This requires the use of the ani
 Inputs required include the frames and other functions needed to update the plots per frame.
 
 ## Conclusion
+
+We have demonstrated some capabilities of the matplotlib library but more complex methods of plotting and arranging visual elements can be found in the documentation.
+The examples provided should be able to help start the process of analyzing data for easier analysis.
