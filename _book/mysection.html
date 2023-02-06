@@ -301,16 +301,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot</span></span>
 <span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>ax.plot(x,z,label <span class="op">=</span> <span class="st">"Line Graph"</span>)</span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>ax1.scatter(x,y,z,cmap <span class="op">=</span> <span class="st">'cool'</span>,label <span class="op">=</span> <span class="st">"Scatter in 3D"</span>)</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>ax1.scatter(x,y,z,c <span class="op">=</span> z,cmap <span class="op">=</span> <span class="st">'cool'</span>,label <span class="op">=</span> <span class="st">"Scatter in 3D"</span>)</span>
 <span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>ax.legend()</span>
 <span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>ax1.legend()</span>
 <span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>C:\Users\ccheu\AppData\Local\Temp\ipykernel_11268\217691685.py:11: UserWarning: No data for colormapping provided via 'c'. Parameters 'cmap' will be ignored
-  ax1.scatter(x,y,z,cmap = 'cool',label = "Scatter in 3D")</code></pre>
-</div>
 <div class="cell-output cell-output-display">
-<p><img src="mysection_files/figure-html/cell-5-output-2.png" width="589" height="411"></p>
+<p><img src="mysection_files/figure-html/cell-5-output-1.png" width="589" height="411"></p>
 </div>
 </div>
 </section>
