@@ -4,7 +4,10 @@ The notets are a Quarto book; for details visit <https://quarto.org/docs/books>.
 
 
 The notes are a joint effort of the instructor and the students in
-STAT 3255/5255, Spring 2023.
+STAT 3255/5255, Spring 2023. The GitHub repo is at
+<https://github.com/statds/ids-s23>. The GitHub repo of the notes
+from Spring 2022 are available at <https://github.com/statds/ids-s22>. 
+
 
 
 An interesting quote from @vanderplas2016python:

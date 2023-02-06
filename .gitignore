@@ -129,6 +129,9 @@ dmypy.json
 .pyre/
 
 /.quarto/
+# avoiding "messy" diffs
+# https://quarto.org/docs/publishing/github-pages.html#ignoring-output
+/_book/
 
 **.html
 **~
