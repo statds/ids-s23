@@ -6,9 +6,23 @@
 The matplotlib library can provide methods in plotting and arranging data visually in order to help viewers understand the main concepts of the data analysis.
 In this chapter, a progression of graphs will be shown to demonstrate some of the capabilities the library has to graph and plot data.
 
+There are several types of graphs that can be used, such as:
+
+	1. Scatterplot
+	2. Line plot
+	3. 3D plot
+
 ## How to Use
 
-The library is not part of the defaults used in Python. To install, use either pip or Anaconda.
+The library is not part of the defaults used in Python. To install, use either pip or Anaconda. The following command should be used:
+
+```{python}
+
+#pip install matplotlib
+
+```
+
+If the above does not work, then you would need the path of pip or Python to put before the command.
 
 ```{python}
 import pandas as pd
