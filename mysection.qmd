@@ -85,6 +85,16 @@ plt.show()
 Animations can also be done through matplotlib. This requires the use of the animation submodule which has a variety functions that can be used to plot animations.
 Inputs required include the frames and other functions needed to update the plots per frame.
 
+```{python}
+
+import matplotlib.animation as animation
+
+def updatept():
+	#Used to put in the next points for plots
+
+# FuncAnimation(args,updatept,frames = int)
+```
+
 ## Conclusion
 
 We have demonstrated some capabilities of the matplotlib library but more complex methods of plotting and arranging visual elements can be found in the documentation.
