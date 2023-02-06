@@ -74,7 +74,7 @@ ax = fig.add_subplot(121)
 # Plot
 
 ax.plot(x,z,label = "Line Graph")
-ax1.scatter(x,y,z,cmap = 'cool',label = "Scatter in 3D")
+ax1.scatter(x,y,z,c = z,cmap = 'cool',label = "Scatter in 3D")
 ax.legend()
 ax1.legend()
 plt.show()
