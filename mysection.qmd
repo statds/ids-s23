@@ -24,6 +24,10 @@ The library is not part of the defaults used in Python. To install, use either p
 
 If the above does not work, then you would need the path of pip or Python to put before the command.
 
+### Examples
+
+Let's start with a simple scatter plot. We would need to import the libraries as shown. For this example, we use the pyplot submodule, abbreviated to plt.
+
 ```{python}
 import pandas as pd
 import numpy as np
