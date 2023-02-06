@@ -35,6 +35,16 @@ If we want to keep a plot, we can save as a figure object. In addition, if we ne
 
 fig,(ax,ax1) = plt.subplots(1,2,figsize = (8,6))
 
+ax.scatter(y,z)
+ax1.scatter(x,z)
+
+plt.show()
+```
+
+```{python}
+
+fig = plt.figure()
+
 # Make 3D axes for ax1
 
 ax1 = fig.add_subplot(122,projection = '3d')
