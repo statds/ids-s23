@@ -56,10 +56,12 @@
        variables.
 	1. Are the `LATITUDE` and `LONGITIDE` values all look legitimate? If not
        (e.g., zeroes), code them as missing values.
-	1. Are the missing patterns of "ON STREET NAME" and "LATITUDE" the same?
-       Summarize the missing patterns by a cross table. If "ON STREET NAME" and
-       "CROSS STREET NAME" are available, use geocoding to fill the "LATITUDE"
-       and "LONGITUDE".
+	1. If `OFF STREET NAME` is not missing, are there any missing `LATITUDE` and
+	   `LONGITUDE`? If so, geocode the addresses.
+	1. (Optional) Are the missing patterns of `ON STREET NAME` and `LATITUDE" the same?
+       Summarize the missing patterns by a cross table. If `ON STREET NAME` and
+       `CROSS STREET NAME` are available, use geocoding by intersection to fill
+	   the `LATITUDE` and `LONGITUDE`.
 	1. Are `ZIP CODE` and `BOROUGH` always missing together? If `LATITUDE` and
        `LONGITUDE` are available, use reverse geocoding to fill the `ZIP CODE`
        and `BOROUGH`.
@@ -69,4 +71,3 @@
 	1. Provided an opportunity to meet the data provider, what suggestions do
        you have to make the data better based on your data exploration
        experience?
-	   

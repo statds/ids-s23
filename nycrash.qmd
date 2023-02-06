@@ -1,6 +1,7 @@
 # NYC Crash Data
 
 
+## First Glance
 Consider the NYC Crash Data in January 2022.
 
 ```{python}
@@ -14,9 +15,22 @@ jan22.describe()
 Frequency tables for categorical variables.
 ```{python}
 jan22["BOROUGH"].value_counts(dropna=False)
-# jan22["ZIP CODE"].value_counts(dropna=False)
 ```
 
+Some tables are too long.
+```{python}
+# jan22["CONTRIBUTING FACTOR VEHICLE 1"].value_counts(dropna=False)
+with pd.option_context('display.max_rows', None):
+    print(jan22["VEHICLE TYPE CODE 1"].value_counts(dropna=False))
+```
+
+Cross-tables 
+```{python}
+pd.crosstab(index = jan22["CONTRIBUTING FACTOR VEHICLE 1"],
+			columns = jan22["BOROUGH"], dropna = False)
+```
+
+## Some Cleaning
 Questions from Dr. Douglas Bates:
 
 + The `CRASH_DATE`s are all in the correct month and there are no missing values
@@ -31,31 +45,78 @@ Questions from Dr. Douglas Bates:
 + The codes in the `VEHICLE_TYPE_CODE_...` columns are the usual hodge-podge of results from “free-form” data entry. Should `unk`, `UNK`, `UNKNOWN`, and `Unknown` be converted to missing?
 + In contrast, the codes in the `CONTRIBUTING_FACTOR_...` columns appear to be standardized (not sure why `Illnes` isn’t `Illness`).
 
+
+```{python}
+with pd.option_context('display.max_rows', None):
+	print(jan22["CRASH TIME"].value_counts())
+```
+
+For example, here are some cleaning steps:
+```{python}
+import numpy as np
+
+jan22["CONTRIBUTING FACTOR VEHICLE 1"] = (
+    jan22["CONTRIBUTING FACTOR VEHICLE 1"].replace(["Unspecified"], np.nan))
+jan22["CONTRIBUTING FACTOR VEHICLE 2"] = (
+    jan22["CONTRIBUTING FACTOR VEHICLE 2"].replace(["Unspecified"], np.nan))
+jan22["CONTRIBUTING FACTOR VEHICLE 3"] = (
+    jan22["CONTRIBUTING FACTOR VEHICLE 3"].replace(["Unspecified"], np.nan))
+jan22["CONTRIBUTING FACTOR VEHICLE 4"] = (
+    jan22["CONTRIBUTING FACTOR VEHICLE 4"].replace(["Unspecified"], np.nan))
+jan22["CONTRIBUTING FACTOR VEHICLE 5"] = (
+    jan22["CONTRIBUTING FACTOR VEHICLE 5"].replace(["Unspecified"], np.nan))
+jan22["LATITUDE"] = jan22["LATITUDE"].replace([0.0], np.nan)
+jan22["LONGITUDE"] = jan22["LONGITUDE"].replace([0.0], np.nan)
+jan22.describe()
+```
+
 ## Filling the Missing Zip Codes by Reverse Geocoding
 
-Install package `uszipcode` first.
+The package `uszipcode` is the most powerful and easy to use programmable 
+zipcode database in Python. It provides information about 42,724 zipcodes
+in the US with data crawled from <data.census.gov>. 
+See [its documentation](https://uszipcode.readthedocs.io/index.html) for details.
 
-<!-- ```{python} -->
-<!-- from uszipcode import SearchEngine -->
-<!-- <\!-- search = SearchEngine(simple_zipcode=True) -\-> -->
-<!-- <\!-- from uszipcode import Zipcode -\-> -->
-<!-- <\!-- import numpy as np -\-> -->
 
-<!-- <\!-- ## define zipcode search function -\-> -->
-<!-- <\!-- def get_zipcode(lat, lon): -\-> -->
-<!-- <\!--     result = search.by_coordinates(lat = lat, lng = lon, returns = 1) -\-> -->
-<!-- <\!--     return result[0].zipcode -\-> -->
+```{python}
+from uszipcode import SearchEngine
 
-<!-- <\!-- #load columns from dataframe -\-> -->
-<!-- <\!-- lat = df_shooting['Latitude'] -\-> -->
-<!-- <\!-- lon = df_shooting['Longitude'] -\-> -->
+sr = SearchEngine()
+sr.by_zipcode("10001")
+```
 
-<!-- <\!-- #define latitude/longitude for function -\-> -->
-<!-- <\!-- df = pd.DataFrame({'lat':lat, 'lon':lon}) -\-> -->
+We can use `uszipcode` to reverse geocode a point by its coordinates. The
+returned zipcode can be used to handle missing zipcode.
 
-<!-- <\!-- #add new column with generated zip-code -\-> -->
-<!-- <\!-- df['zipcode'] = df.apply(lambda x: get_zipcode(x.lat,x.lon), axis=1) -\-> -->
+```{python}
+z = sr.by_coordinates(40.769993, -73.915825, radius = 1)
+z[0].zipcode
+z[0].median_home_value
+```
 
-<!-- <\!-- #print result -\-> -->
-<!-- <\!-- print(df) -\-> -->
-<!-- ``` -->
+Once we have found the zipcode, we can find its borough. See 
+the [complete NYC zip code list](https://bklyndesigns.com/new-york-city-zip-code/).
+
+```{python}
+def nyczip2burough(zip):
+	nzip = int(zip)
+	if nzip >= 10001 and nzip <= 10282:
+		return "MANHATTAN"
+	elif nzip >= 10301 and nzip <= 10314:
+		return "STATEN ISLAND"
+	elif nzip >= 10451 and nzip <= 10475:
+		return "BRONX"
+	elif nzip >= 11004 and nzip <= 11109:
+		return "QUEENS"
+	elif nzip >= 11351 and nzip <= 11697:
+		return "QUEENS"
+	elif nzip >= 11201 and nzip <= 11256:
+		return "BROOKLYN"
+	else:
+		return np.nan
+```
+
+Let's try it out:
+```{python}
+nyczip2burough(z[0].zipcode)
+```
