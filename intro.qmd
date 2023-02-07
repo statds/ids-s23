@@ -223,7 +223,7 @@ Please use the following table to sign up.
   03/01  | Bedard, Kaitlyn        |
   03/06  | Nhan, Nathan           |
   03/08  | Parchekani, Kian       |
-  03/20  | Noel, Luke             |
+  03/20  | Noel, Luke             | Plotting on maps with `gmplot`
   03/20  | Whitney, William       |
   03/22  | Wang, Chaoyang         |
   03/27  | Nguyen, Christine      |
