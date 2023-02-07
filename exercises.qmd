@@ -58,7 +58,7 @@
        (e.g., zeroes), code them as missing values.
 	1. If `OFF STREET NAME` is not missing, are there any missing `LATITUDE` and
 	   `LONGITUDE`? If so, geocode the addresses.
-	1. (Optional) Are the missing patterns of `ON STREET NAME` and `LATITUDE" the same?
+	1. (Optional) Are the missing patterns of `ON STREET NAME` and `LATITUDE` the same?
        Summarize the missing patterns by a cross table. If `ON STREET NAME` and
        `CROSS STREET NAME` are available, use geocoding by intersection to fill
 	   the `LATITUDE` and `LONGITUDE`.
