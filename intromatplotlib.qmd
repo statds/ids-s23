@@ -18,7 +18,7 @@ The library is not part of the defaults used in Python. To install, use either p
 
 ```{python}
 
-#pip install matplotlib
+# pip install matplotlib
 
 ```
 
