@@ -1,0 +1,68 @@
+# Text Analysis with `nltk`
+
+## Introduction
+
+`nltk`, or Natural Language Toolkit, is a Python package which provides a set of tools for text analysis. `nltk` is used in Natural Language Processing (NLP).
+
+## Getting Started
+
+First, we must install `nltk` using `pip`.
+
+`python -m pip install nltk`
+
+## Tokenizing
+
+To analyze text, it needs to be broken down into smaller pieces. This is called tokenization. `nltk` offers two ways to tokenize text: sentence tokenization and word tokenization.
+
+```{python}
+import nltk
+```
+
+To demonstrate this, we will use the following text, a passage from the 1951 science fiction novel, *Foundation* by Isaac Asimov.
+
+```{python}
+fd_string = """By saving the knowledge of the race. The sum of human knowing is beyond any one man; any thousand men. With the destruction of our social fabric, science will be broken into a million pieces. Individuals will know much of exceedingly tiny facets of what there is to know. They will be helpless and useless by themselves. The bits of lore, meaningless, will not be passed on. They will be lost through the generations. But, if we now prepare a giant summary of all knowledge, it will never be lost. Coming generations will build on it, and will not have to rediscover it for themselves. One millennium will do the work of thirty thousand."""
+```
+
+### Sentence Tokenization
+
+```{python}
+sent_tokenize(fd_string)
+```
+
+### Word Tokenization
+
+```{python}
+word_tokenize(fd_string)
+```
+
+## Removing Stopwords
+
+The output of the word tokenization gave us a list of words. However, some of these words are not useful for our analysis. These words are called stopwords. `nltk` provides a list of stopwords for several languages. We can use this list to remove stopwords from our text.
+
+```{python}
+from nltk.corpus import stopwords
+stop_words = set(stopwords.words("english"))
+stop_words
+```
+
+```{python}
+fd_string1 = [w for w in word_tokenize(fd_string) if not w in stop_words]
+fd_string1
+```
+
+The resulting list
+
+## Stemming
+
+Stemming allows us to reduce words to their root form
+
+## POS Tagging
+
+## Lemmatizing
+
+Put materials on topic 2 here.
+
+## Conclusion
+
+Put sumaries here.
