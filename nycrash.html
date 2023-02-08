@@ -2404,6 +2404,41 @@ Name: CRASH TIME, dtype: int64</code></pre>
 <pre><code>'QUEENS'</code></pre>
 </div>
 </div>
+<p>Here is a vectorized version:</p>
+<div class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> typing <span class="im">import</span> Union, List</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> nyczip2borough(zips: Union[np.ndarray, pd.Series]) <span class="op">-&gt;</span> Union[np.ndarray, pd.Series]:</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>    zips <span class="op">=</span> zips.values <span class="cf">if</span> <span class="bu">isinstance</span>(zips, pd.Series) <span class="cf">else</span> zips</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>    condlist <span class="op">=</span> [</span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>        (zips <span class="op">&gt;=</span> <span class="dv">10001</span>) <span class="op">&amp;</span> (zips <span class="op">&lt;=</span> <span class="dv">10282</span>),</span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>        (zips <span class="op">&gt;=</span> <span class="dv">10301</span>) <span class="op">&amp;</span> (zips <span class="op">&lt;=</span> <span class="dv">10314</span>),</span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>        (zips <span class="op">&gt;=</span> <span class="dv">10451</span>) <span class="op">&amp;</span> (zips <span class="op">&lt;=</span> <span class="dv">10475</span>),</span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>        (zips <span class="op">&gt;=</span> <span class="dv">11004</span>) <span class="op">&amp;</span> (zips <span class="op">&lt;=</span> <span class="dv">11109</span>),</span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>        (zips <span class="op">&gt;=</span> <span class="dv">11351</span>) <span class="op">&amp;</span> (zips <span class="op">&lt;=</span> <span class="dv">11697</span>),</span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>        (zips <span class="op">&gt;=</span> <span class="dv">11201</span>) <span class="op">&amp;</span> (zips <span class="op">&lt;=</span> <span class="dv">11256</span>),</span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>    ]</span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>    choicelist <span class="op">=</span> [</span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a>        <span class="st">"MANHATTAN"</span>,</span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a>        <span class="st">"STATEN ISLAND"</span>,</span>
+<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a>        <span class="st">"BRONX"</span>,</span>
+<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a>        <span class="st">"QUEENS"</span>,</span>
+<span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a>        <span class="st">"QUEENS"</span>,</span>
+<span id="cb17-21"><a href="#cb17-21" aria-hidden="true" tabindex="-1"></a>        <span class="st">"BROOKLYN"</span>,</span>
+<span id="cb17-22"><a href="#cb17-22" aria-hidden="true" tabindex="-1"></a>    ]</span>
+<span id="cb17-23"><a href="#cb17-23" aria-hidden="true" tabindex="-1"></a>    result <span class="op">=</span> np.select(condlist, choicelist, default<span class="op">=</span>np.nan)</span>
+<span id="cb17-24"><a href="#cb17-24" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> pd.Series(result) <span class="cf">if</span> <span class="bu">isinstance</span>(zips, pd.Series) <span class="cf">else</span> result</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Try it out</p>
+<div class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>nyczip2borough(jan22[<span class="st">"ZIP CODE"</span>].dropna().head(<span class="dv">10</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="12">
+<pre><code>array(['QUEENS', 'QUEENS', 'BROOKLYN', 'BRONX', 'QUEENS', 'BROOKLYN',
+       'BROOKLYN', 'MANHATTAN', 'BRONX', 'BRONX'], dtype='&lt;U32')</code></pre>
+</div>
+</div>
 
 
 </section>
