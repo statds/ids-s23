@@ -1,0 +1,30 @@
+# Statistical Tests and Models
+
+
+## Tests for Exploratory Data Analysis
+
+A collection of functions are available from `scipy.stats`.
+
++ Comparing the locations of two samples
+    - `ttest_ind`: t-test for two independent samples
+    - `ttest_rel`: t-test for paired samples
+	- `ranksums`: Wilcoxon rank-sum test for two independent samples
+	- `wilcoxon`: Wilcoxon signed-rank test for paired samples
++ Comparing the locations of multiple samples
+    - `f_oneway`: one-way ANOVA
+	- `kruskal`: Kruskal-Wallis H-test
++ Tests for associations in contigency tables
+    - `chi2_contingency`: Chi-square test of independence of variables
+	- `fisher_exact`:  Fisher exact test on a 2x2 contingency table
++ Goodness of fit
+    - `goodness_of_fit`: distribution could contain unspecified parameters
+	- `anderson`: Anderson-Darling test 
+    - `kstest`: Kolmogorov-Smirnov test 
+	- `chisquare`: one-way chi-square test
+	- `normaltest`: test for normality
+
+
+Since R has a richer collections of statistical functions, we can call 
+R function from Python with `rpy2`. See, for example, a [blog on this
+subject](https://rviews.rstudio.com/2022/05/25/calling-r-from-python-with-rpy2/).
+

@@ -12,6 +12,7 @@ book:
     - git.qmd
     - quarto.qmd
     - python.qmd
+    - stats.qmd
     - nycrash.qmd
     - mysection.qmd
     - nltk.qmd
