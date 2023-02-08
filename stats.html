@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Introduction to Data Science - 3&nbsp; Reproducibile Data Science with Quarto</title>
+<title>Introduction to Data Science - 5&nbsp; Statistical Tests and Models</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -30,8 +30,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./python.html" rel="next">
-<link href="./git.html" rel="prev">
+<link href="./nycrash.html" rel="next">
+<link href="./python.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -70,7 +70,7 @@ ul.task-list li input[type="checkbox"] {
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
     <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Reproducibile Data Science with Quarto</span></h1>
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Statistical Tests and Models</span></h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -110,7 +110,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./quarto.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Reproducibile Data Science with Quarto</span></a>
+  <a href="./quarto.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Reproducibile Data Science with Quarto</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -120,7 +120,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./stats.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Statistical Tests and Models</span></a>
+  <a href="./stats.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Statistical Tests and Models</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -148,14 +148,20 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#tests-for-exploratory-data-analysis" id="toc-tests-for-exploratory-data-analysis" class="nav-link active" data-scroll-target="#tests-for-exploratory-data-analysis"><span class="toc-section-number">5.1</span>  Tests for Exploratory Data Analysis</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Reproducibile Data Science with Quarto</span></h1>
+<h1 class="title d-none d-lg-block"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Statistical Tests and Models</span></h1>
 </div>
 
 
@@ -170,18 +176,40 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<p>Data science projects should be reproducible to be trustworthy. Dynamic documents facilitate reproducibility. <a href="https://quarto.org">Quarto</a> is an open-source dynamic document preparation system, ideal for scientific and technical publishing. From the official websites, Quarto can be used to:</p>
+<section id="tests-for-exploratory-data-analysis" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="tests-for-exploratory-data-analysis"><span class="header-section-number">5.1</span> Tests for Exploratory Data Analysis</h2>
+<p>A collection of functions are available from <code>scipy.stats</code>.</p>
 <ul>
-<li>Create dynamic content with Python, R, Julia, and Observable.</li>
-<li>Author documents as plain text markdown or Jupyter notebooks.</li>
-<li>Publish high-quality articles, reports, presentations, websites, blogs, and books in HTML, PDF, MS Word, ePub, and more.</li>
-<li>Author with scientific markdown, including equations, citations, crossrefs, figure panels, callouts, advanced layout, and more.</li>
+<li>Comparing the locations of two samples
+<ul>
+<li><code>ttest_ind</code>: t-test for two independent samples</li>
+<li><code>ttest_rel</code>: t-test for paired samples</li>
+<li><code>ranksums</code>: Wilcoxon rank-sum test for two independent samples</li>
+<li><code>wilcoxon</code>: Wilcoxon signed-rank test for paired samples</li>
+</ul></li>
+<li>Comparing the locations of multiple samples
+<ul>
+<li><code>f_oneway</code>: one-way ANOVA</li>
+<li><code>kruskal</code>: Kruskal-Wallis H-test</li>
+</ul></li>
+<li>Tests for associations in contigency tables
+<ul>
+<li><code>chi2_contingency</code>: Chi-square test of independence of variables</li>
+<li><code>fisher_exact</code>: Fisher exact test on a 2x2 contingency table</li>
+</ul></li>
+<li>Goodness of fit
+<ul>
+<li><code>goodness_of_fit</code>: distribution could contain unspecified parameters</li>
+<li><code>anderson</code>: Anderson-Darling test</li>
+<li><code>kstest</code>: Kolmogorov-Smirnov test</li>
+<li><code>chisquare</code>: one-way chi-square test</li>
+<li><code>normaltest</code>: test for normality</li>
+</ul></li>
 </ul>
-<p>Of course, Quarto can be used to write homework, exams, and reports in this course.</p>
-<p>To get started, see documentation at <a href="https://quarto.org/docs/get-started/">Quarto</a>.</p>
-<p>This is an extra line.</p>
+<p>Since R has a richer collections of statistical functions, we can call R function from Python with <code>rpy2</code>. See, for example, a <a href="https://rviews.rstudio.com/2022/05/25/calling-r-from-python-with-rpy2/">blog on this subject</a>.</p>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -319,13 +347,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./git.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Project Management with Git</span></span>
+      <a href="./python.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Python Refreshment</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./python.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Python Refreshment</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./nycrash.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">NYC Crash Data</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

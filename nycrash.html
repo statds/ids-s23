@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Introduction to Data Science - 5&nbsp; NYC Crash Data</title>
+<title>Introduction to Data Science - 6&nbsp; NYC Crash Data</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -94,7 +94,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
 <link href="./mysection.html" rel="next">
-<link href="./python.html" rel="prev">
+<link href="./stats.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -136,7 +136,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
     <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">NYC Crash Data</span></h1>
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">NYC Crash Data</span></h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -186,17 +186,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./nycrash.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">NYC Crash Data</span></a>
+  <a href="./stats.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Statistical Tests and Models</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./mysection.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">My Presentation Topic</span></a>
+  <a href="./nycrash.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">NYC Crash Data</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./exercises.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Exercises</span></a>
+  <a href="./mysection.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">My Presentation Topic</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./exercises.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Exercises</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -213,9 +218,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#first-glance" id="toc-first-glance" class="nav-link active" data-scroll-target="#first-glance"><span class="toc-section-number">5.1</span>  First Glance</a></li>
-  <li><a href="#some-cleaning" id="toc-some-cleaning" class="nav-link" data-scroll-target="#some-cleaning"><span class="toc-section-number">5.2</span>  Some Cleaning</a></li>
-  <li><a href="#filling-the-missing-zip-codes-by-reverse-geocoding" id="toc-filling-the-missing-zip-codes-by-reverse-geocoding" class="nav-link" data-scroll-target="#filling-the-missing-zip-codes-by-reverse-geocoding"><span class="toc-section-number">5.3</span>  Filling the Missing Zip Codes by Reverse Geocoding</a></li>
+  <li><a href="#first-glance" id="toc-first-glance" class="nav-link active" data-scroll-target="#first-glance"><span class="toc-section-number">6.1</span>  First Glance</a></li>
+  <li><a href="#some-cleaning" id="toc-some-cleaning" class="nav-link" data-scroll-target="#some-cleaning"><span class="toc-section-number">6.2</span>  Some Cleaning</a></li>
+  <li><a href="#filling-the-missing-zip-codes-by-reverse-geocoding" id="toc-filling-the-missing-zip-codes-by-reverse-geocoding" class="nav-link" data-scroll-target="#filling-the-missing-zip-codes-by-reverse-geocoding"><span class="toc-section-number">6.3</span>  Filling the Missing Zip Codes by Reverse Geocoding</a></li>
   </ul>
 </nav>
     </div>
@@ -224,7 +229,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">NYC Crash Data</span></h1>
+<h1 class="title d-none d-lg-block"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">NYC Crash Data</span></h1>
 </div>
 
 
@@ -239,8 +244,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </header>
 
-<section id="first-glance" class="level2" data-number="5.1">
-<h2 data-number="5.1" class="anchored" data-anchor-id="first-glance"><span class="header-section-number">5.1</span> First Glance</h2>
+<section id="first-glance" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="first-glance"><span class="header-section-number">6.1</span> First Glance</h2>
 <p>Consider the NYC Crash Data in January 2022.</p>
 <div class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
@@ -862,8 +867,8 @@ Name: VEHICLE TYPE CODE 1, dtype: int64</code></pre>
 </div>
 </div>
 </section>
-<section id="some-cleaning" class="level2" data-number="5.2">
-<h2 data-number="5.2" class="anchored" data-anchor-id="some-cleaning"><span class="header-section-number">5.2</span> Some Cleaning</h2>
+<section id="some-cleaning" class="level2" data-number="6.2">
+<h2 data-number="6.2" class="anchored" data-anchor-id="some-cleaning"><span class="header-section-number">6.2</span> Some Cleaning</h2>
 <p>Questions from Dr.&nbsp;Douglas Bates:</p>
 <ul>
 <li>The <code>CRASH_DATE</code>s are all in the correct month and there are no missing values</li>
@@ -2357,8 +2362,8 @@ Name: CRASH TIME, dtype: int64</code></pre>
 </div>
 </div>
 </section>
-<section id="filling-the-missing-zip-codes-by-reverse-geocoding" class="level2" data-number="5.3">
-<h2 data-number="5.3" class="anchored" data-anchor-id="filling-the-missing-zip-codes-by-reverse-geocoding"><span class="header-section-number">5.3</span> Filling the Missing Zip Codes by Reverse Geocoding</h2>
+<section id="filling-the-missing-zip-codes-by-reverse-geocoding" class="level2" data-number="6.3">
+<h2 data-number="6.3" class="anchored" data-anchor-id="filling-the-missing-zip-codes-by-reverse-geocoding"><span class="header-section-number">6.3</span> Filling the Missing Zip Codes by Reverse Geocoding</h2>
 <p>The package <code>uszipcode</code> is the most powerful and easy to use programmable zipcode database in Python. It provides information about 42,724 zipcodes in the US with data crawled from &lt;data.census.gov&gt;. See <a href="https://uszipcode.readthedocs.io/index.html">its documentation</a> for details.</p>
 <div class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> uszipcode <span class="im">import</span> SearchEngine</span>
@@ -2579,13 +2584,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./python.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Python Refreshment</span></span>
+      <a href="./stats.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Statistical Tests and Models</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="./mysection.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">My Presentation Topic</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">My Presentation Topic</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
