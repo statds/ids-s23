@@ -120,3 +120,36 @@ Let's try it out:
 ```{python}
 nyczip2burough(z[0].zipcode)
 ```
+
+Here is a vectorized version:
+```{python}
+import numpy as np
+import pandas as pd
+from typing import Union, List
+
+def nyczip2borough(zips: Union[np.ndarray, pd.Series]) -> Union[np.ndarray, pd.Series]:
+    zips = zips.values if isinstance(zips, pd.Series) else zips
+    condlist = [
+        (zips >= 10001) & (zips <= 10282),
+        (zips >= 10301) & (zips <= 10314),
+        (zips >= 10451) & (zips <= 10475),
+        (zips >= 11004) & (zips <= 11109),
+        (zips >= 11351) & (zips <= 11697),
+        (zips >= 11201) & (zips <= 11256),
+    ]
+    choicelist = [
+        "MANHATTAN",
+        "STATEN ISLAND",
+        "BRONX",
+        "QUEENS",
+        "QUEENS",
+        "BROOKLYN",
+    ]
+    result = np.select(condlist, choicelist, default=np.nan)
+    return pd.Series(result) if isinstance(zips, pd.Series) else result
+```
+
+Try it out
+```{python}
+nyczip2borough(jan22["ZIP CODE"].dropna().head(10))
+```
