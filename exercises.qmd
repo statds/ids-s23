@@ -37,7 +37,9 @@
 1. Write a function to do a Monte Carlo approximation of $\pi$. The
    function takes a Monte Carlo sample size `n` as input, and returns
    a point estimate of $\pi$ and a 95% confidence interval. Apply your
-   function with sample size 1000, 2000, 4000, and 8000. Comment on
+   function with sample size 1000, 2000, 4000, and 8000. Repeat the experiment 
+   1000 times for each sample size and check the empirical probability that the
+   confidence intervals cover the true value of $\pi$. Comment on
    the results.
 
 1. Find the first 10-digit prime number occurring in consecutive
@@ -58,7 +60,7 @@
        (e.g., zeroes), code them as missing values.
 	1. If `OFF STREET NAME` is not missing, are there any missing `LATITUDE` and
 	   `LONGITUDE`? If so, geocode the addresses.
-	1. (Optional) Are the missing patterns of `ON STREET NAME` and `LATITUDE" the same?
+	1. (Optional) Are the missing patterns of `ON STREET NAME` and `LATITUDE` the same?
        Summarize the missing patterns by a cross table. If `ON STREET NAME` and
        `CROSS STREET NAME` are available, use geocoding by intersection to fill
 	   the `LATITUDE` and `LONGITUDE`.
