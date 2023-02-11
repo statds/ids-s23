@@ -27,6 +27,7 @@ fd_string = """By saving the knowledge of the race. The sum of human knowing is 
 ### Sentence Tokenization
 
 ```{python}
+from nltk import sent_tokenize, word_tokenize
 sent_tokenize(fd_string)
 ```
 
