@@ -215,7 +215,7 @@ Please use the following table to sign up.
   02/13  | Mastrorilli, Ginamarie | Pandas part 2
   02/13  | Yi, Guanghong          | Grammer of graphics for python `plotnine`
   02/15  | Karandikar, Shivaram   | Text processing with NLTK
-  02/20  | Chua, Yang Kang        |
+  02/20  | Chua, Yang Kang        | Support Vector Machine with `scikit-learn`
   02/20  | Jones, Courtney        | Descriptive Statistics
   02/22  | Sullivan, Colin        |
   02/27  | Shen, Tong             | Decision tree with `scikit-learn`
