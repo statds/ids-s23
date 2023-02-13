@@ -1,0 +1,102 @@
+# Introduction to matplotlib
+
+
+## Introduction
+
+The matplotlib library can provide methods in plotting and arranging data visually in order to help viewers understand the main concepts of the data analysis.
+In this chapter, a progression of graphs will be shown to demonstrate some of the capabilities the library has to graph and plot data.
+
+There are several types of graphs that can be used, such as:
+
+	1. Scatterplot
+	2. Line plot
+	3. 3D plot
+
+## How to Use
+
+The library is not part of the defaults used in Python. To install, use either pip or Anaconda. The following command should be used:
+
+```{python}
+
+# pip install matplotlib
+
+```
+
+If the above does not work, then you would need the path of pip or Python to put before the command.
+
+### Examples
+
+Let's start with a simple scatter plot. We would need to import the libraries as shown. For this example, we use the pyplot submodule, abbreviated to plt.
+We will use randomly generated data in 3 dimensions (x,y,z).
+
+```{python}
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+
+np.random.seed(8465);
+
+x = np.random.uniform(0, 3, 10);
+y = np.random.uniform(0, 3, 10);
+z = np.random.uniform(0, 3, 10);
+
+plt.scatter(x, y)
+plt.xlabel('X')
+plt.ylabel('Y')
+plt.show()
+
+```
+
+We could start plotting another plot, but we have not saved our scatterplot as an object. Thus, it will get overridden by whatever we plot next.
+If we want to keep a plot, we can save as a figure object. In addition, if we need multiple plots together, we can use a subplot shown as follows.
+
+```{python}
+
+figure,(fig, fig1) = plt.subplots(1, 2, figsize = (8, 6))
+
+fig.scatter(y, z, marker = '^')
+fig1.scatter(x, y, color = 'red')
+
+plt.show()
+```
+
+We can also do 3d plots alongside 2d, but we need a different function in order to do so. The following uses 3d axes to plot the scatterplot.
+
+```{python}
+
+figure = plt.figure()
+
+# Make 3D axes for fig1
+
+fig1 = fig.add_subplot(122, projection = '3d')
+fig = fig.add_subplot(121)
+
+# Plot
+
+fig.plot(x, z, label = "Line Graph")
+fig1.scatter(x, y, z, c = z, cmap = 'cool', label = "Scatter in 3D")
+fig.legend()
+fig1.legend()
+
+plt.show()
+```
+
+## Animation
+
+Animations can also be done through matplotlib. This requires the use of the animation submodule which has a variety functions that can be used to plot animations.
+Inputs required include the frames and other functions needed to update the plots per frame.
+
+```{python}
+
+import matplotlib.animation as animation
+
+def updatept(self):
+	z = 10;
+
+```
+
+We can use the FuncAnimation(args,updatept(),frames) to update.
+
+## Conclusion
+
+We have demonstrated some capabilities of the matplotlib library but more complex methods of plotting and arranging visual elements can be found in the documentation.
