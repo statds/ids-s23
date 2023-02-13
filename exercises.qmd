@@ -49,7 +49,7 @@
 1. The NYC motor vehicle collisions data with documentation is available from
    [NYC Open
    Data](https://data.cityofnewyork.us/Public-Safety/Motor-Vehicle-Collisions-Crashes/h9gi-nx95).
-   The raw data needs some cleaning.
+   The raw data needs some cleaning. (JY: Add variable name cleaning next year.)
     1. Use the filter from the website to download the crash data of January
        2023; save it under a directory `data` with an informative name
 	   (e.g., `nyc_crashes_202301.csv`).
@@ -73,3 +73,24 @@
 	1. Provided an opportunity to meet the data provider, what suggestions do
        you have to make the data better based on your data exploration
        experience?
+
+1. Except the first problem, use the cleaned data set with missing geocode
+   imputed.
+    1. Construct a contigency table for missing in geocode (latitude and
+       longitude) by borough. Is the missing pattern the same across borough?
+       Formulate a hypothesis and test it. 
+	1. Construct a `hour` variable with integer values from 0 to 23. Plot the
+       histogram of the number of crashes by `hour`. Plot it by borough.
+	1. Overlay the locations of the crashes on a map of NYC. The map could be a
+       static map or Google map.
+	1. Create a new variable `injury` which is one if the number of persons
+       killed is 1 or more; and zero otherwise. Construct a cross table for
+       `injury` versus borough. Test the null hypothesis that the two variables are
+       not associated.
+	1. Merge the crash data with the zip code database.
+	1. Fit a logistic model with `injury` as the outcome variable and covariates
+       that are available in the data or can be engineered from the data. For
+       example, zip code level covariates can be obtained by merging with the
+       zip code database.
+	   
+	   
