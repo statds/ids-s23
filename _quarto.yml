@@ -13,6 +13,7 @@ book:
     - quarto.qmd
     - python.qmd
     - stats.qmd
+    - visual.qmd    
     - nycrash.qmd
     - mysection.qmd
     - exercises.qmd
