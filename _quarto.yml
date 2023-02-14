@@ -16,7 +16,7 @@ book:
     - mysection.qmd
     - exercises.qmd
     - references.qmd
-
+    - Plotnine.qmd
 bibliography: references.bib
 
 format:
