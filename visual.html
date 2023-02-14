@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Introduction to Data Science - 8&nbsp; My Presentation Topic</title>
+<title>Introduction to Data Science - 6&nbsp; Visualization</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -93,8 +93,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./exercises.html" rel="next">
-<link href="./nycrash.html" rel="prev">
+<link href="./nycrash.html" rel="next">
+<link href="./stats.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -133,7 +133,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
     <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">My Presentation Topic</span></h1>
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Visualization</span></h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -188,7 +188,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./visual.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Visualization</span></a>
+  <a href="./visual.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Visualization</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -198,7 +198,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./mysection.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">My Presentation Topic</span></a>
+  <a href="./mysection.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">My Presentation Topic</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -220,10 +220,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="toc-section-number">8.1</span>  Introduction</a></li>
-  <li><a href="#sub-topic-1" id="toc-sub-topic-1" class="nav-link" data-scroll-target="#sub-topic-1"><span class="toc-section-number">8.2</span>  Sub Topic 1</a></li>
-  <li><a href="#sub-topic-2" id="toc-sub-topic-2" class="nav-link" data-scroll-target="#sub-topic-2"><span class="toc-section-number">8.3</span>  Sub Topic 2</a></li>
-  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion"><span class="toc-section-number">8.4</span>  Conclusion</a></li>
+  <li><a href="#introduction-to-matplotlib" id="toc-introduction-to-matplotlib" class="nav-link active" data-scroll-target="#introduction-to-matplotlib"><span class="toc-section-number">7</span>  Introduction to matplotlib</a>
+  <ul class="collapse">
+  <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction"><span class="toc-section-number">7.1</span>  Introduction</a></li>
+  <li><a href="#how-to-use" id="toc-how-to-use" class="nav-link" data-scroll-target="#how-to-use"><span class="toc-section-number">7.2</span>  How to Use</a>
+  <ul class="collapse">
+  <li><a href="#examples" id="toc-examples" class="nav-link" data-scroll-target="#examples"><span class="toc-section-number">7.2.1</span>  Examples</a></li>
+  </ul></li>
+  <li><a href="#animation" id="toc-animation" class="nav-link" data-scroll-target="#animation"><span class="toc-section-number">7.3</span>  Animation</a></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion"><span class="toc-section-number">7.4</span>  Conclusion</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -232,7 +238,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">My Presentation Topic</span></h1>
+<h1 class="title d-none d-lg-block"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Visualization</span></h1>
 </div>
 
 
@@ -247,29 +253,97 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </header>
 
-<section id="introduction" class="level2" data-number="8.1">
-<h2 data-number="8.1" class="anchored" data-anchor-id="introduction"><span class="header-section-number">8.1</span> Introduction</h2>
-<p>Put an overview here. Use Markdown syntax.</p>
+<section id="introduction-to-matplotlib" class="level1" data-number="7">
+<h1 data-number="7"><span class="header-section-number">7</span> Introduction to matplotlib</h1>
+<section id="introduction" class="level2" data-number="7.1">
+<h2 data-number="7.1" class="anchored" data-anchor-id="introduction"><span class="header-section-number">7.1</span> Introduction</h2>
+<p>The matplotlib library can provide methods in plotting and arranging data visually in order to help viewers understand the main concepts of the data analysis. In this chapter, a progression of graphs will be shown to demonstrate some of the capabilities the library has to graph and plot data.</p>
+<p>There are several types of graphs that can be used, such as:</p>
+<pre><code>1. Scatterplot
+2. Line plot
+3. 3D plot</code></pre>
 </section>
-<section id="sub-topic-1" class="level2" data-number="8.2">
-<h2 data-number="8.2" class="anchored" data-anchor-id="sub-topic-1"><span class="header-section-number">8.2</span> Sub Topic 1</h2>
-<p>Put materials on topic 1 here</p>
-<p>Python examples can be put into <code>python</code> code chunks:</p>
+<section id="how-to-use" class="level2" data-number="7.2">
+<h2 data-number="7.2" class="anchored" data-anchor-id="how-to-use"><span class="header-section-number">7.2</span> How to Use</h2>
+<p>The library is not part of the defaults used in Python. To install, use either pip or Anaconda. The following command should be used:</p>
 <div class="cell" data-execution_count="1">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># do something</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># pip install matplotlib</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>If the above does not work, then you would need the path of pip or Python to put before the command.</p>
+<section id="examples" class="level3" data-number="7.2.1">
+<h3 data-number="7.2.1" class="anchored" data-anchor-id="examples"><span class="header-section-number">7.2.1</span> Examples</h3>
+<p>Let’s start with a simple scatter plot. We would need to import the libraries as shown. For this example, we use the pyplot submodule, abbreviated to plt. We will use randomly generated data in 3 dimensions (x,y,z).</p>
+<div class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>np.random.seed(<span class="dv">8465</span>)<span class="op">;</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> np.random.uniform(<span class="dv">0</span>, <span class="dv">3</span>, <span class="dv">10</span>)<span class="op">;</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> np.random.uniform(<span class="dv">0</span>, <span class="dv">3</span>, <span class="dv">10</span>)<span class="op">;</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>z <span class="op">=</span> np.random.uniform(<span class="dv">0</span>, <span class="dv">3</span>, <span class="dv">10</span>)<span class="op">;</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>plt.scatter(x, y)</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'X'</span>)</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Y'</span>)</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="visual_files/figure-html/cell-3-output-1.png" width="589" height="429"></p>
+</div>
+</div>
+<p>We could start plotting another plot, but we have not saved our scatterplot as an object. Thus, it will get overridden by whatever we plot next. If we want to keep a plot, we can save as a figure object. In addition, if we need multiple plots together, we can use a subplot shown as follows.</p>
+<div class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>figure, (fig1, fig2) <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize <span class="op">=</span> (<span class="dv">8</span>, <span class="dv">6</span>))</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>fig1.scatter(y, z, marker <span class="op">=</span> <span class="st">'^'</span>)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>fig2.scatter(x, y, color <span class="op">=</span> <span class="st">'red'</span>)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="visual_files/figure-html/cell-4-output-1.png" width="645" height="485"></p>
+</div>
+</div>
+<p>We can also do 3d plots alongside 2d, but we need a different function in order to do so. The following uses 3d axes to plot the scatterplot.</p>
+<div class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>figure <span class="op">=</span> plt.figure()</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Make 3D axes for fig1</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>fig2 <span class="op">=</span> figure.add_subplot(<span class="dv">122</span>, projection <span class="op">=</span> <span class="st">'3d'</span>)</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>fig1 <span class="op">=</span> figure.add_subplot(<span class="dv">121</span>)</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>fig1.plot(x, z, label <span class="op">=</span> <span class="st">"Line Graph"</span>)</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>fig2.scatter(x, y, z, c <span class="op">=</span> z, cmap <span class="op">=</span> <span class="st">'cool'</span>, label <span class="op">=</span> <span class="st">"Scatter in 3D"</span>)</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>fig1.legend()</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>fig2.legend()</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="visual_files/figure-html/cell-5-output-1.png" width="589" height="411"></p>
+</div>
 </div>
 </section>
-<section id="sub-topic-2" class="level2" data-number="8.3">
-<h2 data-number="8.3" class="anchored" data-anchor-id="sub-topic-2"><span class="header-section-number">8.3</span> Sub Topic 2</h2>
-<p>Put materials on topic 2 here.</p>
 </section>
-<section id="conclusion" class="level2" data-number="8.4">
-<h2 data-number="8.4" class="anchored" data-anchor-id="conclusion"><span class="header-section-number">8.4</span> Conclusion</h2>
-<p>Put sumaries here.</p>
+<section id="animation" class="level2" data-number="7.3">
+<h2 data-number="7.3" class="anchored" data-anchor-id="animation"><span class="header-section-number">7.3</span> Animation</h2>
+<p>Animations can also be done through matplotlib. This requires the use of the animation submodule which has a variety functions that can be used to plot animations. Inputs required include the frames and other functions needed to update the plots per frame.</p>
+<div class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.animation <span class="im">as</span> animation</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> updatept(<span class="va">self</span>):</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    z <span class="op">=</span> <span class="dv">10</span><span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We can use the FuncAnimation(args,updatept(),frames) to update.</p>
+</section>
+<section id="conclusion" class="level2" data-number="7.4">
+<h2 data-number="7.4" class="anchored" data-anchor-id="conclusion"><span class="header-section-number">7.4</span> Conclusion</h2>
+<p>We have demonstrated some capabilities of the matplotlib library but more complex methods of plotting and arranging visual elements can be found in the documentation.</p>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
@@ -408,13 +482,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./nycrash.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">NYC Crash Data</span></span>
+      <a href="./stats.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Statistical Tests and Models</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./exercises.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Exercises</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./nycrash.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">NYC Crash Data</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
