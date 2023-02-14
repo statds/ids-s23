@@ -82,9 +82,9 @@ Online books on Python for data science:
 This is a wish list from all members of the class (alphabetical
 order). Add yours; note the syntax of nested list in Markdown.
 
-+ Zheng, Michael
-    - Become more comfortable with git
-    - Learn how to complete a data science project from start to finish
++ Alsubai, Nadia 
+    - Become familiar with both machine learning and deep learning
+    - Become proficient in at least one machine or deep learning library for Python
 + Bedard, Kaitlyn 
     - Learn how to use Git proficiently
     - Gain practical experience using data science methods
@@ -94,11 +94,11 @@ order). Add yours; note the syntax of nested list in Markdown.
     - Learn more about data science principles
     - Learn better programming techniques in Python
     - Become better in simulation techniques.
-+ Ho,Garrick
++ Ho, Garrick
     - I want to be more confident with git
     - Be able to create a data science project
     - Learn more about data science
-+ Jones, Courtney 
++ Jones, Courtney
     - Become proficient in Git and VS Code
     - Deepen my understanding of data science
     - Become comfortable with the Terminal on my computer
@@ -116,7 +116,10 @@ order). Add yours; note the syntax of nested list in Markdown.
     - Build my Python programming skills further.
 + Nhan, Nathan
     - Properly learn how to use Git 
-    - Increase my understanding of data science and data collection
+    - Increase my understanding of data science and data collection  
++ Noel, Luke
+    - Become proficient in Git/Github
+    - Learn data science techniques like deep/machine learning, etc.
 + Parchekani, Kian
     - Learn how to use Git, Quarto
     - Get an introduction to data science
@@ -134,12 +137,6 @@ order). Add yours; note the syntax of nested list in Markdown.
     - Gain practical experience
 + Wang, Chaoyang
     - Learn Deep Learning and application on Finance
-+ Alsubai, Nadia 
-    - Become familiar with both machine learning and deep learning
-    - Become proficient in at least one machine or deep learning library for Python
-+ Win, Marlins
-    - Run my own deep learning algorithm on a real dataset
-    - Become proficient with Git
 + Yan, Jun
     - Make data science more accessible to undergraduates
     - Co-develop a Quarto Book in collaboration with the students
@@ -153,11 +150,9 @@ order). Add yours; note the syntax of nested list in Markdown.
 + Yi, Guanghong
     - Know more about Data Science, and what Data Scientists do
     - Do one(or more) real life data science project, and gain some practical experience.
-    
-+ Noel, Luke
-    - Become proficient in Git/Github
-    - Learn data science techniques like deep/machine learning, etc.
-
++ Zheng, Michael
+    - Become more comfortable with git
+    - Learn how to complete a data science project from start to finish
 
 
 ### Presentation Orders
