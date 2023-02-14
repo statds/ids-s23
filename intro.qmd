@@ -233,7 +233,7 @@ Please use the following table to sign up.
   03/27  | Nguyen, Christine      | Calling R from Python and vice versa
   03/27  | Cummins, Patrick       |
   03/29  | Zheng, Michael         |
-  04/03  | Lunetta, Giovanni      |
+  04/03  | Lunetta, Giovanni      | Intro to Neural Networks with TensorFlow
 
 ## Contribute to the Class Notes
 
