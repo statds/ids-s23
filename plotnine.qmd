@@ -1,21 +1,22 @@
----
-jupyter: python3
----
+## GG-Plot with Plotnine
 
-## Introduction to graphics for python via `plotnine`
+The `plotnine` package facilitates the creation of highly-informative plots of structured data based on the R implementation of `ggplot2`. The plotnine package is built on the top of Matplotlib and interacts well with Pandas.
 
-**Plotnine package facilitates the creation of highly-informative plots of structured data based on the R implementation of `ggplot2`. The plotnine package is built on the top of Matplotlib and interacts well with Pandas**
 
 ### Installation
 
-We need to install the package from our command before we start to use it
+We need to install the package from our command before we start to use it.
 
-Using pip
+Using `pip`:
+```{bash}
 pip install plotnine        
 pip install plotnine[all]  # For the whole package of Plotnine
+```
 
-Or using conda 
-conda install -c conda-forge plotnine
+Or using `conda`:
+```{bash}
+conda install -c conda-forge plotnine`
+```
 
 ### Import
 
@@ -41,7 +42,7 @@ Examples will be illustrated with the new york crash dataset, and since the data
 ```{python}
 import pandas as pd
 import numpy as np
-df = pd.read_csv('nyc_crashes_202301.csv')
+df = pd.read_csv('data/nyc_crashes_202301.csv')
 df1 = df.head(50)
 df1.head()
 ```
@@ -319,15 +320,12 @@ And also, we might be interested in the trend of these variables, so we may esti
 ### Some useful resources
 
 Learn all you need to know about Plotnine via its own website:
-
-https://plotnine.readthedocs.io/en/stable/index.html
+<https://plotnine.readthedocs.io/en/stable/index.html>.
 
 
 In case you are interested in data visualization via python, check out this website!
-
-https://pythonplot.com/
+<https://pythonplot.com/>.
 
 And finally there is a useful data visualization Github I found, read it if you are interested!
-
-https://github.com/pmaji/practical-python-data-viz-guide
+<https://github.com/pmaji/practical-python-data-viz-guide>.
 
