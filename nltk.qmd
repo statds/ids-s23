@@ -2,7 +2,7 @@
 
 ## Introduction
 
-`nltk`, or Natural Language Toolkit, is a Python package which provides a set of tools for text analysis. `nltk` is used in Natural Language Processing (NLP).
+`nltk`, or Natural Language Toolkit, is a Python package which provides a set of tools for text analysis. `nltk` is used in Natural Language Processing (NLP), a field of computer science which focuses on the interaction between computers and human languages. `nltk` is a very powerful tool for text analysis, and is used by many researchers and data scientists. In this tutorial, we will learn how to use `nltk` to analyze text.
 
 ## Getting Started
 
@@ -18,24 +18,28 @@ To analyze text, it needs to be broken down into smaller pieces. This is called 
 import nltk
 ```
 
-To demonstrate this, we will use the following text, a passage from the 1951 science fiction novel, *Foundation* by Isaac Asimov.
+To demonstrate this, we will use the following text, a passage from the 1951 science fiction novel *Foundation* by Isaac Asimov.
 
 ```{python}
-fd_string = """By saving the knowledge of the race. The sum of human knowing is beyond any one man; any thousand men. With the destruction of our social fabric, science will be broken into a million pieces. Individuals will know much of exceedingly tiny facets of what there is to know. They will be helpless and useless by themselves. The bits of lore, meaningless, will not be passed on. They will be lost through the generations. But, if we now prepare a giant summary of all knowledge, it will never be lost. Coming generations will build on it, and will not have to rediscover it for themselves. One millennium will do the work of thirty thousand."""
+fd_string = """The sum of human knowing is beyond any one man; any thousand men. With the destruction of our social fabric, science will be broken into a million pieces. Individuals will know much of exceedingly tiny facets of what there is to know. They will be helpless and useless by themselves. The bits of lore, meaningless, will not be passed on. They will be lost through the generations. But, if we now prepare a giant summary of all knowledge, it will never be lost. Coming generations will build on it, and will not have to rediscover it for themselves. One millennium will do the work of thirty thousand."""
 ```
 
 ### Sentence Tokenization
 
 ```{python}
 from nltk import sent_tokenize, word_tokenize
-sent_tokenize(fd_string)
+fd_sent = sent_tokenize(fd_string)
+print(fd_sent)
 ```
 
 ### Word Tokenization
 
 ```{python}
-word_tokenize(fd_string)
+fd_word = word_tokenize(fd_string)
+print(fd_word)
 ```
+
+Both the sentence tokenization and word tokenization functions return a list of strings. We can use these lists to perform further analysis.
 
 ## Removing Stopwords
 
@@ -44,25 +48,58 @@ The output of the word tokenization gave us a list of words. However, some of th
 ```{python}
 from nltk.corpus import stopwords
 stop_words = set(stopwords.words("english"))
-stop_words
+print(stop_words)
 ```
 
 ```{python}
-fd_string1 = [w for w in word_tokenize(fd_string) if not w in stop_words]
-fd_string1
+fd_filtered = [w for w in fd_word if w.casefold() not in stop_words]
+print(fd_filtered)
 ```
 
-The resulting list
+The resulting list is significantly shorter. There are some words that `nltk` considers stopwords that we may want to keep, depending on the objective of our analysis. Reducing the size of our data can help us to reduce the time it takes to perform our analysis. However, removing too many words can reduce the accuracy, which is especially important when we are trying to perform sentiment analysis.
 
 ## Stemming
 
-Stemming allows us to reduce words to their root form
+Stemming is a method which allows us to reduce the number of variants of a word. For example, the words *connecting*, *connected*, and *connection* are all variants of the same word *connect*. `nltk` includes a few different stemmers based on different algorithms. We will use the Snowball stemmer, an improved version of the 1979 Porter stemmer.
+
+```{python}
+from nltk.stem.snowball import SnowballStemmer
+snow_stem = SnowballStemmer(language='english')
+fd_stem = [snow_stem.stem(w) for w in fd_word]
+print(fd_stem)
+```
+Stemming algorithms are susceptible to errors. Related words that should share a stem may not, which is known as __understemming__, which is a false negative. Unrelated words that should not share a stem may, which is known as __overstemming__, which is a false positive.
 
 ## POS Tagging
 
+`nltk` also enables us to label the parts of speech of each word in a text. This is known as part-of-speech (POS) tagging. `nltk` uses the Penn Treebank tagset, which is a set of tags that are used to label words in a text. The tags are as follows:
+
+```{python}
+nltk.help.upenn_tagset()
+```
+
+We can use the function `nltk.pos_tag()` on our list of tokenized words. This will return a list of tuples, where each tuple contains a word and its corresponding tag.
+
+```{python}
+fd_tag = nltk.pos_tag(fd_word)
+print(fd_tag)
+```
+```
+
+The tokenized words from the quote should be easy to tag correctly. The function may encounter difficulty with less conventional words (e.g. Old English), but it will attempt to tag based on context.
+
 ## Lemmatizing
 
-Put materials on topic 2 here.
+Lemmatizing is similar to stemming, but it is more accurate. Lemmatizing is a process which reduces words to their lemma, which is the base form of a word. For example, the lemma of *am*, *are*, and *is* is *be*. `nltk` includes a lemmatizer based on the WordNet database.
+
+```{python}
+from nltk.stem import WordNetLemmatizer
+lemmatizer = WordNetLemmatizer
+```
+
+```{python}
+fd_lemma = [lemmatizer.lemmatize(w) for w in fd_tag]
+```
 
 ## Conclusion
 
