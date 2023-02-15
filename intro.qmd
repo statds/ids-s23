@@ -240,3 +240,16 @@ Please use the following table to sign up.
 
 I have added a template file `mysection.qmd` and a new line to `_quarto.yml`
 as an example.
+
+For more detailed style guidance, please see my notes on [statistical wrirting](https://statds.github.io/stat-writing/using-the-right-tools-for-writing.html#latex-for-typesetting).
+
+## Homework Requirements
+
++ Use the repo from Git Classroom to submit your work. See @sec-git.
+    - Keep the repo clean (no tracking generated files).
+	- Never "Upload" your files; use the git command lines.
+	- Make commit message informative (think about the readers).
++ Use `quarto` source only. See @sec-quarto.
++ For the conveinence of greading, add your html output to a release in your
+  repo.
+
