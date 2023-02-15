@@ -175,7 +175,6 @@ gmap.heatmap(latitude, longitude)
 gmap.scatter(latitude, longitude, c='r', marker=True)
 # Your Google_API_Key
 # gmap.apikey = "put your key here"
-# gmap.apikey = "AIzaSyCy--Dki55zAm2JmUk3IlNI6Y2luvabVQA"
 # save it to html
 gmap.draw(r"nycrash.html")
 ```
