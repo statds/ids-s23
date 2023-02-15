@@ -84,7 +84,7 @@
 	1. Overlay the locations of the crashes on a map of NYC. The map could be a
        static map or Google map.
 	1. Create a new variable `injury` which is one if the number of persons
-       killed is 1 or more; and zero otherwise. Construct a cross table for
+       injured is 1 or more; and zero otherwise. Construct a cross table for
        `injury` versus borough. Test the null hypothesis that the two variables are
        not associated.
 	1. Merge the crash data with the zip code database.
