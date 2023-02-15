@@ -1,4 +1,4 @@
-# Reproducibile Data Science with Quarto
+# Reproducibile Data Science with Quarto {#sec-quarto}
 
 Data science projects should be reproducible to be trustworthy. Dynamic
 documents facilitate reproducibility. [Quarto](https://quarto.org) is an

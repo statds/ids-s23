@@ -19,7 +19,6 @@ book:
     - nltk.qmd
     - exercises.qmd
     - references.qmd
-
 bibliography: references.bib
 
 format:
