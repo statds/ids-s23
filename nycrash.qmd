@@ -172,10 +172,11 @@ gmap = gmplot.GoogleMapPlotter(40.769737, -73.91244, 14)
 
 # plot heatmap
 gmap.heatmap(latitude, longitude)
-gmap.scatter(latitude, longitude, c='r', marker=True)
+gmap.scatter(latitude, longitude, c = 'r', marker = True)
+# gmap.scatter(latitude, longitude, '#FF0000', size = 50, marker = False)
 # Your Google_API_Key
 # gmap.apikey = "put your key here"
 # save it to html
-gmap.draw(r"nycrash.html")
+gmap.draw(r"nycrashmap.html")
 ```
 
