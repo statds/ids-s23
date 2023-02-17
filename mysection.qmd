@@ -1,5 +1,5 @@
 # My Presentation Topic
-garrick
+
 
 ## Introduction
 
@@ -8,7 +8,11 @@ Put an overview here. Use Markdown syntax.
 
 ## Sub Topic 1
 
-Put materials on topic 1 here
+```{python}
+# pip install pandas
+import pandas as pd
+import numpy as np # for numerical computing
+```
 
 Python examples can be put into `python` code chunks:
 
@@ -24,5 +28,5 @@ Put materials on topic 2 here.
 
 ## Conclusion
 
-Put summaries here.
+Put sumaries here.
 
