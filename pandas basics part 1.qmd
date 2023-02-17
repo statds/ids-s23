@@ -1,0 +1,628 @@
+---
+jupyter: python3
+---
+
+# Pandas
+
+ > **Pandas** is an open source Python library for data analysis. It gives Python the
+ability to work with spreadsheet-like data for fast data loading, manipulating,
+aligning, merging, etc. The name is derived from 'panel data', an econometrics term for multidimensional structured datasets.
+
+```{python}
+# pip install pandas
+import pandas as pd
+import numpy as np # for numerical computing
+```
+
+# Series and DataFrame
+
+Pandas introduces two new data types to Python: **Series** and **DataFrame**
+
+## Series
+
+> A Series is a one-dimensional array-like object containing a sequence of values and an associated array of data labels, called its **index**
+
+```{python}
+[1, 3, 4]
+```
+
+use ```pd.Series()``` to make a series
+
+```{python}
+#| scrolled: true
+s = pd.Series([4, 7, -5, 3])
+s
+```
+
+The string representation of a Series displayed interactively shows the index on the
+left and the values on the right. Since we did not specify an index for the data, a
+default one consisting of the integers 0 through n-1 (where n is the length of the data)
+
+```{python}
+#| scrolled: true
+s = pd.Series([4, 7, -5, 3], index = ['a', 'b', 'c', 'd'])
+s
+```
+
+```{python}
+s.values
+```
+
+```{python}
+s.index
+```
+
+### Selecting single or a set of values using index
+
+```{python}
+s['b']
+```
+
+```{python}
+#| scrolled: true
+s[['c', 'a', 'b']]
+```
+
+```{python}
+s[2]
+```
+
+starts at 1 but does not include 3
+
+```{python}
+s[1:3]
+```
+
+```{python}
+s[[0,3]]
+```
+
+### Filtering
+
+```{python}
+s > 0
+```
+
+```{python}
+s[s > 0]
+```
+
+### Math operation
+
+```{python}
+s**2
+```
+
+```{python}
+np.exp(s)
+```
+
+```{python}
+s.mean()
+```
+
+Series are aligned by index label in arithmetic operations
+
+```{python}
+s2 = pd.Series([1, 2, 3, 4], index = ['a', 'c', 'd', 'e'])
+```
+
+```{python}
+zero = s + s2
+zero
+```
+
+**Note**: "NaN" stands for missing values in pandas
+
+### Finding NaN values
+
+use ```.isnull()``` to find all the missing values
+
+```{python}
+#| scrolled: false
+zero.isnull()
+```
+
+use ```.notnull()``` to find all the nonmissing values
+
+```{python}
+zero.notnull()
+```
+
+```{python}
+zero[zero.notnull()]
+```
+
+### Replacing NaN
+
+change NaN to 0 by using ```.fillna()```
+
+```{python}
+#| scrolled: true
+zero.fillna(0)
+```
+
+### Forward-fill
+
+Fill all the NaN values with the previous value
+
+```{python}
+#| scrolled: true
+zero.fillna(method = 'ffill')
+```
+
+### Back-fill
+
+Fill all the NaN values with the next value
+
+Note that e is Nan because there is no next value
+
+```{python}
+zero.fillna(method = 'bfill')
+```
+
+### Drop
+
+drop all NaN by using ```.dropna()```
+
+```{python}
+#| scrolled: true
+zero.dropna()
+```
+
+Notice that zero hasn't change at all
+
+```{python}
+zero
+```
+
+```{python}
+zero = zero.dropna()
+zero
+```
+
+change the index to be the same as s2 so there is no missing value
+
+```{python}
+#| scrolled: false
+s.index = ['a', 'c', 'd', 'e']
+s + s2
+```
+
+## DataFrame
+
+> A DataFrame represents a rectangular table of data and contains an ordered collection
+of columns. The DataFrame has both a row and column index.
+
+* Since each column of a DataFrame is essentially a Series with its column index, it can be thought of as a dictionary of Series all sharing the same index.
+
+* Each column (Series) has to be the same type, whereas, each row can contain mixed types.
+
+### Creating DataFrame
+
+#### from a dict of equal-length lists
+
+```{python}
+#| scrolled: true
+data = {'state': ['Ohio', 'Ohio', 'Ohio', 'Nevada', 'Nevada', 'Nevada'],
+'year': [2000, 2001, 2002, 2001, 2002, 2003],
+'pop': [1.5, 1.7, 3.6, 2.4, 2.9, 3.2]}
+d = pd.DataFrame(data)
+d
+```
+
+```{python}
+#| scrolled: true
+data2 = {'state': ['Ohio', 'Ohio', 'Ohio', 'Nevada', 'Nevada', 'Nevada', 'Nevada'],
+'year': [2000, 2001, 2002, 2001, 2002, 2003],
+'pop': [1.5, 1.7, 3.6, 2.4, 2.9, 3.2]}
+d2 = pd.DataFrame(data2)
+d2
+```
+
+#### from an DataFrame
+
+```{python}
+d1 = pd.DataFrame()
+```
+
+```{python}
+d1['state'] = ['Ohio', 'Nevada']
+d1['year'] = [2001, 2001]
+d1['pop'] = [1.7, 2.4]
+```
+
+```{python}
+#| scrolled: true
+d1
+```
+
+### select columns
+
+```{python}
+d
+```
+
+```{python}
+d['state']
+```
+
+```{python}
+d[['state','pop']]
+```
+
+### select rows
+
+```{python}
+d2 = pd.DataFrame(np.arange(16).reshape((4, 4)),
+                    index=['Ohio', 'Colorado', 'Utah', 'New York'],
+                     columns=['one', 'two', 'three', 'four'])
+```
+
+```{python}
+d2
+```
+
+```{python}
+d2.loc['Colorado': 'Utah']
+```
+
+```{python}
+#| scrolled: true
+d2.iloc[1:3]
+```
+
+### change row index and column name
+
+use ```.rename```
+
+```{python}
+d2.rename(index={'Colorado':'Connecticut'},columns={'one':'five'})
+```
+
+Notice how d2 does not change
+
+```{python}
+d2
+```
+
+You can use inplace to change the original Dataframe
+
+```{python}
+d2.rename(index = {'Colorado':'Connecticut'}, columns = {'one':'five'}, inplace = True)
+```
+
+```{python}
+d2
+```
+
+### basics attributes and methods
+
+```{python}
+d2.index
+```
+
+```{python}
+d2.columns
+```
+
+```{python}
+d2.values
+```
+
+```{python}
+d2.shape
+```
+
+```{python}
+#| scrolled: true
+d2.mean()
+```
+
+### add and delete rows and columns
+
+For dropping a row or column use ```.drop```
+
+```{python}
+#| scrolled: true
+d2.drop(index = "Connecticut", columns = "five") # add "inplace=True" will change the original DataFrame
+```
+
+```{python}
+#| scrolled: false
+d2
+```
+
+For deleting a column use ```del```
+
+```{python}
+#| scrolled: true
+del d2['five']
+d2
+```
+
+```{python}
+d2['one'] = [1, 2, 3, 4]
+d2
+```
+
+```.pop``` returns the values and removes it from the original Dataframe.
+
+```{python}
+#| scrolled: true
+d2.pop('one')
+```
+
+```{python}
+#| scrolled: true
+d2
+```
+
+### Common method
+
+You can import dataset as well
+
+#### csv file
+
+```{python}
+import pandas as pd
+crashes = pd.read_csv("Motor_Vehicle_Collisions_-_Crashes.csv")
+```
+
+```{python}
+sub_set_1 = crashes.iloc[0:35, 0:8]
+```
+
+#### Head and Tail
+
+These two methods show the first and the last a few records from a DataFrame, default is 5
+
+```{python}
+#| scrolled: true
+sub_set_1.head()
+```
+
+```{python}
+sub_set_1.tail()
+```
+
+```{python}
+sub_set_1.head(3)
+```
+
+### unique and nunique
+
+use ```.unique``` to show only unique values
+
+```{python}
+sub_set_1['BOROUGH'].unique()
+```
+
+use ```.nunique``` to get the number of unique values
+
+```{python}
+sub_set_1['BOROUGH'].nunique()
+```
+
+### count and value_counts
+
+use ```.count``` to count the non missing values
+
+```{python}
+sub_set_1['BOROUGH'].count()
+```
+
+use ```.value_counts``` to count the number in each categroy
+
+```{python}
+#| scrolled: true
+sub_set_1['BOROUGH'].value_counts()
+```
+
+### describe and and info
+
+```{python}
+#| scrolled: true
+sub_set_1.info()
+```
+
+summary statistics for numeric type columns
+
+```.describe``` to get an quick summary of the data
+
+```{python}
+#| scrolled: true
+sub_set_1.describe()
+```
+
+```{python}
+#| scrolled: true
+sub_set_1.describe(percentiles=[x/10 for x in list(range(1, 10, 1))])
+```
+
+choose a specific column to get a summary for
+
+```{python}
+sub_set_1['BOROUGH'].describe()
+```
+
+### idxmax and nlargest
+
+use ```.idxmax()``` to return the index of the largest value
+
+```{python}
+sub_set_1['ZIP CODE'].idxmax()
+```
+
+use ```.idxmin()``` to return the index of the smallest value
+
+```{python}
+sub_set_1['ZIP CODE'].idxmin()
+```
+
+use ```.nlargest``` to return the largest values with their index (default is 5).
+
+```{python}
+sub_set_1['ZIP CODE'].nlargest()
+```
+
+use ```.nsmallest``` to return the smallest 3 values with their index (default is 5).
+
+```{python}
+sub_set_1['ZIP CODE'].nsmallest()
+```
+
+### sort
+
+use ```.sort_values``` to sort values
+
+```{python}
+#| scrolled: true
+sub_set_1.sort_values(by = 'BOROUGH')
+```
+
+```{python}
+#| scrolled: true
+sub_set_1.sort_values(by = ['CRASH DATE', 'ZIP CODE'], ascending = True)
+```
+
+## (1) [] method
+
+```[]``` method can be used to select column(s) by passing column name(s) (label(s)).
+
+```{python}
+sub_set_1['ZIP CODE'].head()
+```
+
+```{python}
+sub_set_1[['BOROUGH', 'ZIP CODE', 'LOCATION']].head()
+```
+
+## (2) loc method
+
+**loc** can be used to index row(s) and column(s) by providing the row and column labels.
+
+```df.loc[row_label(s)]``` Selects single row or subset of rows from the DataFrame by label.
+
+Index single row
+
+```{python}
+sub_set_1.loc[7]
+```
+
+Index multiple rows
+
+```{python}
+sub_set_1.loc[:8]
+```
+
+```{python}
+sub_set_1.loc[[0, 7, 4, 6]]
+```
+
+```df.loc[:, col_labels]``` Selects single column or subset of columns by label
+
+```{python}
+#| scrolled: true
+sub_set_1.loc[:, 'LOCATION'].head()
+```
+
+```{python}
+sub_set_1.loc[:, 'LATITUDE': 'LOCATION'].head()
+```
+
+```{python}
+sub_set_1.loc[:, ['BOROUGH', 'ZIP CODE', 'LOCATION']].head()
+```
+
+```df.loc[row_label(s), col_label(s)]``` Select both rows and columns by label
+
+```{python}
+sub_set_1.loc[7, 'BOROUGH']
+```
+
+```{python}
+sub_set_1.loc[:8, ['BOROUGH', 'LOCATION']]
+```
+
+Index by Boolean Series
+
+```{python}
+#| scrolled: true
+sub_set_1['BOROUGH'].isin(['MANHATTAN','QUEENS']).head()
+```
+
+```{python}
+sub_set_1.loc[sub_set_1['BOROUGH'].isin(['MANHATTAN','QUEENS'])].head()
+```
+
+Use "&" (and), "|" (or)  "~" (not) for Pandas
+
+```{python}
+#| scrolled: true
+sub_set_1.loc[(sub_set_1["BOROUGH"] == "MANHATTAN") & (sub_set_1["ZIP CODE"] >= 1000)]
+```
+
+## (3) iloc method
+
+**iloc** can be used to index row(s) and column(s) by providing the row and column integer(s).
+
+```df.iloc[row_integer(s)]``` Selects single row or subset of rows from the DataFrame by integer position
+
+**Note**: same as indexing for sequence (but different with ```loc```, it is 0 basis and the selection is close to the left and open to the right (the last item is excluded).
+
+```{python}
+sub_set_1.iloc[3]
+```
+
+```{python}
+#| scrolled: true
+sub_set_1.iloc[:8]
+```
+
+```{python}
+#| scrolled: true
+sub_set_1.iloc[:, 1:3].head()
+```
+
+```df.iloc[row_integer(s), col_integer(s)]``` Selects row and columns from the DataFrame by integer positions
+
+```{python}
+sub_set_1.iloc[0:5, :6] 
+```
+
+## ```concat``` method
+
+```pd.concat([df1, df2], axis = 0)``` can be used to combine two dataframe either row-wise or column-wise depends on value of **axis**: 
+
+* 0 (default, row-wise)
+* 1 (column-wise)
+
+```{python}
+#| scrolled: true
+sub_set_1
+```
+
+```{python}
+#| scrolled: true
+sub_set_2 = crashes.iloc[35:60, 0:8]
+sub_set_2
+```
+
+combining by rows
+
+```{python}
+#| scrolled: true
+sub_set_3 = pd.concat([sub_set_1, sub_set_2])
+sub_set_3
+```
+
+combining by columns
+
+```{python}
+sub_set_4 = pd.concat([sub_set_1, sub_set_2], axis = 1)
+sub_set_4
+```
+
+use ```.fillna()``` to fill in the missing values
+
