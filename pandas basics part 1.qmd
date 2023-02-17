@@ -9,9 +9,8 @@ ability to work with spreadsheet-like data for fast data loading, manipulating,
 aligning, merging, etc. The name is derived from 'panel data', an econometrics term for multidimensional structured datasets.
 
 ```{python}
-# pip install pandas
 import pandas as pd
-import numpy as np # for numerical computing
+import numpy as np
 ```
 
 # Series and DataFrame
