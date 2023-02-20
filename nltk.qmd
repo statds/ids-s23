@@ -68,7 +68,8 @@ snow_stem = SnowballStemmer(language='english')
 fd_stem = [snow_stem.stem(w) for w in fd_word]
 print(fd_stem)
 ```
-Stemming algorithms are susceptible to errors. Related words that should share a stem may not, which is known as __understemming__, which is a false negative. Unrelated words that should not share a stem may, which is known as __overstemming__, which is a false positive.
+
+Stemming algorithms are susceptible to errors. Related words that should share a stem may not, which is known as **understemming**, which is a false negative. Unrelated words that should not share a stem may, which is known as **overstemming**, which is a false positive.
 
 ## POS Tagging
 
@@ -99,30 +100,49 @@ quote_token = word_tokenize(quote)
 quote_lemma = [lemmatizer.lemmatize(w) for w in quote_token]
 print(quote_lemma)
 ```
+
 ## Chunking/Chinking
+
 While tokenizing allows us to distinguish individual words and sentences within a larger body of text, **Chunking** allows us to identify phrases based on grammar we specify.
 
 ```{python}
-nltk.download("averaged_perceptron_tagger")
+#nltk.download("averaged_perceptron_tagger")
 quote_tag = nltk.pos_tag(quote_token)
 ```
+
 We can then name grammar rules to apply to the text. These use regular expressions, which are listed below:
-|  Operator  |                                    Behavior                                   |
-|:----------:|:-----------------------------------------------------------------------------:|
-| .          | Wildcard, matches any character                                               |
-| ^abc       | Matches some pattern abc at the start of a string                             |
-| abc$       | Matches some pattern abc at the end of a string                               |
-| [abc]      | Matches one of a set of characters                                            |
-| [A-Z0-9]   | Matches one of a range of characters                                          |
-| ed\|ing\|s | Matches one of the specified strings (disjunction)                            |
-| *          | Zero or more of previous item, e.g. a*, [a-z]* (also known as Kleene Closure) |
-| +          | One or more of previous item, e.g. a+, [a-z]+                                 |
-| ?          | Zero or one of the previous item (i.e. optional), e.g. a?, [a-z]?             |
-| {n}        | Exactly n repeats where n is a non-negative integer                           |
-| {n,}       | At least n repeats                                                            |
-| {,n}       | No more than n repeats                                                        |
-| {m,n}      | At least m and no more than n repeats                                         |
-| a(b\|c)+   | Parentheses that indicate the scope of the operators                          |
+
++:---------------:+-----------------------------------------------------------------------------------+
+| *Operator*      | *Behavior*                                                                        |
++-----------------+-----------------------------------------------------------------------------------+
+| .               | Wildcard, matches any character                                                   |
++-----------------+-----------------------------------------------------------------------------------+
+| \^abc           | Matches some pattern abc at the start of a string                                 |
++-----------------+-----------------------------------------------------------------------------------+
+| abc\$           | Matches some pattern abc at the end of a string                                   |
++-----------------+-----------------------------------------------------------------------------------+
+| \[abc\]         | Matches one of a set of characters                                                |
++-----------------+-----------------------------------------------------------------------------------+
+| \[A-Z0-9\]      | Matches one of a range of characters                                              |
++-----------------+-----------------------------------------------------------------------------------+
+| ed\|ing\|s      | Matches one of the specified strings (disjunction)                                |
++-----------------+-----------------------------------------------------------------------------------+
+| \*              | Zero or more of previous item, e.g. a\*, \[a-z\]\* (also known as Kleene Closure) |
++-----------------+-----------------------------------------------------------------------------------+
+| \+              | One or more of previous item, e.g. a+, \[a-z\]+                                   |
++-----------------+-----------------------------------------------------------------------------------+
+| ?               | Zero or one of the previous item (i.e. optional), e.g. a?, \[a-z\]?               |
++-----------------+-----------------------------------------------------------------------------------+
+| {n}             | Exactly n repeats where n is a non-negative integer                               |
++-----------------+-----------------------------------------------------------------------------------+
+| {n,}            | At least n repeats                                                                |
++-----------------+-----------------------------------------------------------------------------------+
+| {,n}            | No more than n repeats                                                            |
++-----------------+-----------------------------------------------------------------------------------+
+| {m,n}           | At least m and no more than n repeats                                             |
++-----------------+-----------------------------------------------------------------------------------+
+| a(b\|c)+        | Parentheses that indicate the scope of the operators                              |
++-----------------+-----------------------------------------------------------------------------------+
 
 ```{python}
 import re
@@ -139,13 +159,15 @@ grammar = r"""
 ```
 
 ```{python}
-#chunk_parser = nltk.RegexpParser(grammar)
-#tree = chunk_parser.parse(quote_tag)
-#tree.draw()
+chunk_parser = nltk.RegexpParser(grammar)
+tree = chunk_parser.parse(quote_tag)
+tree.pretty_print(unicodelines=True)
 ```
+
 As you can see, the generated tree shows the chunks that were identified by the grammar rules. There also is a `chink` operator, which is the opposite of `chunk`. It allows us to remove a chunk from a larger chunk.
 
 ## Named Entity Recognition
+
 Previous methods have been able to identify the parts of speech of each word in a text. However, we may want to identify specific entities within the text. For example, we may want to identify the names of people, places, and organizations. `nltk` includes a named entity recognizer which can identify these entities. We can demonstrate this using a quote from *The Iliad* by Homer.
 
 ```{python}
@@ -155,19 +177,21 @@ homer_tag = nltk.pos_tag(homer_token)
 ```
 
 ```{python}
-nltk.download("maxent_ne_chunker")
-nltk.download("words")
-#tree = nltk.ne_chunk(homer_tag)
-#tree.draw()
+#nltk.download("maxent_ne_chunker")
+#nltk.download("words")
+tree2 = nltk.ne_chunk(homer_tag)
+tree2.pretty_print(unicodelines=True)
 ```
+
 In the tree, some of the words that should be tagged as `PERSON` are tagged as `GPE`, or Geo-Political Entity. In these cases, we can also generate a tree which does not specify the type of named entity.
 
 ```{python}
-#tree2 = nltk.ne_chunk(homer_tag, binary=True)
-#tree2.draw()
+tree3 = nltk.ne_chunk(homer_tag, binary=True)
+tree3.pretty_print(unicodelines=True)
 ```
 
 ## Analyzing Corpora
+
 `nltk` includes a number of corpora, which are large bodies of text. We will try out some methods on the 1851 novel *Moby Dick* by Herman Melville.
 
 ```{python}
@@ -175,12 +199,15 @@ from nltk.book import *
 ```
 
 ### Concordance
+
 `concordance` allows us to find all instances of a word in a text. We can use this to find all instances of the word "whale" in *Moby Dick*.
 
 ```{python}
 text1.concordance("whale")
 ```
+
 ### Dispersion Plot
+
 `dispersion_plot` allows us to see how a word is used throughout a text. We can use this to see the representation of characters throughout *Moby Dick*.
 
 ```{python}
@@ -188,6 +215,7 @@ text1.dispersion_plot(["Ahab", "Ishmael", "Starbuck", "Queequeg"])
 ```
 
 ### Frequency Distribution
+
 `FreqDist` allows us to see the frequency of each word in a text. We can use this to see the most common words in *Moby Dick*.
 
 ```{python}
@@ -195,6 +223,7 @@ from nltk import FreqDist
 fdist1 = FreqDist(text1)
 print(fdist1)
 ```
+
 We can use the list of stop words generated previously to help us focus on meaningful words.
 
 ```{python}
@@ -210,6 +239,7 @@ fdist2.plot(20, cumulative=True)
 ```
 
 ### Collocations
+
 `collocations` allows us to find words that commonly appear together. We can use this to find the most common collocations in *Moby Dick*.
 
 ```{python}
@@ -221,5 +251,5 @@ text1.collocations()
 In this tutorial, we have learned how to use `nltk` to perform basic text analysis. There are many methods included in this package that help provide structure to text. These methods can be used in conjunction with other packages to perform more complex analysis. For example, a dataframe of open-ended customer feedback could be processed to identify common themes, as well as the polarity of the feedback.
 
 ## Resources
-[NLTK Documentation](https://www.nltk.org/)
-[NLTK Book](https://www.nltk.org/book/)
+
+[NLTK Documentation](https://www.nltk.org/) [NLTK Book](https://www.nltk.org/book/)
