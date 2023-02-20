@@ -253,3 +253,9 @@ For more detailed style guidance, please see my notes on [statistical wrirting](
 + For the conveinence of greading, add your html output to a release in your
   repo.
 
+
+
+<!-- Topic presentation template -->
+{{< include _mysection.qmd >}}
+
+

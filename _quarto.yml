@@ -13,9 +13,9 @@ book:
     - quarto.qmd
     - python.qmd
     - stats.qmd
-    - visual.qmd    
+    - visual.qmd
+    - pandas2.qmd
     - nycrash.qmd
-    - mysection.qmd
     - exercises.qmd
     - references.qmd
 bibliography: references.bib
