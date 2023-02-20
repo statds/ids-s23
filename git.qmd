@@ -1,4 +1,4 @@
-# Project Management with Git
+# Project Management with Git {#sec-git}
 
 Many tutorials are available in different formats. Here is a [YouTube video
 ``Git and GitHub for Beginners --- Crash
