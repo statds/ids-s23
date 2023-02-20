@@ -93,4 +93,33 @@
        example, zip code level covariates can be obtained by merging with the
        zip code database.
 	   
-	   
+1. Using the cleaned NYC crash data, perform classification of `injury` with
+   support vector machine and compare the results with the benchmark from
+   regularized logistic regression. Use the last week's data as testing data.
+    1. Explain the parameters you used in your fitting for each method.
+	2. Explain the confusion matrix retult from each fit.
+	3. Compare the performance of the two approaches in terms of accuracy,
+       precision, recall, F1-score, and AUC.
+
+
+1. (Mid-term team project) The NYC Open Data of 311 Service Requests contains
+   all requests from 2010 to present. We consider a subset of it with request
+   time between 00:00:00 01/15/2023 and 24:00:00 01/21/2023. The subset is
+   available in CSV format as `data/nyc311_011523-012123_by022023.csv`. Read the
+   data dictionary to understand the meaning of the variables,
+    1. Clean the data: fill missing fields as much as possible; check for
+       obvious data entry errors (e.g., can `Closed Date` be earlier than
+       `Created Date`?); summarize your suggestions to the data curator in
+       several bullet points.
+    1. Remove requests that are not made to NYPD and create a new variable
+       `duration`, which represents the time period from the `Crated Date` to
+       `Closed Date`. Note that `duration` may be censored for some
+       requests. Visualize the distribution of uncensored `duration` by
+       weekdays/weekend and by borough.
+    1. Build a model to predict the `duration` for 311 requests to get
+       closed. If your model has tuning parameters, justify their choices. Apply
+       this model to the 311 requests of NYPD in the week of 01/22/2023. Assess
+       the performance of your model.
+    1. Now you know the data quite well. Come up with a research question of
+       interest that can be answered by the data, which could be analytics or
+       visualizations. Perform the needed analyses and answer your question.
