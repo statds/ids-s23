@@ -13,7 +13,8 @@ book:
     - quarto.qmd
     - python.qmd
     - stats.qmd
-    - visual.qmd    
+    - visual.qmd
+    - pandas2.qmd
     - nycrash.qmd
     - exercises.qmd
     - references.qmd

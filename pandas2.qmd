@@ -1,0 +1,346 @@
+---
+jupyter: python3
+---
+
+## Pandas 2.0 Presentation
+Ginamarie Mastrorilli
+
+Topics Covered:
+- Combining Datasets: Merge and Join
+- Aggregation and Grouping
+- Pivot Tables
+- Vectorized String Operations
+- Working with Time Series
+- High-Performance Pandas: eval() 
+
+Use the NYC Motor Vehicle Collisions Data
+- Data from Jan 01 2023 12:00 AM to Jan 31 2023 11:45 PM
+
+```{python}
+import pandas as pd
+import numpy as np
+```
+
+```{python}
+jan23 = pd.read_csv("../nyc_mv_collisions_202301.csv") 
+jan23.head()
+```
+
+```{python}
+jan23["CONTRIBUTING FACTOR VEHICLE 1"] = (
+    jan23["CONTRIBUTING FACTOR VEHICLE 1"].replace(["Unspecified"], np.nan))
+jan23["CONTRIBUTING FACTOR VEHICLE 2"] = (
+    jan23["CONTRIBUTING FACTOR VEHICLE 2"].replace(["Unspecified"], np.nan))
+jan23["CONTRIBUTING FACTOR VEHICLE 3"] = (
+    jan23["CONTRIBUTING FACTOR VEHICLE 3"].replace(["Unspecified"], np.nan))
+jan23["CONTRIBUTING FACTOR VEHICLE 4"] = (
+    jan23["CONTRIBUTING FACTOR VEHICLE 4"].replace(["Unspecified"], np.nan))
+jan23["CONTRIBUTING FACTOR VEHICLE 5"] = (
+    jan23["CONTRIBUTING FACTOR VEHICLE 5"].replace(["Unspecified"], np.nan))
+jan23["LATITUDE"] = jan23["LATITUDE"].replace([0.0], np.nan)
+jan23["LONGITUDE"] = jan23["LONGITUDE"].replace([0.0], np.nan)
+jan23.describe()
+```
+
+## Combining Datasets: Merge and Join
+
+- pd.merge( ) : allows a user to do one-to-one, one-to-many, and many-to-many joins
+    - One-to-one joins mean each row is related on a single row in a different table using a key column
+    - One-to-many joins mean each row in one table in related to one or more rows in a different table using a key column
+    - Many-to-many joins mean one or more rows in one table is related to one or more rows in a seperate table using a key column
+
+### Ex: One-to One Join
+- Create 2 new Data Frames from the January 2023 data with a common column (Zip Code)
+    - For this example, we are using .drop_duplicates() to get unique ZIP CODE values
+- Using pd.merge( ) the two data frames are combined using that common column as a key
+
+```{python}
+crash_zip = jan23[["CRASH DATE", "ZIP CODE"]].copy().drop_duplicates(subset = [ "ZIP CODE"])
+crash_zip.tail() # to view DF of crash date & zip code
+```
+
+```{python}
+borough_zip = jan23[["ZIP CODE", "BOROUGH"]].copy().drop_duplicates(subset = [ "ZIP CODE"])
+borough_zip.tail() # to view DF of zip code and borough
+```
+
+```{python}
+merge_w_zip = pd.merge(crash_zip, borough_zip)
+merge_w_zip.tail() # to view joined data frames
+```
+
+### We can specify the name of the key column using 'on'
+
+```{python}
+pd.merge(crash_zip, borough_zip, on = 'ZIP CODE').tail()
+```
+
+### Ex: One-to-Many Join
+- Create a new DataFrame consisting of Employee and Department
+- Create a new DataFrame consisting of Employee and Hire Year
+
+```{python}
+emp_dept = pd.DataFrame({'employee': ['Emily', 'Jake', 'Paul', 'Jackie'],
+                        'department': ['Accounting', 'HR', 'Engineering', 'Accounting']})
+
+emp_hire = pd.DataFrame({'employee': ['Emily', 'Jake', 'Paul', 'Jackie'],
+                        'hire_year': ['2020', '2019', '2023', '2011']})
+
+# combining to create a one to one join
+dept_hire = pd.merge(emp_dept,emp_hire) # to merge Employee, Department and Hire Year into one dataframe
+dept_hire
+```
+
+- Create a new DataFrame that consists of Department and the Supervisor for that department
+- Merge this new DataFrame with 'dept_hire' to create a Many-to-One join using Department as a key
+
+```{python}
+dept_sup = pd.DataFrame({'supervisor': ['Lily', 'Angela', 'Steven'],
+                        'department': ['Accounting', 'HR', 'Engineering']})
+
+sup_emp_dept_hire = pd.merge(dept_sup,dept_hire) # merge using Department as the key
+sup_emp_dept_hire
+```
+
+### Ex: Merging when the Key has Different Variable Names
+- We will merge two dataframes that have a similar column containing the same information, but are named differently
+- Using the employee data from above, but changing 'employee' in 'emp_hire' to 'employee_name'
+- Need to drop either 'employee' or 'employee_name' after merging to not have redundant information
+
+```{python}
+emp_dept_names = pd.DataFrame({'employee': ['Emily', 'Jake', 'Paul', 'Jackie'],
+                        'department': ['Accounting', 'HR', 'Engineering', 'Accounting']})
+
+emp_hire_names = pd.DataFrame({'employee_name': ['Emily', 'Jake', 'Paul', 'Jackie'],
+                        'hire_year': ['2020', '2019', '2023', '2011']})
+
+# to merge Employee, Department and Hire Year into one dataframe & drop column 'employee_name'
+dept_hire_names = pd.merge(emp_dept_names,emp_hire_names, left_on = 'employee', 
+                           right_on = 'employee_name').drop('employee_name', axis = 1) 
+
+dept_hire_names
+```
+
+### Ex: Joining 'uszipcode'
+
+- Create a subset of jan23 data with 7 zipcodes
+- Using 'uszipcode' data to join the zip codes from jan23 with data provided in this package
+
+```{python}
+from uszipcode import SearchEngine
+```
+
+```{python}
+#| scrolled: true
+search = SearchEngine()
+
+# create a DF of zip codes from jan23 & convert to integers
+zipcodes = pd.DataFrame(jan23["ZIP CODE"].tail(15).dropna().reset_index(drop = True))
+zipcodes["ZIP CODE"] = zip["ZIP CODE"].astype(int)
+
+# create new,empty column in the df to store the address information
+zipcodes['Address'] = None
+
+
+# using uszipcode library to retreive address info
+for index, row in zipcodes.iterrows():
+    result = search.by_zipcode(row['ZIP CODE'])
+    zipcodes.at[index, 'Address'] = result.major_city + ', ' + result.state
+
+print(zipcodes)
+```
+
+## Aggregation and Grouping
+
+Built-In Pandas Aggregations (for DataFrame & Series objects):
+- count( )
+    - Total number of items
+- first( ), last( )	
+    - First and last item
+- mean( ), median( )	
+    - Mean and median
+- min( ), max( )	    
+    - Minimum and maximum
+- std( ), var( )	    
+    - Standard deviation and variance
+- mad( )	            
+    - Mean absolute deviation
+- prod( )	        
+    - Product of all items
+- sum( )	            
+    - Sum of all items
+- groupby()
+    - compute aggregates on subsets of data
+
+### Ex: Titanic Groupby
+- We will use the Titanic Data Set from the 'seaborn' library
+
+```{python}
+import seaborn as sns
+titanic = sns.load_dataset('titanic')
+titanic.head()
+```
+
+- Below the data is groupby 'sex' and the counts for each row are displayed
+
+```{python}
+titanic.groupby('sex').count()
+```
+
+### Ex: Crash Data Group By
+- Using the crash_zip DataFrame from above, grouping by ZIP CODE and using the count() method, we can see how many counts for each listed zip code
+
+```{python}
+crash_zip.groupby('ZIP CODE').count()
+```
+
+## Pivot Tables
+- Creates a two dimensional table using column data
+- Easy way to visualize data to see patterns and summarize data
+- Use 'groupby( )' to create a pivot table 
+
+### Ex: Pivot Table using Titanic Data Set
+- We will again use the Titanic data set, but now we will create a pivot table 
+
+We can use groupby() to help create a pivot table
+- Group the data by 'sex' and 'class' to select survival.
+- Then use the aggregate function mean() to show within the table
+
+```{python}
+titanic.groupby(['sex', 'class'])['survived'].aggregate('mean').unstack()
+```
+
+### Ex:  Pivot Table of Crash Data
+- Create a pivot table that shows the Number of Persons Injured for every Crash Date per Zip Code
+
+```{python}
+jan23.pivot_table('NUMBER OF PERSONS INJURED', index = 'ZIP CODE', columns = 'CRASH DATE')
+```
+
+## Vectorized String Operations
+
+- Must use the 'str' attribute of a Pandas Series and Index objects to access operations
+
+- Some examples of operations:
+
+    - len()	
+    - lower()	
+    - translate()	
+    - slower()
+    - ljust()	
+    - upper()	
+    - startswith()	
+    - isupper()
+    - rjust()	
+    - find()	
+    - endswith()	
+    - isnumeric()
+    - capitalize()	
+    - swapcase()	
+    - istitle()	
+    - rpartition()
+
+### Ex: Create a Panda Series of 'BOROUGH' names and swap cases. 
+
+```{python}
+bname = pd.Series(jan23['BOROUGH'])
+bname.head(15).dropna() # original 
+```
+
+```{python}
+bname.str.capitalize().head(15).dropna()# to make first letter capital
+```
+
+```{python}
+bname.str.swapcase().head(15).dropna() # to make all lower case
+```
+
+```{python}
+bname.str.len().head(15).dropna() # to return the length of the name and data type
+```
+
+```{python}
+bname.str.startswith('B').head(15).dropna() # to see if starts with a letter B
+```
+
+## Time Series
+
+- Time Stamps : Moments in time
+    - Ex: July 4th, 2023 at 8:00 AM
+    - Pandas provides the Timestamp type
+    
+- Time Intervals: Reference a length of time with a beginning and end
+    - Ex: The year of 2022
+    - Pandas provides the Period type
+
+- Time Deltas/ Durations: Reference an exact length of time
+    - Ex: 0.3 seconds
+    - Pandas provides the Timedelta type
+    
+
+#### Can create a Timestamp object
+- combines 'datetime' and 'dateutil' to be used as a Series or DataFrame
+
+```{python}
+date = pd.to_datetime("2nd of February, 2023")
+date
+type(date)
+```
+
+#### Can create Series that has time indexed data
+
+```{python}
+ind = pd.DatetimeIndex(['2022-07-04', '2022-08-04',
+                          '2022-07-04', '2022-08-04'])
+inddata = pd.Series([0,1,2,3], index = ind)
+inddata
+```
+
+#### Frequencies and Offsets
+
+The following are the main codes avaiable: 
+
+    - D	Calendar day	
+    - B	Business day
+    - W	Weekly		
+    - M	Month end	
+    - BM   Business month end
+    - Q	Quarter end	
+    - BQ   Business quarter end
+    - A	Year end	
+    - BA   Business year end
+    - H	Hours	
+    - BH   Business hours
+    - T	Minutes		
+    - S	Seconds		
+    - L	Milliseonds		
+    - U	Microseconds		
+    - N	nanoseconds	
+
+### Ex: TimeDelta
+- create a TimeDelta data type starting at 00:00:00 using frequency of 2 hours and 30 minutes (2H30T) over 5 periods.
+
+```{python}
+pd.timedelta_range(0, periods = 5, freq = "2H30T")
+```
+
+## High Performance Pandas: eval() 
+
+- eval( ) uses string expressions to compute operations using DataFrames
+    - supports all arithmetic operations, comparison operators, bitwise operators ( & , | ), and the use of 'and' and 'or' in Boolean expressions
+
+```{python}
+#| scrolled: false
+nrows, ncols = 10, 5 # creating 2 DF of 5 rows and 10 columns
+rand = np.random.RandomState(7)
+dfa, dfb = (pd.DataFrame(rand.rand(nrows, ncols))
+            for i in range (2))
+
+# to compute sum of dfa and dfb and place into one table
+
+
+print("dfa",dfa)
+print("dfb", dfb)
+pd.eval('dfa + dfb')
+```
+
