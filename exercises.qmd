@@ -115,7 +115,8 @@
        `duration`, which represents the time period from the `Crated Date` to
        `Closed Date`. Note that `duration` may be censored for some
        requests. Visualize the distribution of uncensored `duration` by
-       weekdays/weekend and by borough.
+       weekdays/weekend and by borough, and test whether the distributions are
+       the same across weekdays/weekends and across borough.
     1. Build a model to predict the `duration` for 311 requests to get
        closed. If your model has tuning parameters, justify their choices. Apply
        this model to the 311 requests of NYPD in the week of 01/22/2023. Assess
