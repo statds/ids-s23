@@ -70,6 +70,13 @@ jan23["LONGITUDE"] = jan23["LONGITUDE"].replace([0.0], np.nan)
 jan23.describe()
 ```
 
+
+By the data dictionary, `OFF STREET NAME` is the street address of the collision
+site. Some records have `OFF STREET NAME` but missing `LATITUDE` and
+`LONGITUDE`. The geocode can be filled by geocoding the street address with
+package 
+
+
 ## Filling the Missing Zip Codes by Reverse Geocoding
 
 The package `uszipcode` is the most powerful and easy to use programmable 
@@ -154,6 +161,35 @@ Try it out
 nyczip2borough(jan23["ZIP CODE"].dropna().head(10))
 ```
 
+
+The `uszipcode` package provides databases at the zip code level from the US
+Census. Such information could be merged with the NYC crash data for further
+analysis.
+
+```{python}
+from uszipcode import SearchEngine, SimpleZipcode
+import os
+# set the default database file location
+db_file = os.path.join(os.getenv("HOME"), "simple_db.sqlite")
+search = SearchEngine(db_file_path=db_file)
+search.by_zipcode("10030")
+```
+
+The SQL database of US zip code is stored in `$HOME/.uszipcode`. It can be imported
+as a `pandas dataframe`.
+
+```{python}
+import sqlite3
+import pandas as pd
+# change to your own path after installing uszipcode
+con = sqlite3.connect(db_file)
+zipdf = pd.read_sql_query("SELECT * from simple_zipcode", con)
+zipdf.info()
+```
+
+The zip code dataframe can be merged with the crash dataframe.
+
+
 ## Map the Crash Sites
 
 We can do this with package `gmplot`. See instructions from
@@ -172,11 +208,10 @@ gmap = gmplot.GoogleMapPlotter(40.769737, -73.91244, 14)
 
 # plot heatmap
 gmap.heatmap(latitude, longitude)
-gmap.scatter(latitude, longitude, c='r', marker=True)
+gmap.scatter(latitude, longitude, c = 'r', marker = True)
+# gmap.scatter(latitude, longitude, '#FF0000', size = 50, marker = False)
 # Your Google_API_Key
 # gmap.apikey = "put your key here"
-# gmap.apikey = "AIzaSyCy--Dki55zAm2JmUk3IlNI6Y2luvabVQA"
 # save it to html
-gmap.draw(r"nycrash.html")
+gmap.draw(r"nycrashmap.html")
 ```
-
