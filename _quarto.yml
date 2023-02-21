@@ -16,7 +16,6 @@ book:
     - visual.qmd    
     - nycrash.qmd
     - mysection.qmd
-    - nltk.qmd
     - exercises.qmd
     - references.qmd
 bibliography: references.bib
