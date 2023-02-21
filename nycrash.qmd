@@ -168,9 +168,9 @@ analysis.
 
 ```{python}
 from uszipcode import SearchEngine, SimpleZipcode
-
+import os
 # set the default database file location
-db_file = "/var/tmp/simple_db.sqlite"
+db_file = os.path.join(os.getenv("HOME"), "simple_db.sqlite")
 search = SearchEngine(db_file_path=db_file)
 search.by_zipcode("10030")
 ```
