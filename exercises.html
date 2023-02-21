@@ -121,17 +121,17 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./stats.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Statistical Tests and Models</span></a>
+  <a href="./pandas.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Data Manipulation with Pandas</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./visual.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Visualization</span></a>
+  <a href="./stats.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Statistical Tests and Models</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./pandas2.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Pandas 2.0 Presentation</span></a>
+  <a href="./visual.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Visualization</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -228,7 +228,7 @@ ul.task-list li input[type="checkbox"] {
 <li><p>(Mid-term team project) The NYC Open Data of 311 Service Requests contains all requests from 2010 to present. We consider a subset of it with request time between 00:00:00 01/15/2023 and 24:00:00 01/21/2023. The subset is available in CSV format as <code>data/nyc311_011523-012123_by022023.csv</code>. Read the data dictionary to understand the meaning of the variables,</p>
 <ol type="1">
 <li>Clean the data: fill missing fields as much as possible; check for obvious data entry errors (e.g., can <code>Closed Date</code> be earlier than <code>Created Date</code>?); summarize your suggestions to the data curator in several bullet points.</li>
-<li>Remove requests that are not made to NYPD and create a new variable <code>duration</code>, which represents the time period from the <code>Crated Date</code> to <code>Closed Date</code>. Note that <code>duration</code> may be censored for some requests. Visualize the distribution of uncensored <code>duration</code> by weekdays/weekend and by borough.</li>
+<li>Remove requests that are not made to NYPD and create a new variable <code>duration</code>, which represents the time period from the <code>Crated Date</code> to <code>Closed Date</code>. Note that <code>duration</code> may be censored for some requests. Visualize the distribution of uncensored <code>duration</code> by weekdays/weekend and by borough, and test whether the distributions are the same across weekdays/weekends and across borough.</li>
 <li>Build a model to predict the <code>duration</code> for 311 requests to get closed. If your model has tuning parameters, justify their choices. Apply this model to the 311 requests of NYPD in the week of 01/22/2023. Assess the performance of your model.</li>
 <li>Now you know the data quite well. Come up with a research question of interest that can be answered by the data, which could be analytics or visualizations. Perform the needed analyses and answer your question.</li>
 </ol></li>
