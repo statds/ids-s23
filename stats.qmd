@@ -28,13 +28,36 @@ Since R has a richer collections of statistical functions, we can call
 R function from Python with `rpy2`. See, for example, a [blog on this
 subject](https://rviews.rstudio.com/2022/05/25/calling-r-from-python-with-rpy2/).
 
+
+For example, `fisher_exact` can only handle 2x2 contingency tables. For
+contingency tables larger than 2x2, we can call `fisher.text()` from R through
+`rpy2`. 
+See [this StackOverflow post](https://stackoverflow.com/questions/25368284/fishers-exact-test-for-bigger-than-2-by-2-contingency-table).
+Note that the `.` in function names and arguments are replaced with `_`.
+
+```{python}
+import pandas as pd
+import numpy as np
+import rpy2.robjects.numpy2ri
+from rpy2.robjects.packages import importr
+rpy2.robjects.numpy2ri.activate()
+
+stats = importr('stats')
+
+jan23 = pd.read_csv("data/nyc_crashes_202301.csv")
+jan23["injury"] = np.where(jan23["NUMBER OF PERSONS INJURED"] > 0, 1, 0)
+m = pd.crosstab(jan23["injury"], jan23["BOROUGH"])
+
+res = stats.fisher_test(m.to_numpy(), simulate_p_value = True)
+```
+
 ## Linear Model
 
 Let's simulate some data for illustrations.
 
 ```{python}
 import numpy as np
-import statsmodels.api as sm
+import statsmodels as sm
 
 nobs = 200
 ncov = 5
@@ -62,10 +85,10 @@ $$
 A regression model for the observed data can be fitted as
 
 ```{python}
-xmat = sm.add_constant(x)
-mymod = sm.OLS(y, xmat)
-myfit = mymod.fit()
-myfit.summary()
+# xmat = sm.api.add_constant(x)
+# mymod = sm.api.OLS(y, xmat)
+# myfit = mymod.fit()
+# myfit.summary()
 ```
 
 Questions to review:
@@ -102,9 +125,9 @@ For model diagnostics, one can check residual plots.
 import matplotlib.pyplot as plt
 
 myOlsFit = smf.ols(formula = "y ~ x1 + x2 + x3 + x4 + x5", data = df).fit()
-fig = plt.figure(figsize = (6, 6))
+# fig = plt.figure(figsize = (6, 6))
 ## residual versus x1; can do the same for other covariates
-fig = sm.graphics.plot_regress_exog(myOlsFit, 'x1', fig=fig)
+# fig = sm.graphics.plot_regress_exog(myOlsFit, 'x1', fig=fig)
 ```
 
 See more on [residual diagnostics and specification
@@ -142,15 +165,16 @@ A logistic regression can be fit with `statsmodels.api.glm`.
 Let's generate some binary data first by dichotomizing existing variables.
 
 ```{python}
-df['yb' ] = np.where(df['y' ] > 2.5, 1, 0)
-df['x1b'] = np.where(df['x1'] > 0.5, 1, 0)
+eta = x.dot([2, 2, 2, 2, 2]) - 5
+p = sm.genmod.families.links.Logit().inverse(eta)
+df["yb"] = np.random.binomial(1, p, p.size)
 ```
 
 Fit a logistic regression for `y1b`.
 
 ```{python}
-mylogistic = smf.glm(formula = 'yb ~ x1b + x2 + x3 + x4 + x5', data = df,
-                     family = sm.families.Binomial())
+mylogistic = smf.glm(formula = 'yb ~ x1 + x2 + x3 + x4 + x5', data = df,
+                     family = sm.genmod.families.Binomial())
 mylfit = mylogistic.fit()
 mylfit.summary()
 ```
@@ -158,8 +182,8 @@ mylfit.summary()
 If we treat `y1b` as count data, a Poisson regression can be fitted.
 
 ```{python}
-myPois = smf.glm(formula = 'yb ~ x1b + x2 + x3 + x4 + x5', data = df,
-                 family = sm.families.Poisson())
+myPois = smf.glm(formula = 'yb ~ x1 + x2 + x3 + x4 + x5', data = df,
+                 family = sm.genmod.families.Poisson())
 mypfit = myPois.fit()
 mypfit.summary()
 ```

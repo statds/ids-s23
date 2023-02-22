@@ -12,9 +12,10 @@ book:
     - git.qmd
     - quarto.qmd
     - python.qmd
+    - pandas.qmd
     - stats.qmd
     - visual.qmd
-    - pandas2.qmd
+    - supervised.qmd
     - nycrash.qmd
     - exercises.qmd
     - references.qmd
