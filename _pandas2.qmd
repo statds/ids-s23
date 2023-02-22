@@ -22,7 +22,7 @@ import numpy as np
 ```
 
 ```{python}
-jan23 = pd.read_csv("../nyc_mv_collisions_202301.csv") 
+jan23 = pd.read_csv("data/nyc_crashes_202301.csv") 
 jan23.head()
 ```
 
@@ -136,7 +136,7 @@ search = SearchEngine()
 
 # create a DF of zip codes from jan23 & convert to integers
 zipcodes = pd.DataFrame(jan23["ZIP CODE"].tail(15).dropna().reset_index(drop = True))
-zipcodes["ZIP CODE"] = zip["ZIP CODE"].astype(int)
+zipcodes["ZIP CODE"] = zipcodes["ZIP CODE"].astype(int)
 
 # create new,empty column in the df to store the address information
 zipcodes['Address'] = None

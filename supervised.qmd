@@ -1,0 +1,45 @@
+# Supervised Learning
+
+## Introduction
+Supervised learning uses labeled datasets to train algorithms that to classify
+data or predict outcomes accurately. As input data is fed into the model, it
+adjusts its weights until the model has been fitted appropriately, which occurs
+as part of the cross validation process.
+
+In contrast, unsupervised learning uses unlabeled data to discover patterns that
+help solve for clustering or association problems. This is particularly useful
+when subject matter experts are unsure of common properties within a data set.
+
+
+## Classification
+
+### What is classification problem?
+
++ Classificaiton: outcome variable is categorical
++ Regression: outcome variable is continuous
++ Both problems can have many covariates (predictors/features)
+
+### Confusion matrix
+
+<https://en.wikipedia.org/wiki/Confusion_matrix>
+
+
+
+### Measure of classification performance
+
++ Accuracy: subset accuracy the set of labels predicted for a sample must
+  exactly match the corresponding set of labels in y_true.
++ Precision: the ratio tp / (tp + fp) where tp is the number of true positives
+  and fp the number of false positives. The precision is intuitively the ability
+  of the classifier not to label as positive a sample that is negative.
++ Recall: the ratio tp / (tp + fn) where tp is the number of true positives and
+  fn the number of false negatives. The recall is intuitively the ability of the
+  classifier to find all the positive samples.
++ F1 score: 2 * (precision * recall) / (precision + recall). A harmonic mean of
+  the precision and recall
+
+### Cross-validation
+
++ Goal: strike a bias-variance tradeoff.
++ K-fold: hold out each fold as testing data.
++ Scores: minimized to train a model
