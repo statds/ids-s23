@@ -49,6 +49,7 @@ jan23["injury"] = np.where(jan23["NUMBER OF PERSONS INJURED"] > 0, 1, 0)
 m = pd.crosstab(jan23["injury"], jan23["BOROUGH"])
 
 res = stats.fisher_test(m.to_numpy(), simulate_p_value = True)
+res[0][0]
 ```
 
 ## Linear Model
@@ -57,7 +58,6 @@ Let's simulate some data for illustrations.
 
 ```{python}
 import numpy as np
-import statsmodels as sm
 
 nobs = 200
 ncov = 5
@@ -85,10 +85,11 @@ $$
 A regression model for the observed data can be fitted as
 
 ```{python}
-# xmat = sm.api.add_constant(x)
-# mymod = sm.api.OLS(y, xmat)
-# myfit = mymod.fit()
-# myfit.summary()
+import statsmodels.api as sma
+xmat = sma.add_constant(x)
+mymod = sma.OLS(y, xmat)
+myfit = mymod.fit()
+myfit.summary()
 ```
 
 Questions to review:
@@ -125,9 +126,9 @@ For model diagnostics, one can check residual plots.
 import matplotlib.pyplot as plt
 
 myOlsFit = smf.ols(formula = "y ~ x1 + x2 + x3 + x4 + x5", data = df).fit()
-# fig = plt.figure(figsize = (6, 6))
+fig = plt.figure(figsize = (6, 6))
 ## residual versus x1; can do the same for other covariates
-# fig = sm.graphics.plot_regress_exog(myOlsFit, 'x1', fig=fig)
+fig = sma.graphics.plot_regress_exog(myOlsFit, 'x1', fig=fig)
 ```
 
 See more on [residual diagnostics and specification
@@ -165,8 +166,9 @@ A logistic regression can be fit with `statsmodels.api.glm`.
 Let's generate some binary data first by dichotomizing existing variables.
 
 ```{python}
+import statsmodels.genmod as smg
 eta = x.dot([2, 2, 2, 2, 2]) - 5
-p = sm.genmod.families.links.Logit().inverse(eta)
+p = smg.families.links.Logit().inverse(eta)
 df["yb"] = np.random.binomial(1, p, p.size)
 ```
 
@@ -174,7 +176,7 @@ Fit a logistic regression for `y1b`.
 
 ```{python}
 mylogistic = smf.glm(formula = 'yb ~ x1 + x2 + x3 + x4 + x5', data = df,
-                     family = sm.genmod.families.Binomial())
+                     family = smg.families.Binomial())
 mylfit = mylogistic.fit()
 mylfit.summary()
 ```
@@ -183,7 +185,7 @@ If we treat `y1b` as count data, a Poisson regression can be fitted.
 
 ```{python}
 myPois = smf.glm(formula = 'yb ~ x1 + x2 + x3 + x4 + x5', data = df,
-                 family = sm.genmod.families.Poisson())
+                 family = smg.families.Poisson())
 mypfit = myPois.fit()
 mypfit.summary()
 ```
