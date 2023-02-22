@@ -1,0 +1,255 @@
+## Text Analysis with `nltk`
+
+### Introduction
+
+`nltk`, or Natural Language Toolkit, is a Python package which provides a set of tools for text analysis. `nltk` is used in Natural Language Processing (NLP), a field of computer science which focuses on the interaction between computers and human languages. `nltk` is a very powerful tool for text analysis, and is used by many researchers and data scientists. In this tutorial, we will learn how to use `nltk` to analyze text.
+
+### Getting Started
+
+First, we must install `nltk` using `pip`.
+
+`python -m pip install nltk`
+
+### Tokenizing
+
+To analyze text, it needs to be broken down into smaller pieces. This is called tokenization. `nltk` offers two ways to tokenize text: sentence tokenization and word tokenization.
+
+```{python}
+import nltk
+```
+
+To demonstrate this, we will use the following text, a passage from the 1951 science fiction novel *Foundation* by Isaac Asimov.
+
+```{python}
+fd_string = """The sum of human knowing is beyond any one man; any thousand men. With the destruction of our social fabric, science will be broken into a million pieces. Individuals will know much of exceedingly tiny facets of what there is to know. They will be helpless and useless by themselves. The bits of lore, meaningless, will not be passed on. They will be lost through the generations. But, if we now prepare a giant summary of all knowledge, it will never be lost. Coming generations will build on it, and will not have to rediscover it for themselves. One millennium will do the work of thirty thousand."""
+```
+
+#### Sentence Tokenization
+
+```{python}
+from nltk import sent_tokenize, word_tokenize
+fd_sent = sent_tokenize(fd_string)
+print(fd_sent)
+```
+
+#### Word Tokenization
+
+```{python}
+fd_word = word_tokenize(fd_string)
+print(fd_word)
+```
+
+Both the sentence tokenization and word tokenization functions return a list of strings. We can use these lists to perform further analysis.
+
+### Removing Stopwords
+
+The output of the word tokenization gave us a list of words. However, some of these words are not useful for our analysis. These words are called stopwords. `nltk` provides a list of stopwords for several languages. We can use this list to remove stopwords from our text.
+
+```{python}
+from nltk.corpus import stopwords
+stop_words = set(stopwords.words("english"))
+print(stop_words)
+```
+
+```{python}
+fd_filtered = [w for w in fd_word if w.casefold() not in stop_words]
+print(fd_filtered)
+```
+
+The resulting list is significantly shorter. There are some words that `nltk` considers stopwords that we may want to keep, depending on the objective of our analysis. Reducing the size of our data can help us to reduce the time it takes to perform our analysis. However, removing too many words can reduce the accuracy, which is especially important when we are trying to perform sentiment analysis.
+
+### Stemming
+
+Stemming is a method which allows us to reduce the number of variants of a word. For example, the words *connecting*, *connected*, and *connection* are all variants of the same word *connect*. `nltk` includes a few different stemmers based on different algorithms. We will use the Snowball stemmer, an improved version of the 1979 Porter stemmer.
+
+```{python}
+from nltk.stem.snowball import SnowballStemmer
+snow_stem = SnowballStemmer(language='english')
+fd_stem = [snow_stem.stem(w) for w in fd_word]
+print(fd_stem)
+```
+
+Stemming algorithms are susceptible to errors. Related words that should share a stem may not, which is known as **understemming**, which is a false negative. Unrelated words that should not share a stem may, which is known as **overstemming**, which is a false positive.
+
+### POS Tagging
+
+`nltk` also enables us to label the parts of speech of each word in a text. This is known as part-of-speech (POS) tagging. `nltk` uses the Penn Treebank tagset, which is a set of tags that are used to label words in a text. The tags are as follows:
+
+```{python}
+nltk.help.upenn_tagset()
+```
+
+We can use the function `nltk.pos_tag()` on our list of tokenized words. This will return a list of tuples, where each tuple contains a word and its corresponding tag.
+
+```{python}
+fd_tag = nltk.pos_tag(fd_word)
+print(fd_tag)
+```
+
+The tokenized words from the quote should be easy to tag correctly. The function may encounter difficulty with less conventional words (e.g. Old English), but it will attempt to tag based on context.
+
+### Lemmatizing
+
+Lemmatizing is similar to stemming, but it is more accurate. Lemmatizing is a process which reduces words to their lemma, which is the base form of a word.`nltk` includes a lemmatizer based on the WordNet database. We can demonstrate this using a quote from the 1868 novel *Little Women* by Louisa May Alcott.
+
+```{python}
+from nltk.stem import WordNetLemmatizer
+lemmatizer = WordNetLemmatizer()
+quote = "The dim, dusty room, with the busts staring down from the tall book-cases, the cosy chairs, the globes, and, best of all, the wilderness of books, in which she could wander where she liked, made the library a region of bliss to her."
+quote_token = word_tokenize(quote)
+quote_lemma = [lemmatizer.lemmatize(w) for w in quote_token]
+print(quote_lemma)
+```
+
+### Chunking/Chinking
+
+While tokenizing allows us to distinguish individual words and sentences within a larger body of text, **Chunking** allows us to identify phrases based on grammar we specify.
+
+```{python}
+#nltk.download("averaged_perceptron_tagger")
+quote_tag = nltk.pos_tag(quote_token)
+```
+
+We can then name grammar rules to apply to the text. These use regular expressions, which are listed below:
+
++:---------------:+-----------------------------------------------------------------------------------+
+| *Operator*      | *Behavior*                                                                        |
++-----------------+-----------------------------------------------------------------------------------+
+| .               | Wildcard, matches any character                                                   |
++-----------------+-----------------------------------------------------------------------------------+
+| \^abc           | Matches some pattern abc at the start of a string                                 |
++-----------------+-----------------------------------------------------------------------------------+
+| abc\$           | Matches some pattern abc at the end of a string                                   |
++-----------------+-----------------------------------------------------------------------------------+
+| \[abc\]         | Matches one of a set of characters                                                |
++-----------------+-----------------------------------------------------------------------------------+
+| \[A-Z0-9\]      | Matches one of a range of characters                                              |
++-----------------+-----------------------------------------------------------------------------------+
+| ed\|ing\|s      | Matches one of the specified strings (disjunction)                                |
++-----------------+-----------------------------------------------------------------------------------+
+| \*              | Zero or more of previous item, e.g. a\*, \[a-z\]\* (also known as Kleene Closure) |
++-----------------+-----------------------------------------------------------------------------------+
+| \+              | One or more of previous item, e.g. a+, \[a-z\]+                                   |
++-----------------+-----------------------------------------------------------------------------------+
+| ?               | Zero or one of the previous item (i.e. optional), e.g. a?, \[a-z\]?               |
++-----------------+-----------------------------------------------------------------------------------+
+| {n}             | Exactly n repeats where n is a non-negative integer                               |
++-----------------+-----------------------------------------------------------------------------------+
+| {n,}            | At least n repeats                                                                |
++-----------------+-----------------------------------------------------------------------------------+
+| {,n}            | No more than n repeats                                                            |
++-----------------+-----------------------------------------------------------------------------------+
+| {m,n}           | At least m and no more than n repeats                                             |
++-----------------+-----------------------------------------------------------------------------------+
+| a(b\|c)+        | Parentheses that indicate the scope of the operators                              |
++-----------------+-----------------------------------------------------------------------------------+
+
+```{python}
+import re
+import regex
+```
+
+```{python}
+grammar = r"""
+  NP: {<DT|JJ|NN.*>+}          # Chunk sequences of DT, JJ, NN
+  PP: {<IN><NP>}               # Chunk prepositions followed by NP
+  VP: {<VB.*><NP|PP|CLAUSE>+$} # Chunk verbs and their arguments
+  CLAUSE: {<NP><VP>}           # Chunk NP, VP
+  """
+```
+
+```{python}
+chunk_parser = nltk.RegexpParser(grammar)
+tree = chunk_parser.parse(quote_tag)
+tree.pretty_print(unicodelines=True)
+```
+
+As you can see, the generated tree shows the chunks that were identified by the grammar rules. There also is a `chink` operator, which is the opposite of `chunk`. It allows us to remove a chunk from a larger chunk.
+
+### Named Entity Recognition
+
+Previous methods have been able to identify the parts of speech of each word in a text. However, we may want to identify specific entities within the text. For example, we may want to identify the names of people, places, and organizations. `nltk` includes a named entity recognizer which can identify these entities. We can demonstrate this using a quote from *The Iliad* by Homer.
+
+```{python}
+homer = "In the war of Troy, the Greeks having sacked some of the neighbouring towns, and taken from thence two beautiful captives, Chryseïs and Briseïs, allotted the first to Agamemnon, and the last to Achilles."
+homer_token = word_tokenize(homer)
+homer_tag = nltk.pos_tag(homer_token)
+```
+
+```{python}
+#nltk.download("maxent_ne_chunker")
+#nltk.download("words")
+tree2 = nltk.ne_chunk(homer_tag)
+tree2.pretty_print(unicodelines=True)
+```
+
+In the tree, some of the words that should be tagged as `PERSON` are tagged as `GPE`, or Geo-Political Entity. In these cases, we can also generate a tree which does not specify the type of named entity.
+
+```{python}
+tree3 = nltk.ne_chunk(homer_tag, binary=True)
+tree3.pretty_print(unicodelines=True)
+```
+
+### Analyzing Corpora
+
+`nltk` includes a number of corpora, which are large bodies of text. We will try out some methods on the 1851 novel *Moby Dick* by Herman Melville.
+
+```{python}
+from nltk.book import *
+```
+
+#### Concordance
+
+`concordance` allows us to find all instances of a word in a text. We can use this to find all instances of the word "whale" in *Moby Dick*.
+
+```{python}
+text1.concordance("whale")
+```
+
+#### Dispersion Plot
+
+`dispersion_plot` allows us to see how a word is used throughout a text. We can use this to see the representation of characters throughout *Moby Dick*.
+
+```{python}
+text1.dispersion_plot(["Ahab", "Ishmael", "Starbuck", "Queequeg"])
+```
+
+#### Frequency Distribution
+
+`FreqDist` allows us to see the frequency of each word in a text. We can use this to see the most common words in *Moby Dick*.
+
+```{python}
+from nltk import FreqDist
+fdist1 = FreqDist(text1)
+print(fdist1)
+```
+
+We can use the list of stop words generated previously to help us focus on meaningful words.
+
+```{python}
+text1_imp = [w for w in text1 if w not in stop_words and w.isalpha()]
+fdist2 = FreqDist(text1_imp)
+fdist2.most_common(20)
+```
+
+We can visualize the frequency distribution using `plot`.
+
+```{python}
+fdist2.plot(20, cumulative=True)
+```
+
+#### Collocations
+
+`collocations` allows us to find words that commonly appear together. We can use this to find the most common collocations in *Moby Dick*.
+
+```{python}
+text1.collocations()
+```
+
+### Conclusion
+
+In this tutorial, we have learned how to use `nltk` to perform basic text analysis. There are many methods included in this package that help provide structure to text. These methods can be used in conjunction with other packages to perform more complex analysis. For example, a dataframe of open-ended customer feedback could be processed to identify common themes, as well as the polarity of the feedback.
+
+### Resources
+
+[NLTK Documentation](https://www.nltk.org/) [NLTK Book](https://www.nltk.org/book/)
