@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Introduction to Data Science - 3&nbsp; Reproducibile Data Science with Quarto</title>
+<title>Introduction to Data Science - 8&nbsp; Supervised Learning</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -30,8 +30,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./python.html" rel="next">
-<link href="./git.html" rel="prev">
+<link href="./nycrash.html" rel="next">
+<link href="./visual.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -70,7 +70,7 @@ ul.task-list li input[type="checkbox"] {
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
     <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Reproducibile Data Science with Quarto</span></h1>
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Supervised Learning</span></h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -110,7 +110,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./quarto.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Reproducibile Data Science with Quarto</span></a>
+  <a href="./quarto.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Reproducibile Data Science with Quarto</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -135,7 +135,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./supervised.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Supervised Learning</span></a>
+  <a href="./supervised.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Supervised Learning</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -158,14 +158,27 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="toc-section-number">8.1</span>  Introduction</a></li>
+  <li><a href="#classification" id="toc-classification" class="nav-link" data-scroll-target="#classification"><span class="toc-section-number">8.2</span>  Classification</a>
+  <ul class="collapse">
+  <li><a href="#what-is-classification-problem" id="toc-what-is-classification-problem" class="nav-link" data-scroll-target="#what-is-classification-problem"><span class="toc-section-number">8.2.1</span>  What is classification problem?</a></li>
+  <li><a href="#confusion-matrix" id="toc-confusion-matrix" class="nav-link" data-scroll-target="#confusion-matrix"><span class="toc-section-number">8.2.2</span>  Confusion matrix</a></li>
+  <li><a href="#measure-of-classification-performance" id="toc-measure-of-classification-performance" class="nav-link" data-scroll-target="#measure-of-classification-performance"><span class="toc-section-number">8.2.3</span>  Measure of classification performance</a></li>
+  <li><a href="#cross-validation" id="toc-cross-validation" class="nav-link" data-scroll-target="#cross-validation"><span class="toc-section-number">8.2.4</span>  Cross-validation</a></li>
+  </ul></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span id="sec-quarto" class="quarto-section-identifier d-none d-lg-block"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Reproducibile Data Science with Quarto</span></span></h1>
+<h1 class="title d-none d-lg-block"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Supervised Learning</span></h1>
 </div>
 
 
@@ -180,18 +193,45 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<p>Data science projects should be reproducible to be trustworthy. Dynamic documents facilitate reproducibility. <a href="https://quarto.org">Quarto</a> is an open-source dynamic document preparation system, ideal for scientific and technical publishing. From the official websites, Quarto can be used to:</p>
+<section id="introduction" class="level2" data-number="8.1">
+<h2 data-number="8.1" class="anchored" data-anchor-id="introduction"><span class="header-section-number">8.1</span> Introduction</h2>
+<p>Supervised learning uses labeled datasets to train algorithms that to classify data or predict outcomes accurately. As input data is fed into the model, it adjusts its weights until the model has been fitted appropriately, which occurs as part of the cross validation process.</p>
+<p>In contrast, unsupervised learning uses unlabeled data to discover patterns that help solve for clustering or association problems. This is particularly useful when subject matter experts are unsure of common properties within a data set.</p>
+</section>
+<section id="classification" class="level2" data-number="8.2">
+<h2 data-number="8.2" class="anchored" data-anchor-id="classification"><span class="header-section-number">8.2</span> Classification</h2>
+<section id="what-is-classification-problem" class="level3" data-number="8.2.1">
+<h3 data-number="8.2.1" class="anchored" data-anchor-id="what-is-classification-problem"><span class="header-section-number">8.2.1</span> What is classification problem?</h3>
 <ul>
-<li>Create dynamic content with Python, R, Julia, and Observable.</li>
-<li>Author documents as plain text markdown or Jupyter notebooks.</li>
-<li>Publish high-quality articles, reports, presentations, websites, blogs, and books in HTML, PDF, MS Word, ePub, and more.</li>
-<li>Author with scientific markdown, including equations, citations, crossrefs, figure panels, callouts, advanced layout, and more.</li>
+<li>Classificaiton: outcome variable is categorical</li>
+<li>Regression: outcome variable is continuous</li>
+<li>Both problems can have many covariates (predictors/features)</li>
 </ul>
-<p>Of course, Quarto can be used to write homework, exams, and reports in this course.</p>
-<p>To get started, see documentation at <a href="https://quarto.org/docs/get-started/">Quarto</a>.</p>
-<p>This is an extra line.</p>
+</section>
+<section id="confusion-matrix" class="level3" data-number="8.2.2">
+<h3 data-number="8.2.2" class="anchored" data-anchor-id="confusion-matrix"><span class="header-section-number">8.2.2</span> Confusion matrix</h3>
+<p><a href="https://en.wikipedia.org/wiki/Confusion_matrix" class="uri">https://en.wikipedia.org/wiki/Confusion_matrix</a></p>
+</section>
+<section id="measure-of-classification-performance" class="level3" data-number="8.2.3">
+<h3 data-number="8.2.3" class="anchored" data-anchor-id="measure-of-classification-performance"><span class="header-section-number">8.2.3</span> Measure of classification performance</h3>
+<ul>
+<li>Accuracy: subset accuracy the set of labels predicted for a sample must exactly match the corresponding set of labels in y_true.</li>
+<li>Precision: the ratio tp / (tp + fp) where tp is the number of true positives and fp the number of false positives. The precision is intuitively the ability of the classifier not to label as positive a sample that is negative.</li>
+<li>Recall: the ratio tp / (tp + fn) where tp is the number of true positives and fn the number of false negatives. The recall is intuitively the ability of the classifier to find all the positive samples.</li>
+<li>F1 score: 2 * (precision * recall) / (precision + recall). A harmonic mean of the precision and recall</li>
+</ul>
+</section>
+<section id="cross-validation" class="level3" data-number="8.2.4">
+<h3 data-number="8.2.4" class="anchored" data-anchor-id="cross-validation"><span class="header-section-number">8.2.4</span> Cross-validation</h3>
+<ul>
+<li>Goal: strike a bias-variance tradeoff.</li>
+<li>K-fold: hold out each fold as testing data.</li>
+<li>Scores: minimized to train a model</li>
+</ul>
 
 
+</section>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -329,13 +369,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./git.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Project Management with Git</span></span>
+      <a href="./visual.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Visualization</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./python.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Python Refreshment</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./nycrash.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">NYC Crash Data</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

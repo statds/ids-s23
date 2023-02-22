@@ -202,12 +202,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./nycrash.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">NYC Crash Data</span></a>
+  <a href="./supervised.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Supervised Learning</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./exercises.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Exercises</span></a>
+  <a href="./nycrash.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">NYC Crash Data</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./exercises.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Exercises</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -281,32 +286,51 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 </ul>
 <p>Since R has a richer collections of statistical functions, we can call R function from Python with <code>rpy2</code>. See, for example, a <a href="https://rviews.rstudio.com/2022/05/25/calling-r-from-python-with-rpy2/">blog on this subject</a>.</p>
+<p>For example, <code>fisher_exact</code> can only handle 2x2 contingency tables. For contingency tables larger than 2x2, we can call <code>fisher.text()</code> from R through <code>rpy2</code>. See <a href="https://stackoverflow.com/questions/25368284/fishers-exact-test-for-bigger-than-2-by-2-contingency-table">this StackOverflow post</a>. Note that the <code>.</code> in function names and arguments are replaced with <code>_</code>.</p>
+<div class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> rpy2.robjects.numpy2ri</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> rpy2.robjects.packages <span class="im">import</span> importr</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>rpy2.robjects.numpy2ri.activate()</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>stats <span class="op">=</span> importr(<span class="st">'stats'</span>)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>jan23 <span class="op">=</span> pd.read_csv(<span class="st">"data/nyc_crashes_202301.csv"</span>)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>jan23[<span class="st">"injury"</span>] <span class="op">=</span> np.where(jan23[<span class="st">"NUMBER OF PERSONS INJURED"</span>] <span class="op">&gt;</span> <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>m <span class="op">=</span> pd.crosstab(jan23[<span class="st">"injury"</span>], jan23[<span class="st">"BOROUGH"</span>])</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>res <span class="op">=</span> stats.fisher_test(m.to_numpy(), simulate_p_value <span class="op">=</span> <span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Loading custom .Rprofile</code></pre>
+</div>
+</div>
 </section>
 <section id="linear-model" class="level2" data-number="6.2">
 <h2 data-number="6.2" class="anchored" data-anchor-id="linear-model"><span class="header-section-number">6.2</span> Linear Model</h2>
 <p>Let’s simulate some data for illustrations.</p>
-<div class="cell" data-execution_count="1">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statsmodels.api <span class="im">as</span> sm</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>nobs <span class="op">=</span> <span class="dv">200</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>ncov <span class="op">=</span> <span class="dv">5</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>np.random.seed(<span class="dv">123</span>)</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> np.random.random((nobs, ncov)) <span class="co"># Uniform over [0, 1)</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>beta <span class="op">=</span> np.repeat(<span class="dv">1</span>, ncov)</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> <span class="dv">2</span> <span class="op">+</span> np.dot(x, beta) <span class="op">+</span> np.random.normal(size <span class="op">=</span> nobs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statsmodels <span class="im">as</span> sm</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>nobs <span class="op">=</span> <span class="dv">200</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>ncov <span class="op">=</span> <span class="dv">5</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>np.random.seed(<span class="dv">123</span>)</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> np.random.random((nobs, ncov)) <span class="co"># Uniform over [0, 1)</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>beta <span class="op">=</span> np.repeat(<span class="dv">1</span>, ncov)</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> <span class="dv">2</span> <span class="op">+</span> np.dot(x, beta) <span class="op">+</span> np.random.normal(size <span class="op">=</span> nobs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Check the shape of <code>y</code>:</p>
-<div class="cell" data-execution_count="2">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>y.shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="2">
+<div class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>y.shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="3">
 <pre><code>(200,)</code></pre>
 </div>
 </div>
 <p>Check the shape of <code>x</code>:</p>
-<div class="cell" data-execution_count="3">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>x.shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="3">
+<div class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>x.shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="4">
 <pre><code>(200, 5)</code></pre>
 </div>
 </div>
@@ -314,81 +338,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 y = 2 + x_1 + x_2 + x_3 + x_4 + x_5 + \epsilon.
 \]</span></p>
 <p>A regression model for the observed data can be fitted as</p>
-<div class="cell" data-execution_count="4">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>xmat <span class="op">=</span> sm.add_constant(x)</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>mymod <span class="op">=</span> sm.OLS(y, xmat)</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>myfit <span class="op">=</span> mymod.fit()</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>myfit.summary()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="4">
-
-<table class="simpletable">
-<caption>OLS Regression Results</caption>
-<tbody><tr>
-  <th>Dep. Variable:</th>            <td>y</td>        <th>  R-squared:         </th> <td>   0.309</td>
-</tr>
-<tr>
-  <th>Model:</th>                   <td>OLS</td>       <th>  Adj. R-squared:    </th> <td>   0.292</td>
-</tr>
-<tr>
-  <th>Method:</th>             <td>Least Squares</td>  <th>  F-statistic:       </th> <td>   17.38</td>
-</tr>
-<tr>
-  <th>Date:</th>             <td>Mon, 20 Feb 2023</td> <th>  Prob (F-statistic):</th> <td>3.31e-14</td>
-</tr>
-<tr>
-  <th>Time:</th>                 <td>10:16:10</td>     <th>  Log-Likelihood:    </th> <td> -272.91</td>
-</tr>
-<tr>
-  <th>No. Observations:</th>      <td>   200</td>      <th>  AIC:               </th> <td>   557.8</td>
-</tr>
-<tr>
-  <th>Df Residuals:</th>          <td>   194</td>      <th>  BIC:               </th> <td>   577.6</td>
-</tr>
-<tr>
-  <th>Df Model:</th>              <td>     5</td>      <th>                     </th>     <td> </td>   
-</tr>
-<tr>
-  <th>Covariance Type:</th>      <td>nonrobust</td>    <th>                     </th>     <td> </td>   
-</tr>
-</tbody></table>
-<table class="simpletable">
-<tbody><tr>
-    <td></td>       <th>coef</th>     <th>std err</th>      <th>t</th>      <th>P&gt;|t|</th>  <th>[0.025</th>    <th>0.975]</th>  
-</tr>
-<tr>
-  <th>const</th> <td>    1.8754</td> <td>    0.282</td> <td>    6.656</td> <td> 0.000</td> <td>    1.320</td> <td>    2.431</td>
-</tr>
-<tr>
-  <th>x1</th>    <td>    1.1703</td> <td>    0.248</td> <td>    4.723</td> <td> 0.000</td> <td>    0.682</td> <td>    1.659</td>
-</tr>
-<tr>
-  <th>x2</th>    <td>    0.8988</td> <td>    0.235</td> <td>    3.825</td> <td> 0.000</td> <td>    0.435</td> <td>    1.362</td>
-</tr>
-<tr>
-  <th>x3</th>    <td>    0.9784</td> <td>    0.238</td> <td>    4.114</td> <td> 0.000</td> <td>    0.509</td> <td>    1.448</td>
-</tr>
-<tr>
-  <th>x4</th>    <td>    1.3418</td> <td>    0.250</td> <td>    5.367</td> <td> 0.000</td> <td>    0.849</td> <td>    1.835</td>
-</tr>
-<tr>
-  <th>x5</th>    <td>    0.6027</td> <td>    0.239</td> <td>    2.519</td> <td> 0.013</td> <td>    0.131</td> <td>    1.075</td>
-</tr>
-</tbody></table>
-<table class="simpletable">
-<tbody><tr>
-  <th>Omnibus:</th>       <td> 0.810</td> <th>  Durbin-Watson:     </th> <td>   1.978</td>
-</tr>
-<tr>
-  <th>Prob(Omnibus):</th> <td> 0.667</td> <th>  Jarque-Bera (JB):  </th> <td>   0.903</td>
-</tr>
-<tr>
-  <th>Skew:</th>          <td>-0.144</td> <th>  Prob(JB):          </th> <td>   0.637</td>
-</tr>
-<tr>
-  <th>Kurtosis:</th>      <td> 2.839</td> <th>  Cond. No.          </th> <td>    8.31</td>
-</tr>
-</tbody></table><br><br>Notes:<br>[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
-</div>
+<div class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># xmat = sm.api.add_constant(x)</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co"># mymod = sm.api.OLS(y, xmat)</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co"># myfit = mymod.fit()</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co"># myfit.summary()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Questions to review:</p>
 <ul>
@@ -396,13 +350,13 @@ y = 2 + x_1 + x_2 + x_3 + x_4 + x_5 + \epsilon.
 <li>Why does it make sense to center the covariates?</li>
 </ul>
 <p>Now we form a data frame with the variables</p>
-<div class="cell" data-execution_count="5">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> np.concatenate((y.reshape((nobs, <span class="dv">1</span>)), x), axis <span class="op">=</span> <span class="dv">1</span>)</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.DataFrame(data <span class="op">=</span> df,</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>                  columns <span class="op">=</span> [<span class="st">"y"</span>] <span class="op">+</span> [<span class="st">"x"</span> <span class="op">+</span> <span class="bu">str</span>(i) <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>,</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>                  ncov <span class="op">+</span> <span class="dv">1</span>)])</span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>df.info()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> np.concatenate((y.reshape((nobs, <span class="dv">1</span>)), x), axis <span class="op">=</span> <span class="dv">1</span>)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.DataFrame(data <span class="op">=</span> df,</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>                  columns <span class="op">=</span> [<span class="st">"y"</span>] <span class="op">+</span> [<span class="st">"x"</span> <span class="op">+</span> <span class="bu">str</span>(i) <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>,</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>                  ncov <span class="op">+</span> <span class="dv">1</span>)])</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>df.info()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>&lt;class 'pandas.core.frame.DataFrame'&gt;
 RangeIndex: 200 entries, 0 to 199
@@ -420,12 +374,12 @@ memory usage: 9.5 KB</code></pre>
 </div>
 </div>
 <p>Let’s use a formula to specify the regression model as in R, and fit a robust linear model (<code>rlm</code>) instead of OLS. Note that the model specification and the function interface is similar to R.</p>
-<div class="cell" data-execution_count="6">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statsmodels.formula.api <span class="im">as</span> smf</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>mymod <span class="op">=</span> smf.rlm(formula <span class="op">=</span> <span class="st">"y ~ x1 + x2 + x3 + x4 + x5"</span>, data <span class="op">=</span> df)</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>myfit <span class="op">=</span> mymod.fit()</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>myfit.summary()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="6">
+<div class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statsmodels.formula.api <span class="im">as</span> smf</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>mymod <span class="op">=</span> smf.rlm(formula <span class="op">=</span> <span class="st">"y ~ x1 + x2 + x3 + x4 + x5"</span>, data <span class="op">=</span> df)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>myfit <span class="op">=</span> mymod.fit()</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>myfit.summary()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="7">
 
 <table class="simpletable">
 <caption>Robust linear Model Regression Results</caption>
@@ -448,10 +402,10 @@ memory usage: 9.5 KB</code></pre>
   <th>Cov Type:</th>              <td>H1</td>        <th>                     </th>    <td> </td>  
 </tr>
 <tr>
-  <th>Date:</th>           <td>Mon, 20 Feb 2023</td> <th>                     </th>    <td> </td>  
+  <th>Date:</th>           <td>Wed, 22 Feb 2023</td> <th>                     </th>    <td> </td>  
 </tr>
 <tr>
-  <th>Time:</th>               <td>10:16:10</td>     <th>                     </th>    <td> </td>  
+  <th>Time:</th>               <td>14:20:51</td>     <th>                     </th>    <td> </td>  
 </tr>
 <tr>
   <th>No. Iterations:</th>        <td>16</td>        <th>                     </th>    <td> </td>  
@@ -483,19 +437,13 @@ memory usage: 9.5 KB</code></pre>
 </div>
 </div>
 <p>For model diagnostics, one can check residual plots.</p>
-<div class="cell" data-execution_count="7">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>myOlsFit <span class="op">=</span> smf.ols(formula <span class="op">=</span> <span class="st">"y ~ x1 + x2 + x3 + x4 + x5"</span>, data <span class="op">=</span> df).fit()</span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> plt.figure(figsize <span class="op">=</span> (<span class="dv">6</span>, <span class="dv">6</span>))</span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="co">## residual versus x1; can do the same for other covariates</span></span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> sm.graphics.plot_regress_exog(myOlsFit, <span class="st">'x1'</span>, fig<span class="op">=</span>fig)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>eval_env: 1</code></pre>
-</div>
-<div class="cell-output cell-output-display">
-<p><img src="stats_files/figure-html/cell-8-output-2.png" width="566" height="570"></p>
-</div>
+<div class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>myOlsFit <span class="op">=</span> smf.ols(formula <span class="op">=</span> <span class="st">"y ~ x1 + x2 + x3 + x4 + x5"</span>, data <span class="op">=</span> df).fit()</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="co"># fig = plt.figure(figsize = (6, 6))</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="co">## residual versus x1; can do the same for other covariates</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="co"># fig = sm.graphics.plot_regress_exog(myOlsFit, 'x1', fig=fig)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>See more on <a href="https://www.statsmodels.org/stable/stats.html#residual-diagnostics-and-specification-tests">residual diagnostics and specification tests</a>.</p>
 </section>
@@ -511,17 +459,18 @@ g(u) = \log \frac{u}{1 - u}, \quad u \in (0, 1).
 <p>What is the interpretation of the regression coefficients in a logistic regression? Intercept?</p>
 <p>A logistic regression can be fit with <code>statsmodels.api.glm</code>.</p>
 <p>Let’s generate some binary data first by dichotomizing existing variables.</p>
-<div class="cell" data-execution_count="8">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'yb'</span> ] <span class="op">=</span> np.where(df[<span class="st">'y'</span> ] <span class="op">&gt;</span> <span class="fl">2.5</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'x1b'</span>] <span class="op">=</span> np.where(df[<span class="st">'x1'</span>] <span class="op">&gt;</span> <span class="fl">0.5</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>eta <span class="op">=</span> x.dot([<span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span>]) <span class="op">-</span> <span class="dv">5</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>p <span class="op">=</span> sm.genmod.families.links.Logit().inverse(eta)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"yb"</span>] <span class="op">=</span> np.random.binomial(<span class="dv">1</span>, p, p.size)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Fit a logistic regression for <code>y1b</code>.</p>
-<div class="cell" data-execution_count="9">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>mylogistic <span class="op">=</span> smf.glm(formula <span class="op">=</span> <span class="st">'yb ~ x1b + x2 + x3 + x4 + x5'</span>, data <span class="op">=</span> df,</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>                     family <span class="op">=</span> sm.families.Binomial())</span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>mylfit <span class="op">=</span> mylogistic.fit()</span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>mylfit.summary()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="9">
+<div class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>mylogistic <span class="op">=</span> smf.glm(formula <span class="op">=</span> <span class="st">'yb ~ x1 + x2 + x3 + x4 + x5'</span>, data <span class="op">=</span> df,</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>                     family <span class="op">=</span> sm.genmod.families.Binomial())</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>mylfit <span class="op">=</span> mylogistic.fit()</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>mylfit.summary()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="10">
 
 <table class="simpletable">
 <caption>Generalized Linear Model Regression Results</caption>
@@ -538,16 +487,16 @@ g(u) = \log \frac{u}{1 - u}, \quad u \in (0, 1).
   <th>Link Function:</th>         <td>Logit</td>      <th>  Scale:             </th> <td>  1.0000</td>
 </tr>
 <tr>
-  <th>Method:</th>                <td>IRLS</td>       <th>  Log-Likelihood:    </th> <td> -30.654</td>
+  <th>Method:</th>                <td>IRLS</td>       <th>  Log-Likelihood:    </th> <td> -110.80</td>
 </tr>
 <tr>
-  <th>Date:</th>            <td>Mon, 20 Feb 2023</td> <th>  Deviance:          </th> <td>  61.307</td>
+  <th>Date:</th>            <td>Wed, 22 Feb 2023</td> <th>  Deviance:          </th> <td>  221.61</td>
 </tr>
 <tr>
-  <th>Time:</th>                <td>10:16:11</td>     <th>  Pearson chi2:      </th>  <td>  217.</td> 
+  <th>Time:</th>                <td>14:20:51</td>     <th>  Pearson chi2:      </th>  <td>  196.</td> 
 </tr>
 <tr>
-  <th>No. Iterations:</th>          <td>7</td>        <th>  Pseudo R-squ. (CS):</th>  <td>0.05871</td>
+  <th>No. Iterations:</th>          <td>4</td>        <th>  Pseudo R-squ. (CS):</th>  <td>0.2410</td> 
 </tr>
 <tr>
   <th>Covariance Type:</th>     <td>nonrobust</td>    <th>                     </th>     <td> </td>   
@@ -558,33 +507,33 @@ g(u) = \log \frac{u}{1 - u}, \quad u \in (0, 1).
       <td></td>         <th>coef</th>     <th>std err</th>      <th>z</th>      <th>P&gt;|z|</th>  <th>[0.025</th>    <th>0.975]</th>  
 </tr>
 <tr>
-  <th>Intercept</th> <td>   -0.4354</td> <td>    1.309</td> <td>   -0.333</td> <td> 0.739</td> <td>   -3.002</td> <td>    2.131</td>
+  <th>Intercept</th> <td>   -4.6982</td> <td>    0.820</td> <td>   -5.728</td> <td> 0.000</td> <td>   -6.306</td> <td>   -3.091</td>
 </tr>
 <tr>
-  <th>x1b</th>       <td>    1.2721</td> <td>    0.845</td> <td>    1.505</td> <td> 0.132</td> <td>   -0.384</td> <td>    2.928</td>
+  <th>x1</th>        <td>    2.1654</td> <td>    0.618</td> <td>    3.505</td> <td> 0.000</td> <td>    0.955</td> <td>    3.376</td>
 </tr>
 <tr>
-  <th>x2</th>        <td>    2.6897</td> <td>    1.418</td> <td>    1.897</td> <td> 0.058</td> <td>   -0.089</td> <td>    5.469</td>
+  <th>x2</th>        <td>    1.1788</td> <td>    0.579</td> <td>    2.035</td> <td> 0.042</td> <td>    0.044</td> <td>    2.314</td>
 </tr>
 <tr>
-  <th>x3</th>        <td>   -0.0537</td> <td>    1.270</td> <td>   -0.042</td> <td> 0.966</td> <td>   -2.542</td> <td>    2.435</td>
+  <th>x3</th>        <td>    1.5921</td> <td>    0.587</td> <td>    2.713</td> <td> 0.007</td> <td>    0.442</td> <td>    2.742</td>
 </tr>
 <tr>
-  <th>x4</th>        <td>    2.6576</td> <td>    1.438</td> <td>    1.848</td> <td> 0.065</td> <td>   -0.160</td> <td>    5.476</td>
+  <th>x4</th>        <td>    2.2310</td> <td>    0.630</td> <td>    3.539</td> <td> 0.000</td> <td>    0.995</td> <td>    3.466</td>
 </tr>
 <tr>
-  <th>x5</th>        <td>    1.8752</td> <td>    1.330</td> <td>    1.409</td> <td> 0.159</td> <td>   -0.732</td> <td>    4.483</td>
+  <th>x5</th>        <td>    2.5496</td> <td>    0.598</td> <td>    4.263</td> <td> 0.000</td> <td>    1.377</td> <td>    3.722</td>
 </tr>
 </tbody></table>
 </div>
 </div>
 <p>If we treat <code>y1b</code> as count data, a Poisson regression can be fitted.</p>
-<div class="cell" data-execution_count="10">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>myPois <span class="op">=</span> smf.glm(formula <span class="op">=</span> <span class="st">'yb ~ x1b + x2 + x3 + x4 + x5'</span>, data <span class="op">=</span> df,</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>                 family <span class="op">=</span> sm.families.Poisson())</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>mypfit <span class="op">=</span> myPois.fit()</span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>mypfit.summary()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="10">
+<div class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>myPois <span class="op">=</span> smf.glm(formula <span class="op">=</span> <span class="st">'yb ~ x1 + x2 + x3 + x4 + x5'</span>, data <span class="op">=</span> df,</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>                 family <span class="op">=</span> sm.genmod.families.Poisson())</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>mypfit <span class="op">=</span> myPois.fit()</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>mypfit.summary()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="11">
 
 <table class="simpletable">
 <caption>Generalized Linear Model Regression Results</caption>
@@ -601,16 +550,16 @@ g(u) = \log \frac{u}{1 - u}, \quad u \in (0, 1).
   <th>Link Function:</th>          <td>Log</td>       <th>  Scale:             </th> <td>  1.0000</td>
 </tr>
 <tr>
-  <th>Method:</th>                <td>IRLS</td>       <th>  Log-Likelihood:    </th> <td> -199.55</td>
+  <th>Method:</th>                <td>IRLS</td>       <th>  Log-Likelihood:    </th> <td> -161.33</td>
 </tr>
 <tr>
-  <th>Date:</th>            <td>Mon, 20 Feb 2023</td> <th>  Deviance:          </th> <td>  17.091</td>
+  <th>Date:</th>            <td>Wed, 22 Feb 2023</td> <th>  Deviance:          </th> <td>  112.66</td>
 </tr>
 <tr>
-  <th>Time:</th>                <td>10:16:11</td>     <th>  Pearson chi2:      </th>  <td>  8.99</td> 
+  <th>Time:</th>                <td>14:20:51</td>     <th>  Pearson chi2:      </th>  <td>  89.6</td> 
 </tr>
 <tr>
-  <th>No. Iterations:</th>          <td>4</td>        <th>  Pseudo R-squ. (CS):</th> <td>0.002487</td>
+  <th>No. Iterations:</th>          <td>5</td>        <th>  Pseudo R-squ. (CS):</th>  <td>0.1071</td> 
 </tr>
 <tr>
   <th>Covariance Type:</th>     <td>nonrobust</td>    <th>                     </th>     <td> </td>   
@@ -621,22 +570,22 @@ g(u) = \log \frac{u}{1 - u}, \quad u \in (0, 1).
       <td></td>         <th>coef</th>     <th>std err</th>      <th>z</th>      <th>P&gt;|z|</th>  <th>[0.025</th>    <th>0.975]</th>  
 </tr>
 <tr>
-  <th>Intercept</th> <td>   -0.2045</td> <td>    0.288</td> <td>   -0.710</td> <td> 0.477</td> <td>   -0.769</td> <td>    0.360</td>
+  <th>Intercept</th> <td>   -2.4529</td> <td>    0.435</td> <td>   -5.644</td> <td> 0.000</td> <td>   -3.305</td> <td>   -1.601</td>
 </tr>
 <tr>
-  <th>x1b</th>       <td>    0.0445</td> <td>    0.146</td> <td>    0.304</td> <td> 0.761</td> <td>   -0.242</td> <td>    0.331</td>
+  <th>x1</th>        <td>    0.7638</td> <td>    0.361</td> <td>    2.117</td> <td> 0.034</td> <td>    0.057</td> <td>    1.471</td>
 </tr>
 <tr>
-  <th>x2</th>        <td>    0.0965</td> <td>    0.249</td> <td>    0.387</td> <td> 0.699</td> <td>   -0.392</td> <td>    0.585</td>
+  <th>x2</th>        <td>    0.3698</td> <td>    0.330</td> <td>    1.121</td> <td> 0.262</td> <td>   -0.277</td> <td>    1.017</td>
 </tr>
 <tr>
-  <th>x3</th>        <td>   -0.0088</td> <td>    0.254</td> <td>   -0.035</td> <td> 0.972</td> <td>   -0.507</td> <td>    0.490</td>
+  <th>x3</th>        <td>    0.5396</td> <td>    0.345</td> <td>    1.562</td> <td> 0.118</td> <td>   -0.137</td> <td>    1.217</td>
 </tr>
 <tr>
-  <th>x4</th>        <td>    0.1072</td> <td>    0.267</td> <td>    0.402</td> <td> 0.688</td> <td>   -0.416</td> <td>    0.630</td>
+  <th>x4</th>        <td>    0.7895</td> <td>    0.368</td> <td>    2.144</td> <td> 0.032</td> <td>    0.068</td> <td>    1.511</td>
 </tr>
 <tr>
-  <th>x5</th>        <td>    0.0750</td> <td>    0.253</td> <td>    0.296</td> <td> 0.767</td> <td>   -0.421</td> <td>    0.571</td>
+  <th>x5</th>        <td>    0.9477</td> <td>    0.352</td> <td>    2.691</td> <td> 0.007</td> <td>    0.257</td> <td>    1.638</td>
 </tr>
 </tbody></table>
 </div>
