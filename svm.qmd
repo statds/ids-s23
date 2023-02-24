@@ -421,7 +421,7 @@ Let take a look at our NYC database. We would like to create a machine learning 
 ```{python}
 import pandas as pd
 
-jan23 = pd.read_csv("-\data\nyc_mv_collisions_202301_cleaned.csv")
+jan23 = pd.read_csv("-\data\nyc_crashes_202301_cleaned.csv")
 jan23.head()
 ```
 
