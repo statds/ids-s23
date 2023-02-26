@@ -1,0 +1,335 @@
+## Decision Trees
+
+### Introduction
+
+<p style="line-height: 2.0;">
+    Decision Trees (DTs) are a non-parametric supervised learning method used for classification and regression. The goal is to create a model that predicts the value of a target variable by learning simple decision rules inferred from the data features. A tree can be seen as a piecewise constant approximation.
+<p style="line-height: 2.0;">
+    For instance, in the example below, decision trees learn from data to approximate a sine curve with a set of if-then-else decision rules. The deeper the tree, the more complex the decision rules and the fitter the model.
+
+![1.png](decision_tree_resources/1.png)
+
+picture source: https://scikit-learn.org/stable/modules/tree.html#
+
+Here is an simple example of what the "tree" looks like.
+
+![2.png](decision_tree_resources/2.png)
+
+I will introduce the basics of the decision tree package in `scikit-learn` through this 
+spam email classification example, using a simple mock dataset.
+
+```{python}
+import pandas as pd
+
+mock_spam = pd.read_csv('decision_tree_resources/mock_spam.csv')
+mock_spam
+```
+
+Let's construct and visualize the model (tree version)
+
+```{python}
+from sklearn import tree
+import graphviz
+
+email_features = mock_spam[['unknown_sender', 'sales_words', 'scam_words']].values
+is_spam = mock_spam[['is_spam']].values
+clf = tree.DecisionTreeClassifier(criterion='gini') # Create a default classifier
+clf = clf.fit(email_features, is_spam)
+feat_names = ['is unknown sender', 'contain sales words', 'contain scam words']
+class_names = ['normal', 'spam']
+dot_data = tree.export_graphviz(clf, out_file=None, feature_names = feat_names, 
+                                class_names=class_names, filled=True)
+clf_graph = graphviz.Source(dot_data)
+clf_graph
+```
+
+Both root and internal nodes have child nodes that branch out from them based on the value of a feature. For instance, the root node splits the unknown_sender feature space, and the threshold is 0.5. Its left subtree represents all the data with unknown_sender <= 0.5, whereas its right subtree represents all the subset of data with unknown_sender > 0.5. 
+Each leaf node has an predicted value which will be used as the output from the decision tree. 
+For example, the leftmost leaf node (left child of the root node) will lead to output is_spam = 0 (i.e. "normal").
+
+We can use this model to make some prediction.
+
+```{python}
+new_email_feat = [[0, 1, 0], # Known sender, contains sales word, no scam word
+                  [1, 1, 0]] # Unknown sender, contains sales word, no scam word
+clf.predict(new_email_feat) # expected result: 0 (normal), 1 (spam)
+```
+
+Given an input, the predicted outcome is obtained by traversing the decision tree. The traversal starts from the root node, and chooses left or right subtree based on the node's splitting rule recursively, until it reaches a leaf node.
+
+For the example input [1, 1, 0], its unknown_sender feature is 1, so we follow the right subtree based on the root node's splitting rule. The next node splits on the scam_words feature, and since its value is 0, we follow the left subtree. The next node uses the sales_words feature, and its value is 1, so we should go down to the right subtree, where we reach a leaf node. Thus the predicted outcome is the value 1 (class "spam").
+
+### Tree algorithms
+
+As many other supervised learning approaches, the decision trees are constructed in a way that minimizes a chosen cost function. It is computationally infeasible to find the optimal decision tree that minimizes the cost function. Thus, a greedy approach known as recursive binary splitting is often used.
+
+`scikit-learn` uses an optimized version of the CART algorithm; however, the `scikit-learn` implementation does not support categorical variables for now. Minimal cost-complexity pruning is an algorithm used to prune a tree to avoid over-fitting. 
+
+#### Cost function
+Gini and entropy are classification criteria. Mean Squared Error (MSE or L2 error), Poisson deviance and Mean Absolute Error (MAE or L1 error) are Regression criteria. Here shows the mathematical formulations to get gini and entropy.
+
+As we see from the above example, in a decision tree, each tree node $m$ is associated with a subset of the training data set. Assume there are n_m data points associated with $m$, and the class values of the data points are in the set $Q_m$. 
+
+Further assume that there are K classes, and let
+$$
+p_{mk}=\frac{1}{n_m}\sum_{y\in Q_m}I(y=k) (k=1,...,K)
+$$
+represent the proportion of class $k$ observations in node $m$. Then the cost functions (referred to as classification criteria in sklearn) available in sklearn are:
+* Gini:
+$$
+H(Q_m)=\sum_{k}p_{mk}(1-p_{mk})
+$$
+* Log loss or entropy:
+$$
+H(Q_m)=-\sum_{k}p_{mk}log(p_{mk})
+$$
+
+In `sklearn.tree.DecisionTreeClassifierhe`, the default criterion is gini. One advantage of using Gini impurity over entropy is that it can be faster to compute, since it involves only a simple sum of squares rather than logarithmic functions. Additionally, Gini impurity tends to be more robust to small changes in the data, while entropy can be sensitive to noise.
+
+#### How to choose what feature and threshold to split on at each node?
+The decision tree algorithm iterates over all possible features and thresholds and chooses the one that maximize purity or minimize impurity or maximize information gain. 
+
+Let's use the spam email example to calulate the impurity reduction. 
+
+The impurity reduction based on Gini is calculated as the difference between the Gini index of the parent node and the weighted average of the Gini of the child nodes. The split that results in the highest impurity reduction based on Gini is chosen as the best split.
+
+```{python}
+clf_graph
+```
+
+#### When to stop splitting?
+
+There are several stopping criteria that can be used to decide when to stop splitting in a decision tree algorithm. Here are some common ones:
+
+When a node is 100% one class
+
+Maximum depth: Stop splitting when the tree reaches a maximum depth, i.e., when the number of levels in the tree exceeds a predefined threshold.
+
+Minimum number of samples: Stop splitting when the number of samples in a node falls below a certain threshold. This can help avoid overfitting by preventing the tree from making very specific rules for very few samples.
+
+Minimum decrease in impurity: Stop splitting when the impurity measure (e.g., Gini impurity or entropy) does not decrease by a certain threshold after a split. This can help avoid overfitting by preventing the tree from making splits that do not significantly improve the purity of the resulting child nodes.
+
+Maximum number of leaf nodes: Stop splitting when the number of leaf nodes reaches a predefined maximum.
+
+### Demo
+
+#### Preparation
+
+##### Step 1: install scikit-learn
+
+Use pip
+```bash
+pip install -U scikit-learn
+```
+
+Use Conda
+```bash
+conda create -n sklearn-env -c conda-forge scikit-learn
+
+conda activate sklearn-env
+```
+
+
+##### Step 2: Import Required Libraries
+
+```{python}
+from sklearn import tree
+import pandas as pd
+import numpy as np
+```
+
+##### Step 3: Preparing the Data
+
+```{python}
+NYC = pd.read_csv("decision_tree_resources/merged.csv")
+```
+
+```{python}
+# drop rows with missing data in some columns
+NYC = NYC.dropna(subset=['BOROUGH', 'hour', 'median_home_value', 'occupied_housing_units'])
+# Select the features
+nyc_subset = NYC[['BOROUGH', 'hour', 'median_home_value', 'occupied_housing_units']].copy()
+```
+
+```{python}
+# One hot encode categorical features
+nyc_encoded = pd.get_dummies(nyc_subset, columns=['BOROUGH', 'hour'])
+nyc_encoded
+```
+
+```{python}
+# Train test split
+from sklearn.model_selection import train_test_split
+X_train, X_test, y_train, y_test = \
+    train_test_split(nyc_encoded.values, NYC[['injury']].values, test_size = 0.20)
+```
+
+#### Building the Decision Tree Model
+
+```{python}
+#| scrolled: false
+# Fit the model and plot the tree (using default parameters)
+injury_clf = tree.DecisionTreeClassifier(
+    criterion='gini', splitter='best', max_depth=None, 
+    min_samples_split=2, min_samples_leaf=1, min_weight_fraction_leaf=0.0, 
+    max_features=None, max_leaf_nodes=None, min_impurity_decrease=0.0, 
+    class_weight=None, ccp_alpha=0.0)
+injury_clf = injury_clf.fit(X_train, y_train)
+```
+
+```{python}
+injury_clf.tree_.node_count
+```
+
+Arguments related to stopping criteria:
+* max_depth
+* min_samples_split
+* min_samples_leaf
+* min_weight_fraction_leaf
+* max_features
+* max_leaf_nodes
+* min_impurity_decrease
+
+Other important arguments:
+* criterion: cost function to use
+* splitter: node splitting strategy
+* ccp_alpha: pruning parameter
+
+```{python}
+from sklearn.model_selection import GridSearchCV
+
+# define the hyperparameter grid for logistic regression
+param_grid = {'criterion': ['gini', 'entropy'],
+              'max_depth': [10, 15, 20],
+              'min_impurity_decrease': [1e-4, 1e-3, 1e-2],
+              'ccp_alpha': [0.0, 1e-5, 1e-4, 1e-3]}
+
+# perform cross-validation with GridSearchCV
+tree_clf = tree.DecisionTreeClassifier()
+grid_search = GridSearchCV(tree_clf, param_grid, cv=5, scoring='f1')
+
+# fit the GridSearchCV object to the training data
+grid_search.fit(X_train, y_train)
+
+# print the best hyperparameters found
+grid_search.best_params_
+```
+
+```{python}
+#| scrolled: false
+# Use parameters from cross-validation to train another model
+injury_clf2 = tree.DecisionTreeClassifier(
+    criterion='gini', splitter='best', max_depth=20, 
+    min_samples_split=2, min_samples_leaf=1, min_weight_fraction_leaf=0.0, 
+    max_features=None, max_leaf_nodes=None, min_impurity_decrease=0.0001, 
+    class_weight=None, ccp_alpha=0.0001)
+injury_clf2 = injury_clf2.fit(X_train, y_train)
+injury_clf2.tree_.node_count
+```
+
+```{python}
+# Prune the tree more aggressively
+injury_clf3 = tree.DecisionTreeClassifier(
+    criterion='gini', splitter='best', max_depth=None, 
+    min_samples_split=2, min_samples_leaf=1, min_weight_fraction_leaf=0.0, 
+    max_features=None, max_leaf_nodes=None, min_impurity_decrease=0.0001, 
+    class_weight=None, ccp_alpha=8e-4)
+injury_clf3 = injury_clf3.fit(X_train, y_train)
+injury_clf3.tree_.node_count
+```
+
+```{python}
+injury_dot_data3 = tree.export_graphviz(injury_clf3, out_file=None, filled=True)
+injury_clf_graph = graphviz.Source(injury_dot_data3)
+injury_clf_graph
+```
+
+#### Evaluation
+
+```{python}
+# caculate the predicted values
+clf_pred = injury_clf.predict(X_test)
+clf2_pred = injury_clf2.predict(X_test)
+clf3_pred = injury_clf3.predict(X_test)
+```
+
+```{python}
+# evaluate the model
+from sklearn.metrics import confusion_matrix, \
+accuracy_score, precision_score, recall_score, f1_score, roc_auc_score
+
+# Confusion matrix
+clf_cm = confusion_matrix(y_test, clf_pred)
+clf2_cm = confusion_matrix(y_test, clf2_pred)
+clf3_cm = confusion_matrix(y_test, clf3_pred)
+
+# Accuracy
+clf_acc = accuracy_score(y_test, clf_pred)
+clf2_acc = accuracy_score(y_test, clf2_pred)
+clf3_acc = accuracy_score(y_test, clf3_pred)
+
+# Precision
+clf_precision = precision_score(y_test, clf_pred)
+clf2_precision = precision_score(y_test, clf2_pred)
+clf3_precision = precision_score(y_test, clf3_pred)
+
+# Recall
+clf_recall = recall_score(y_test, clf_pred)
+clf2_recall = recall_score(y_test, clf2_pred)
+clf3_recall = recall_score(y_test, clf3_pred)
+
+# F1-score
+clf_f1 = f1_score(y_test, clf_pred)
+clf2_f1 = f1_score(y_test, clf2_pred)
+clf3_f1 = f1_score(y_test, clf3_pred)
+
+# AUC
+clf_auc = roc_auc_score(y_test, clf_pred)
+clf2_auc = roc_auc_score(y_test, clf2_pred)
+clf3_auc = roc_auc_score(y_test, clf3_pred)
+```
+
+```{python}
+print("Default parameter results:")
+print("Confusion matrix:")
+print(clf_cm)
+print("Accuracy:", clf_acc)
+print("Precision:", clf_precision)
+print("Recall:", clf_recall)
+print("F1-score:", clf_f1)
+print("AUC:", clf_auc)
+print("\n")
+print("Cross-valiation parameter results:")
+print("Confusion matrix:")
+print(clf2_cm)
+print("Accuracy:", clf2_acc)
+print("Precision:", clf2_precision)
+print("Recall:", clf2_recall)
+print("F1-score:", clf2_f1)
+print("AUC:", clf2_auc)
+print("\n")
+print("More aggressive pruning results:")
+print("Confusion matrix:")
+print(clf3_cm)
+print("Accuracy:", clf3_acc)
+print("Precision:", clf3_precision)
+print("Recall:", clf3_recall)
+print("F1-score:", clf3_f1)
+print("AUC:", clf3_auc)
+```
+
+### Conclusion
+
+In conclusion, decision trees are a widely used supervised learning algorithm for classification and regression tasks. They are easy to understand and interpret. The algorithm works by recursively splitting the dataset based on the attribute that provides the most information gain or the impurity reduction. The tree structure is built from the root node to the leaf nodes, where each node represents a decision based on a feature of the data.
+
+One advantage of decision trees is their interpretability, which allows us to easily understand the decision-making process. They can also model complex problems with multiple outcomes. They are not affected by missing values or outliers. 
+
+However, decision trees can be prone to overfitting and may not perform well on complex datasets. They can also be sensitive to small variations in the training data and may require pruning to prevent overfitting. Random forest would be a better choice in this situation. Furthermore, decision trees may not perform well on imbalanced datasets, and their performance can be affected by the selection of splitting criteria.
+
+Overall, decision trees are a useful and versatile tool in machine learning, but it is important to carefully consider their advantages and disadvantages before applying them to a specific problem.
+
+### References
+<p>
+https://scikit-learn.org/stable/modules/tree.html#
+<p>
+https://www.coursera.org/learn/advanced-learning-algorithms/home/week/4
