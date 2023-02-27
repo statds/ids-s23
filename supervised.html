@@ -286,14 +286,48 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="confusion-matrix" class="level3" data-number="8.2.2">
 <h3 data-number="8.2.2" class="anchored" data-anchor-id="confusion-matrix"><span class="header-section-number">8.2.2</span> Confusion matrix</h3>
 <p><a href="https://en.wikipedia.org/wiki/Confusion_matrix" class="uri">https://en.wikipedia.org/wiki/Confusion_matrix</a></p>
+<p>Four entries in the confusion matrix:</p>
+<ul>
+<li>TP: number of true positives</li>
+<li>FN: number of false negatives</li>
+<li>FP: number of false positives</li>
+<li>TN: number of true negatives</li>
+</ul>
+<p>Four rates from the confusion matrix with actual (row) margins:</p>
+<ul>
+<li>TPR: TP / (TP + FN). Also known as sensitivity.</li>
+<li>FNR: TN / (TP + FN). Also known as miss rate.</li>
+<li>FPR: FP / (FP + TN). Also known as false alarm, fall-out.</li>
+<li>TNR: TN / (FP + TN). Also known as specificity.</li>
+</ul>
+<p>Note that TPR and FPR do not add up to one. Neither do FNR and FPR.</p>
+<p>Four rates from the confusion matrix with predicted (column) margins:</p>
+<ul>
+<li>PPV: TP / (TP + FP). Also known as precision.</li>
+<li>FDR: FP / (TP + FP).</li>
+<li>FOR: FN / (FN + TN).</li>
+<li>NPV: TN / (FN + TN).</li>
+</ul>
 </section>
 <section id="measure-of-classification-performance" class="level3" data-number="8.2.3">
 <h3 data-number="8.2.3" class="anchored" data-anchor-id="measure-of-classification-performance"><span class="header-section-number">8.2.3</span> Measure of classification performance</h3>
+<p>Measures for a given confusion matrix:</p>
 <ul>
-<li>Accuracy: subset accuracy the set of labels predicted for a sample must exactly match the corresponding set of labels in y_true.</li>
-<li>Precision: the ratio tp / (tp + fp) where tp is the number of true positives and fp the number of false positives. The precision is intuitively the ability of the classifier not to label as positive a sample that is negative.</li>
-<li>Recall: the ratio tp / (tp + fn) where tp is the number of true positives and fn the number of false negatives. The recall is intuitively the ability of the classifier to find all the positive samples.</li>
-<li>F1 score: 2 * (precision * recall) / (precision + recall). A harmonic mean of the precision and recall</li>
+<li>Accuracy: (TP + TN) / (P + N). The proportion of all corrected predictions. Not good for highly imbalanced data.</li>
+<li>Recall (sensitivity/TPR): TP / (TP + FN). Intuitively, the ability of the classifier to find all the positive samples.</li>
+<li>Precision: TP / (TP + FP). Intuitively, the ability of the classifier not to label as positive a sample that is negative.</li>
+<li>F-beta score: Harmonic mean of precision and recall with <span class="math inline">\(\beta\)</span> chosen such that recall is considered <span class="math inline">\(\beta\)</span> times as important as precision, <span class="math display">\[
+(1 + \beta^2) \frac{\text{precision} \cdot \text{recall}}
+{\beta^2 \text{precision} + \text{recall}}
+\]</span> See <a href="https://stats.stackexchange.com/questions/221997/why-f-beta-score-define-beta-like-that">stackexchange post</a> for the motivation of <span class="math inline">\(\beta^2\)</span>.</li>
+</ul>
+<p>When classification is obtained by dichotomizing a continuous score, the receiver operating characteristic (ROC) curve gives a graphical summary of the FPR and TPR for all thresholds. The ROC curve plots the TPR against the FPR at all thresholds.</p>
+<ul>
+<li>Increasing from <span class="math inline">\((0, 0)\)</span> to <span class="math inline">\((1, 1)\)</span>.</li>
+<li>Best classification passes <span class="math inline">\((0, 1)\)</span>.</li>
+<li>Classification by random guess gives the 45-degree line.</li>
+<li>Area between the ROC and the 45-degree line is the Gini coefficient, a measure of inequality.</li>
+<li>Area under the curve (AUC) of ROC thus provides an important metric of classification results.</li>
 </ul>
 </section>
 <section id="cross-validation" class="level3" data-number="8.2.4">
@@ -536,7 +570,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>plt.scatter(X[:, <span class="dv">0</span>], X[:, <span class="dv">1</span>], c<span class="op">=</span>y, s<span class="op">=</span><span class="dv">50</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<p><img src="supervised_files/figure-html/cell-9-output-1.png" width="590" height="411"></p>
+<p><img src="supervised_files/figure-html/cell-9-output-1.png" width="582" height="411"></p>
 </div>
 </div>
 <p>If we apply a standard <strong>Support Vector Classifier</strong> the result will be like this.</p>
@@ -1046,7 +1080,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>accuracy</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="21">
-<pre><code>0.685</code></pre>
+<pre><code>0.65</code></pre>
 </div>
 </div>
 </section>
