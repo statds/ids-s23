@@ -75,7 +75,7 @@
        experience?
 
 1. Except the first problem, use the cleaned data set with missing geocode
-   imputed.
+   imputed (`data/nyc_crashes_202301_cleaned.csv`).
     1. Construct a contigency table for missing in geocode (latitude and
        longitude) by borough. Is the missing pattern the same across borough?
        Formulate a hypothesis and test it. 

@@ -9,6 +9,9 @@ STAT 3255/5255, Spring 2023. The GitHub repo is at
 from Spring 2022 are available at <https://github.com/statds/ids-s22>. 
 
 
+Our mid-term project on the 311 requests of New York City is to be [showcased
+at the NYC Open Data Week during 2-3 pm ET, Monday, March 13, 2023.](https://2023.open-data.nyc/event/data-science-at-uconn-with-nyc-open-data/).
+
 
 An interesting quote from @vanderplas2016python:
 
