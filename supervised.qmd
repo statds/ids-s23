@@ -43,3 +43,11 @@ when subject matter experts are unsure of common properties within a data set.
 + Goal: strike a bias-variance tradeoff.
 + K-fold: hold out each fold as testing data.
 + Scores: minimized to train a model
+
+
+
+<!-- ## Support Vector Machine -->
+
+{{< include _svm.qmd >}}
+
+
