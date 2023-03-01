@@ -1,0 +1,6 @@
+# Visualization
+
+{{< include _matplotlib.qmd >}}
+
+
+{{< include _plotnine.qmd >}}

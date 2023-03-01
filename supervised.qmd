@@ -1,0 +1,109 @@
+# Supervised Learning
+
+## Introduction
+Supervised learning uses labeled datasets to train algorithms that to classify
+data or predict outcomes accurately. As input data is fed into the model, it
+adjusts its weights until the model has been fitted appropriately, which occurs
+as part of the cross validation process.
+
+In contrast, unsupervised learning uses unlabeled data to discover patterns that
+help solve for clustering or association problems. This is particularly useful
+when subject matter experts are unsure of common properties within a data set.
+
+
+## Classification vs Regression
+
++ Classificaiton: outcome variable is categorical
++ Regression: outcome variable is continuous
++ Both problems can have many covariates (predictors/features)
+
+### Regression metrics
+
++ Mean squared error (MSE)
++ Mean absolute error (MAE)
+
+### Classification metrics
+
+#### Confusion matrix
+
+<https://en.wikipedia.org/wiki/Confusion_matrix>
+
+Four entries in the confusion matrix:
+
++ TP: number of true positives
++ FN: number of false negatives
++ FP: number of false positives
++ TN: number of true negatives
+
+Four rates from the confusion matrix with actual (row) margins:
+
++ TPR: TP / (TP + FN). Also known as sensitivity.
++ FNR: TN / (TP + FN). Also known as miss rate.
++ FPR: FP / (FP + TN). Also known as false alarm, fall-out.
++ TNR: TN / (FP + TN). Also known as specificity.
+
+Note that TPR and FPR do not add up to one. Neither do FNR and FPR.
+
+Four rates from the confusion matrix with predicted (column) margins:
+
++ PPV: TP / (TP + FP). Also known as precision.
++ FDR: FP / (TP + FP).
++ FOR: FN / (FN + TN).
++ NPV: TN / (FN + TN).
+
+
+#### Measure of classification performance
+
+Measures for a given confusion matrix:
+
++ Accuracy: (TP + TN) / (P + N). The proportion of all corrected
+  predictions. Not good for highly imbalanced data.
++ Recall (sensitivity/TPR): TP / (TP + FN).  Intuitively, the ability of the
+  classifier to find all the positive samples.
++ Precision: TP / (TP + FP).  Intuitively, the ability
+  of the classifier not to label as positive a sample that is negative.
++ F-beta score: Harmonic mean of precision and recall with $\beta$ chosen such
+  that recall is considered $\beta$ times as important as precision,
+  $$
+  (1 + \beta^2) \frac{\text{precision} \cdot \text{recall}}
+  {\beta^2 \text{precision} + \text{recall}}
+  $$
+  See [stackexchange
+  post](https://stats.stackexchange.com/questions/221997/why-f-beta-score-define-beta-like-that)
+  for the motivation of $\beta^2$.
+
+
+When classification is obtained by dichotomizing a continuous score, the
+receiver operating characteristic (ROC) curve gives a graphical summary of the
+FPR and TPR for all thresholds. The ROC curve plots the TPR against the FPR at 
+all thresholds.
+
++ Increasing from $(0, 0)$ to $(1, 1)$.
++ Best classification passes $(0, 1)$.
++ Classification by random guess gives the 45-degree line.
++ Area between the ROC and the 45-degree line is the Gini coefficient, a measure
+  of inequality.
++ Area under the curve (AUC) of ROC thus provides an important metric of
+classification results.
+
+
+### Cross-validation
+
++ Goal: strike a bias-variance tradeoff.
++ K-fold: hold out each fold as testing data.
++ Scores: minimized to train a model
+
+
+
+<!-- ## Support Vector Machine -->
+
+{{< include _svm.qmd >}}
+
+<!-- ## Decision Tree -->
+
+{{< include _tree.qmd >}}
+
+<!-- ## Random forest -->
+
+{{< include _rf.qmd >}}
+

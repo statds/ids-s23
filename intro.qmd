@@ -188,7 +188,7 @@ random.sample(presenters, len(presenters))
 
 ## Presentation Task Board
 
-Here is a list of tasks:
+Here are some example tasks:
 
 + Import/Export data
 + Descriptive statistics
@@ -199,9 +199,17 @@ Here is a list of tasks:
 + Grammer of graphics for python `plotnine`
 + Handling spatial data with `geopandas`
 + Show your Data in a Google map with `gmplot`
++ Random forest
++ Naive Bayes
++ Bagging vs boosting
 + Calling C/C++ from Python
 + Calling R from Python and vice versa
 + Develop a Python module
++ Neural networks
++ Deep learning
++ TensorFlow
++ Autoencoders
++ Reinforcement learning
 
 
 Please use the following table to sign up.
@@ -220,7 +228,7 @@ Please use the following table to sign up.
   02/27  | Shen, Tong             | Decision tree with `scikit-learn`
   02/27  | Alsubai, Nadia         | Web Scraping with Beautiful Soup
   03/01  | Bedard, Kaitlyn        | Handling spatial data with `geopandas`
-  03/06  | Nhan, Nathan           |
+  03/06  | Nhan, Nathan           | Bagging vs boosting
   03/08  | Parchekani, Kian       |
   03/20  | Noel, Luke             | Plotting on maps with `gmplot`
   03/20  | Whitney, William       |
@@ -228,7 +236,7 @@ Please use the following table to sign up.
   03/27  | Nguyen, Christine      | Calling R from Python and vice versa
   03/27  | Cummins, Patrick       |
   03/29  | Zheng, Michael         |
-  04/03  | Lunetta, Giovanni      | Intro to Neural Networks with TensorFlow
+  04/03  | Lunetta, Giovanni      | Intro to Softmax Regression & Neural Networks with `TensorFlow`
 
 ## Contribute to the Class Notes
 
@@ -252,4 +260,10 @@ For more detailed style guidance, please see my notes on [statistical wrirting](
 + Use `quarto` source only. See @sec-quarto.
 + For the conveinence of greading, add your html output to a release in your
   repo.
+
+
+
+<!-- Topic presentation template -->
+{{< include _mysection.qmd >}}
+
 
