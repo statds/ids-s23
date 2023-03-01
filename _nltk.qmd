@@ -10,6 +10,11 @@ First, we must install `nltk` using `pip`.
 
 `python -m pip install nltk`
 
+Necessary datasets/models are needed for specific functions to work. We can download a popular subset with
+
+`python -m nltk.downloader popular`
+
+
 ### Tokenizing
 
 To analyze text, it needs to be broken down into smaller pieces. This is called tokenization. `nltk` offers two ways to tokenize text: sentence tokenization and word tokenization.
@@ -28,6 +33,7 @@ fd_string = """The sum of human knowing is beyond any one man; any thousand men.
 
 ```{python}
 from nltk import sent_tokenize, word_tokenize
+nltk.download("popular") # only needs to download once
 fd_sent = sent_tokenize(fd_string)
 print(fd_sent)
 ```
@@ -252,4 +258,5 @@ In this tutorial, we have learned how to use `nltk` to perform basic text analys
 
 ### Resources
 
-[NLTK Documentation](https://www.nltk.org/) [NLTK Book](https://www.nltk.org/book/)
++ [NLTK Documentation](https://www.nltk.org/) 
++ [NLTK Book](https://www.nltk.org/book/)
