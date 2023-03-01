@@ -245,6 +245,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion"><span class="toc-section-number">8.3.4</span>  Conclusion</a></li>
   <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references"><span class="toc-section-number">8.3.5</span>  References</a></li>
   </ul></li>
+  <li><a href="#decision-trees" id="toc-decision-trees" class="nav-link" data-scroll-target="#decision-trees"><span class="toc-section-number">8.4</span>  Decision Trees</a>
+  <ul class="collapse">
+  <li><a href="#introduction-2" id="toc-introduction-2" class="nav-link" data-scroll-target="#introduction-2"><span class="toc-section-number">8.4.1</span>  Introduction</a></li>
+  <li><a href="#tree-algorithms" id="toc-tree-algorithms" class="nav-link" data-scroll-target="#tree-algorithms"><span class="toc-section-number">8.4.2</span>  Tree algorithms</a></li>
+  <li><a href="#demo" id="toc-demo" class="nav-link" data-scroll-target="#demo"><span class="toc-section-number">8.4.3</span>  Demo</a></li>
+  <li><a href="#conclusion-1" id="toc-conclusion-1" class="nav-link" data-scroll-target="#conclusion-1"><span class="toc-section-number">8.4.4</span>  Conclusion</a></li>
+  <li><a href="#references-1" id="toc-references-1" class="nav-link" data-scroll-target="#references-1"><span class="toc-section-number">8.4.5</span>  References</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -613,7 +621,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">'y'</span>)<span class="op">;</span></span>
 <span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>ax.set_zlabel(<span class="st">'r'</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<p><img src="supervised_files/figure-html/cell-12-output-1.png" width="407" height="393"></p>
+<p><img src="supervised_files/figure-html/cell-12-output-1.png" width="407" height="392"></p>
 </div>
 </div>
 <p>Now you can see that it is seperated. We can apply the <strong>Support Vector Classifier</strong> to the dataset</p>
@@ -1080,7 +1088,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>accuracy</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="21">
-<pre><code>0.65</code></pre>
+<pre><code>0.675</code></pre>
 </div>
 </div>
 </section>
@@ -1107,6 +1115,740 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="https://jakevdp.github.io/PythonDataScienceHandbook/05.07-support-vector-machines.html">In-Depth: Support Vector Machines</a></li>
 <li><a href="https://www.youtube.com/watch?v=efR1C6CvhmE">Support Vector Machines Video</a></li>
 </ul>
+<!-- ## Decision Tree -->
+</section>
+</section>
+<section id="decision-trees" class="level2" data-number="8.4">
+<h2 data-number="8.4" class="anchored" data-anchor-id="decision-trees"><span class="header-section-number">8.4</span> Decision Trees</h2>
+<section id="introduction-2" class="level3" data-number="8.4.1">
+<h3 data-number="8.4.1" class="anchored" data-anchor-id="introduction-2"><span class="header-section-number">8.4.1</span> Introduction</h3>
+<p>Decision Trees (DTs) are a non-parametric supervised learning method used for classification and regression. The goal is to create a model that predicts the value of a target variable by learning simple decision rules inferred from the data features. A tree can be seen as a piecewise constant approximation.</p>
+<p>For instance, in the example below, decision trees learn from data to approximate a sine curve with a set of if-then-else decision rules. The deeper the tree, the more complex the decision rules and the fitter the model.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/1.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">1.png</figcaption><p></p>
+</figure>
+</div>
+<p>picture source: <a href="https://scikit-learn.org/stable/modules/tree.html#" class="uri">https://scikit-learn.org/stable/modules/tree.html#</a></p>
+<p>Here is an simple example of what the “tree” looks like.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/2.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">2.png</figcaption><p></p>
+</figure>
+</div>
+<p>I will introduce the basics of the decision tree package in <code>scikit-learn</code> through this spam email classification example, using a simple mock dataset.</p>
+<div class="cell" data-execution_count="22">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>mock_spam <span class="op">=</span> pd.read_csv(<span class="st">'data/mock_spam.csv'</span>)</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>mock_spam</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="22">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>is_spam</th>
+      <th>unknown_sender</th>
+      <th>sales_words</th>
+      <th>scam_words</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+<p>Let’s construct and visualize the model (tree version)</p>
+<div class="cell" data-execution_count="23">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn <span class="im">import</span> tree</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> graphviz</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>email_features <span class="op">=</span> mock_spam[[<span class="st">'unknown_sender'</span>, <span class="st">'sales_words'</span>, <span class="st">'scam_words'</span>]].values</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>is_spam <span class="op">=</span> mock_spam[[<span class="st">'is_spam'</span>]].values</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>clf <span class="op">=</span> tree.DecisionTreeClassifier(criterion<span class="op">=</span><span class="st">'gini'</span>) <span class="co"># Create a default classifier</span></span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>clf <span class="op">=</span> clf.fit(email_features, is_spam)</span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>feat_names <span class="op">=</span> [<span class="st">'is unknown sender'</span>, <span class="st">'contain sales words'</span>, <span class="st">'contain scam words'</span>]</span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>class_names <span class="op">=</span> [<span class="st">'normal'</span>, <span class="st">'spam'</span>]</span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>dot_data <span class="op">=</span> tree.export_graphviz(clf, out_file<span class="op">=</span><span class="va">None</span>, feature_names <span class="op">=</span> feat_names, </span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>                                class_names<span class="op">=</span>class_names, filled<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a>clf_graph <span class="op">=</span> graphviz.Source(dot_data)</span>
+<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a>clf_graph</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="23">
+<p><img src="supervised_files/figure-html/cell-24-output-1.svg" class="img-fluid"></p>
+</div>
+</div>
+<p>Both root and internal nodes have child nodes that branch out from them based on the value of a feature. For instance, the root node splits the unknown_sender feature space, and the threshold is 0.5. Its left subtree represents all the data with unknown_sender &lt;= 0.5, whereas its right subtree represents all the subset of data with unknown_sender &gt; 0.5. Each leaf node has an predicted value which will be used as the output from the decision tree. For example, the leftmost leaf node (left child of the root node) will lead to output is_spam = 0 (i.e.&nbsp;“normal”).</p>
+<p>We can use this model to make some prediction.</p>
+<div class="cell" data-execution_count="24">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>new_email_feat <span class="op">=</span> [[<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>], <span class="co"># Known sender, contains sales word, no scam word</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>                  [<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>]] <span class="co"># Unknown sender, contains sales word, no scam word</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>clf.predict(new_email_feat) <span class="co"># expected result: 0 (normal), 1 (spam)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="24">
+<pre><code>array([0, 1])</code></pre>
+</div>
+</div>
+<p>Given an input, the predicted outcome is obtained by traversing the decision tree. The traversal starts from the root node, and chooses left or right subtree based on the node’s splitting rule recursively, until it reaches a leaf node.</p>
+<p>For the example input [1, 1, 0], its unknown_sender feature is 1, so we follow the right subtree based on the root node’s splitting rule. The next node splits on the scam_words feature, and since its value is 0, we follow the left subtree. The next node uses the sales_words feature, and its value is 1, so we should go down to the right subtree, where we reach a leaf node. Thus the predicted outcome is the value 1 (class “spam”).</p>
+</section>
+<section id="tree-algorithms" class="level3" data-number="8.4.2">
+<h3 data-number="8.4.2" class="anchored" data-anchor-id="tree-algorithms"><span class="header-section-number">8.4.2</span> Tree algorithms</h3>
+<p>As many other supervised learning approaches, the decision trees are constructed in a way that minimizes a chosen cost function. It is computationally infeasible to find the optimal decision tree that minimizes the cost function. Thus, a greedy approach known as recursive binary splitting is often used.</p>
+<p>Package <code>scikit-learn</code> uses an optimized version of the CART algorithm; however, the <code>scikit-learn</code> implementation does not support categorical variables for now. Minimal cost-complexity pruning is an algorithm used to prune a tree to avoid over-fitting.</p>
+<section id="cost-function" class="level4" data-number="8.4.2.1">
+<h4 data-number="8.4.2.1" class="anchored" data-anchor-id="cost-function"><span class="header-section-number">8.4.2.1</span> Cost function</h4>
+<p>Gini and entropy are classification criteria. Mean Squared Error (MSE or L2 error), Poisson deviance and Mean Absolute Error (MAE or L1 error) are Regression criteria. Here shows the mathematical formulations to get gini and entropy.</p>
+<p>As we see from the above example, in a decision tree, each tree node <span class="math inline">\(m\)</span> is associated with a subset of the training data set. Assume there are <span class="math inline">\(n_m\)</span> data points associated with <span class="math inline">\(m\)</span>, and the class values of the data points are in the set <span class="math inline">\(Q_m\)</span>.</p>
+<p>Further assume that there are K classes, and let <span class="math display">\[
+p_{mk}=\frac{1}{n_m}\sum_{y\in Q_m}I(y=k) (k=1,...,K)
+\]</span> represent the proportion of class <span class="math inline">\(k\)</span> observations in node <span class="math inline">\(m\)</span>. Then the cost functions (referred to as classification criteria in sklearn) available in sklearn are: * Gini: <span class="math display">\[
+H(Q_m)=\sum_{k}p_{mk}(1-p_{mk})
+\]</span> * Log loss or entropy: <span class="math display">\[
+H(Q_m)=-\sum_{k}p_{mk}log(p_{mk})
+\]</span></p>
+<p>In <code>sklearn.tree.DecisionTreeClassifierhe</code>, the default criterion is gini. One advantage of using Gini impurity over entropy is that it can be faster to compute, since it involves only a simple sum of squares rather than logarithmic functions. Additionally, Gini impurity tends to be more robust to small changes in the data, while entropy can be sensitive to noise.</p>
+</section>
+<section id="how-to-choose-what-feature-and-threshold-to-split-on-at-each-node" class="level4" data-number="8.4.2.2">
+<h4 data-number="8.4.2.2" class="anchored" data-anchor-id="how-to-choose-what-feature-and-threshold-to-split-on-at-each-node"><span class="header-section-number">8.4.2.2</span> How to choose what feature and threshold to split on at each node?</h4>
+<p>The decision tree algorithm iterates over all possible features and thresholds and chooses the one that maximize purity or minimize impurity or maximize information gain.</p>
+<p>Let’s use the spam email example to calulate the impurity reduction.</p>
+<p>The impurity reduction based on Gini is calculated as the difference between the Gini index of the parent node and the weighted average of the Gini of the child nodes. The split that results in the highest impurity reduction based on Gini is chosen as the best split.</p>
+<div class="cell" data-execution_count="25">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>clf_graph</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="25">
+<p><img src="supervised_files/figure-html/cell-26-output-1.svg" class="img-fluid"></p>
+</div>
+</div>
+</section>
+<section id="when-to-stop-splitting" class="level4" data-number="8.4.2.3">
+<h4 data-number="8.4.2.3" class="anchored" data-anchor-id="when-to-stop-splitting"><span class="header-section-number">8.4.2.3</span> When to stop splitting?</h4>
+<p>There are several stopping criteria that can be used to decide when to stop splitting in a decision tree algorithm. Here are some common ones:</p>
+<p>When a node is 100% one class</p>
+<p>Maximum depth: Stop splitting when the tree reaches a maximum depth, i.e., when the number of levels in the tree exceeds a predefined threshold.</p>
+<p>Minimum number of samples: Stop splitting when the number of samples in a node falls below a certain threshold. This can help avoid overfitting by preventing the tree from making very specific rules for very few samples.</p>
+<p>Minimum decrease in impurity: Stop splitting when the impurity measure (e.g., Gini impurity or entropy) does not decrease by a certain threshold after a split. This can help avoid overfitting by preventing the tree from making splits that do not significantly improve the purity of the resulting child nodes.</p>
+<p>Maximum number of leaf nodes: Stop splitting when the number of leaf nodes reaches a predefined maximum.</p>
+</section>
+</section>
+<section id="demo" class="level3" data-number="8.4.3">
+<h3 data-number="8.4.3" class="anchored" data-anchor-id="demo"><span class="header-section-number">8.4.3</span> Demo</h3>
+<section id="preparation" class="level4" data-number="8.4.3.1">
+<h4 data-number="8.4.3.1" class="anchored" data-anchor-id="preparation"><span class="header-section-number">8.4.3.1</span> Preparation</h4>
+<section id="step-1-install-scikit-learn" class="level5" data-number="8.4.3.1.1">
+<h5 data-number="8.4.3.1.1" class="anchored" data-anchor-id="step-1-install-scikit-learn"><span class="header-section-number">8.4.3.1.1</span> Step 1: install scikit-learn</h5>
+<p>Use pip</p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install <span class="at">-U</span> scikit-learn</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Use Conda</p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> create <span class="at">-n</span> sklearn-env <span class="at">-c</span> conda-forge scikit-learn</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> activate sklearn-env</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="step-2-import-required-libraries" class="level5" data-number="8.4.3.1.2">
+<h5 data-number="8.4.3.1.2" class="anchored" data-anchor-id="step-2-import-required-libraries"><span class="header-section-number">8.4.3.1.2</span> Step 2: Import Required Libraries</h5>
+<div class="cell" data-execution_count="26">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn <span class="im">import</span> tree</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="step-3-preparing-the-data" class="level5" data-number="8.4.3.1.3">
+<h5 data-number="8.4.3.1.3" class="anchored" data-anchor-id="step-3-preparing-the-data"><span class="header-section-number">8.4.3.1.3</span> Step 3: Preparing the Data</h5>
+<div class="cell" data-execution_count="27">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>NYC <span class="op">=</span> pd.read_csv(<span class="st">"data/merged.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="28">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># drop rows with missing data in some columns</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>NYC <span class="op">=</span> NYC.dropna(subset<span class="op">=</span>[<span class="st">'BOROUGH'</span>, <span class="st">'hour'</span>, <span class="st">'median_home_value'</span>, <span class="st">'occupied_housing_units'</span>])</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Select the features</span></span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>nyc_subset <span class="op">=</span> NYC[[<span class="st">'BOROUGH'</span>, <span class="st">'hour'</span>, <span class="st">'median_home_value'</span>, <span class="st">'occupied_housing_units'</span>]].copy()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="29">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># One hot encode categorical features</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>nyc_encoded <span class="op">=</span> pd.get_dummies(nyc_subset, columns<span class="op">=</span>[<span class="st">'BOROUGH'</span>, <span class="st">'hour'</span>])</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>nyc_encoded</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="29">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>median_home_value</th>
+      <th>occupied_housing_units</th>
+      <th>BOROUGH_BRONX</th>
+      <th>BOROUGH_BROOKLYN</th>
+      <th>BOROUGH_MANHATTAN</th>
+      <th>BOROUGH_QUEENS</th>
+      <th>BOROUGH_STATEN ISLAND</th>
+      <th>hour_0</th>
+      <th>hour_1</th>
+      <th>hour_2</th>
+      <th>...</th>
+      <th>hour_14</th>
+      <th>hour_15</th>
+      <th>hour_16</th>
+      <th>hour_17</th>
+      <th>hour_18</th>
+      <th>hour_19</th>
+      <th>hour_20</th>
+      <th>hour_21</th>
+      <th>hour_22</th>
+      <th>hour_23</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>3</th>
+      <td>648900.0</td>
+      <td>16890.0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>271300.0</td>
+      <td>29855.0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>524100.0</td>
+      <td>30601.0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>654900.0</td>
+      <td>10429.0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>602400.0</td>
+      <td>14199.0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>7183</th>
+      <td>445900.0</td>
+      <td>12775.0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>7185</th>
+      <td>445900.0</td>
+      <td>12775.0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>7186</th>
+      <td>397500.0</td>
+      <td>22873.0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>7187</th>
+      <td>655500.0</td>
+      <td>33489.0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>7188</th>
+      <td>426100.0</td>
+      <td>26420.0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+<p>6663 rows × 31 columns</p>
+</div>
+</div>
+</div>
+<div class="cell" data-execution_count="30">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Train test split</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>X_train, X_test, y_train, y_test <span class="op">=</span> <span class="op">\</span></span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>    train_test_split(nyc_encoded.values, NYC[[<span class="st">'injury'</span>]].values, test_size <span class="op">=</span> <span class="fl">0.20</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="building-the-decision-tree-model" class="level4" data-number="8.4.3.2">
+<h4 data-number="8.4.3.2" class="anchored" data-anchor-id="building-the-decision-tree-model"><span class="header-section-number">8.4.3.2</span> Building the Decision Tree Model</h4>
+<div class="cell" data-execution_count="31">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit the model and plot the tree (using default parameters)</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>injury_clf <span class="op">=</span> tree.DecisionTreeClassifier(</span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>    criterion<span class="op">=</span><span class="st">'gini'</span>, splitter<span class="op">=</span><span class="st">'best'</span>, max_depth<span class="op">=</span><span class="va">None</span>, </span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>    min_samples_split<span class="op">=</span><span class="dv">2</span>, min_samples_leaf<span class="op">=</span><span class="dv">1</span>, min_weight_fraction_leaf<span class="op">=</span><span class="fl">0.0</span>, </span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>    max_features<span class="op">=</span><span class="va">None</span>, max_leaf_nodes<span class="op">=</span><span class="va">None</span>, min_impurity_decrease<span class="op">=</span><span class="fl">0.0</span>, </span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>    class_weight<span class="op">=</span><span class="va">None</span>, ccp_alpha<span class="op">=</span><span class="fl">0.0</span>)</span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a>injury_clf <span class="op">=</span> injury_clf.fit(X_train, y_train)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="32">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>injury_clf.tree_.node_count</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="32">
+<pre><code>3645</code></pre>
+</div>
+</div>
+<p>Arguments related to stopping criteria: * max_depth * min_samples_split * min_samples_leaf * min_weight_fraction_leaf * max_features * max_leaf_nodes * min_impurity_decrease</p>
+<p>Other important arguments: * criterion: cost function to use * splitter: node splitting strategy * ccp_alpha: pruning parameter</p>
+<div class="cell" data-execution_count="33">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> GridSearchCV</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a><span class="co"># define the hyperparameter grid for logistic regression</span></span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>param_grid <span class="op">=</span> {<span class="st">'criterion'</span>: [<span class="st">'gini'</span>, <span class="st">'entropy'</span>],</span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>              <span class="st">'max_depth'</span>: [<span class="dv">10</span>, <span class="dv">15</span>, <span class="dv">20</span>],</span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>              <span class="st">'min_impurity_decrease'</span>: [<span class="fl">1e-4</span>, <span class="fl">1e-3</span>, <span class="fl">1e-2</span>],</span>
+<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a>              <span class="st">'ccp_alpha'</span>: [<span class="fl">0.0</span>, <span class="fl">1e-5</span>, <span class="fl">1e-4</span>, <span class="fl">1e-3</span>]}</span>
+<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-9"><a href="#cb39-9" aria-hidden="true" tabindex="-1"></a><span class="co"># perform cross-validation with GridSearchCV</span></span>
+<span id="cb39-10"><a href="#cb39-10" aria-hidden="true" tabindex="-1"></a>tree_clf <span class="op">=</span> tree.DecisionTreeClassifier()</span>
+<span id="cb39-11"><a href="#cb39-11" aria-hidden="true" tabindex="-1"></a>grid_search <span class="op">=</span> GridSearchCV(tree_clf, param_grid, cv<span class="op">=</span><span class="dv">5</span>, scoring<span class="op">=</span><span class="st">'f1'</span>)</span>
+<span id="cb39-12"><a href="#cb39-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-13"><a href="#cb39-13" aria-hidden="true" tabindex="-1"></a><span class="co"># fit the GridSearchCV object to the training data</span></span>
+<span id="cb39-14"><a href="#cb39-14" aria-hidden="true" tabindex="-1"></a>grid_search.fit(X_train, y_train)</span>
+<span id="cb39-15"><a href="#cb39-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-16"><a href="#cb39-16" aria-hidden="true" tabindex="-1"></a><span class="co"># print the best hyperparameters found</span></span>
+<span id="cb39-17"><a href="#cb39-17" aria-hidden="true" tabindex="-1"></a>grid_search.best_params_</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="33">
+<pre><code>{'ccp_alpha': 0.0,
+ 'criterion': 'entropy',
+ 'max_depth': 20,
+ 'min_impurity_decrease': 0.0001}</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="34">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Use parameters from cross-validation to train another model</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>injury_clf2 <span class="op">=</span> tree.DecisionTreeClassifier(</span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>    criterion<span class="op">=</span><span class="st">'gini'</span>, splitter<span class="op">=</span><span class="st">'best'</span>, max_depth<span class="op">=</span><span class="dv">20</span>, </span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>    min_samples_split<span class="op">=</span><span class="dv">2</span>, min_samples_leaf<span class="op">=</span><span class="dv">1</span>, min_weight_fraction_leaf<span class="op">=</span><span class="fl">0.0</span>, </span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>    max_features<span class="op">=</span><span class="va">None</span>, max_leaf_nodes<span class="op">=</span><span class="va">None</span>, min_impurity_decrease<span class="op">=</span><span class="fl">0.0001</span>, </span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>    class_weight<span class="op">=</span><span class="va">None</span>, ccp_alpha<span class="op">=</span><span class="fl">0.0001</span>)</span>
+<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a>injury_clf2 <span class="op">=</span> injury_clf2.fit(X_train, y_train)</span>
+<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a>injury_clf2.tree_.node_count</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="34">
+<pre><code>733</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="35">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Prune the tree more aggressively</span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>injury_clf3 <span class="op">=</span> tree.DecisionTreeClassifier(</span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>    criterion<span class="op">=</span><span class="st">'gini'</span>, splitter<span class="op">=</span><span class="st">'best'</span>, max_depth<span class="op">=</span><span class="va">None</span>, </span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>    min_samples_split<span class="op">=</span><span class="dv">2</span>, min_samples_leaf<span class="op">=</span><span class="dv">1</span>, min_weight_fraction_leaf<span class="op">=</span><span class="fl">0.0</span>, </span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>    max_features<span class="op">=</span><span class="va">None</span>, max_leaf_nodes<span class="op">=</span><span class="va">None</span>, min_impurity_decrease<span class="op">=</span><span class="fl">0.0001</span>, </span>
+<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a>    class_weight<span class="op">=</span><span class="va">None</span>, ccp_alpha<span class="op">=</span><span class="fl">8e-4</span>)</span>
+<span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a>injury_clf3 <span class="op">=</span> injury_clf3.fit(X_train, y_train)</span>
+<span id="cb43-8"><a href="#cb43-8" aria-hidden="true" tabindex="-1"></a>injury_clf3.tree_.node_count</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="35">
+<pre><code>13</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="36">
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>injury_dot_data3 <span class="op">=</span> tree.export_graphviz(injury_clf3, out_file<span class="op">=</span><span class="va">None</span>, filled<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>injury_clf_graph <span class="op">=</span> graphviz.Source(injury_dot_data3)</span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>injury_clf_graph</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="36">
+<p><img src="supervised_files/figure-html/cell-37-output-1.svg" class="img-fluid"></p>
+</div>
+</div>
+</section>
+<section id="evaluation" class="level4" data-number="8.4.3.3">
+<h4 data-number="8.4.3.3" class="anchored" data-anchor-id="evaluation"><span class="header-section-number">8.4.3.3</span> Evaluation</h4>
+<div class="cell" data-execution_count="37">
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="co"># caculate the predicted values</span></span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>clf_pred <span class="op">=</span> injury_clf.predict(X_test)</span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>clf2_pred <span class="op">=</span> injury_clf2.predict(X_test)</span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a>clf3_pred <span class="op">=</span> injury_clf3.predict(X_test)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="38">
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="co"># evaluate the model</span></span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> confusion_matrix, <span class="op">\</span></span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>accuracy_score, precision_score, recall_score, f1_score, roc_auc_score</span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Confusion matrix</span></span>
+<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a>clf_cm <span class="op">=</span> confusion_matrix(y_test, clf_pred)</span>
+<span id="cb47-7"><a href="#cb47-7" aria-hidden="true" tabindex="-1"></a>clf2_cm <span class="op">=</span> confusion_matrix(y_test, clf2_pred)</span>
+<span id="cb47-8"><a href="#cb47-8" aria-hidden="true" tabindex="-1"></a>clf3_cm <span class="op">=</span> confusion_matrix(y_test, clf3_pred)</span>
+<span id="cb47-9"><a href="#cb47-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-10"><a href="#cb47-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Accuracy</span></span>
+<span id="cb47-11"><a href="#cb47-11" aria-hidden="true" tabindex="-1"></a>clf_acc <span class="op">=</span> accuracy_score(y_test, clf_pred)</span>
+<span id="cb47-12"><a href="#cb47-12" aria-hidden="true" tabindex="-1"></a>clf2_acc <span class="op">=</span> accuracy_score(y_test, clf2_pred)</span>
+<span id="cb47-13"><a href="#cb47-13" aria-hidden="true" tabindex="-1"></a>clf3_acc <span class="op">=</span> accuracy_score(y_test, clf3_pred)</span>
+<span id="cb47-14"><a href="#cb47-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-15"><a href="#cb47-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Precision</span></span>
+<span id="cb47-16"><a href="#cb47-16" aria-hidden="true" tabindex="-1"></a>clf_precision <span class="op">=</span> precision_score(y_test, clf_pred)</span>
+<span id="cb47-17"><a href="#cb47-17" aria-hidden="true" tabindex="-1"></a>clf2_precision <span class="op">=</span> precision_score(y_test, clf2_pred)</span>
+<span id="cb47-18"><a href="#cb47-18" aria-hidden="true" tabindex="-1"></a>clf3_precision <span class="op">=</span> precision_score(y_test, clf3_pred)</span>
+<span id="cb47-19"><a href="#cb47-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-20"><a href="#cb47-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Recall</span></span>
+<span id="cb47-21"><a href="#cb47-21" aria-hidden="true" tabindex="-1"></a>clf_recall <span class="op">=</span> recall_score(y_test, clf_pred)</span>
+<span id="cb47-22"><a href="#cb47-22" aria-hidden="true" tabindex="-1"></a>clf2_recall <span class="op">=</span> recall_score(y_test, clf2_pred)</span>
+<span id="cb47-23"><a href="#cb47-23" aria-hidden="true" tabindex="-1"></a>clf3_recall <span class="op">=</span> recall_score(y_test, clf3_pred)</span>
+<span id="cb47-24"><a href="#cb47-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-25"><a href="#cb47-25" aria-hidden="true" tabindex="-1"></a><span class="co"># F1-score</span></span>
+<span id="cb47-26"><a href="#cb47-26" aria-hidden="true" tabindex="-1"></a>clf_f1 <span class="op">=</span> f1_score(y_test, clf_pred)</span>
+<span id="cb47-27"><a href="#cb47-27" aria-hidden="true" tabindex="-1"></a>clf2_f1 <span class="op">=</span> f1_score(y_test, clf2_pred)</span>
+<span id="cb47-28"><a href="#cb47-28" aria-hidden="true" tabindex="-1"></a>clf3_f1 <span class="op">=</span> f1_score(y_test, clf3_pred)</span>
+<span id="cb47-29"><a href="#cb47-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-30"><a href="#cb47-30" aria-hidden="true" tabindex="-1"></a><span class="co"># AUC</span></span>
+<span id="cb47-31"><a href="#cb47-31" aria-hidden="true" tabindex="-1"></a>clf_auc <span class="op">=</span> roc_auc_score(y_test, clf_pred)</span>
+<span id="cb47-32"><a href="#cb47-32" aria-hidden="true" tabindex="-1"></a>clf2_auc <span class="op">=</span> roc_auc_score(y_test, clf2_pred)</span>
+<span id="cb47-33"><a href="#cb47-33" aria-hidden="true" tabindex="-1"></a>clf3_auc <span class="op">=</span> roc_auc_score(y_test, clf3_pred)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="39">
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Default parameter results:"</span>)</span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Confusion matrix:"</span>)</span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(clf_cm)</span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Accuracy:"</span>, clf_acc)</span>
+<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Precision:"</span>, clf_precision)</span>
+<span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Recall:"</span>, clf_recall)</span>
+<span id="cb48-7"><a href="#cb48-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"F1-score:"</span>, clf_f1)</span>
+<span id="cb48-8"><a href="#cb48-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"AUC:"</span>, clf_auc)</span>
+<span id="cb48-9"><a href="#cb48-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</span>
+<span id="cb48-10"><a href="#cb48-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Cross-valiation parameter results:"</span>)</span>
+<span id="cb48-11"><a href="#cb48-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Confusion matrix:"</span>)</span>
+<span id="cb48-12"><a href="#cb48-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(clf2_cm)</span>
+<span id="cb48-13"><a href="#cb48-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Accuracy:"</span>, clf2_acc)</span>
+<span id="cb48-14"><a href="#cb48-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Precision:"</span>, clf2_precision)</span>
+<span id="cb48-15"><a href="#cb48-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Recall:"</span>, clf2_recall)</span>
+<span id="cb48-16"><a href="#cb48-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"F1-score:"</span>, clf2_f1)</span>
+<span id="cb48-17"><a href="#cb48-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"AUC:"</span>, clf2_auc)</span>
+<span id="cb48-18"><a href="#cb48-18" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</span>
+<span id="cb48-19"><a href="#cb48-19" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"More aggressive pruning results:"</span>)</span>
+<span id="cb48-20"><a href="#cb48-20" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Confusion matrix:"</span>)</span>
+<span id="cb48-21"><a href="#cb48-21" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(clf3_cm)</span>
+<span id="cb48-22"><a href="#cb48-22" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Accuracy:"</span>, clf3_acc)</span>
+<span id="cb48-23"><a href="#cb48-23" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Precision:"</span>, clf3_precision)</span>
+<span id="cb48-24"><a href="#cb48-24" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Recall:"</span>, clf3_recall)</span>
+<span id="cb48-25"><a href="#cb48-25" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"F1-score:"</span>, clf3_f1)</span>
+<span id="cb48-26"><a href="#cb48-26" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"AUC:"</span>, clf3_auc)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Default parameter results:
+Confusion matrix:
+[[577 234]
+ [368 154]]
+Accuracy: 0.5483870967741935
+Precision: 0.39690721649484534
+Recall: 0.2950191570881226
+F1-score: 0.3384615384615385
+AUC: 0.5032432406895607
+
+
+Cross-valiation parameter results:
+Confusion matrix:
+[[664 147]
+ [413 109]]
+Accuracy: 0.5798949737434359
+Precision: 0.42578125
+Recall: 0.20881226053639848
+F1-score: 0.2802056555269923
+AUC: 0.5137772770006284
+
+
+More aggressive pruning results:
+Confusion matrix:
+[[773  38]
+ [477  45]]
+Accuracy: 0.6136534133533383
+Precision: 0.5421686746987951
+Recall: 0.08620689655172414
+F1-score: 0.14876033057851243
+AUC: 0.5196755814447894</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="conclusion-1" class="level3" data-number="8.4.4">
+<h3 data-number="8.4.4" class="anchored" data-anchor-id="conclusion-1"><span class="header-section-number">8.4.4</span> Conclusion</h3>
+<p>In conclusion, decision trees are a widely used supervised learning algorithm for classification and regression tasks. They are easy to understand and interpret. The algorithm works by recursively splitting the dataset based on the attribute that provides the most information gain or the impurity reduction. The tree structure is built from the root node to the leaf nodes, where each node represents a decision based on a feature of the data.</p>
+<p>One advantage of decision trees is their interpretability, which allows us to easily understand the decision-making process. They can also model complex problems with multiple outcomes. They are not affected by missing values or outliers.</p>
+<p>However, decision trees can be prone to overfitting and may not perform well on complex datasets. They can also be sensitive to small variations in the training data and may require pruning to prevent overfitting. Random forest would be a better choice in this situation. Furthermore, decision trees may not perform well on imbalanced datasets, and their performance can be affected by the selection of splitting criteria.</p>
+<p>Overall, decision trees are a useful and versatile tool in machine learning, but it is important to carefully consider their advantages and disadvantages before applying them to a specific problem.</p>
+</section>
+<section id="references-1" class="level3" data-number="8.4.5">
+<h3 data-number="8.4.5" class="anchored" data-anchor-id="references-1"><span class="header-section-number">8.4.5</span> References</h3>
+<p>
+https://scikit-learn.org/stable/modules/tree.html#
+</p><p>
+</p><p>https://www.coursera.org/learn/advanced-learning-algorithms/home/week/4</p>
 
 
 </section>
