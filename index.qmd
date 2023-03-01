@@ -4,7 +4,8 @@ The notets are a Quarto book; for details visit <https://quarto.org/docs/books>.
 
 
 The notes are a joint effort of the instructor and the students in
-STAT 3255/5255, Spring 2023. The GitHub repo is at
+STAT 3255/5255, Spring 2023. Students' contributions were made through
+pull requestsThe to our GitHub repo at
 <https://github.com/statds/ids-s23>. The GitHub repo of the notes
 from Spring 2022 are available at <https://github.com/statds/ids-s22>. 
 
@@ -25,4 +26,3 @@ An interesting quote from @vanderplas2016python:
 > less about memorizing the tool or command you should use for every possible
 > situation, and more about learning to effectively find the information you
 > don't know, whether through a web search engine or another means.
-
