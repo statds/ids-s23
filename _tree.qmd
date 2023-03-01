@@ -2,18 +2,18 @@
 
 ### Introduction
 
-<p style="line-height: 2.0;">
-    Decision Trees (DTs) are a non-parametric supervised learning method used for classification and regression. The goal is to create a model that predicts the value of a target variable by learning simple decision rules inferred from the data features. A tree can be seen as a piecewise constant approximation.
-<p style="line-height: 2.0;">
-    For instance, in the example below, decision trees learn from data to approximate a sine curve with a set of if-then-else decision rules. The deeper the tree, the more complex the decision rules and the fitter the model.
+Decision Trees (DTs) are a non-parametric supervised learning method used for classification and regression. The goal is to create a model that predicts the value of a target variable by learning simple decision rules inferred from the data features. A tree can be seen as a piecewise constant approximation.
+	
 
-![1.png](decision_tree_resources/1.png)
+ For instance, in the example below, decision trees learn from data to approximate a sine curve with a set of if-then-else decision rules. The deeper the tree, the more complex the decision rules and the fitter the model.
 
-picture source: https://scikit-learn.org/stable/modules/tree.html#
+![1.png](images/1.png)
+
+picture source: <https://scikit-learn.org/stable/modules/tree.html#>
 
 Here is an simple example of what the "tree" looks like.
 
-![2.png](decision_tree_resources/2.png)
+![2.png](images/2.png)
 
 I will introduce the basics of the decision tree package in `scikit-learn` through this 
 spam email classification example, using a simple mock dataset.
@@ -21,7 +21,7 @@ spam email classification example, using a simple mock dataset.
 ```{python}
 import pandas as pd
 
-mock_spam = pd.read_csv('decision_tree_resources/mock_spam.csv')
+mock_spam = pd.read_csv('data/mock_spam.csv')
 mock_spam
 ```
 
@@ -63,12 +63,12 @@ For the example input [1, 1, 0], its unknown_sender feature is 1, so we follow t
 
 As many other supervised learning approaches, the decision trees are constructed in a way that minimizes a chosen cost function. It is computationally infeasible to find the optimal decision tree that minimizes the cost function. Thus, a greedy approach known as recursive binary splitting is often used.
 
-`scikit-learn` uses an optimized version of the CART algorithm; however, the `scikit-learn` implementation does not support categorical variables for now. Minimal cost-complexity pruning is an algorithm used to prune a tree to avoid over-fitting. 
+Package `scikit-learn` uses an optimized version of the CART algorithm; however, the `scikit-learn` implementation does not support categorical variables for now. Minimal cost-complexity pruning is an algorithm used to prune a tree to avoid over-fitting. 
 
 #### Cost function
 Gini and entropy are classification criteria. Mean Squared Error (MSE or L2 error), Poisson deviance and Mean Absolute Error (MAE or L1 error) are Regression criteria. Here shows the mathematical formulations to get gini and entropy.
 
-As we see from the above example, in a decision tree, each tree node $m$ is associated with a subset of the training data set. Assume there are n_m data points associated with $m$, and the class values of the data points are in the set $Q_m$. 
+As we see from the above example, in a decision tree, each tree node $m$ is associated with a subset of the training data set. Assume there are $n_m$ data points associated with $m$, and the class values of the data points are in the set $Q_m$. 
 
 Further assume that there are K classes, and let
 $$
@@ -141,7 +141,7 @@ import numpy as np
 ##### Step 3: Preparing the Data
 
 ```{python}
-NYC = pd.read_csv("decision_tree_resources/merged.csv")
+NYC = pd.read_csv("data/merged.csv")
 ```
 
 ```{python}

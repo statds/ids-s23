@@ -96,4 +96,4 @@ classification results.
 
 <!-- ## Decision Tree -->
 
-{{< include _decision_tree.qmd >}}
+{{< include _tree.qmd >}}
