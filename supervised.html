@@ -235,12 +235,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
    
   <ul>
   <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="toc-section-number">8.1</span>  Introduction</a></li>
-  <li><a href="#classification" id="toc-classification" class="nav-link" data-scroll-target="#classification"><span class="toc-section-number">8.2</span>  Classification</a>
+  <li><a href="#classification-vs-regression" id="toc-classification-vs-regression" class="nav-link" data-scroll-target="#classification-vs-regression"><span class="toc-section-number">8.2</span>  Classification vs Regression</a>
   <ul class="collapse">
-  <li><a href="#what-is-classification-problem" id="toc-what-is-classification-problem" class="nav-link" data-scroll-target="#what-is-classification-problem"><span class="toc-section-number">8.2.1</span>  What is classification problem?</a></li>
-  <li><a href="#confusion-matrix" id="toc-confusion-matrix" class="nav-link" data-scroll-target="#confusion-matrix"><span class="toc-section-number">8.2.2</span>  Confusion matrix</a></li>
-  <li><a href="#measure-of-classification-performance" id="toc-measure-of-classification-performance" class="nav-link" data-scroll-target="#measure-of-classification-performance"><span class="toc-section-number">8.2.3</span>  Measure of classification performance</a></li>
-  <li><a href="#cross-validation" id="toc-cross-validation" class="nav-link" data-scroll-target="#cross-validation"><span class="toc-section-number">8.2.4</span>  Cross-validation</a></li>
+  <li><a href="#regression-metrics" id="toc-regression-metrics" class="nav-link" data-scroll-target="#regression-metrics"><span class="toc-section-number">8.2.1</span>  Regression metrics</a></li>
+  <li><a href="#classification-metrics" id="toc-classification-metrics" class="nav-link" data-scroll-target="#classification-metrics"><span class="toc-section-number">8.2.2</span>  Classification metrics</a></li>
+  <li><a href="#cross-validation" id="toc-cross-validation" class="nav-link" data-scroll-target="#cross-validation"><span class="toc-section-number">8.2.3</span>  Cross-validation</a></li>
   </ul></li>
   <li><a href="#support-vector-machines" id="toc-support-vector-machines" class="nav-link" data-scroll-target="#support-vector-machines"><span class="toc-section-number">8.3</span>  Support Vector Machines</a>
   <ul class="collapse">
@@ -257,6 +256,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li><a href="#demo" id="toc-demo" class="nav-link" data-scroll-target="#demo"><span class="toc-section-number">8.4.3</span>  Demo</a></li>
   <li><a href="#conclusion-1" id="toc-conclusion-1" class="nav-link" data-scroll-target="#conclusion-1"><span class="toc-section-number">8.4.4</span>  Conclusion</a></li>
   <li><a href="#references-1" id="toc-references-1" class="nav-link" data-scroll-target="#references-1"><span class="toc-section-number">8.4.5</span>  References</a></li>
+  </ul></li>
+  <li><a href="#random-forest" id="toc-random-forest" class="nav-link" data-scroll-target="#random-forest"><span class="toc-section-number">8.5</span>  Random forest</a>
+  <ul class="collapse">
+  <li><a href="#algorithm" id="toc-algorithm" class="nav-link" data-scroll-target="#algorithm"><span class="toc-section-number">8.5.1</span>  Algorithm</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -286,18 +289,24 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Supervised learning uses labeled datasets to train algorithms that to classify data or predict outcomes accurately. As input data is fed into the model, it adjusts its weights until the model has been fitted appropriately, which occurs as part of the cross validation process.</p>
 <p>In contrast, unsupervised learning uses unlabeled data to discover patterns that help solve for clustering or association problems. This is particularly useful when subject matter experts are unsure of common properties within a data set.</p>
 </section>
-<section id="classification" class="level2" data-number="8.2">
-<h2 data-number="8.2" class="anchored" data-anchor-id="classification"><span class="header-section-number">8.2</span> Classification</h2>
-<section id="what-is-classification-problem" class="level3" data-number="8.2.1">
-<h3 data-number="8.2.1" class="anchored" data-anchor-id="what-is-classification-problem"><span class="header-section-number">8.2.1</span> What is classification problem?</h3>
+<section id="classification-vs-regression" class="level2" data-number="8.2">
+<h2 data-number="8.2" class="anchored" data-anchor-id="classification-vs-regression"><span class="header-section-number">8.2</span> Classification vs Regression</h2>
 <ul>
 <li>Classificaiton: outcome variable is categorical</li>
 <li>Regression: outcome variable is continuous</li>
 <li>Both problems can have many covariates (predictors/features)</li>
 </ul>
+<section id="regression-metrics" class="level3" data-number="8.2.1">
+<h3 data-number="8.2.1" class="anchored" data-anchor-id="regression-metrics"><span class="header-section-number">8.2.1</span> Regression metrics</h3>
+<ul>
+<li>Mean squared error (MSE)</li>
+<li>Mean absolute error (MAE)</li>
+</ul>
 </section>
-<section id="confusion-matrix" class="level3" data-number="8.2.2">
-<h3 data-number="8.2.2" class="anchored" data-anchor-id="confusion-matrix"><span class="header-section-number">8.2.2</span> Confusion matrix</h3>
+<section id="classification-metrics" class="level3" data-number="8.2.2">
+<h3 data-number="8.2.2" class="anchored" data-anchor-id="classification-metrics"><span class="header-section-number">8.2.2</span> Classification metrics</h3>
+<section id="confusion-matrix" class="level4" data-number="8.2.2.1">
+<h4 data-number="8.2.2.1" class="anchored" data-anchor-id="confusion-matrix"><span class="header-section-number">8.2.2.1</span> Confusion matrix</h4>
 <p><a href="https://en.wikipedia.org/wiki/Confusion_matrix" class="uri">https://en.wikipedia.org/wiki/Confusion_matrix</a></p>
 <p>Four entries in the confusion matrix:</p>
 <ul>
@@ -322,8 +331,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>NPV: TN / (FN + TN).</li>
 </ul>
 </section>
-<section id="measure-of-classification-performance" class="level3" data-number="8.2.3">
-<h3 data-number="8.2.3" class="anchored" data-anchor-id="measure-of-classification-performance"><span class="header-section-number">8.2.3</span> Measure of classification performance</h3>
+<section id="measure-of-classification-performance" class="level4" data-number="8.2.2.2">
+<h4 data-number="8.2.2.2" class="anchored" data-anchor-id="measure-of-classification-performance"><span class="header-section-number">8.2.2.2</span> Measure of classification performance</h4>
 <p>Measures for a given confusion matrix:</p>
 <ul>
 <li>Accuracy: (TP + TN) / (P + N). The proportion of all corrected predictions. Not good for highly imbalanced data.</li>
@@ -343,8 +352,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Area under the curve (AUC) of ROC thus provides an important metric of classification results.</li>
 </ul>
 </section>
-<section id="cross-validation" class="level3" data-number="8.2.4">
-<h3 data-number="8.2.4" class="anchored" data-anchor-id="cross-validation"><span class="header-section-number">8.2.4</span> Cross-validation</h3>
+</section>
+<section id="cross-validation" class="level3" data-number="8.2.3">
+<h3 data-number="8.2.3" class="anchored" data-anchor-id="cross-validation"><span class="header-section-number">8.2.3</span> Cross-validation</h3>
 <ul>
 <li>Goal: strike a bias-variance tradeoff.</li>
 <li>K-fold: hold out each fold as testing data.</li>
@@ -626,7 +636,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">'y'</span>)<span class="op">;</span></span>
 <span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>ax.set_zlabel(<span class="st">'r'</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<p><img src="supervised_files/figure-html/cell-12-output-1.png" width="407" height="392"></p>
+<p><img src="supervised_files/figure-html/cell-12-output-1.png" width="407" height="394"></p>
 </div>
 </div>
 <p>Now you can see that it is seperated. We can apply the <strong>Support Vector Classifier</strong> to the dataset</p>
@@ -1093,7 +1103,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>accuracy</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="21">
-<pre><code>0.675</code></pre>
+<pre><code>0.68</code></pre>
 </div>
 </div>
 </section>
@@ -1670,7 +1680,7 @@ H(Q_m)=-\sum_{k}p_{mk}log(p_{mk})
 <div class="cell" data-execution_count="32">
 <div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>injury_clf.tree_.node_count</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="32">
-<pre><code>3645</code></pre>
+<pre><code>3563</code></pre>
 </div>
 </div>
 <p>Arguments related to stopping criteria: * max_depth * min_samples_split * min_samples_leaf * min_weight_fraction_leaf * max_features * max_leaf_nodes * min_impurity_decrease</p>
@@ -1694,8 +1704,8 @@ H(Q_m)=-\sum_{k}p_{mk}log(p_{mk})
 <span id="cb39-16"><a href="#cb39-16" aria-hidden="true" tabindex="-1"></a><span class="co"># print the best hyperparameters found</span></span>
 <span id="cb39-17"><a href="#cb39-17" aria-hidden="true" tabindex="-1"></a>grid_search.best_params_</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="33">
-<pre><code>{'ccp_alpha': 0.0,
- 'criterion': 'entropy',
+<pre><code>{'ccp_alpha': 1e-05,
+ 'criterion': 'gini',
  'max_depth': 20,
  'min_impurity_decrease': 0.0001}</code></pre>
 </div>
@@ -1710,7 +1720,7 @@ H(Q_m)=-\sum_{k}p_{mk}log(p_{mk})
 <span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a>injury_clf2 <span class="op">=</span> injury_clf2.fit(X_train, y_train)</span>
 <span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a>injury_clf2.tree_.node_count</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="34">
-<pre><code>733</code></pre>
+<pre><code>805</code></pre>
 </div>
 </div>
 <div class="cell" data-execution_count="35">
@@ -1808,35 +1818,35 @@ H(Q_m)=-\sum_{k}p_{mk}log(p_{mk})
 <div class="cell-output cell-output-stdout">
 <pre><code>Default parameter results:
 Confusion matrix:
-[[577 234]
- [368 154]]
-Accuracy: 0.5483870967741935
-Precision: 0.39690721649484534
-Recall: 0.2950191570881226
-F1-score: 0.3384615384615385
-AUC: 0.5032432406895607
+[[598 223]
+ [365 147]]
+Accuracy: 0.5588897224306076
+Precision: 0.3972972972972973
+Recall: 0.287109375
+F1-score: 0.33333333333333337
+AUC: 0.507744699680268
 
 
 Cross-valiation parameter results:
 Confusion matrix:
-[[664 147]
- [413 109]]
-Accuracy: 0.5798949737434359
-Precision: 0.42578125
-Recall: 0.20881226053639848
-F1-score: 0.2802056555269923
-AUC: 0.5137772770006284
+[[652 169]
+ [388 124]]
+Accuracy: 0.582145536384096
+Precision: 0.4232081911262799
+Recall: 0.2421875
+F1-score: 0.30807453416149067
+AUC: 0.5181704856881851
 
 
 More aggressive pruning results:
 Confusion matrix:
-[[773  38]
- [477  45]]
-Accuracy: 0.6136534133533383
-Precision: 0.5421686746987951
-Recall: 0.08620689655172414
-F1-score: 0.14876033057851243
-AUC: 0.5196755814447894</code></pre>
+[[789  32]
+ [477  35]]
+Accuracy: 0.6181545386346586
+Precision: 0.5223880597014925
+Recall: 0.068359375
+F1-score: 0.12089810017271156
+AUC: 0.5146912587545677</code></pre>
 </div>
 </div>
 </section>
@@ -1854,6 +1864,46 @@ AUC: 0.5196755814447894</code></pre>
 https://scikit-learn.org/stable/modules/tree.html#
 </p><p>
 </p><p>https://www.coursera.org/learn/advanced-learning-algorithms/home/week/4</p>
+<!-- ## Random forest -->
+</section>
+</section>
+<section id="random-forest" class="level2" data-number="8.5">
+<h2 data-number="8.5" class="anchored" data-anchor-id="random-forest"><span class="header-section-number">8.5</span> Random forest</h2>
+<p>Random forest (RF) is a commonly-used ensemble machine learning algorithm. It is a bagging, also known as bootstrap aggregation, method, which combines the output of multiple decision trees to reach a single result.</p>
+<ul>
+<li>Regression: mean</li>
+<li>Classification: majority vote</li>
+</ul>
+<section id="algorithm" class="level3" data-number="8.5.1">
+<h3 data-number="8.5.1" class="anchored" data-anchor-id="algorithm"><span class="header-section-number">8.5.1</span> Algorithm</h3>
+<p>RF baggs on both data (rows) and features (columns).</p>
+<ul>
+<li>A random sample of the training data in a training set is selected with replacement (bootstrap)</li>
+<li>A random subset of the features is selected as features (which ensures low correlation among the decision trees)</li>
+<li>Hyperparameters
+<ul>
+<li>node size</li>
+<li>number of trees</li>
+<li>number of features</li>
+</ul></li>
+</ul>
+<p>Use cross-valudation to select the hyperparameters.</p>
+<p>Advantages:</p>
+<ul>
+<li>Reduced risk of overfitting since averaging of uncorrelated trees lowers overall variance and prediction error.</li>
+<li>Provides flexibility in handeling missing data.</li>
+<li>Easy to evaluate feature importance
+<ul>
+<li>Mean decrease in impurity (MDI): when a feature is excluded</li>
+<li>Mean decrease accuracy: when the values of a feature is randomly permuted</li>
+</ul></li>
+</ul>
+<p>Disadvantages:</p>
+<ul>
+<li>Computing intensive</li>
+<li>Resource hungery</li>
+<li>Interpretation</li>
+</ul>
 
 
 </section>
