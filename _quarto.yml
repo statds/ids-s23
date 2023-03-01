@@ -13,6 +13,7 @@ book:
     - quarto.qmd
     - python.qmd
     - pandas.qmd
+    - geopandas.qmd
     - stats.qmd
     - visual.qmd
     - supervised.qmd
