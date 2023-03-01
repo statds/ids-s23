@@ -11,15 +11,20 @@ help solve for clustering or association problems. This is particularly useful
 when subject matter experts are unsure of common properties within a data set.
 
 
-## Classification
-
-### What is classification problem?
+## Classification vs Regression
 
 + Classificaiton: outcome variable is categorical
 + Regression: outcome variable is continuous
 + Both problems can have many covariates (predictors/features)
 
-### Confusion matrix
+### Regression metrics
+
++ Mean squared error (MSE)
++ Mean absolute error (MAE)
+
+### Classification metrics
+
+#### Confusion matrix
 
 <https://en.wikipedia.org/wiki/Confusion_matrix>
 
@@ -47,7 +52,7 @@ Four rates from the confusion matrix with predicted (column) margins:
 + NPV: TN / (FN + TN).
 
 
-### Measure of classification performance
+#### Measure of classification performance
 
 Measures for a given confusion matrix:
 
@@ -97,3 +102,8 @@ classification results.
 <!-- ## Decision Tree -->
 
 {{< include _tree.qmd >}}
+
+<!-- ## Random forest -->
+
+{{< include _rf.qmd >}}
+
