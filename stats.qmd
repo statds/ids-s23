@@ -47,6 +47,7 @@ stats = importr('stats')
 jan23 = pd.read_csv("data/nyc_crashes_202301.csv")
 jan23["injury"] = np.where(jan23["NUMBER OF PERSONS INJURED"] > 0, 1, 0)
 m = pd.crosstab(jan23["injury"], jan23["BOROUGH"])
+print(m)
 
 res = stats.fisher_test(m.to_numpy(), simulate_p_value = True)
 res[0][0]
