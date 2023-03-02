@@ -217,11 +217,11 @@ Please use the following table to sign up.
 
    Date  | Presenter              | Topic
   ------ | ---------------------- | ------
-  02/06  | Cheu, Catherine        | Introduction to matplotlib in Python
+  02/06  | Cheu, Catherine        | Visualization with `matplotlib`
   02/08  | Ho, Garrick            | Pandas part 1
   02/13  | Mastrorilli, Ginamarie | Pandas part 2
   02/13  | Yi, Guanghong          | Grammer of graphics for python `plotnine`
-  02/15  | Karandikar, Shivaram   | Text processing with NLTK
+  02/15  | Karandikar, Shivaram   | Text processing with `nltk`
   02/20  | Chua, Yang Kang        | Support Vector Machine with `scikit-learn`
   02/20  | Jones, Courtney        | Descriptive Statistics
   02/22  | Sullivan, Colin        | Statistical hypothesis tests scypy.stats
@@ -232,11 +232,10 @@ Please use the following table to sign up.
   03/08  | Parchekani, Kian       |
   03/20  | Noel, Luke             | Plotting on maps with `gmplot`
   03/20  | Whitney, William       |
-  03/22  | Wang, Chaoyang         |
-  03/27  | Nguyen, Christine      | Calling R from Python and vice versa
+  03/22  | Nguyen, Christine      | Calling R from Python and vice versa
   03/27  | Cummins, Patrick       |
   03/29  | Zheng, Michael         |
-  04/03  | Lunetta, Giovanni      | Intro to Softmax Regression & Neural Networks with `TensorFlow`
+  04/03  | Lunetta, Giovanni      | Softmax Regression & Neural Networks with `TensorFlow`
 
 ## Contribute to the Class Notes
 
