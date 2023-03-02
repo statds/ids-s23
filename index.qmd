@@ -1,6 +1,6 @@
 # Preface {.unnumbered}
 
-The notets are a Quarto book; for details visit <https://quarto.org/docs/books>.
+The notets are a Quarto book; for details about Quarto, visit <https://quarto.org/docs/books>.
 
 
 The notes are a joint effort of the instructor and the students in
