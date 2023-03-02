@@ -1,0 +1,360 @@
+## Descriptive Statistics
+
+## What is Descriptive Statistics and why is it important?
+
+In basic terms, descriptive statistics are how we describe the data. Descriptive Statistics is extremely important to exploratory data analysis, as it allows us to *describe* and *summarize* the data to put it into *context* and *visualize* it. If we just were looking at a bunch of raw data, what use is that to us? We use terms to describe center, spread, correlation, counts, and more to to give us context to the raw data we have.
+
+## Different Python methods and which to use
+
+### Explanation of Methods
+
+There are many methods to perform descriptive statistics operations. After briefly describing them, we will perform example operations to put into context how they work.
+
+**Python's built-in functions**: These built-in operations are in the Python library, where we would not have to import any packages. There are not many operations already built-in, and it cannot compute large datasets well.
+
+**Statistics package**: Includes some additional functions for computation. NumPy is more compatible for using opertions than this package.
+
+**NumPy**: NumPy is a very common package to import. It is beneficial when working with single and multi dimensional arrays.
+
+**Pandas**: Pandas is based off of the same numerical computing as NumPy and works with series and dataframes.
+
+### Example: mean
+
+Below is an example of computing *mean* with all of the above methods to express their differences.
+
+Just for this example, I will create my own datasets (as the NYC data does not portray the differences as easily).
+
+```{python}
+import math
+import numpy as np
+import pandas as pd
+
+x = [2, 3.5, 7, 4]
+xnan = [2, 3.5, 7, 4, math.nan]
+y = np.array(xnan)
+z = pd.Series(xnan)
+```
+
+**Python's built-in functions**
+
+Here, we create the formula for mean by only using the built-in Python operations.
+
+```{python}
+mean = sum(x) / len(x) # sum and length are built-in, whereas mean is not
+mean # uses just the list
+```
+
+```{python}
+mean_xnan = sum(xnan) / len(xnan)
+mean_xnan
+```
+
+This method cannot skip NaN's in the list, so the user would have to find a way to eliminate all NaN's from their list before computing.
+
+**Statistics Package**
+
+```{python}
+import statistics
+statistics.mean(x) # uses just the list, x, rather than the array or series
+```
+
+```{python}
+statistics.mean(xnan)
+```
+
+Similarly, will just output "nan" if there are any nan's in the list.
+
+**NumPy**
+
+```{python}
+import numpy as np
+np.mean(y) # uses the array y = np.array(xnan)
+```
+
+Notice that nan occurs. To avoid this, we can use ```nanmean()``` instead.
+
+```{python}
+np.nanmean(y)
+```
+
+**Pandas**
+
+```{python}
+import pandas as pd
+z.mean() # uses the series z = pd.Series(xnan)
+```
+
+nan does not occur due to the default parameter in the pandas mean ```skipna = True```.
+
+```{python}
+z.mean(skipna = False)
+```
+
+### So what do we use?
+
+As shown above, pandas is nice as it automatically ignores nan by default when computing numeric operations, rather than just outputting nan. This is faster, cleaner, and preferrable to me when I am calculating operations. So, outside of the context of this class, I prefer using pandas if I had the choice.
+
+Moreover, in the context of this class, the data we will be analyzing is typically in the form of a dataframe. Pandas will typically be the best option when working with a dataframe, so it is best to continue using pandas.
+
+## Data
+The data I will pull from is the January 2023 NYC Crash Data (cleaned).
+
+```{python}
+jan23 = pd.read_csv("data/nyc_crashes_202301_cleaned.csv")
+
+jan23 = jan23.loc[:,['CRASH DATE', 'CRASH TIME', 'BOROUGH', 'ZIP CODE', 'LATITUDE',
+       'LONGITUDE', 'LOCATION', 'ON STREET NAME', 'CROSS STREET NAME',
+       'OFF STREET NAME', 'NUMBER OF PERSONS INJURED',
+       'NUMBER OF PERSONS KILLED', 'NUMBER OF PEDESTRIANS INJURED',
+       'NUMBER OF PEDESTRIANS KILLED', 'NUMBER OF CYCLIST INJURED',
+       'NUMBER OF CYCLIST KILLED', 'NUMBER OF MOTORIST INJURED',
+       'NUMBER OF MOTORIST KILLED', 'CONTRIBUTING FACTOR VEHICLE 1',
+       'CONTRIBUTING FACTOR VEHICLE 2', 'CONTRIBUTING FACTOR VEHICLE 3',
+       'CONTRIBUTING FACTOR VEHICLE 4', 'CONTRIBUTING FACTOR VEHICLE 5',
+       'COLLISION_ID', 'VEHICLE TYPE CODE 1', 'VEHICLE TYPE CODE 2',
+       'VEHICLE TYPE CODE 3', 'VEHICLE TYPE CODE 4', 'VEHICLE TYPE CODE 5']]
+```
+
+### Isolating Parts of the Dataframe
+
+Descriptive statistics do not make sense in context with all aspects of the dataframe we will be using. Most of the descriptive statistics shown below will only make sense with continuous variables. Thus, I will briefly show how to isolate certain aspects of the dataframe, so that we can do so later.
+
+#### Columns
+
+```{python}
+jan23["BOROUGH"] # isolating BOROUGH column
+```
+
+```{python}
+type(jan23["BOROUGH"])
+```
+
+Notice that the individual columns are classified as series. Pandas can be used on dataframes and series.
+
+```{python}
+jan23["BOROUGH"].value_counts(dropna = False) # categorical / discrete
+# "dropna = True" is the default and drops the missing (NaN) values
+```
+
+```value_counts()``` does not work on dataframes, as it is a series operation. Moreover, it allows us to explore individual columns in more detail.
+
+```{python}
+jan23["NUMBER OF PEDESTRIANS KILLED"].value_counts(dropna = False) # numeric / continous
+# works with both categorical and numeric values
+```
+
+```{python}
+jan23[["BOROUGH", "NUMBER OF PEDESTRIANS KILLED"]] # isolating multiple columns
+```
+
+#### Rows
+
+Descriptive Statistics on rows are not very beneficial, as comparing the variables in rows of this NYC dataframe do not make much sense. Often, looking at rows is not very ideal, and the outputs are not always useful. However, here are a few ways that rows can be isolated from the dataframe if necessary.
+
+```{python}
+jan23.iloc[6543:6547]
+```
+
+```{python}
+jan23[jan23["CRASH DATE"] == "01/01/2023"]
+```
+
+```{python}
+jan23[jan23["COLLISION_ID"] == 4594599]
+```
+
+```{python}
+type(jan23[jan23["COLLISION_ID"] == 4594599])
+```
+
+### Data Isolated
+
+Only the continuous variables will make sense for most of the descriptive statistics below, so we will use the following dataframe of just the continous variables, when applicable.
+
+```{python}
+cjan23 = jan23[["NUMBER OF PEDESTRIANS INJURED", "NUMBER OF PEDESTRIANS KILLED", "NUMBER OF CYCLIST INJURED", 
+                "NUMBER OF CYCLIST KILLED", "NUMBER OF MOTORIST INJURED", "NUMBER OF MOTORIST KILLED"]]
+```
+
+## Common Operations
+
+### Descriptive Statistics with Pandas
+
+### center
+* ```mean()```: mean
+* ```median()```: median
+* ```mode()```: mode
+
+### spread
+* ```min()```: minimum
+* ```max()```: maximum
+* ```std()```: standard deviation
+* ```var()```: variance
+* ```quantile()```: quantiles
+
+### shape
+* ```skew()```: adjusted Fisher-Pearson standardized moment
+
+### correlation (deals with two variables)
+* ```corr()```: correlation coefficient
+* ```cov()```: covariance
+
+### other important operations
+* ```count()```: total count
+* ```sum()```: summation
+* ```value_counts()```: individual counts
+* ```describe()```: describe the data with many descriptive statistics
+
+Below I worked on a few specific descriptive statistics operators to give a general idea of how the operators work. If an operator is not used below, it is listed under where it would be used similarly.
+
+### Important operators
+
+**Sum**
+
+```sum(axis = None, skipna = False)```. Below we focus on the usage of axis.
+
+```{python}
+cjan23.sum() # or cjan23.sum(0) or cjan23.sum(None)
+# takes the indvidual sums of the numeric columns
+```
+
+```{python}
+# compute "axis = 1", rows
+cjan23.sum(1)
+```
+
+These functions: ```mean()```, ```median()```, ```mode()```, ```min()```, ```max()``` ```std()```, ```var()```, ```quantile()```, ```skew()```, and ```count()```  are used similarly, where their default will operate on the columns, and a specification of ```axis = 1``` will operate on the rows. Any of these operators not shown below, give a similar looking output as ```sum()``` does above.
+
+### Center
+
+**Mode**
+
+```{python}
+jan23.mode() # lists the most frequent value
+# mode is relevant for discrete and continuous variables
+```
+
+The mode outputs the most frequent value. If there are multiple values that are the most frequent, then all of those values will be outputted. For example, "OFF STREET NAME" has four values that are the most frequent. Thus, four values are outputted. Since ```mode()``` was outputted in the format of a dataframe, the NaN values just represent empty spaces, where other columns have a value in that row. See: "COLLISION_ID". There are 7244 rows because there are 7244 unique collision ID's, so they all are the most frequent value (one occurrence of each). This explains all the empty spaces with all of the other variables, since the dataframe format needed a filler to still output a dataframe.
+
+### Spread
+
+**Quantile**
+
+```{python}
+cjan23.quantile([.65, .9]) # can specify specific quantiles
+```
+
+### Shape
+
+**Skew**
+
+```{python}
+cjan23.skew() # negative skew means left skewness, positive means right
+```
+
+### Correlation
+
+**Correlation Coefficient**
+
+```{python}
+jan23["NUMBER OF PEDESTRIANS INJURED"].corr(jan23["NUMBER OF PEDESTRIANS KILLED"])  
+# the correlation coefficient of these two variables
+```
+
+```cov()``` would be calculated in the same way.
+
+### Describe
+
+Above calculates each chosen operation indivudally. Is there one operation that can show multiple descriptive statistics at once? 
+
+Just for the purpose of showing how to make changes to the default function where the character values are needed to portray, I will be using all variables (dataframe jan23). Later, I will use cjan23 when delving more into editing the describe function, as the descriptie statistics automatically count numeric values as continuous (which is not true for many of these numeric variables).
+
+```{python}
+jan23.describe() # default omits character and string values
+```
+
+It may be useful to edit the ```describe()``` feature to show moreso the values that we wish to see. The default ```.describe()``` output is shown above.
+
+**The default ```describe()``` input**:
+
+```DataFrame.describe(percentiles = None, include = None, exclude = None, datetime_is_numeric = False)```
+
+#### Changing the default
+
+```{python}
+# changing percentile default
+jan23.describe([.2, .45, .9])
+```
+
+Replaces the default .25 and .75, but keeps the median (.5).
+
+```{python}
+# including all columns, rather than just "number" default
+jan23.describe(include = 'all')
+```
+
+My only con with this, is that most of these numerical values are not included in the "unique", "top", and "frequency" rows, even though in context they are discrete, and would make sense to be included in these.
+
+```{python}
+# excluding numerical columns
+# gives just "object" i.e. categorical
+jan23.describe(exclude = 'number')
+```
+
+Interesting note: rather than outputting as an empty set, the function decided to use the columns that are typically omitted instead, which is the same as ```jan23.describe("include = object")```.
+
+```{python}
+# making datetime numeric
+jan23.describe(include = 'all', datetime_is_numeric = True)
+```
+
+Including datetime as numeric works if the date times are inputted in a different style (typically, **YYYY-MM-DD 00:00:00.000000**), which our data is not. Thus, as we see, the date and time is still treated as an object.
+
+#### Changing rows with ```describe()```
+
+Above were specific ways to change the function that were already built into the function itself. What if we want to add more rows describing another descriptive statistic? I will be using just the discrete values for the following examples.
+
+```{python}
+# adding sum to the dataframe
+cjan23.describe().append(pd.Series(cjan23.sum(), name = 'sum'))
+```
+
+```{python}
+# adding a row counting nan's
+cjan23.describe().append(pd.Series(cjan23.isna().sum(), name = 'nans'))
+```
+
+```{python}
+# removing a row
+cjan23.describe().drop(labels = "max", axis = 0)
+```
+
+#### Changing columns with ```describe()```
+
+```{python}
+# removing a column
+cjan23.describe().drop(columns = "NUMBER OF CYCLIST INJURED")
+```
+
+```{python}
+# note that the manual changes made above are not permanent unless the variable is reassigned
+cjan23.describe()
+```
+
+All of the above ways were manipulating the ```describe()``` operator to potentially make visualizing descriptive statistics easier, by putting certain desirable traits in or out of the table.
+
+**Describe on Individual Columns**
+
+```{python}
+jan23["BOROUGH"].describe() # character and discrete
+```
+
+```{python}
+jan23["NUMBER OF PEDESTRIANS KILLED"].describe() # numeric and continuous
+```
+
+Note that numeric and discrete would still be treated as continuous, so descriptive statistics are not very beneficial fot these variables. Regardless, descriptive statistics are typically more of interest to us if they are continuous.
+
+## Conclusion
+
+In this presentation we looked into different methods of performing descriptive statistics, and saw how to use many of these operators. There are many ways to compute descriptive statistics, and we explored how to do so with pandas. We then focused on how to maniputlate the ```describe()``` function in many ways that may help us to visualize the data much easier. Afterwards, we looked at isolating columns and rows to perform descriptive statistics on. Analyzing the descriptive statistics is extremely important to understaning data. Another way to possibly put data into a more digestible form is to visualize it, which other presentations touch on.
