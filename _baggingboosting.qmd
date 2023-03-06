@@ -1,0 +1,135 @@
+## Bagging vs. Boosting
+**By Nathan Nhan**
+
+
+### Introduction
+
+Before we talk about Bagging and Boosting we first must talk about ensemble learning. Ensemble learning is a technique used in machine-learning where we have multiple models (often times called "weak learners") that are trained to solve the same problem and then combined to obtain better results that they could individually. With this, we can obtain more accurate and more robust models for our data using this technique. 
+
+Bagging and boosting are two types of ensemble learning techniques. They decrease the variance of a single estimate as they combine multiple estimates from different models to create a model with higher stability. Additionally, ensemble learning techniques increase the stability of the final model by reducing faactors of error in our models such as unnecessary noise, bias, and variance that we might find hurts the accuracey of our model. Specifically:
+
+* Bagging helps decrease the model’s variance.
+
+* Boosting helps decrease the model’s bias.
+
+
+
+## Bagging
+
+### How it Works:
+In Bagging, multiple homogenous algorithms are trained independently and combined afterward to determine the model’s average. It works like this: 
+
+* From the original dataset, multiple subsets are created, selecting observations with replacement.
+
+* On each of these subsets, a base learner (weak learner) is created for each
+
+* Next, all the independent models are run in parallel with one another
+
+* The final predictions are determined by combining the predictions from all the models.
+
+
+
+
+![Visualization on how the bagging algorithm works](images/Bagging.png)
+
+
+The benefits of using bagging algorithms are that 
+* Bagging algorithms reduce bias and variance errors.
+* Bagging algorithms can handle overfitting (when a model works with a training dataset but fails with the actual testing dataset).
+* Bagging can easily be implemented and produce more robust models.
+
+
+
+
+## Implementation:
+
+First we must load the dataset. For this topic I will be generating a madeup dataset shown below. It is recommended to make sure the dataset has no missing values as datasets with missing values leads to inconsistent results and poor model performance.
+
+```{python}
+import pandas as pd
+import numpy as np
+
+data = {'Name':  ['Noah', 'Mio', 'Lanz', 'Sena', 'Eunie', 'Taion', 'Riku', 'Manana', 'Ethel', 'Joran'],
+        'Age': [18, 19, 18, 18, 18, 18, 17, 18, 20, 12],
+        'Gender': ['M', 'F', 'M', 'F', 'F', 'M', 'M', 'F', 'F', 'M'],
+        'Weight': [170, 140, 260, 110, 150, 140, 25, 30, 165, 113],
+        'Height': [70, 67, 78, 62, 68, 69, 30, 30, 72, 57],
+        'Job': ['Musician', 'Musician', 'Bodybuilder', 'Bodybuilder', 'Medic', 'Tactician', 'Blacksmith', 'Cook', 'General', 'Artisian'],
+        'Healthy?': [1, 0, 1, 1, 1, 1, 1, 1, 0, 0]
+        }
+
+df = pd.DataFrame(data)
+df
+```
+
+
+Next, we need to specify the x and y variables where the x-variable will hold all the input columns containing numbers and y-variable will contain the output column
+
+
+```{python}
+X = df.drop(["Healthy?", "Job", "Name", "Gender"], axis="columns")
+y = df['Healthy?']
+
+print(X)
+
+```
+
+Next we must scale our data. Dataset scaling is transforming the dataset to fit within a specific range. This ensures that no data point is left out during model training. In the example giving we will use the `StandardScaler` method to scale our dataset.
+
+```{python}
+from sklearn.preprocessing import StandardScaler
+
+scaler = StandardScaler()
+X_scaled = scaler.fit_transform(X)
+
+print(X)
+print(X_scaled)
+```
+
+After scaling the dataset, we can split it. We will split the scaled dataset into two subsets: training and testing. To split the dataset, we will use the train_test_split method. We will be using the default splitting ratio for the `train_test_split` method which means that 80% of the data will be the training set and 20% the testing set.
+
+```{python}
+from sklearn.model_selection import train_test_split
+
+X_train, X_test, y_train, y_test = train_test_split(X_scaled, y, stratify=y, random_state=10)
+```
+
+Now that we have split our data, we can now perform our classification. The `BaggingClassifier` classifier will perform all the bagging steps and build an optimized model based on our data. The BaggingClassifier will fit the weak/base learners on the randomly sampled subsets.
+
+```{python}
+from sklearn.ensemble import BaggingClassifier
+from sklearn.tree import DecisionTreeClassifier
+
+bag_model = BaggingClassifier(
+estimator=DecisionTreeClassifier(), 
+n_estimators=100, 
+max_samples=0.8, 
+bootstrap=True,
+oob_score=True,
+random_state=0,
+)
+
+bag_model.fit(X_train, y_train)
+print(bag_model.oob_score_)
+bag_model.score(X_test, y_test)
+
+```
+
+We can compare cross-validation score this to k-fold cross-validation:
+```{python}
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.model_selection import cross_val_score
+
+scores = cross_val_score(DecisionTreeClassifier(), X, y, cv=5)
+scores.mean()
+
+```
+
+
+### Sub Topic 2
+
+Put materials on topic 2 here.
+
+### Conclusion
+
+Put sumaries here.
