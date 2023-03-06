@@ -1,21 +1,33 @@
-## My Presentation Topic (Template)
+## Bagging vs. Boosting
+**By Nathan Nhan**
 
 
 ### Introduction
 
-Put an overview here. Use Markdown syntax.
+Before we even discuss Bagging and Boosting, we must first define what ensemble learning is. Ensemble learning is a technique used in machine-learning where we have multiple models (often times called "weak learners") that are trained to solve the same problem and then combined to obtain better results that they could individually. Essentially the idea is that we can obtain more accurate and more robust models for our data using these methods. Bagging and Boosting are both ensemble learning methods in machine learning. 
+
+Bagging and boosting are two types of ensemble learning techniques. They decrease the variance of a single estimate as they combine multiple estimates from different models to create a model with higher stability. Additionally, ensemble learning techniques increase the stability of the final model by reducing faactors of error in our models such as unnecessary noise, bias, and variance that we might find hurts the accuracey of our model. Specifically:
 
 
-### Sub Topic 1
+* Bagging helps decrease the model’s variance.
 
-Put materials on topic 1 here
+* Boosting helps decrease the model’s bias.
+
+
+
+
+### Bagging
+In Bagging, multiple homogenous algorithms are trained independently and combined afterward to determine the model’s average.
+
+
+Source: [*Pluralsight*](bagging-vs-boosting.png)
 
 Python examples can be put into `python` code chunks:
 
 ```{python}
 import pandas as pd
+from sklearn.ensemble import BaggingClassifier 
 
-# do something
 ```
 
 ### Sub Topic 2
