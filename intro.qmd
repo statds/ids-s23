@@ -229,7 +229,7 @@ Please use the following table to sign up.
   02/27  | Alsubai, Nadia         | Web Scraping with Beautiful Soup
   03/01  | Bedard, Kaitlyn        | Handling spatial data with `geopandas`
   03/06  | Nhan, Nathan           | Bagging vs boosting
-  03/08  | Parchekani, Kian       |
+  03/08  | Parchekani, Kian       | Naive Bayes
   03/20  | Noel, Luke             | Plotting on maps with `gmplot`
   03/20  | Whitney, William       |
   03/22  | Nguyen, Christine      | Calling R from Python and vice versa
