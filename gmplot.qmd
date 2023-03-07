@@ -1,0 +1,180 @@
+## Plot on Maps with gmplot
+
+### Introduction
+
+`gmplot` is a library in python that allows us to plot data on Google Maps using geographical coordinates. `gmplot` has a matplotlib-like interface where we can save an HTML file of the map output in our local files.
+
+### Installation
+
+Before we can use this library, we need to install it using our command line.
+```{bash}
+pip install gmplot
+```
+
+### Importing the library
+
+We can now import `gmplot` and use it in our python code
+```{python}
+import gmplot
+```
+
+### API Key
+
+You can use the `gmplot` library without an API key, but your map output will be greyed out and have watermarks over it. To remove these you need to create your own Google Maps API key and call it in your python code. You can get started by using this link: <https://developers.google.com/maps/documentation/embed/get-api-key>.
+
+Here is an example of what a map looks like without using your API key:
+```{python}
+#| echo: false
+gmap = gmplot.GoogleMapPlotter(17.438139, 78.39583, 18)
+
+# Name and location where you want to save your file
+gmap.draw("map1grey.html")
+```
+```{python}
+# Showing manually created PNG file of the map in this output
+from IPython.display import Image
+Image(filename="map1greyed.png", width=300, height=300)
+```
+These Google Map outputs are stored as HTML files that you open and interact with in your browser. However, for the sake of this presentation, I have screenshotted some of these plots and saved them as png files to show some pictures in this notebook.
+
+### GoogleMapPlotter
+
+The main function in `gmplot` is `GoogleMapPlotter`, which, as it says in the name, is a plotter that draws on a Google Map. Use this function every time you want to make a map as it creates a base plot for you to draw on.
+
+Parameters:
+
++ lat `float` – Latitude of the center of the map.
++ lng `float` – Longitude of the center of the map.
++ zoom `int` – Zoom level, where 0 is fully zoomed out.
+
+Optional Parameters:
+
++ map_type `str` – Map type.
++ apikey `str` – Google Maps API key.
++ title `str` – Title of the HTML file (as it appears in the browser tab).
++ map_styles `[dict]` – Map styles. Requires Maps JavaScript API.
++ tilt `int` – Tilt of the map upon zooming in.
++ scale_control `bool` – Whether or not to display the scale control. Defaults to False.
++ fit_bounds `dict` – Fit the map to contain the given bounds, as a dict of the form {'north':, 'south':, 'east':, 'west':}.
+```{python}
+#| echo: false
+apikey = 'AIzaSyCTikQz6fFW8A2vE0ZRdnMaMbVYzbR1Sr4'
+```
+```{python}
+# Example: creating a base map centered around the coordinates of Manhattan
+
+# apikey = "XXXXXXXXXXXXX"
+gmap = gmplot.GoogleMapPlotter(40.7831, -73.9712, 13, apikey=apikey)
+```
+
+Now that you have created the base map called `gmap`, you need to display it using `.draw()`, which will save it as an HTML file.
+```{python}
+# Specify what directory and what name you want the HTML file of the map to be stored in/as
+gmap.draw('map2.html')
+```
+```{python}
+#| echo: false
+# Displaying the image of map2 in this notebook
+Image(filename="map2.png", width=300, height=300)
+```
+After opening the HTML file in your browser, you can zoom, scroll, change the map to satellite, and mark a spot to see the street-view.
+
+### From_Geocode
+
+If you don't know the exact coordinates you want your map to be centered around you can use the name of the location instead. You do this by attaching the `.from_geocode()` function to `GoogleMapPlotter` and inputting a string of the location inside the parenthesis. **THIS REQUIRES AN API KEY**
+
+Parameters:
+
++ location `str` – Location or address of interest, as a human-readable string.
+
+Optional Parameters:
+
++ zoom `int` – Zoom level, where 0 is fully zoomed out. Defaults to 13.
+
+```{python}
+# Creating a map centered around the UConn campus
+gmap = gmplot.GoogleMapPlotter.from_geocode('UConn', 16, apikey=apikey)
+gmap.draw('map3.html')
+```
+```{python}
+#| echo: false
+# Displaying the map3 image example in this notebook
+Image(filename="map3.png", width=300, height=300)
+```
+
+### Geocode
+
+If you want to know the latitude and longitude coordinates of a certain location you can use the `.geocode()` function attached to `GoogleMapPlotter`. Input a string of said location inside the parenthesis. **THIS REQUIRES AN API KEY**
+```{python}
+# Printing the coordinates of some locations at UConn
+uconn = gmplot.GoogleMapPlotter.geocode('UConn', apikey=apikey)
+garrigus = gmplot.GoogleMapPlotter.geocode('Garrigus Suites, Storrs', apikey=apikey)
+gentry = gmplot.GoogleMapPlotter.geocode('Gentry Building, Storrs', apikey=apikey)
+
+print(uconn)
+print(garrigus)
+print(gentry)
+```
+
+### Text on the Map
+
+You can display text labels on your maps using `.text()`
+
+Parameters:
+
++ lat `float` – Latitude of the text label.
++ lng `float` – Longitude of the text label.
++ text `str` – Text to display.
+
+Optional Parameters
+
++ color/c `str` – Text color. Can be hex (‘#00FFFF’), named (‘cyan’), or matplotlib-like (‘c’). Defaults to black.
+
+```{python}
+# Map centered around UConn with text labels for Garrigus Suites and the Gentry Building
+# Using the coordinates found above
+
+gmap = gmplot.GoogleMapPlotter(uconn[0], uconn[1], 17, apikey=apikey, map_type='hybrid')
+# Text labels:
+gmap.text(garrigus[0], garrigus[1], 'Garrigus Suites', color='red')
+gmap.text(gentry[0], gentry[1], 'Gentry Building', color='orange')
+
+gmap.draw('map4.html')
+```
+```{python}
+#| echo: false
+# Displaying the map4 image example in this notebook
+Image(filename="map4.png", width=300, height=300)
+```
+
+### Directions
+
+You can display directions from one location to another on a map using `.directions()`
+
+Parameters:
+
++ origin `(float, float)` – Origin, in latitude/longitude.
++ destination `(float, float)` – Destination, in latitude/longitude.
+
+Optional Parameters:
+
++ travel_mode `str` – Travel mode. Defaults to ‘DRIVING’.
++ waypoints `[(float, float)]` – Waypoints to pass through.
+
+```{python}
+# Walking directions from Garrigus Suites to the Gentry Building
+gmap = gmplot.GoogleMapPlotter(uconn[0], uconn[1], 17, apikey=apikey, map_type='hybrid')
+
+# Origin: Garrigus Suites, Destination: Gentry Buldiing
+gmap.directions((garrigus[0], garrigus[1]),
+                (gentry[0], gentry[1]),
+                travel_mode='WALKING') # walking not driving
+
+gmap.draw('map5.html')
+```
+![map5.png](map5.png)
+```{python}
+#| echo: false
+# Displaying the map5 image example in this notebook
+#Image(filename="map5.png", width=300, height=300)
+```
