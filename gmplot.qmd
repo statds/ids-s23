@@ -55,7 +55,7 @@ Optional Parameters:
 + fit_bounds `dict` – Fit the map to contain the given bounds, as a dict of the form {'north':, 'south':, 'east':, 'west':}.
 ```{python}
 #| echo: false
-apikey = 'AIzaSyCTikQz6fFW8A2vE0ZRdnMaMbVYzbR1Sr4'
+# apikey=""
 ```
 ```{python}
 # Example: creating a base map centered around the coordinates of Manhattan
