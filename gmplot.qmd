@@ -1,3 +1,7 @@
+---
+jupyter: python3
+---
+
 ## Plot on Maps with gmplot
 
 ### Introduction
@@ -55,7 +59,7 @@ Optional Parameters:
 + fit_bounds `dict` – Fit the map to contain the given bounds, as a dict of the form {'north':, 'south':, 'east':, 'west':}.
 ```{python}
 #| echo: false
-# apikey=""
+apikey = 'AIzaSyCTikQz6fFW8A2vE0ZRdnMaMbVYzbR1Sr4'
 ```
 ```{python}
 # Example: creating a base map centered around the coordinates of Manhattan
@@ -134,7 +138,7 @@ gmap.draw('map4.html')
 
 ### Directions
 
-You can display directions from one location to another on a map using `.directions()`
+You can display directions from one location to another on a map using `.directions()` **REQUIRES API KEY**
 
 Parameters:
 
@@ -158,3 +162,141 @@ gmap.directions((garrigus[0], garrigus[1]),
 gmap.draw('map5.html')
 ```
 ![map5.png](images/map5.png)
+
+### Markers
+
+You can also display markers on the map using `.marker()`. These markers can contain HTML content in a pop up window.
+
+Parameters:
+
++ lat `float` – Latitude of the marker.
++ lng `float` – Longitude of the marker.
+
+Optional Parameters:
+
++ color/c `str` – Marker color. Can be hex (‘#00FFFF’), named (‘cyan’), or matplotlib-like (‘c’). Defaults to red.
++ title `str` – Hover-over title of the marker.
++ precision `int`– Number of digits after the decimal to round to for lat/lng values. Defaults to 6.
++ label `str` – Label displayed on the marker.
++ info_window `str` – HTML content to be displayed in a pop-up info window.
++ draggable `bool` – Whether or not the marker is draggable.
+
+
+```{python}
+gmap = gmplot.GoogleMapPlotter(uconn[0], uconn[1], 17, apikey=apikey)
+
+gmap.marker(garrigus[0], garrigus[1], label='S', info_window=
+            "<a href='https://reslife.uconn.edu/housing-options/suites/garrigus-suites/'>Garrigus Suites</a") 
+            # Adding Website link to Garrigus Suites on its marker
+
+gmap.marker(gentry[0], gentry[1], color='green', title='Gentry Building') # Marker labeled Gentry Building
+
+gmap.enable_marker_dropping('orange', draggable=True) # Allows you to drop markers on the map by clicking
+
+gmap.draw('map6.html')
+```
+![map6.png](images/map6.png)
+
+### Scatter
+
+You can plot a collection of geographical points on a map using `.scatter()`.
+
+Parameters:
+
++ lats `[float]` – Latitudes.
++ lngs `[float]` – Longitudes.
+
+Optional Parameters:
+
++ color/c/edge_color/ec `str`  – Color of each point. Can be hex (‘#00FFFF’), named (‘cyan’), or matplotlib-like (‘c’). Defaults to black.
++ size/s `int`  – Size of each point, in meters (symbols only). Defaults to 40.
++ marker `bool` – True to plot points as markers, False to plot them as symbols. Defaults to True.
++ symbol `str` – Shape of each point, as ‘o’, ‘x’, or ‘+’ (symbols only). Defaults to ‘o’.
++ title `str` – Hover-over title of each point (markers only).
++ label `str` – Label displayed on each point (markers only).
++ precision `int` – Number of digits after the decimal to round to for lat/lng values. Defaults to 6.
++ alpha/face_alpha/fa `float` – Opacity of each point’s face, ranging from 0 to 1 (symbols only). Defaults to 0.3.
++ alpha/edge_alpha/ea `float` – Opacity of each point’s edge, ranging from 0 to 1 (symbols only). Defaults to 1.0.
++ edge_width/ew `int` – Width of each point’s edge, in pixels (symbols only). Defaults to 1.
+
+To illustrate this I will use the cleaned NYC Crash Data, and color each point corresponding to its borough:
+```{python}
+# Importing in the cleaned NYC crash data
+import pandas as pd
+
+crash = pd.read_csv('data/nyc_crashes_202301_cleaned.csv')
+```
+```{python}
+# Group the dataframe by the "BOROUGH" column
+borough_groups = crash.groupby('BOROUGH')
+
+# Creating a map centered around NYC with the location points scattered
+gmap = gmplot.GoogleMapPlotter.from_geocode('New York City', 10, apikey=apikey)
+
+# Loop through each group and plot the points with a different color for each borough
+colors = ['red', 'blue', 'green', 'brown', 'purple'] # define a list of colors for each borough
+for i, (borough, group) in enumerate(borough_groups):
+    gmap.scatter(group['LATITUDE'], group['LONGITUDE'], marker=False, size=75, color=colors[i])
+
+# Draw the map
+gmap.draw('map7.html')
+```
+![map7.png](images/map7.png)
+
+### Heatmap and Polygon
+
+You can plot a heatmap of geographical coordinates using `.heatmap()`.
+
+Parameters:
+
++ lats `[float]` – Latitudes.
++ lngs `[float]` – Longitudes.
+
+Optional Parameters:
+
++ radius `int` – Radius of influence for each data point, in pixels. Defaults to 10.
++ gradient `[(int, int, int, float)]` – Color gradient of the heatmap, as a list of RGBA colors. The color order defines the gradient moving towards the center of a point.
++ opacity `float` – Opacity of the heatmap, ranging from 0 to 1. Defaults to 0.6.
++ max_intensity `int` – Maximum intensity of the heatmap. Defaults to 1.
++ dissipating `bool` – True to dissipate the heatmap on zooming, False to disable dissipation.
++ precision `int` – Number of digits after the decimal to round to for lat/lng values. Defaults to 6.
++ weights `[float]` – List of weights corresponding to each data point. Each point has a weight of 1 by default. Specifying a weight of N is equivalent to plotting the same point N times.
+
+You can also plot a polygon that you can color on a map using `.polygon()`, using latitude and logitude values of the points of the polygon shape.
+
+Example using same data points as the scatter map above except changing to heatmap. Also plotting a polygon of Central Park:
+```{python}
+
+# You need to drop all na's for heatmap to work
+crash_c = crash.dropna(subset=['LATITUDE', 'LONGITUDE'])
+
+# Creating map centered around Manhattan
+gmap = gmplot.GoogleMapPlotter.from_geocode("Manhattan, NY", apikey=apikey)
+
+# Coordinates of boundaries of Central Park
+centralp = zip(*[
+    (40.796961, -73.949441),
+    (40.764684, -73.972968),
+    (40.767997, -73.981977),
+    (40.800585, -73.958036)
+])
+
+# Heatmap using Crash data coordinates
+gmap.heatmap(crash_c['LATITUDE'], crash_c['LONGITUDE'], radius=15, opacity=0.6)
+
+# Blue polygon (rectangle) of Central Park
+gmap.polygon(*centralp, face_color='pink', edge_color='cornflowerblue', edge_width=5)
+
+gmap.draw('map8.html')
+```
+![map8.png](images/map8.png)
+
+### References
+
+Github of gmplot:
+
++ <https://github.com/gmplot/gmplot/wiki/GoogleMapPlotter>
+
+Another tutorial website:
+
++ <https://www.tutorialspoint.com/plotting-google-map-using-gmplot-package-in-python>
