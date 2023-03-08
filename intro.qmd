@@ -266,3 +266,17 @@ For more detailed style guidance, please see my notes on [statistical wrirting](
 {{< include _mysection.qmd >}}
 
 
+## Practical Tips
+
+### Data analysis
+
++ Use an IDE so you can play with the data interactively
++ Collect codes that have tested out into a script for batch processing
++ During data cleaning, keep in mind how each variable will be used later
++ No keeping large data files in a repo; assume a reasonable location with your collaborators
+
+### Presentation
+
++ Don't forget to introduce yourself if there is no moderator
++ Highlight your research questions and results, not code
++ Give an outline, carry it out, and summarize
