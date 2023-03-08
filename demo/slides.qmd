@@ -3,15 +3,14 @@ title: "This Is The Title"
 subtitle: "This is subtitle"
 author: "Jun Yan and John Smith"
 format:
-  html:
-    embed-resources: true
   revealjs: 
+    embed-resources: true
     slide-number: true
-    chalkboard: 
-      buttons: false
+#    chalkboard: 
+#      buttons: false
     preview-links: auto
-    logo: images/quarto.png
-    css: styles.css
+#    logo: images/quarto.png
+#    css: styles.css
     footer: "UConn Intro to Data Science: STAT 3255/5255"
 resources:
   - demo.pdf
