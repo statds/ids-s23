@@ -1,0 +1,3002 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.313">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Introduction to Data Science - 6&nbsp; Descriptive Statistics</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./stats.html" rel="next">
+<link href="./pandas.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Descriptive Statistics</span></h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Introduction to Data Science</a> 
+    </div>
+      </div>
+      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">Preface</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./intro.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./git.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Project Management with Git</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./quarto.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Reproducibile Data Science with Quarto</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./python.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Python Refreshment</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./pandas.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Data Manipulation with Pandas</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./descr.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Descriptive Statistics</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./stats.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Statistical Tests and Models</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./visual.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Visualization</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./supervised.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Supervised Learning</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./advanced.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Advanced Topics</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./nycrash.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">NYC Crash Data</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./exercises.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Exercises</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">References</a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#different-python-methods-and-which-to-use" id="toc-different-python-methods-and-which-to-use" class="nav-link active" data-scroll-target="#different-python-methods-and-which-to-use"><span class="toc-section-number">6.1</span>  Different Python methods and which to use</a>
+  <ul class="collapse">
+  <li><a href="#explanation-of-methods" id="toc-explanation-of-methods" class="nav-link" data-scroll-target="#explanation-of-methods"><span class="toc-section-number">6.1.1</span>  Explanation of Methods</a></li>
+  <li><a href="#example-mean" id="toc-example-mean" class="nav-link" data-scroll-target="#example-mean"><span class="toc-section-number">6.1.2</span>  Example: mean</a></li>
+  <li><a href="#so-what-do-we-use" id="toc-so-what-do-we-use" class="nav-link" data-scroll-target="#so-what-do-we-use"><span class="toc-section-number">6.1.3</span>  So what do we use?</a></li>
+  </ul></li>
+  <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data"><span class="toc-section-number">6.2</span>  Data</a>
+  <ul class="collapse">
+  <li><a href="#isolating-parts-of-the-dataframe" id="toc-isolating-parts-of-the-dataframe" class="nav-link" data-scroll-target="#isolating-parts-of-the-dataframe"><span class="toc-section-number">6.2.1</span>  Isolating Parts of the Dataframe</a></li>
+  <li><a href="#data-isolated" id="toc-data-isolated" class="nav-link" data-scroll-target="#data-isolated"><span class="toc-section-number">6.2.2</span>  Data Isolated</a></li>
+  </ul></li>
+  <li><a href="#common-operations" id="toc-common-operations" class="nav-link" data-scroll-target="#common-operations"><span class="toc-section-number">6.3</span>  Common Operations</a>
+  <ul class="collapse">
+  <li><a href="#descriptive-statistics-with-pandas" id="toc-descriptive-statistics-with-pandas" class="nav-link" data-scroll-target="#descriptive-statistics-with-pandas"><span class="toc-section-number">6.3.1</span>  Descriptive Statistics with Pandas</a></li>
+  <li><a href="#center" id="toc-center" class="nav-link" data-scroll-target="#center"><span class="toc-section-number">6.3.2</span>  center</a></li>
+  <li><a href="#spread" id="toc-spread" class="nav-link" data-scroll-target="#spread"><span class="toc-section-number">6.3.3</span>  spread</a></li>
+  <li><a href="#shape" id="toc-shape" class="nav-link" data-scroll-target="#shape"><span class="toc-section-number">6.3.4</span>  shape</a></li>
+  <li><a href="#correlation-deals-with-two-variables" id="toc-correlation-deals-with-two-variables" class="nav-link" data-scroll-target="#correlation-deals-with-two-variables"><span class="toc-section-number">6.3.5</span>  correlation (deals with two variables)</a></li>
+  <li><a href="#other-important-operations" id="toc-other-important-operations" class="nav-link" data-scroll-target="#other-important-operations"><span class="toc-section-number">6.3.6</span>  other important operations</a></li>
+  <li><a href="#important-operators" id="toc-important-operators" class="nav-link" data-scroll-target="#important-operators"><span class="toc-section-number">6.3.7</span>  Important operators</a></li>
+  <li><a href="#center-1" id="toc-center-1" class="nav-link" data-scroll-target="#center-1"><span class="toc-section-number">6.3.8</span>  Center</a></li>
+  <li><a href="#spread-1" id="toc-spread-1" class="nav-link" data-scroll-target="#spread-1"><span class="toc-section-number">6.3.9</span>  Spread</a></li>
+  <li><a href="#shape-1" id="toc-shape-1" class="nav-link" data-scroll-target="#shape-1"><span class="toc-section-number">6.3.10</span>  Shape</a></li>
+  <li><a href="#correlation" id="toc-correlation" class="nav-link" data-scroll-target="#correlation"><span class="toc-section-number">6.3.11</span>  Correlation</a></li>
+  <li><a href="#describe" id="toc-describe" class="nav-link" data-scroll-target="#describe"><span class="toc-section-number">6.3.12</span>  Describe</a></li>
+  </ul></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion"><span class="toc-section-number">6.4</span>  Conclusion</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Descriptive Statistics</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<p>In basic terms, descriptive statistics are how we describe the data. Descriptive Statistics is extremely important to exploratory data analysis, as it allows us to <em>describe</em> and <em>summarize</em> the data to put it into <em>context</em> and <em>visualize</em> it. If we just were looking at a bunch of raw data, what use is that to us? We use terms to describe center, spread, correlation, counts, and more to to give us context to the raw data we have.</p>
+<section id="different-python-methods-and-which-to-use" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="different-python-methods-and-which-to-use"><span class="header-section-number">6.1</span> Different Python methods and which to use</h2>
+<section id="explanation-of-methods" class="level3" data-number="6.1.1">
+<h3 data-number="6.1.1" class="anchored" data-anchor-id="explanation-of-methods"><span class="header-section-number">6.1.1</span> Explanation of Methods</h3>
+<p>There are many methods to perform descriptive statistics operations. After briefly describing them, we will perform example operations to put into context how they work.</p>
+<p><strong>Python’s built-in functions</strong>: These built-in operations are in the Python library, where we would not have to import any packages. There are not many operations already built-in, and it cannot compute large datasets well.</p>
+<p><strong>Statistics package</strong>: Includes some additional functions for computation. NumPy is more compatible for using opertions than this package.</p>
+<p><strong>NumPy</strong>: NumPy is a very common package to import. It is beneficial when working with single and multi dimensional arrays.</p>
+<p><strong>Pandas</strong>: Pandas is based off of the same numerical computing as NumPy and works with series and dataframes.</p>
+</section>
+<section id="example-mean" class="level3" data-number="6.1.2">
+<h3 data-number="6.1.2" class="anchored" data-anchor-id="example-mean"><span class="header-section-number">6.1.2</span> Example: mean</h3>
+<p>Below is an example of computing <em>mean</em> with all of the above methods to express their differences.</p>
+<p>Just for this example, I will create my own datasets (as the NYC data does not portray the differences as easily).</p>
+<div class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> math</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> [<span class="dv">2</span>, <span class="fl">3.5</span>, <span class="dv">7</span>, <span class="dv">4</span>]</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>xnan <span class="op">=</span> [<span class="dv">2</span>, <span class="fl">3.5</span>, <span class="dv">7</span>, <span class="dv">4</span>, math.nan]</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> np.array(xnan)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>z <span class="op">=</span> pd.Series(xnan)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><strong>Python’s built-in functions</strong></p>
+<p>Here, we create the formula for mean by only using the built-in Python operations.</p>
+<div class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>mean <span class="op">=</span> <span class="bu">sum</span>(x) <span class="op">/</span> <span class="bu">len</span>(x) <span class="co"># sum and length are built-in, whereas mean is not</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>mean <span class="co"># uses just the list</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="2">
+<pre><code>4.125</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>mean_xnan <span class="op">=</span> <span class="bu">sum</span>(xnan) <span class="op">/</span> <span class="bu">len</span>(xnan)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>mean_xnan</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="3">
+<pre><code>nan</code></pre>
+</div>
+</div>
+<p>This method cannot skip NaN’s in the list, so the user would have to find a way to eliminate all NaN’s from their list before computing.</p>
+<p><strong>Statistics Package</strong></p>
+<div class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statistics</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>statistics.mean(x) <span class="co"># uses just the list, x, rather than the array or series</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="4">
+<pre><code>4.125</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>statistics.mean(xnan)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="5">
+<pre><code>nan</code></pre>
+</div>
+</div>
+<p>Similarly, will just output “nan” if there are any nan’s in the list.</p>
+<p><strong>NumPy</strong></p>
+<div class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>np.mean(y) <span class="co"># uses the array y = np.array(xnan)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="6">
+<pre><code>nan</code></pre>
+</div>
+</div>
+<p>Notice that nan occurs. To avoid this, we can use <code>nanmean()</code> instead.</p>
+<div class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>np.nanmean(y)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="7">
+<pre><code>4.125</code></pre>
+</div>
+</div>
+<p><strong>Pandas</strong></p>
+<div class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>z.mean() <span class="co"># uses the series z = pd.Series(xnan)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="8">
+<pre><code>4.125</code></pre>
+</div>
+</div>
+<p>nan does not occur due to the default parameter in the pandas mean <code>skipna = True</code>.</p>
+<div class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>z.mean(skipna <span class="op">=</span> <span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="9">
+<pre><code>nan</code></pre>
+</div>
+</div>
+</section>
+<section id="so-what-do-we-use" class="level3" data-number="6.1.3">
+<h3 data-number="6.1.3" class="anchored" data-anchor-id="so-what-do-we-use"><span class="header-section-number">6.1.3</span> So what do we use?</h3>
+<p>As shown above, pandas is nice as it automatically ignores nan by default when computing numeric operations, rather than just outputting nan. This is faster, cleaner, and preferrable to me when I am calculating operations. So, outside of the context of this class, I prefer using pandas if I had the choice.</p>
+<p>Moreover, in the context of this class, the data we will be analyzing is typically in the form of a dataframe. Pandas will typically be the best option when working with a dataframe, so it is best to continue using pandas.</p>
+</section>
+</section>
+<section id="data" class="level2" data-number="6.2">
+<h2 data-number="6.2" class="anchored" data-anchor-id="data"><span class="header-section-number">6.2</span> Data</h2>
+<p>The data I will pull from is the January 2023 NYC Crash Data (cleaned).</p>
+<div class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>jan23 <span class="op">=</span> pd.read_csv(<span class="st">"data/nyc_crashes_202301_cleaned.csv"</span>)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>jan23 <span class="op">=</span> jan23.loc[:,[<span class="st">'CRASH DATE'</span>, <span class="st">'CRASH TIME'</span>, <span class="st">'BOROUGH'</span>, <span class="st">'ZIP CODE'</span>, <span class="st">'LATITUDE'</span>,</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>       <span class="st">'LONGITUDE'</span>, <span class="st">'LOCATION'</span>, <span class="st">'ON STREET NAME'</span>, <span class="st">'CROSS STREET NAME'</span>,</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>       <span class="st">'OFF STREET NAME'</span>, <span class="st">'NUMBER OF PERSONS INJURED'</span>,</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>       <span class="st">'NUMBER OF PERSONS KILLED'</span>, <span class="st">'NUMBER OF PEDESTRIANS INJURED'</span>,</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>       <span class="st">'NUMBER OF PEDESTRIANS KILLED'</span>, <span class="st">'NUMBER OF CYCLIST INJURED'</span>,</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>       <span class="st">'NUMBER OF CYCLIST KILLED'</span>, <span class="st">'NUMBER OF MOTORIST INJURED'</span>,</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>       <span class="st">'NUMBER OF MOTORIST KILLED'</span>, <span class="st">'CONTRIBUTING FACTOR VEHICLE 1'</span>,</span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>       <span class="st">'CONTRIBUTING FACTOR VEHICLE 2'</span>, <span class="st">'CONTRIBUTING FACTOR VEHICLE 3'</span>,</span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>       <span class="st">'CONTRIBUTING FACTOR VEHICLE 4'</span>, <span class="st">'CONTRIBUTING FACTOR VEHICLE 5'</span>,</span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>       <span class="st">'COLLISION_ID'</span>, <span class="st">'VEHICLE TYPE CODE 1'</span>, <span class="st">'VEHICLE TYPE CODE 2'</span>,</span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>       <span class="st">'VEHICLE TYPE CODE 3'</span>, <span class="st">'VEHICLE TYPE CODE 4'</span>, <span class="st">'VEHICLE TYPE CODE 5'</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="isolating-parts-of-the-dataframe" class="level3" data-number="6.2.1">
+<h3 data-number="6.2.1" class="anchored" data-anchor-id="isolating-parts-of-the-dataframe"><span class="header-section-number">6.2.1</span> Isolating Parts of the Dataframe</h3>
+<p>Descriptive statistics do not make sense in context with all aspects of the dataframe we will be using. Most of the descriptive statistics shown below will only make sense with continuous variables. Thus, I will briefly show how to isolate certain aspects of the dataframe, so that we can do so later.</p>
+<section id="columns" class="level4" data-number="6.2.1.1">
+<h4 data-number="6.2.1.1" class="anchored" data-anchor-id="columns"><span class="header-section-number">6.2.1.1</span> Columns</h4>
+<div class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>jan23[<span class="st">"BOROUGH"</span>] <span class="co"># isolating BOROUGH column</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="11">
+<pre><code>0        BROOKLYN
+1          QUEENS
+2       MANHATTAN
+3          QUEENS
+4           BRONX
+          ...    
+7239     BROOKLYN
+7240     BROOKLYN
+7241     BROOKLYN
+7242    MANHATTAN
+7243       QUEENS
+Name: BOROUGH, Length: 7244, dtype: object</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="bu">type</span>(jan23[<span class="st">"BOROUGH"</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="12">
+<pre><code>pandas.core.series.Series</code></pre>
+</div>
+</div>
+<p>Notice that the individual columns are classified as series. Pandas can be used on dataframes and series.</p>
+<div class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>jan23[<span class="st">"BOROUGH"</span>].value_counts(dropna <span class="op">=</span> <span class="va">False</span>) <span class="co"># categorical / discrete</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="co"># "dropna = True" is the default and drops the missing (NaN) values</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="13">
+<pre><code>BROOKLYN         2386
+QUEENS           1980
+MANHATTAN        1290
+BRONX            1179
+STATEN ISLAND     384
+NaN                25
+Name: BOROUGH, dtype: int64</code></pre>
+</div>
+</div>
+<p><code>value_counts()</code> does not work on dataframes, as it is a series operation. Moreover, it allows us to explore individual columns in more detail.</p>
+<div class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>jan23[<span class="st">"NUMBER OF PEDESTRIANS KILLED"</span>].value_counts(dropna <span class="op">=</span> <span class="va">False</span>) <span class="co"># numeric / continous</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="co"># works with both categorical and numeric values</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="14">
+<pre><code>0    7239
+1       5
+Name: NUMBER OF PEDESTRIANS KILLED, dtype: int64</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>jan23[[<span class="st">"BOROUGH"</span>, <span class="st">"NUMBER OF PEDESTRIANS KILLED"</span>]] <span class="co"># isolating multiple columns</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="15">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>BOROUGH</th>
+      <th>NUMBER OF PEDESTRIANS KILLED</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>BROOKLYN</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>QUEENS</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>MANHATTAN</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>QUEENS</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>BRONX</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>7239</th>
+      <td>BROOKLYN</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>7240</th>
+      <td>BROOKLYN</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>7241</th>
+      <td>BROOKLYN</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>7242</th>
+      <td>MANHATTAN</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>7243</th>
+      <td>QUEENS</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+<p>7244 rows × 2 columns</p>
+</div>
+</div>
+</div>
+</section>
+<section id="rows" class="level4" data-number="6.2.1.2">
+<h4 data-number="6.2.1.2" class="anchored" data-anchor-id="rows"><span class="header-section-number">6.2.1.2</span> Rows</h4>
+<p>Descriptive Statistics on rows are not very beneficial, as comparing the variables in rows of this NYC dataframe do not make much sense. Often, looking at rows is not very ideal, and the outputs are not always useful. However, here are a few ways that rows can be isolated from the dataframe if necessary.</p>
+<div class="cell" data-execution_count="16">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>jan23.iloc[<span class="dv">6543</span>:<span class="dv">6547</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="16">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>CRASH DATE</th>
+      <th>CRASH TIME</th>
+      <th>BOROUGH</th>
+      <th>ZIP CODE</th>
+      <th>LATITUDE</th>
+      <th>LONGITUDE</th>
+      <th>LOCATION</th>
+      <th>ON STREET NAME</th>
+      <th>CROSS STREET NAME</th>
+      <th>OFF STREET NAME</th>
+      <th>...</th>
+      <th>CONTRIBUTING FACTOR VEHICLE 2</th>
+      <th>CONTRIBUTING FACTOR VEHICLE 3</th>
+      <th>CONTRIBUTING FACTOR VEHICLE 4</th>
+      <th>CONTRIBUTING FACTOR VEHICLE 5</th>
+      <th>COLLISION_ID</th>
+      <th>VEHICLE TYPE CODE 1</th>
+      <th>VEHICLE TYPE CODE 2</th>
+      <th>VEHICLE TYPE CODE 3</th>
+      <th>VEHICLE TYPE CODE 4</th>
+      <th>VEHICLE TYPE CODE 5</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>6543</th>
+      <td>1/28/23</td>
+      <td>5:25</td>
+      <td>BROOKLYN</td>
+      <td>11206.0</td>
+      <td>40.701077</td>
+      <td>-73.94043</td>
+      <td>(40.701077, -73.94043)</td>
+      <td>HUMBOLDT STREET</td>
+      <td>FLUSHING AVENUE</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>Other Vehicular</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>4602244</td>
+      <td>Station Wagon/Sport Utility Vehicle</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>6544</th>
+      <td>1/28/23</td>
+      <td>10:55</td>
+      <td>STATEN ISLAND</td>
+      <td>10301.0</td>
+      <td>40.640907</td>
+      <td>-74.08134</td>
+      <td>(40.640907, -74.08134)</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>25        SHERMAN AVENUE</td>
+      <td>...</td>
+      <td>Unspecified</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>4602219</td>
+      <td>Sedan</td>
+      <td>Sedan</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>6545</th>
+      <td>1/28/23</td>
+      <td>0:09</td>
+      <td>QUEENS</td>
+      <td>11372.0</td>
+      <td>40.755030</td>
+      <td>-73.88242</td>
+      <td>(40.75503, -73.88242)</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>33-11     85 STREET</td>
+      <td>...</td>
+      <td>Unspecified</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>4602365</td>
+      <td>Sedan</td>
+      <td>Box Truck</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>6546</th>
+      <td>1/28/23</td>
+      <td>13:00</td>
+      <td>BROOKLYN</td>
+      <td>11220.0</td>
+      <td>40.644955</td>
+      <td>-74.01611</td>
+      <td>(40.644955, -74.01611)</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>325       54 STREET</td>
+      <td>...</td>
+      <td>Unspecified</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>4602449</td>
+      <td>Sedan</td>
+      <td>Station Wagon/Sport Utility Vehicle</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+<p>4 rows × 29 columns</p>
+</div>
+</div>
+</div>
+<div class="cell" data-execution_count="17">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>jan23[jan23[<span class="st">"CRASH DATE"</span>] <span class="op">==</span> <span class="st">"01/01/2023"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="17">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>CRASH DATE</th>
+      <th>CRASH TIME</th>
+      <th>BOROUGH</th>
+      <th>ZIP CODE</th>
+      <th>LATITUDE</th>
+      <th>LONGITUDE</th>
+      <th>LOCATION</th>
+      <th>ON STREET NAME</th>
+      <th>CROSS STREET NAME</th>
+      <th>OFF STREET NAME</th>
+      <th>...</th>
+      <th>CONTRIBUTING FACTOR VEHICLE 2</th>
+      <th>CONTRIBUTING FACTOR VEHICLE 3</th>
+      <th>CONTRIBUTING FACTOR VEHICLE 4</th>
+      <th>CONTRIBUTING FACTOR VEHICLE 5</th>
+      <th>COLLISION_ID</th>
+      <th>VEHICLE TYPE CODE 1</th>
+      <th>VEHICLE TYPE CODE 2</th>
+      <th>VEHICLE TYPE CODE 3</th>
+      <th>VEHICLE TYPE CODE 4</th>
+      <th>VEHICLE TYPE CODE 5</th>
+    </tr>
+  </thead>
+  <tbody>
+  </tbody>
+</table>
+<p>0 rows × 29 columns</p>
+</div>
+</div>
+</div>
+<div class="cell" data-execution_count="18">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>jan23[jan23[<span class="st">"COLLISION_ID"</span>] <span class="op">==</span> <span class="dv">4594599</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="18">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>CRASH DATE</th>
+      <th>CRASH TIME</th>
+      <th>BOROUGH</th>
+      <th>ZIP CODE</th>
+      <th>LATITUDE</th>
+      <th>LONGITUDE</th>
+      <th>LOCATION</th>
+      <th>ON STREET NAME</th>
+      <th>CROSS STREET NAME</th>
+      <th>OFF STREET NAME</th>
+      <th>...</th>
+      <th>CONTRIBUTING FACTOR VEHICLE 2</th>
+      <th>CONTRIBUTING FACTOR VEHICLE 3</th>
+      <th>CONTRIBUTING FACTOR VEHICLE 4</th>
+      <th>CONTRIBUTING FACTOR VEHICLE 5</th>
+      <th>COLLISION_ID</th>
+      <th>VEHICLE TYPE CODE 1</th>
+      <th>VEHICLE TYPE CODE 2</th>
+      <th>VEHICLE TYPE CODE 3</th>
+      <th>VEHICLE TYPE CODE 4</th>
+      <th>VEHICLE TYPE CODE 5</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <td>1/1/23</td>
+      <td>8:04</td>
+      <td>QUEENS</td>
+      <td>11430.0</td>
+      <td>40.659508</td>
+      <td>-73.773687</td>
+      <td>(40.6595077,-73.7736867)</td>
+      <td>NASSAU EXPRESSWAY</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>Unspecified</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>4594599</td>
+      <td>Sedan</td>
+      <td>Sedan</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+<p>1 rows × 29 columns</p>
+</div>
+</div>
+</div>
+<div class="cell" data-execution_count="19">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="bu">type</span>(jan23[jan23[<span class="st">"COLLISION_ID"</span>] <span class="op">==</span> <span class="dv">4594599</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="19">
+<pre><code>pandas.core.frame.DataFrame</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="data-isolated" class="level3" data-number="6.2.2">
+<h3 data-number="6.2.2" class="anchored" data-anchor-id="data-isolated"><span class="header-section-number">6.2.2</span> Data Isolated</h3>
+<p>Only the continuous variables will make sense for most of the descriptive statistics below, so we will use the following dataframe of just the continous variables, when applicable.</p>
+<div class="cell" data-execution_count="20">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>cjan23 <span class="op">=</span> jan23[[<span class="st">"NUMBER OF PEDESTRIANS INJURED"</span>, <span class="st">"NUMBER OF PEDESTRIANS KILLED"</span>, <span class="st">"NUMBER OF CYCLIST INJURED"</span>, </span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>                <span class="st">"NUMBER OF CYCLIST KILLED"</span>, <span class="st">"NUMBER OF MOTORIST INJURED"</span>, <span class="st">"NUMBER OF MOTORIST KILLED"</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="common-operations" class="level2" data-number="6.3">
+<h2 data-number="6.3" class="anchored" data-anchor-id="common-operations"><span class="header-section-number">6.3</span> Common Operations</h2>
+<section id="descriptive-statistics-with-pandas" class="level3" data-number="6.3.1">
+<h3 data-number="6.3.1" class="anchored" data-anchor-id="descriptive-statistics-with-pandas"><span class="header-section-number">6.3.1</span> Descriptive Statistics with Pandas</h3>
+</section>
+<section id="center" class="level3" data-number="6.3.2">
+<h3 data-number="6.3.2" class="anchored" data-anchor-id="center"><span class="header-section-number">6.3.2</span> center</h3>
+<ul>
+<li><code>mean()</code>: mean</li>
+<li><code>median()</code>: median</li>
+<li><code>mode()</code>: mode</li>
+</ul>
+</section>
+<section id="spread" class="level3" data-number="6.3.3">
+<h3 data-number="6.3.3" class="anchored" data-anchor-id="spread"><span class="header-section-number">6.3.3</span> spread</h3>
+<ul>
+<li><code>min()</code>: minimum</li>
+<li><code>max()</code>: maximum</li>
+<li><code>std()</code>: standard deviation</li>
+<li><code>var()</code>: variance</li>
+<li><code>quantile()</code>: quantiles</li>
+</ul>
+</section>
+<section id="shape" class="level3" data-number="6.3.4">
+<h3 data-number="6.3.4" class="anchored" data-anchor-id="shape"><span class="header-section-number">6.3.4</span> shape</h3>
+<ul>
+<li><code>skew()</code>: adjusted Fisher-Pearson standardized moment</li>
+</ul>
+</section>
+<section id="correlation-deals-with-two-variables" class="level3" data-number="6.3.5">
+<h3 data-number="6.3.5" class="anchored" data-anchor-id="correlation-deals-with-two-variables"><span class="header-section-number">6.3.5</span> correlation (deals with two variables)</h3>
+<ul>
+<li><code>corr()</code>: correlation coefficient</li>
+<li><code>cov()</code>: covariance</li>
+</ul>
+</section>
+<section id="other-important-operations" class="level3" data-number="6.3.6">
+<h3 data-number="6.3.6" class="anchored" data-anchor-id="other-important-operations"><span class="header-section-number">6.3.6</span> other important operations</h3>
+<ul>
+<li><code>count()</code>: total count</li>
+<li><code>sum()</code>: summation</li>
+<li><code>value_counts()</code>: individual counts</li>
+<li><code>describe()</code>: describe the data with many descriptive statistics</li>
+</ul>
+<p>Below I worked on a few specific descriptive statistics operators to give a general idea of how the operators work. If an operator is not used below, it is listed under where it would be used similarly.</p>
+</section>
+<section id="important-operators" class="level3" data-number="6.3.7">
+<h3 data-number="6.3.7" class="anchored" data-anchor-id="important-operators"><span class="header-section-number">6.3.7</span> Important operators</h3>
+<p><strong>Sum</strong></p>
+<p><code>sum(axis = None, skipna = False)</code>. Below we focus on the usage of axis.</p>
+<div class="cell" data-execution_count="21">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>cjan23.<span class="bu">sum</span>() <span class="co"># or cjan23.sum(0) or cjan23.sum(None)</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="co"># takes the indvidual sums of the numeric columns</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="21">
+<pre><code>NUMBER OF PEDESTRIANS INJURED     843
+NUMBER OF PEDESTRIANS KILLED        5
+NUMBER OF CYCLIST INJURED         241
+NUMBER OF CYCLIST KILLED            3
+NUMBER OF MOTORIST INJURED       2413
+NUMBER OF MOTORIST KILLED           9
+dtype: int64</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="22">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># compute "axis = 1", rows</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>cjan23.<span class="bu">sum</span>(<span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="22">
+<pre><code>0       1
+1       1
+2       0
+3       2
+4       0
+       ..
+7239    0
+7240    1
+7241    0
+7242    0
+7243    2
+Length: 7244, dtype: int64</code></pre>
+</div>
+</div>
+<p>These functions: <code>mean()</code>, <code>median()</code>, <code>mode()</code>, <code>min()</code>, <code>max()</code> <code>std()</code>, <code>var()</code>, <code>quantile()</code>, <code>skew()</code>, and <code>count()</code> are used similarly, where their default will operate on the columns, and a specification of <code>axis = 1</code> will operate on the rows. Any of these operators not shown below, give a similar looking output as <code>sum()</code> does above.</p>
+</section>
+<section id="center-1" class="level3" data-number="6.3.8">
+<h3 data-number="6.3.8" class="anchored" data-anchor-id="center-1"><span class="header-section-number">6.3.8</span> Center</h3>
+<p><strong>Mode</strong></p>
+<div class="cell" data-execution_count="23">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>jan23.mode() <span class="co"># lists the most frequent value</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="co"># mode is relevant for discrete and continuous variables</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="23">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>CRASH DATE</th>
+      <th>CRASH TIME</th>
+      <th>BOROUGH</th>
+      <th>ZIP CODE</th>
+      <th>LATITUDE</th>
+      <th>LONGITUDE</th>
+      <th>LOCATION</th>
+      <th>ON STREET NAME</th>
+      <th>CROSS STREET NAME</th>
+      <th>OFF STREET NAME</th>
+      <th>...</th>
+      <th>CONTRIBUTING FACTOR VEHICLE 2</th>
+      <th>CONTRIBUTING FACTOR VEHICLE 3</th>
+      <th>CONTRIBUTING FACTOR VEHICLE 4</th>
+      <th>CONTRIBUTING FACTOR VEHICLE 5</th>
+      <th>COLLISION_ID</th>
+      <th>VEHICLE TYPE CODE 1</th>
+      <th>VEHICLE TYPE CODE 2</th>
+      <th>VEHICLE TYPE CODE 3</th>
+      <th>VEHICLE TYPE CODE 4</th>
+      <th>VEHICLE TYPE CODE 5</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1/13/23</td>
+      <td>0:00</td>
+      <td>BROOKLYN</td>
+      <td>11207.0</td>
+      <td>40.606566</td>
+      <td>-74.044983</td>
+      <td>(0.0, 0.0)</td>
+      <td>BELT PARKWAY</td>
+      <td>3 AVENUE</td>
+      <td>49-21     METROPOLITAN AVENUE</td>
+      <td>...</td>
+      <td>Unspecified</td>
+      <td>Unspecified</td>
+      <td>Unspecified</td>
+      <td>Unspecified</td>
+      <td>4594332</td>
+      <td>Sedan</td>
+      <td>Sedan</td>
+      <td>Sedan</td>
+      <td>Sedan</td>
+      <td>Sedan</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>BROADWAY</td>
+      <td>560       WINTHROP STREET</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>4594347</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>985       RICHMOND AVENUE</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>4594350</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>ATLANTIC AVENUE</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>4594351</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>4594359</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>7239</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>4605213</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>7240</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>4605214</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>7241</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>4605246</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>7242</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>4605289</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>7243</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>4605324</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+<p>7244 rows × 29 columns</p>
+</div>
+</div>
+</div>
+<p>The mode outputs the most frequent value. If there are multiple values that are the most frequent, then all of those values will be outputted. For example, “OFF STREET NAME” has four values that are the most frequent. Thus, four values are outputted. Since <code>mode()</code> was outputted in the format of a dataframe, the NaN values just represent empty spaces, where other columns have a value in that row. See: “COLLISION_ID”. There are 7244 rows because there are 7244 unique collision ID’s, so they all are the most frequent value (one occurrence of each). This explains all the empty spaces with all of the other variables, since the dataframe format needed a filler to still output a dataframe.</p>
+</section>
+<section id="spread-1" class="level3" data-number="6.3.9">
+<h3 data-number="6.3.9" class="anchored" data-anchor-id="spread-1"><span class="header-section-number">6.3.9</span> Spread</h3>
+<p><strong>Quantile</strong></p>
+<div class="cell" data-execution_count="24">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>cjan23.quantile([<span class="fl">.65</span>, <span class="fl">.9</span>]) <span class="co"># can specify specific quantiles</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="24">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>NUMBER OF PEDESTRIANS INJURED</th>
+      <th>NUMBER OF PEDESTRIANS KILLED</th>
+      <th>NUMBER OF CYCLIST INJURED</th>
+      <th>NUMBER OF CYCLIST KILLED</th>
+      <th>NUMBER OF MOTORIST INJURED</th>
+      <th>NUMBER OF MOTORIST KILLED</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0.65</th>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>0.90</th>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+</section>
+<section id="shape-1" class="level3" data-number="6.3.10">
+<h3 data-number="6.3.10" class="anchored" data-anchor-id="shape-1"><span class="header-section-number">6.3.10</span> Shape</h3>
+<p><strong>Skew</strong></p>
+<div class="cell" data-execution_count="25">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>cjan23.skew() <span class="co"># negative skew means left skewness, positive means right</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="25">
+<pre><code>NUMBER OF PEDESTRIANS INJURED    16.357461
+NUMBER OF PEDESTRIANS KILLED     38.031561
+NUMBER OF CYCLIST INJURED         5.276883
+NUMBER OF CYCLIST KILLED         49.118899
+NUMBER OF MOTORIST INJURED        3.230788
+NUMBER OF MOTORIST KILLED        34.958763
+dtype: float64</code></pre>
+</div>
+</div>
+</section>
+<section id="correlation" class="level3" data-number="6.3.11">
+<h3 data-number="6.3.11" class="anchored" data-anchor-id="correlation"><span class="header-section-number">6.3.11</span> Correlation</h3>
+<p><strong>Correlation Coefficient</strong></p>
+<div class="cell" data-execution_count="26">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>jan23[<span class="st">"NUMBER OF PEDESTRIANS INJURED"</span>].corr(jan23[<span class="st">"NUMBER OF PEDESTRIANS KILLED"</span>])  </span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="co"># the correlation coefficient of these two variables</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="26">
+<pre><code>-0.007686375916216244</code></pre>
+</div>
+</div>
+<p><code>cov()</code> would be calculated in the same way.</p>
+</section>
+<section id="describe" class="level3" data-number="6.3.12">
+<h3 data-number="6.3.12" class="anchored" data-anchor-id="describe"><span class="header-section-number">6.3.12</span> Describe</h3>
+<p>Above calculates each chosen operation indivudally. Is there one operation that can show multiple descriptive statistics at once?</p>
+<p>Just for the purpose of showing how to make changes to the default function where the character values are needed to portray, I will be using all variables (dataframe jan23). Later, I will use cjan23 when delving more into editing the describe function, as the descriptie statistics automatically count numeric values as continuous (which is not true for many of these numeric variables).</p>
+<div class="cell" data-execution_count="27">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>jan23.describe() <span class="co"># default omits character and string values</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="27">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>ZIP CODE</th>
+      <th>LATITUDE</th>
+      <th>LONGITUDE</th>
+      <th>NUMBER OF PERSONS INJURED</th>
+      <th>NUMBER OF PERSONS KILLED</th>
+      <th>NUMBER OF PEDESTRIANS INJURED</th>
+      <th>NUMBER OF PEDESTRIANS KILLED</th>
+      <th>NUMBER OF CYCLIST INJURED</th>
+      <th>NUMBER OF CYCLIST KILLED</th>
+      <th>NUMBER OF MOTORIST INJURED</th>
+      <th>NUMBER OF MOTORIST KILLED</th>
+      <th>COLLISION_ID</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>count</th>
+      <td>7240.000000</td>
+      <td>7240.000000</td>
+      <td>7240.000000</td>
+      <td>7244.000000</td>
+      <td>7244.000000</td>
+      <td>7244.000000</td>
+      <td>7244.000000</td>
+      <td>7244.000000</td>
+      <td>7244.000000</td>
+      <td>7244.000000</td>
+      <td>7244.000000</td>
+      <td>7.244000e+03</td>
+    </tr>
+    <tr>
+      <th>mean</th>
+      <td>10876.268785</td>
+      <td>40.723872</td>
+      <td>-73.917446</td>
+      <td>0.502761</td>
+      <td>0.002347</td>
+      <td>0.116372</td>
+      <td>0.000690</td>
+      <td>0.033269</td>
+      <td>0.000414</td>
+      <td>0.333103</td>
+      <td>0.001242</td>
+      <td>4.599022e+06</td>
+    </tr>
+    <tr>
+      <th>std</th>
+      <td>532.816111</td>
+      <td>0.087734</td>
+      <td>0.088494</td>
+      <td>0.813641</td>
+      <td>0.051164</td>
+      <td>0.397927</td>
+      <td>0.026265</td>
+      <td>0.180118</td>
+      <td>0.020348</td>
+      <td>0.749174</td>
+      <td>0.038951</td>
+      <td>2.365885e+03</td>
+    </tr>
+    <tr>
+      <th>min</th>
+      <td>10001.000000</td>
+      <td>40.504658</td>
+      <td>-74.250150</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>4.594332e+06</td>
+    </tr>
+    <tr>
+      <th>25%</th>
+      <td>10453.000000</td>
+      <td>40.665374</td>
+      <td>-73.966253</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>4.597113e+06</td>
+    </tr>
+    <tr>
+      <th>50%</th>
+      <td>11208.000000</td>
+      <td>40.714790</td>
+      <td>-73.922485</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>4.599058e+06</td>
+    </tr>
+    <tr>
+      <th>75%</th>
+      <td>11239.000000</td>
+      <td>40.784210</td>
+      <td>-73.865596</td>
+      <td>1.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>4.600953e+06</td>
+    </tr>
+    <tr>
+      <th>max</th>
+      <td>12134.000000</td>
+      <td>43.299428</td>
+      <td>-73.051978</td>
+      <td>21.000000</td>
+      <td>2.000000</td>
+      <td>19.000000</td>
+      <td>1.000000</td>
+      <td>2.000000</td>
+      <td>1.000000</td>
+      <td>8.000000</td>
+      <td>2.000000</td>
+      <td>4.605324e+06</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+<p>It may be useful to edit the <code>describe()</code> feature to show moreso the values that we wish to see. The default <code>.describe()</code> output is shown above.</p>
+<p><strong>The default <code>describe()</code> input</strong>:</p>
+<p><code>DataFrame.describe(percentiles = None, include = None, exclude = None, datetime_is_numeric = False)</code></p>
+<section id="changing-the-default" class="level4" data-number="6.3.12.1">
+<h4 data-number="6.3.12.1" class="anchored" data-anchor-id="changing-the-default"><span class="header-section-number">6.3.12.1</span> Changing the default</h4>
+<div class="cell" data-execution_count="28">
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="co"># changing percentile default</span></span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>jan23.describe([<span class="fl">.2</span>, <span class="fl">.45</span>, <span class="fl">.9</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="28">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>ZIP CODE</th>
+      <th>LATITUDE</th>
+      <th>LONGITUDE</th>
+      <th>NUMBER OF PERSONS INJURED</th>
+      <th>NUMBER OF PERSONS KILLED</th>
+      <th>NUMBER OF PEDESTRIANS INJURED</th>
+      <th>NUMBER OF PEDESTRIANS KILLED</th>
+      <th>NUMBER OF CYCLIST INJURED</th>
+      <th>NUMBER OF CYCLIST KILLED</th>
+      <th>NUMBER OF MOTORIST INJURED</th>
+      <th>NUMBER OF MOTORIST KILLED</th>
+      <th>COLLISION_ID</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>count</th>
+      <td>7240.000000</td>
+      <td>7240.000000</td>
+      <td>7240.000000</td>
+      <td>7244.000000</td>
+      <td>7244.000000</td>
+      <td>7244.000000</td>
+      <td>7244.000000</td>
+      <td>7244.000000</td>
+      <td>7244.000000</td>
+      <td>7244.000000</td>
+      <td>7244.000000</td>
+      <td>7.244000e+03</td>
+    </tr>
+    <tr>
+      <th>mean</th>
+      <td>10876.268785</td>
+      <td>40.723872</td>
+      <td>-73.917446</td>
+      <td>0.502761</td>
+      <td>0.002347</td>
+      <td>0.116372</td>
+      <td>0.000690</td>
+      <td>0.033269</td>
+      <td>0.000414</td>
+      <td>0.333103</td>
+      <td>0.001242</td>
+      <td>4.599022e+06</td>
+    </tr>
+    <tr>
+      <th>std</th>
+      <td>532.816111</td>
+      <td>0.087734</td>
+      <td>0.088494</td>
+      <td>0.813641</td>
+      <td>0.051164</td>
+      <td>0.397927</td>
+      <td>0.026265</td>
+      <td>0.180118</td>
+      <td>0.020348</td>
+      <td>0.749174</td>
+      <td>0.038951</td>
+      <td>2.365885e+03</td>
+    </tr>
+    <tr>
+      <th>min</th>
+      <td>10001.000000</td>
+      <td>40.504658</td>
+      <td>-74.250150</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>4.594332e+06</td>
+    </tr>
+    <tr>
+      <th>20%</th>
+      <td>10305.000000</td>
+      <td>40.651722</td>
+      <td>-73.978789</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>4.596668e+06</td>
+    </tr>
+    <tr>
+      <th>45%</th>
+      <td>11204.000000</td>
+      <td>40.704138</td>
+      <td>-73.931070</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>4.598665e+06</td>
+    </tr>
+    <tr>
+      <th>50%</th>
+      <td>11208.000000</td>
+      <td>40.714790</td>
+      <td>-73.922485</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>4.599058e+06</td>
+    </tr>
+    <tr>
+      <th>90%</th>
+      <td>11415.000000</td>
+      <td>40.843662</td>
+      <td>-73.802865</td>
+      <td>1.000000</td>
+      <td>0.000000</td>
+      <td>1.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>1.000000</td>
+      <td>0.000000</td>
+      <td>4.602072e+06</td>
+    </tr>
+    <tr>
+      <th>max</th>
+      <td>12134.000000</td>
+      <td>43.299428</td>
+      <td>-73.051978</td>
+      <td>21.000000</td>
+      <td>2.000000</td>
+      <td>19.000000</td>
+      <td>1.000000</td>
+      <td>2.000000</td>
+      <td>1.000000</td>
+      <td>8.000000</td>
+      <td>2.000000</td>
+      <td>4.605324e+06</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+<p>Replaces the default .25 and .75, but keeps the median (.5).</p>
+<div class="cell" data-execution_count="29">
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="co"># including all columns, rather than just "number" default</span></span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>jan23.describe(include <span class="op">=</span> <span class="st">'all'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="29">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>CRASH DATE</th>
+      <th>CRASH TIME</th>
+      <th>BOROUGH</th>
+      <th>ZIP CODE</th>
+      <th>LATITUDE</th>
+      <th>LONGITUDE</th>
+      <th>LOCATION</th>
+      <th>ON STREET NAME</th>
+      <th>CROSS STREET NAME</th>
+      <th>OFF STREET NAME</th>
+      <th>...</th>
+      <th>CONTRIBUTING FACTOR VEHICLE 2</th>
+      <th>CONTRIBUTING FACTOR VEHICLE 3</th>
+      <th>CONTRIBUTING FACTOR VEHICLE 4</th>
+      <th>CONTRIBUTING FACTOR VEHICLE 5</th>
+      <th>COLLISION_ID</th>
+      <th>VEHICLE TYPE CODE 1</th>
+      <th>VEHICLE TYPE CODE 2</th>
+      <th>VEHICLE TYPE CODE 3</th>
+      <th>VEHICLE TYPE CODE 4</th>
+      <th>VEHICLE TYPE CODE 5</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>count</th>
+      <td>7244</td>
+      <td>7244</td>
+      <td>7219</td>
+      <td>7240.000000</td>
+      <td>7240.000000</td>
+      <td>7240.000000</td>
+      <td>7244</td>
+      <td>5341</td>
+      <td>3453</td>
+      <td>1903</td>
+      <td>...</td>
+      <td>5378</td>
+      <td>689</td>
+      <td>191</td>
+      <td>62</td>
+      <td>7.244000e+03</td>
+      <td>7108</td>
+      <td>4553</td>
+      <td>634</td>
+      <td>179</td>
+      <td>59</td>
+    </tr>
+    <tr>
+      <th>unique</th>
+      <td>31</td>
+      <td>1245</td>
+      <td>5</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>6140</td>
+      <td>1580</td>
+      <td>1562</td>
+      <td>1877</td>
+      <td>...</td>
+      <td>30</td>
+      <td>13</td>
+      <td>5</td>
+      <td>3</td>
+      <td>NaN</td>
+      <td>67</td>
+      <td>81</td>
+      <td>17</td>
+      <td>11</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <th>top</th>
+      <td>1/13/23</td>
+      <td>0:00</td>
+      <td>BROOKLYN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>(0.0, 0.0)</td>
+      <td>BELT PARKWAY</td>
+      <td>BROADWAY</td>
+      <td>560       WINTHROP STREET</td>
+      <td>...</td>
+      <td>Unspecified</td>
+      <td>Unspecified</td>
+      <td>Unspecified</td>
+      <td>Unspecified</td>
+      <td>NaN</td>
+      <td>Sedan</td>
+      <td>Sedan</td>
+      <td>Sedan</td>
+      <td>Sedan</td>
+      <td>Sedan</td>
+    </tr>
+    <tr>
+      <th>freq</th>
+      <td>294</td>
+      <td>116</td>
+      <td>2386</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>81</td>
+      <td>124</td>
+      <td>37</td>
+      <td>3</td>
+      <td>...</td>
+      <td>4550</td>
+      <td>637</td>
+      <td>183</td>
+      <td>60</td>
+      <td>NaN</td>
+      <td>3478</td>
+      <td>1969</td>
+      <td>327</td>
+      <td>93</td>
+      <td>29</td>
+    </tr>
+    <tr>
+      <th>mean</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>10876.268785</td>
+      <td>40.723872</td>
+      <td>-73.917446</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>4.599022e+06</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>std</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>532.816111</td>
+      <td>0.087734</td>
+      <td>0.088494</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>2.365885e+03</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>min</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>10001.000000</td>
+      <td>40.504658</td>
+      <td>-74.250150</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>4.594332e+06</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>25%</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>10453.000000</td>
+      <td>40.665374</td>
+      <td>-73.966253</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>4.597113e+06</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>50%</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>11208.000000</td>
+      <td>40.714790</td>
+      <td>-73.922485</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>4.599058e+06</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>75%</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>11239.000000</td>
+      <td>40.784210</td>
+      <td>-73.865596</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>4.600953e+06</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>max</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>12134.000000</td>
+      <td>43.299428</td>
+      <td>-73.051978</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>4.605324e+06</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+<p>11 rows × 29 columns</p>
+</div>
+</div>
+</div>
+<p>My only con with this, is that most of these numerical values are not included in the “unique”, “top”, and “frequency” rows, even though in context they are discrete, and would make sense to be included in these.</p>
+<div class="cell" data-execution_count="30">
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="co"># excluding numerical columns</span></span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a><span class="co"># gives just "object" i.e. categorical</span></span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>jan23.describe(exclude <span class="op">=</span> <span class="st">'number'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="30">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>CRASH DATE</th>
+      <th>CRASH TIME</th>
+      <th>BOROUGH</th>
+      <th>LOCATION</th>
+      <th>ON STREET NAME</th>
+      <th>CROSS STREET NAME</th>
+      <th>OFF STREET NAME</th>
+      <th>CONTRIBUTING FACTOR VEHICLE 1</th>
+      <th>CONTRIBUTING FACTOR VEHICLE 2</th>
+      <th>CONTRIBUTING FACTOR VEHICLE 3</th>
+      <th>CONTRIBUTING FACTOR VEHICLE 4</th>
+      <th>CONTRIBUTING FACTOR VEHICLE 5</th>
+      <th>VEHICLE TYPE CODE 1</th>
+      <th>VEHICLE TYPE CODE 2</th>
+      <th>VEHICLE TYPE CODE 3</th>
+      <th>VEHICLE TYPE CODE 4</th>
+      <th>VEHICLE TYPE CODE 5</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>count</th>
+      <td>7244</td>
+      <td>7244</td>
+      <td>7219</td>
+      <td>7244</td>
+      <td>5341</td>
+      <td>3453</td>
+      <td>1903</td>
+      <td>7189</td>
+      <td>5378</td>
+      <td>689</td>
+      <td>191</td>
+      <td>62</td>
+      <td>7108</td>
+      <td>4553</td>
+      <td>634</td>
+      <td>179</td>
+      <td>59</td>
+    </tr>
+    <tr>
+      <th>unique</th>
+      <td>31</td>
+      <td>1245</td>
+      <td>5</td>
+      <td>6140</td>
+      <td>1580</td>
+      <td>1562</td>
+      <td>1877</td>
+      <td>48</td>
+      <td>30</td>
+      <td>13</td>
+      <td>5</td>
+      <td>3</td>
+      <td>67</td>
+      <td>81</td>
+      <td>17</td>
+      <td>11</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <th>top</th>
+      <td>1/13/23</td>
+      <td>0:00</td>
+      <td>BROOKLYN</td>
+      <td>(0.0, 0.0)</td>
+      <td>BELT PARKWAY</td>
+      <td>BROADWAY</td>
+      <td>560       WINTHROP STREET</td>
+      <td>Driver Inattention/Distraction</td>
+      <td>Unspecified</td>
+      <td>Unspecified</td>
+      <td>Unspecified</td>
+      <td>Unspecified</td>
+      <td>Sedan</td>
+      <td>Sedan</td>
+      <td>Sedan</td>
+      <td>Sedan</td>
+      <td>Sedan</td>
+    </tr>
+    <tr>
+      <th>freq</th>
+      <td>294</td>
+      <td>116</td>
+      <td>2386</td>
+      <td>81</td>
+      <td>124</td>
+      <td>37</td>
+      <td>3</td>
+      <td>1776</td>
+      <td>4550</td>
+      <td>637</td>
+      <td>183</td>
+      <td>60</td>
+      <td>3478</td>
+      <td>1969</td>
+      <td>327</td>
+      <td>93</td>
+      <td>29</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+<p>Interesting note: rather than outputting as an empty set, the function decided to use the columns that are typically omitted instead, which is the same as <code>jan23.describe("include = object")</code>.</p>
+<div class="cell" data-execution_count="31">
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="co"># making datetime numeric</span></span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>jan23.describe(include <span class="op">=</span> <span class="st">'all'</span>, datetime_is_numeric <span class="op">=</span> <span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="31">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>CRASH DATE</th>
+      <th>CRASH TIME</th>
+      <th>BOROUGH</th>
+      <th>ZIP CODE</th>
+      <th>LATITUDE</th>
+      <th>LONGITUDE</th>
+      <th>LOCATION</th>
+      <th>ON STREET NAME</th>
+      <th>CROSS STREET NAME</th>
+      <th>OFF STREET NAME</th>
+      <th>...</th>
+      <th>CONTRIBUTING FACTOR VEHICLE 2</th>
+      <th>CONTRIBUTING FACTOR VEHICLE 3</th>
+      <th>CONTRIBUTING FACTOR VEHICLE 4</th>
+      <th>CONTRIBUTING FACTOR VEHICLE 5</th>
+      <th>COLLISION_ID</th>
+      <th>VEHICLE TYPE CODE 1</th>
+      <th>VEHICLE TYPE CODE 2</th>
+      <th>VEHICLE TYPE CODE 3</th>
+      <th>VEHICLE TYPE CODE 4</th>
+      <th>VEHICLE TYPE CODE 5</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>count</th>
+      <td>7244</td>
+      <td>7244</td>
+      <td>7219</td>
+      <td>7240.000000</td>
+      <td>7240.000000</td>
+      <td>7240.000000</td>
+      <td>7244</td>
+      <td>5341</td>
+      <td>3453</td>
+      <td>1903</td>
+      <td>...</td>
+      <td>5378</td>
+      <td>689</td>
+      <td>191</td>
+      <td>62</td>
+      <td>7.244000e+03</td>
+      <td>7108</td>
+      <td>4553</td>
+      <td>634</td>
+      <td>179</td>
+      <td>59</td>
+    </tr>
+    <tr>
+      <th>unique</th>
+      <td>31</td>
+      <td>1245</td>
+      <td>5</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>6140</td>
+      <td>1580</td>
+      <td>1562</td>
+      <td>1877</td>
+      <td>...</td>
+      <td>30</td>
+      <td>13</td>
+      <td>5</td>
+      <td>3</td>
+      <td>NaN</td>
+      <td>67</td>
+      <td>81</td>
+      <td>17</td>
+      <td>11</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <th>top</th>
+      <td>1/13/23</td>
+      <td>0:00</td>
+      <td>BROOKLYN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>(0.0, 0.0)</td>
+      <td>BELT PARKWAY</td>
+      <td>BROADWAY</td>
+      <td>560       WINTHROP STREET</td>
+      <td>...</td>
+      <td>Unspecified</td>
+      <td>Unspecified</td>
+      <td>Unspecified</td>
+      <td>Unspecified</td>
+      <td>NaN</td>
+      <td>Sedan</td>
+      <td>Sedan</td>
+      <td>Sedan</td>
+      <td>Sedan</td>
+      <td>Sedan</td>
+    </tr>
+    <tr>
+      <th>freq</th>
+      <td>294</td>
+      <td>116</td>
+      <td>2386</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>81</td>
+      <td>124</td>
+      <td>37</td>
+      <td>3</td>
+      <td>...</td>
+      <td>4550</td>
+      <td>637</td>
+      <td>183</td>
+      <td>60</td>
+      <td>NaN</td>
+      <td>3478</td>
+      <td>1969</td>
+      <td>327</td>
+      <td>93</td>
+      <td>29</td>
+    </tr>
+    <tr>
+      <th>mean</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>10876.268785</td>
+      <td>40.723872</td>
+      <td>-73.917446</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>4.599022e+06</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>std</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>532.816111</td>
+      <td>0.087734</td>
+      <td>0.088494</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>2.365885e+03</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>min</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>10001.000000</td>
+      <td>40.504658</td>
+      <td>-74.250150</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>4.594332e+06</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>25%</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>10453.000000</td>
+      <td>40.665374</td>
+      <td>-73.966253</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>4.597113e+06</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>50%</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>11208.000000</td>
+      <td>40.714790</td>
+      <td>-73.922485</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>4.599058e+06</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>75%</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>11239.000000</td>
+      <td>40.784210</td>
+      <td>-73.865596</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>4.600953e+06</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>max</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>12134.000000</td>
+      <td>43.299428</td>
+      <td>-73.051978</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>4.605324e+06</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+<p>11 rows × 29 columns</p>
+</div>
+</div>
+</div>
+<p>Including datetime as numeric works if the date times are inputted in a different style (typically, <strong>YYYY-MM-DD 00:00:00.000000</strong>), which our data is not. Thus, as we see, the date and time is still treated as an object.</p>
+</section>
+<section id="changing-rows-with-describe" class="level4" data-number="6.3.12.2">
+<h4 data-number="6.3.12.2" class="anchored" data-anchor-id="changing-rows-with-describe"><span class="header-section-number">6.3.12.2</span> Changing rows with <code>describe()</code></h4>
+<p>Above were specific ways to change the function that were already built into the function itself. What if we want to add more rows describing another descriptive statistic? I will be using just the discrete values for the following examples.</p>
+<div class="cell" data-execution_count="32">
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="co"># adding sum to the dataframe</span></span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>cjan23.describe().append(pd.Series(cjan23.<span class="bu">sum</span>(), name <span class="op">=</span> <span class="st">'sum'</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>/var/folders/cq/5ysgnwfn7c3g0h46xyzvpj800000gn/T/ipykernel_25286/3080308836.py:2: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+  cjan23.describe().append(pd.Series(cjan23.sum(), name = 'sum'))</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="32">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>NUMBER OF PEDESTRIANS INJURED</th>
+      <th>NUMBER OF PEDESTRIANS KILLED</th>
+      <th>NUMBER OF CYCLIST INJURED</th>
+      <th>NUMBER OF CYCLIST KILLED</th>
+      <th>NUMBER OF MOTORIST INJURED</th>
+      <th>NUMBER OF MOTORIST KILLED</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>count</th>
+      <td>7244.000000</td>
+      <td>7244.000000</td>
+      <td>7244.000000</td>
+      <td>7244.000000</td>
+      <td>7244.000000</td>
+      <td>7244.000000</td>
+    </tr>
+    <tr>
+      <th>mean</th>
+      <td>0.116372</td>
+      <td>0.000690</td>
+      <td>0.033269</td>
+      <td>0.000414</td>
+      <td>0.333103</td>
+      <td>0.001242</td>
+    </tr>
+    <tr>
+      <th>std</th>
+      <td>0.397927</td>
+      <td>0.026265</td>
+      <td>0.180118</td>
+      <td>0.020348</td>
+      <td>0.749174</td>
+      <td>0.038951</td>
+    </tr>
+    <tr>
+      <th>min</th>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>25%</th>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>50%</th>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>75%</th>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>max</th>
+      <td>19.000000</td>
+      <td>1.000000</td>
+      <td>2.000000</td>
+      <td>1.000000</td>
+      <td>8.000000</td>
+      <td>2.000000</td>
+    </tr>
+    <tr>
+      <th>sum</th>
+      <td>843.000000</td>
+      <td>5.000000</td>
+      <td>241.000000</td>
+      <td>3.000000</td>
+      <td>2413.000000</td>
+      <td>9.000000</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="cell" data-execution_count="33">
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="co"># adding a row counting nan's</span></span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>cjan23.describe().append(pd.Series(cjan23.isna().<span class="bu">sum</span>(), name <span class="op">=</span> <span class="st">'nans'</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>/var/folders/cq/5ysgnwfn7c3g0h46xyzvpj800000gn/T/ipykernel_25286/4231082202.py:2: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+  cjan23.describe().append(pd.Series(cjan23.isna().sum(), name = 'nans'))</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="33">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>NUMBER OF PEDESTRIANS INJURED</th>
+      <th>NUMBER OF PEDESTRIANS KILLED</th>
+      <th>NUMBER OF CYCLIST INJURED</th>
+      <th>NUMBER OF CYCLIST KILLED</th>
+      <th>NUMBER OF MOTORIST INJURED</th>
+      <th>NUMBER OF MOTORIST KILLED</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>count</th>
+      <td>7244.000000</td>
+      <td>7244.000000</td>
+      <td>7244.000000</td>
+      <td>7244.000000</td>
+      <td>7244.000000</td>
+      <td>7244.000000</td>
+    </tr>
+    <tr>
+      <th>mean</th>
+      <td>0.116372</td>
+      <td>0.000690</td>
+      <td>0.033269</td>
+      <td>0.000414</td>
+      <td>0.333103</td>
+      <td>0.001242</td>
+    </tr>
+    <tr>
+      <th>std</th>
+      <td>0.397927</td>
+      <td>0.026265</td>
+      <td>0.180118</td>
+      <td>0.020348</td>
+      <td>0.749174</td>
+      <td>0.038951</td>
+    </tr>
+    <tr>
+      <th>min</th>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>25%</th>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>50%</th>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>75%</th>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>max</th>
+      <td>19.000000</td>
+      <td>1.000000</td>
+      <td>2.000000</td>
+      <td>1.000000</td>
+      <td>8.000000</td>
+      <td>2.000000</td>
+    </tr>
+    <tr>
+      <th>nans</th>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="cell" data-execution_count="34">
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="co"># removing a row</span></span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>cjan23.describe().drop(labels <span class="op">=</span> <span class="st">"max"</span>, axis <span class="op">=</span> <span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="34">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>NUMBER OF PEDESTRIANS INJURED</th>
+      <th>NUMBER OF PEDESTRIANS KILLED</th>
+      <th>NUMBER OF CYCLIST INJURED</th>
+      <th>NUMBER OF CYCLIST KILLED</th>
+      <th>NUMBER OF MOTORIST INJURED</th>
+      <th>NUMBER OF MOTORIST KILLED</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>count</th>
+      <td>7244.000000</td>
+      <td>7244.000000</td>
+      <td>7244.000000</td>
+      <td>7244.000000</td>
+      <td>7244.000000</td>
+      <td>7244.000000</td>
+    </tr>
+    <tr>
+      <th>mean</th>
+      <td>0.116372</td>
+      <td>0.000690</td>
+      <td>0.033269</td>
+      <td>0.000414</td>
+      <td>0.333103</td>
+      <td>0.001242</td>
+    </tr>
+    <tr>
+      <th>std</th>
+      <td>0.397927</td>
+      <td>0.026265</td>
+      <td>0.180118</td>
+      <td>0.020348</td>
+      <td>0.749174</td>
+      <td>0.038951</td>
+    </tr>
+    <tr>
+      <th>min</th>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>25%</th>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>50%</th>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>75%</th>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+</section>
+<section id="changing-columns-with-describe" class="level4" data-number="6.3.12.3">
+<h4 data-number="6.3.12.3" class="anchored" data-anchor-id="changing-columns-with-describe"><span class="header-section-number">6.3.12.3</span> Changing columns with <code>describe()</code></h4>
+<div class="cell" data-execution_count="35">
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="co"># removing a column</span></span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>cjan23.describe().drop(columns <span class="op">=</span> <span class="st">"NUMBER OF CYCLIST INJURED"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="35">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>NUMBER OF PEDESTRIANS INJURED</th>
+      <th>NUMBER OF PEDESTRIANS KILLED</th>
+      <th>NUMBER OF CYCLIST KILLED</th>
+      <th>NUMBER OF MOTORIST INJURED</th>
+      <th>NUMBER OF MOTORIST KILLED</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>count</th>
+      <td>7244.000000</td>
+      <td>7244.000000</td>
+      <td>7244.000000</td>
+      <td>7244.000000</td>
+      <td>7244.000000</td>
+    </tr>
+    <tr>
+      <th>mean</th>
+      <td>0.116372</td>
+      <td>0.000690</td>
+      <td>0.000414</td>
+      <td>0.333103</td>
+      <td>0.001242</td>
+    </tr>
+    <tr>
+      <th>std</th>
+      <td>0.397927</td>
+      <td>0.026265</td>
+      <td>0.020348</td>
+      <td>0.749174</td>
+      <td>0.038951</td>
+    </tr>
+    <tr>
+      <th>min</th>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>25%</th>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>50%</th>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>75%</th>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>max</th>
+      <td>19.000000</td>
+      <td>1.000000</td>
+      <td>1.000000</td>
+      <td>8.000000</td>
+      <td>2.000000</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="cell" data-execution_count="36">
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="co"># note that the manual changes made above are not permanent unless the variable is reassigned</span></span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>cjan23.describe()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="36">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>NUMBER OF PEDESTRIANS INJURED</th>
+      <th>NUMBER OF PEDESTRIANS KILLED</th>
+      <th>NUMBER OF CYCLIST INJURED</th>
+      <th>NUMBER OF CYCLIST KILLED</th>
+      <th>NUMBER OF MOTORIST INJURED</th>
+      <th>NUMBER OF MOTORIST KILLED</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>count</th>
+      <td>7244.000000</td>
+      <td>7244.000000</td>
+      <td>7244.000000</td>
+      <td>7244.000000</td>
+      <td>7244.000000</td>
+      <td>7244.000000</td>
+    </tr>
+    <tr>
+      <th>mean</th>
+      <td>0.116372</td>
+      <td>0.000690</td>
+      <td>0.033269</td>
+      <td>0.000414</td>
+      <td>0.333103</td>
+      <td>0.001242</td>
+    </tr>
+    <tr>
+      <th>std</th>
+      <td>0.397927</td>
+      <td>0.026265</td>
+      <td>0.180118</td>
+      <td>0.020348</td>
+      <td>0.749174</td>
+      <td>0.038951</td>
+    </tr>
+    <tr>
+      <th>min</th>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>25%</th>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>50%</th>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>75%</th>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>max</th>
+      <td>19.000000</td>
+      <td>1.000000</td>
+      <td>2.000000</td>
+      <td>1.000000</td>
+      <td>8.000000</td>
+      <td>2.000000</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+<p>All of the above ways were manipulating the <code>describe()</code> operator to potentially make visualizing descriptive statistics easier, by putting certain desirable traits in or out of the table.</p>
+<p><strong>Describe on Individual Columns</strong></p>
+<div class="cell" data-execution_count="37">
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>jan23[<span class="st">"BOROUGH"</span>].describe() <span class="co"># character and discrete</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="37">
+<pre><code>count         7219
+unique           5
+top       BROOKLYN
+freq          2386
+Name: BOROUGH, dtype: object</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="38">
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>jan23[<span class="st">"NUMBER OF PEDESTRIANS KILLED"</span>].describe() <span class="co"># numeric and continuous</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="38">
+<pre><code>count    7244.000000
+mean        0.000690
+std         0.026265
+min         0.000000
+25%         0.000000
+50%         0.000000
+75%         0.000000
+max         1.000000
+Name: NUMBER OF PEDESTRIANS KILLED, dtype: float64</code></pre>
+</div>
+</div>
+<p>Note that numeric and discrete would still be treated as continuous, so descriptive statistics are not very beneficial fot these variables. Regardless, descriptive statistics are typically more of interest to us if they are continuous.</p>
+</section>
+</section>
+</section>
+<section id="conclusion" class="level2" data-number="6.4">
+<h2 data-number="6.4" class="anchored" data-anchor-id="conclusion"><span class="header-section-number">6.4</span> Conclusion</h2>
+<p>In this presentation we looked into different methods of performing descriptive statistics, and saw how to use many of these operators. There are many ways to compute descriptive statistics, and we explored how to do so with pandas. We then focused on how to maniputlate the <code>describe()</code> function in many ways that may help us to visualize the data much easier. Afterwards, we looked at isolating columns and rows to perform descriptive statistics on. Analyzing the descriptive statistics is extremely important to understaning data. Another way to possibly put data into a more digestible form is to visualize it, which other presentations touch on.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./pandas.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Data Manipulation with Pandas</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./stats.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Statistical Tests and Models</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+</body></html>

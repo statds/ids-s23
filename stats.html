@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Introduction to Data Science - 6&nbsp; Statistical Tests and Models</title>
+<title>Introduction to Data Science - 7&nbsp; Statistical Tests and Models</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -94,7 +94,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
 <link href="./visual.html" rel="next">
-<link href="./pandas.html" rel="prev">
+<link href="./descr.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -137,7 +137,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
     <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Statistical Tests and Models</span></h1>
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Statistical Tests and Models</span></h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -192,32 +192,37 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./stats.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Statistical Tests and Models</span></a>
+  <a href="./descr.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Descriptive Statistics</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./visual.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Visualization</span></a>
+  <a href="./stats.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Statistical Tests and Models</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./supervised.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Supervised Learning</span></a>
+  <a href="./visual.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Visualization</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./advanced.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Advanced Topics</span></a>
+  <a href="./supervised.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Supervised Learning</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./nycrash.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">NYC Crash Data</span></a>
+  <a href="./advanced.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Advanced Topics</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./exercises.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Exercises</span></a>
+  <a href="./nycrash.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">NYC Crash Data</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./exercises.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Exercises</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -234,9 +239,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#tests-for-exploratory-data-analysis" id="toc-tests-for-exploratory-data-analysis" class="nav-link active" data-scroll-target="#tests-for-exploratory-data-analysis"><span class="toc-section-number">6.1</span>  Tests for Exploratory Data Analysis</a></li>
-  <li><a href="#linear-model" id="toc-linear-model" class="nav-link" data-scroll-target="#linear-model"><span class="toc-section-number">6.2</span>  Linear Model</a></li>
-  <li><a href="#generalized-linear-regression" id="toc-generalized-linear-regression" class="nav-link" data-scroll-target="#generalized-linear-regression"><span class="toc-section-number">6.3</span>  Generalized Linear Regression</a></li>
+  <li><a href="#tests-for-exploratory-data-analysis" id="toc-tests-for-exploratory-data-analysis" class="nav-link active" data-scroll-target="#tests-for-exploratory-data-analysis"><span class="toc-section-number">7.1</span>  Tests for Exploratory Data Analysis</a></li>
+  <li><a href="#linear-model" id="toc-linear-model" class="nav-link" data-scroll-target="#linear-model"><span class="toc-section-number">7.2</span>  Linear Model</a></li>
+  <li><a href="#generalized-linear-regression" id="toc-generalized-linear-regression" class="nav-link" data-scroll-target="#generalized-linear-regression"><span class="toc-section-number">7.3</span>  Generalized Linear Regression</a></li>
   </ul>
 </nav>
     </div>
@@ -245,7 +250,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Statistical Tests and Models</span></h1>
+<h1 class="title d-none d-lg-block"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Statistical Tests and Models</span></h1>
 </div>
 
 
@@ -260,8 +265,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </header>
 
-<section id="tests-for-exploratory-data-analysis" class="level2" data-number="6.1">
-<h2 data-number="6.1" class="anchored" data-anchor-id="tests-for-exploratory-data-analysis"><span class="header-section-number">6.1</span> Tests for Exploratory Data Analysis</h2>
+<section id="tests-for-exploratory-data-analysis" class="level2" data-number="7.1">
+<h2 data-number="7.1" class="anchored" data-anchor-id="tests-for-exploratory-data-analysis"><span class="header-section-number">7.1</span> Tests for Exploratory Data Analysis</h2>
 <p>A collection of functions are available from <code>scipy.stats</code>.</p>
 <ul>
 <li>Comparing the locations of two samples
@@ -322,8 +327,8 @@ injury
 </div>
 </div>
 </section>
-<section id="linear-model" class="level2" data-number="6.2">
-<h2 data-number="6.2" class="anchored" data-anchor-id="linear-model"><span class="header-section-number">6.2</span> Linear Model</h2>
+<section id="linear-model" class="level2" data-number="7.2">
+<h2 data-number="7.2" class="anchored" data-anchor-id="linear-model"><span class="header-section-number">7.2</span> Linear Model</h2>
 <p>Let’s simulate some data for illustrations.</p>
 <div class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -539,8 +544,8 @@ memory usage: 9.5 KB</code></pre>
 </div>
 <p>See more on <a href="https://www.statsmodels.org/stable/stats.html#residual-diagnostics-and-specification-tests">residual diagnostics and specification tests</a>.</p>
 </section>
-<section id="generalized-linear-regression" class="level2" data-number="6.3">
-<h2 data-number="6.3" class="anchored" data-anchor-id="generalized-linear-regression"><span class="header-section-number">6.3</span> Generalized Linear Regression</h2>
+<section id="generalized-linear-regression" class="level2" data-number="7.3">
+<h2 data-number="7.3" class="anchored" data-anchor-id="generalized-linear-regression"><span class="header-section-number">7.3</span> Generalized Linear Regression</h2>
 <p>A linear regression model cannot be applied to presence/absence or count data.</p>
 <p>Binary or count data need to be modeled under a generlized framework. Consider a binary or count variable <span class="math inline">\(Y\)</span> with possible covariates <span class="math inline">\(X\)</span>. A generalized model describes a transformation <span class="math inline">\(g\)</span> of the conditional mean <span class="math inline">\(E[Y | X]\)</span> by a linear predictor <span class="math inline">\(X^{\top}\beta\)</span>. That is <span class="math display">\[
 g( E[Y | X] ) = X^{\top} \beta.
@@ -823,13 +828,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./pandas.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Data Manipulation with Pandas</span></span>
+      <a href="./descr.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Descriptive Statistics</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="./visual.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Visualization</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Visualization</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
