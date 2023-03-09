@@ -1,0 +1,573 @@
+STAT 3255 scipy.stats --
+Colin Sullivan
+---
+## SCIPY.STATS
+The scipy.stats module is a SciPy sub-package used for probabilistic distributions and general
+statistical operations. SciPy, the parent module, is one of the largest and most well known
+packages available for Python, which deals with common science and engineering problems.
+
+First, you will need to install scipy on your computer. To do so, use one of the following commands:
+
+```
+python -m pip install scipy
+```
+or
+```
+conda install scipy
+```
+depending on which tool you prefer. Then, you will need to import scipy.stats at the beginning of each python file like so:
+```{python}
+from scipy import stats
+import numpy as np
+```
+
+There are three different classes available in scipy.stats:
+
+- ```rv_continous```, for continuous random variables
+
+- ```rv_discrete```, for discrete random variables
+
+- ```rv_histogram```, used to generate specific distribution histograms
+
+
+# Discrete Variables
+First, lets talk about discrete variables. The default initialization variables are as folows:
+```{python}
+stats.rv_discrete(a=0, b=None, name=None, badvalue=None, moment_tol=1e-08, values=None, inc=1, longname=None, shapes=None, extradoc=None, seed=None)
+```
+- a, b are floats representing the lower and upper bound of the distribution, respectively.
+
+- name represents the name of the distribution, which is optional.
+
+- badvalue is used to indicate a value for which some argument restriction is violated.
+
+- moment_tol is the tolerance for calculations of moments.
+
+- values is a tuple of arrays of equal length, one representing integers and one representing their probability.
+
+- inc is the increment for the support of the distribution.
+
+- longname is used to provide a line for the docstring if you are creating a class without one.
+
+- shapes represents the shape of the distribution. If no values are provided here it will default to the pmf and cdf.
+
+- extradoc is the last line for the docstring given in longname.
+
+- seed represents a random seed. If none is provided, scipy.stats' default random seed will be used.
+
+You can build your own discrete variables by defining their pdf and cdf using classes. An example is shown below for a 4 sided die:
+```{python}
+class four_die(stats.rv_discrete):
+    def _pmf(self, x):
+        lst = list([1, 2, 3, 4])
+        if x.tolist() in lst:
+            return 1/4
+        else:
+            return 0
+
+    def _cdf(self, x):
+        if x < 1:
+            return 0
+        elif x >= 4:
+            return 1
+        else:
+            return (x // 1) * 1/4
+
+    def _stats(self):
+        mean = np.mean([1, 2, 3, 4])
+        var = np.var([1, 2, 3, 4], ddof=0)
+        std = np.sqrt(var)
+        return mean, var, 0, 0
+die = four_die()
+
+```
+You can then test your new variable using scipy.stats build in functions.
+
+```{python}
+print(die.rvs(size=10))
+print(die.mean())
+print(die.var())
+print(die.std())
+```
+
+
+The above is used to define your own discrete random variable. Scipy.stats has many built in already, including common ones such as:
+
+- Bernoulli -- scipy.stats.bernoulli
+
+```{python}
+%matplotlib inline
+import matplotlib.pyplot as plt
+import numpy as np
+fig, ax = plt.subplots(1, 1)
+a = 0.5 ## shape parameter, prob of a single success
+x = np.arange(stats.bernoulli.ppf(0.01, a), stats.bernoulli.ppf(0.99, a))
+rv = stats.bernoulli(a)
+ax.plot(x, rv.pmf(x), ms=8)
+ax.vlines(x, 0, rv.pmf(x), alpha=0.5)
+plt.show()
+```
+
+- Binomial -- scipy.stats.binom
+
+```{python}
+fig, ax = plt.subplots(1, 1)
+n = 5 ## number of trials
+a = 0.5 ## shape parameter, prob of a single success
+x = np.arange(stats.binom.ppf(0.01, n, a), stats.binom.ppf(0.99, n, a))
+rv = stats.binom(n, a)
+ax.plot(x, rv.pmf(x), ms=8)
+ax.vlines(x, 0, rv.pmf(x), alpha=0.5)
+plt.show()
+```
+
+- Geometric -- scipy.stats.geom
+
+```{python}
+fig, ax = plt.subplots(1, 1)
+n = 5 ## number of trials
+a = 0.5 ## shape parameter, prob of a single success
+x = np.arange(stats.geom.ppf(0.01, a), stats.geom.ppf(0.99, a))
+rv = stats.geom(a)
+ax.plot(x, rv.pmf(x), ms=8)
+ax.vlines(x, 0, rv.pmf(x), alpha=0.5)
+plt.show()
+```
+
+- Hyper Geometric -- scipy.stats.hypergeom
+
+```{python}
+fig, ax = plt.subplots(1, 1)
+m = 50 ## number of objects
+n = 17 ## number of type x objects
+n2 = 35 ## number of type x objects drawn
+a = 0.5 ## shape parameter, prob of a single success
+x = x = np.arange(0, n+1)
+rv = stats.hypergeom(m, n, n2)
+ax.plot(x, rv.pmf(x), ms=8)
+ax.vlines(x, 0, rv.pmf(x), alpha=0.5)
+plt.show()
+```
+
+- Poisson -- scipy.stats.poisson
+
+```{python}
+fig, ax = plt.subplots(1, 1)
+a = 0.5 ## mean, shape parameter
+x = np.arange(stats.poisson.ppf(0.01, a), stats.poisson.ppf(0.99, a))
+rv = stats.poisson(a)
+ax.plot(x, rv.pmf(x), ms=8)
+ax.vlines(x, 0, rv.pmf(x), alpha=0.5)
+plt.show()
+```
+
+- Uniform -- scipy.stats.randint
+
+```{python}
+fig, ax = plt.subplots(1, 1)
+a = 8 ## low
+b = 40 ## high
+x = np.arange(stats.randint.ppf(0.01, a, b), stats.randint.ppf(0.99, a, b))
+rv = stats.randint(a, b)
+ax.plot(x, rv.pmf(x), ms=8)
+ax.vlines(x, 0, rv.pmf(x), alpha=0.5)
+plt.show()
+```
+
+All of these different random variables, including ones that you choose to define yourself, can be used with all of scipy.stats' operations which will be discussed later. 
+
+# Continuous Variables
+```{python}
+stats.rv_continuous(momtype=1, a=None, b=None, xtol=1e-14, badvalue=None, name=None, longname=None, shapes=None, extradoc=None, seed=None)
+```
+Similarly:
+
+- a, b are floats representing the lower and upper bound of the distribution, respectively.
+
+- name represents the name of the distribution, which is optional.
+
+- badvalue is used to indicate a value for which some argument restriction is violated.
+
+- xtol is the tolerance for fixed point calculations of generic ppf.
+
+- values is a tuple of arrays of equal length, one representing integers and one representing their probability.
+
+- momtype is the type of generic moment calculation to use.
+
+- longname is used to provide a line for the docstring if you are creating a class without one.
+
+- shapes represents the shape of the distribution. If no values are provided here it will default to the pmf and cdf.
+
+- extradoc is the last line for the docstring given in longname.
+
+- seed represents a random seed. If none is provided, scipy.stats' default random seed will be used.
+
+We can define our own continuous variable of student grades using this rv_continous method.
+
+```{python}
+class test_grades(stats.rv_continuous):
+    
+    def _pdf(self, x, mu, sigma):
+        return stats.norm.pdf(x, mu, sigma)
+    
+    def _cdf(self, x, mu, sigma):
+        return stats.norm.cdf(x, mu, sigma)
+    
+    def _ppf(self, q, mu, sigma):
+        return stats.norm.ppf(q, mu, sigma)
+    
+    def _rvs(self, mu, sigma, size):
+        return stats.norm.rvs(mu, sigma, size=size)
+
+grades = test_grades()
+
+mu = 75
+sigma = 10
+size = 1000
+
+# samples = grades.rvs(mu, sigma, size=size)
+
+print("Mean grade: ", grades.mean(mu, sigma))
+print("Standard deviation of grades: ", grades.std(mu, sigma))
+print("95th percentile: ", grades.ppf(0.95, mu, sigma))
+```
+
+Again similarly, there are many built in continuous variable distributions that you can use, such as:
+
+- Alpha -- scipy.stats.alpha
+
+```{python}
+fig, ax = plt.subplots(1, 1)
+a = 3.57
+x = np.linspace(stats.alpha.ppf(0.01, a), stats.alpha.ppf(0.99, a), 100) ## create PDF
+rv = stats.alpha(a) ## initialize alpha rv
+ax.plot(x, rv.pdf(x), 'k-', lw=2) ## plot pdf
+plt.show()
+```
+
+- Beta -- scipy.stats.beta
+
+```{python}
+fig, ax = plt.subplots(1, 1)
+a, b = 2.31, 0.627
+x = np.linspace(stats.beta.ppf(0.01, a, b), stats.beta.ppf(0.99, a, b), 100)
+rv = stats.beta(a, b)
+ax.plot(x, rv.pdf(x), 'k-', lw=2)
+plt.show()
+```
+
+- Chi Squared -- scipy.stats.chi2
+
+```{python}
+fig, ax = plt.subplots(1, 1)
+a = 100 ## degrees of freedom
+x = np.linspace(stats.chi2.ppf(0.01, a), stats.chi2.ppf(0.99, a), 100)
+rv = stats.chi2(a)
+ax.plot(x, rv.pdf(x), 'k-', lw=2)
+plt.show()
+```
+
+- Exponential -- scipy.stats.expon
+
+```{python}
+fig, ax = plt.subplots(1, 1)
+x = np.linspace(stats.expon.ppf(0.01), stats.expon.ppf(0.99), 100)
+rv = stats.expon() ## takes no arguments
+ax.plot(x, rv.pdf(x), 'k-', lw=2)
+plt.show()
+```
+
+- Gamma -- scipy.stats.gamma
+
+```{python}
+fig, ax = plt.subplots(1, 1)
+a = 3 ## shape parameter
+x = np.linspace(stats.gamma.ppf(0.01, a), stats.gamma.ppf(0.99, a), 100)
+rv = stats.gamma(a)
+ax.plot(x, rv.pdf(x), 'k-', lw=2)
+plt.show()
+```
+
+- Uniform -- scipy.stats.uniform
+
+```{python}
+fig, ax = plt.subplots(1, 1)
+x = np.linspace(stats.uniform.ppf(0.01), stats.uniform.ppf(0.99), 100)
+rv = stats.uniform()
+ax.plot(x, rv.pdf(x), 'k-', lw=2)
+plt.show()
+```
+
+# Summary Statistics
+When examining data, often you want to find different summary statistics before beginning statistical tests.
+
+There are several built in methods to do so. First, lets take a look at describe:
+
+```{python}
+import numpy as np
+%matplotlib inline
+
+
+array1 = np.random.randint(1,101,10)
+print(array1)
+print(stats.describe(array1))
+```
+The describe method returns a number of summary statistics: length of array, a tuple containing the min and the max, the mean and variance, the skewness, 
+and kurtosis, which is the measure of tailedness in the data. There are a number of optional parameters in describe that can change how our results are found:
+
+- ddof -- delta degrees of freedom, integer.
+
+- bias -- boolean variable with default value True. If False, skewness and kurtosis are corrected for statistical biases.
+
+- nan_policy -- options are {'propogate', 'raise', 'omit'}, and they tell the method how to deal with NaN values. Propogate returns NaN, raise throws an error, and omit
+ skips the value in the array.
+ 
+ We can also compute statistics of trimmed data, if we do not want to alter the dataset. For example, let's say we only want to see the values between 20 and 80.
+```{python}
+print("Trimmed mean: " + str(stats.tmean(array1, (20, 80))))
+print("Trimmed standard deviation: " + str(stats.tstd(array1, (20, 80))))
+print(array1)
+```
+As you can see, the array remains unchanged but we find a new mean and standard deviation with the values trimmed.
+Similar functions can be used:
+
+- tvar -- takes array and limit tuple, returns trimmed variance
+
+- tsem -- takes array and limit tuple, returns trimmed standard error
+
+- tmin -- takes array and minimum limit, returns new minimum value above trimmed limit
+
+- tmax -- takes array and maximum limit, returns new maximum value below trimmed limit
+
+Further functions include iqr to compute the interquartile range of the data and sem which computes the standard error of the mean.
+```{python}
+print("IQR: " + str(stats.iqr(array1)))
+print("Std Error of the Mean: " + str(stats.sem(array1)))
+```
+
+# Frequency Statistics
+There are several methods in scipy.stats related to frequency statistics. Relfreq and Cumfreq are used to create a relative frequency and
+ cumulative frequency histogram, respectively. This can provide more insight on the data then a regular histogram would. An example is demonstrated
+ below.
+
+```{python}
+import matplotlib as plt
+import matplotlib.pyplot as plt
+## Create an array of grades with frequency of 0.2 for 90, 0.3 for 80, and so on
+poss_grades = [90, 80, 70, 60, 50]
+grades = np.random.choice(poss_grades, 100, p=[0.2, 0.3, 0.3, 0.1, 0.1])
+print(grades)
+## Use cumfreq to find our variables for the Cumulative Histogram
+res = stats.cumfreq(grades, numbins=100)
+x = res.lowerlimit + np.linspace(0, res.binsize*res.cumcount.size,
+                                 res.cumcount.size)
+## Use relfreq to find our variables for the Relative Histogram
+res2 = stats.relfreq(grades, numbins=10)
+x2 = res2.lowerlimit + np.linspace(0, res2.binsize*res2.frequency.size,
+                                 res2.frequency.size)
+## Plot normal histogram vs our 2 special ones
+fig = plt.figure(figsize=(10, 4))
+ax1 = fig.add_subplot(1, 3, 1)
+ax2 = fig.add_subplot(1, 3, 2)
+ax3 = fig.add_subplot(1, 3, 3)
+ax1.hist(grades, bins=25)
+ax1.set_title('Histogram')
+ax2.bar(x, res.cumcount, width=res.binsize)
+ax2.set_title('Cumulative histogram')
+ax2.set_xlim([x.min(), x.max()])
+ax3.bar(x2, res2.frequency, width=res2.binsize)
+ax3.set_title('Relative frequency histogram')
+ax3.set_xlim([x2.min(), x2.max()])
+plt.show()
+```
+There are also two methods to use when checking percentile ranks:
+
+- percentileofscore -- takes an array and a score as input, returns the percentile rank of the score
+
+- scoreatpercentile -- takes an array and a percentile as input, returns the score at that percentile
+
+```{python}
+array2 = np.random.randint(1,101,100)
+print(array2)
+print("The percentile of the score 90 is: " + str(stats.percentileofscore(array2, 90)))
+print("Score at the 90th percentile is: " + str(stats.scoreatpercentile(array2, 90)))
+```
+
+As you can see, the values differ. This is important information that can be used to determine more than just the IQR.
+
+# Statistical Tests
+Finally, statistical tests are arguably the most useful part of the scipy.stats package. The most important correlation function is the one-way ANOVA function.
+As a reminder, one-way ANOVA (analysis of variance) is used to compare the means of two or more independent groups, with the goal of determining if the means are
+significantly different. It is a parametric test that can be tedious and complicated to do by hand, so the scipy.stats functionality allows us to save a lot of time.
+
+The initial set up is as follows:
+```
+scipy.stats.f_oneway(*samples, axis=0)
+```
+It takes parameters *samples, which is used to represent the two or more arrays that you input, and axis. Axis is defaulted to 0, but if you set it to another number that
+will be the axis of the arrays upon which the test is applied. The f_oneway function returns the F statistic and the p value of the test.
+
+```{python}
+precip_1895 = np.array([4.36, 1.24, 3.28, 5.08, 3.13, 3.09, 4.15, 2.06, 1.06, 3.56, 3.07, 2.78])
+precip_1935 = np.array([4.19, 2.88, 2.57, 2.54, 1.96, 4.59, 4.42, 2.89, 6.69, 4.63, 5.15, 1.89])
+precip_1975 = np.array([5.23, 3.29, 4.19, 3.35, 4.55, 6.29, 8.71, 3.70, 8.05, 3.80, 3.68, 2.82])
+precip_2015 = np.array([4.43, 2.18, 4.55, 2.67, 1.21, 8.12, 3.68, 2.26, 3.60, 4.02, 2.30, 4.84])
+
+F, p = stats.f_oneway(precip_1895, precip_1935, precip_1975, precip_2015, axis=0)
+print("F statistic is " + str(F))
+print("p value is " + str(p))
+```
+
+If we were to run the test with an alpha level of 0.05, then our p value is not in the rejection region and we would be unable to say that the mean of the precipitation levels
+for these 4 samples over the last 128 years are significantly different.
+
+Now, if we wanted to check the difference between the first, second, and third months of each quarter, we could formulate the arrays differently:
+```{python}
+precip_1895_split = np.array([[4.36, 1.24, 3.28], [5.08, 3.13, 3.09], [4.15, 2.06, 1.06], [3.56, 3.07, 2.78]])
+precip_1935_split = np.array([[4.19, 2.88, 2.57], [2.54, 1.96, 4.59], [4.42, 2.89, 6.69], [4.63, 5.15, 1.89]])
+precip_1975_split = np.array([[5.23, 3.29, 4.19], [3.35, 4.55, 6.29], [8.71, 3.70, 8.05], [3.80, 3.68, 2.82]])
+precip_2015_split = np.array([[4.43, 2.18, 4.55], [2.67, 1.21, 8.12], [3.68, 2.26, 3.60], [4.02, 2.30, 4.84]])
+
+F, p = stats.f_oneway(precip_1895_split, precip_1935_split, precip_1975_split, precip_2015_split, axis=0)
+print("F statistic is " + str(F))
+print("p value is " + str(p))
+```
+
+As you can see, the second months of each quarter have the widest variety. This doesn't tell us much information about this dataset, but it is in general
+ a useful tool.
+ 
+Finally, we can perform many sample tests related to the statistical distributions found earlier. Scipy.stats focuses primarily on t tests.
+
+- One sample t-tests: scipy.stats.ttest_1samp
+
+This calculatutes the mean of one group and tests it against the null hypothesis mean. It is initialized with an array and the popmean to test against, and there
+is an optional parameter called alternative with options 'two-sided', 'less', and 'greater'. The choice here will tell the program in which direction the hypothesis
+test has been set up. If the hypothesis test is merely checking for a difference between the mean of the data and popmean, use the default 'two-sided'. If you want to
+check if your data's mean is less than or greater than the given popmean, use 'less' or 'greater', respectively.
+
+Let's say we want to check if our 2015 monthly precipitation data is, on average, less than 5 inches. We can initialize the null and alternative hypothesis as
+$H_0 = \mu_1 \geq \mu_2$ and $H_a = \mu_1 < \mu_2$. If we want to check against 95% confidence, we will check with a p-value of 0.05.
+```{python}
+print(stats.ttest_1samp(precip_2015, 5.0, alternative='less'))
+```
+As you can see, our p-value is less than 0.05, so we can say with 95% confidence that the average monthly precipitation is less than 5.0 inches.
+
+- Two sample, independent t-tests: scipy.stats.ttest_ind
+
+This test compares the means of two independent groups against each other. It is initialized with two arrays, and there
+is an optional parameter called alternative with options 'two-sided', 'less', and 'greater'. The choice here will tell the program in which direction the hypothesis
+test has been set up. If the hypothesis test is merely checking for a difference between the means of the 2 data arrays, use the default 'two-sided'. If you want to
+check if the first data mean is less than or greater than the second data mean, use 'less' or 'greater', respectively.
+
+Let us now compare the 2015 monthly preciptation data against the 1895 data, and use two-sided to check if there is a difference. We can initialize our null and 
+alternative hypothesis as: $H_0 = \mu_1 = \mu_2$ and $H_a = \mu_1 \neq \mu_2$. If we want to check against 95% confidence, we will check with a p-value of 0.05.
+
+```{python}
+print(stats.ttest_ind(precip_2015, precip_1895, alternative='two-sided'))
+```
+
+As you can see, our p-value is greater than 0.05, so we cannot say with 95% confidence that the average monthly precipitation in 2015 is different than that in 1895.
+
+- Kolmogorov-Smirnov test for goodness of fit: scipy.stats.ktest
+
+This one-sample test compares the distribution of a sample vs a given distribution. The test takes as input an array and a callable distribution's cdf. An example is below.
+
+# NYC CRASH DATA EXAMPLES
+Let's try and use the Kolmogorov-Smirnov test for goodness of fit for checking our data of crashes by hour.
+
+```{python}
+import pandas as pd
+df = pd.read_csv('nyc_crashes_202301.csv')
+plt.hist(df['HOUR'], bins=24)
+plt.show()
+```
+
+As you can see, this sort of follows a chi-squared distribution. We can use the Kolmogorov-Smirnov test for goodness of fit to check how accurate this is.
+
+```{python}
+import math
+dist = getattr(stats, 'chi2')
+parameters = dist.fit(df['HOUR'])
+print('p value threshold: ' + str(1.36 / math.sqrt(7137)))
+print(stats.kstest(df['HOUR'], "chi2", (parameters[0], parameters[1])))
+```
+
+Unfortunately, our p value does not reach the threshold, so we have sufficient evidence that the distribution does not follow a chi2 one.
+
+```{python}
+parameters = stats.chi2.fit(df['HOUR']) 
+plt.hist(df['HOUR'], bins=range(1, 25), density=True)
+plt.xlabel('Value')
+plt.ylabel('Relative frequency')
+plt.title('Relative frequency histogram')
+
+# xmin, xmax = plt.xlim()
+# x = np.linspace(xmin, xmax, 100)
+# p = stats.chi2.pdf(x, parameters[0], parameters[1])
+
+degrees_f = 15# int(len(df['HOUR']) - 1)  # degrees of freedom
+x = np.linspace(stats.chi2.ppf(0.01, degrees_f), stats.chi2.ppf(0.99, degrees_f), 100)
+y = stats.chi2.pdf(x, degrees_f)
+  
+plt.plot(x, y, 'r-', lw=2, label='chi2 pdf')
+title = "Fit Values: {:.2f} and {:.2f}".format(parameters[0], parameters[1])
+plt.title(title)
+  
+plt.show()
+```
+
+Clearly the fit is extremely loose, as evidenced by the dramatically low p-value found in the previous calculation, so we can once again dismiss the idea
+that our data follows a chi2 distribution.
+
+We can also use statistical tests to draw some conclusions from the data. Let's separate our huge dataset into smaller ones based upon borough to more easily
+split up the data.
+
+```{python}
+df = pd.read_csv('nyc_crashes_202301.csv', index_col='BOROUGH')
+## Create new dataframes for each borough
+bronx = df.loc['BRONX']
+staten_island = df.loc['STATEN ISLAND']
+brooklyn = df.loc['BROOKLYN']
+manhattan = df.loc['MANHATTAN']
+queens = df.loc['QUEENS']
+## Test to make sure it works
+print(staten_island.head())
+```
+
+Now, let's perform an anova test to determine if the number of people injured on average differs between borough.
+
+```{python}
+## Get arrays for each borough
+bronx_injuries = bronx['NUMBER_OF_PERSONS_INJURED'].to_numpy()
+si_injuries = staten_island['NUMBER_OF_PERSONS_INJURED'].to_numpy()
+brooklyn_injuries = brooklyn['NUMBER_OF_PERSONS_INJURED'].to_numpy()
+manhattan_injuries = manhattan['NUMBER_OF_PERSONS_INJURED'].to_numpy()
+queens_injuries = queens['NUMBER_OF_PERSONS_INJURED'].to_numpy()
+## Perform one way ANOVA
+F, p = stats.f_oneway(bronx_injuries, si_injuries, brooklyn_injuries, manhattan_injuries, queens_injuries, axis=0)
+print("F statistic is " + str(F))
+print("p value is " + str(p))
+```
+If we were to check with 95% confidence, we can say that the means of each borough do differ.
+
+Finally, we can use a test to compare boroughs against each other to draw more meaningful conclusions.
+
+```{python}
+print(stats.ttest_ind(bronx_injuries, brooklyn_injuries, alternative='two-sided'))
+
+print(np.mean(bronx_injuries))
+print(np.mean(brooklyn_injuries))
+```
+As you can see, our p value is too large to reject the null. Comparing the two means, we can see that they are similar so it makes sense why they are not rejected.
+
+
+# REFERENCES
+[Scipy Offical Documentation](https://docs.scipy.org/doc/scipy/reference/stats.html)
+
+[GeeksForGeeks Documentation](https://www.geeksforgeeks.org/scipy-stats/)
+
+[TutorialsPoint Documentation](https://www.tutorialspoint.com/scipy/scipy_stats.htm)
+
+[Javatpoint Documentation](https://www.javatpoint.com/scipy-stats)
+
+
