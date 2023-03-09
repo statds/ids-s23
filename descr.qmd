@@ -1,6 +1,4 @@
-## Descriptive Statistics
-
-## What is Descriptive Statistics and why is it important?
+# Descriptive Statistics
 
 In basic terms, descriptive statistics are how we describe the data. Descriptive Statistics is extremely important to exploratory data analysis, as it allows us to *describe* and *summarize* the data to put it into *context* and *visualize* it. If we just were looking at a bunch of raw data, what use is that to us? We use terms to describe center, spread, correlation, counts, and more to to give us context to the raw data we have.
 
