@@ -226,7 +226,6 @@ Please use the following table to sign up.
   02/20  | Jones, Courtney        | Descriptive Statistics
   02/22  | Sullivan, Colin        | Statistical hypothesis tests scypy.stats
   02/27  | Shen, Tong             | Decision tree with `scikit-learn`
-  02/27  | Alsubai, Nadia         | Web Scraping with Beautiful Soup
   03/01  | Bedard, Kaitlyn        | Handling spatial data with `geopandas`
   03/06  | Nhan, Nathan           | Bagging vs boosting
   03/08  | Parchekani, Kian       | Naive Bayes
@@ -234,7 +233,7 @@ Please use the following table to sign up.
   03/20  | Whitney, William       |
   03/22  | Nguyen, Christine      | Calling R from Python and vice versa
   03/27  | Cummins, Patrick       |
-  03/29  | Zheng, Michael         | Web Scraping with Selenium
+  03/29  | Zheng, Michael         | Web Scraping with `Selenium`
   04/03  | Lunetta, Giovanni      | Softmax Regression & Neural Networks with `TensorFlow`
 
 ## Contribute to the Class Notes
