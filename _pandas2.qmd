@@ -1,50 +1,6 @@
----
-jupyter: python3
----
+## Merge and Join
 
-## Pandas 2.0 Presentation
-Ginamarie Mastrorilli
-
-Topics Covered:
-- Combining Datasets: Merge and Join
-- Aggregation and Grouping
-- Pivot Tables
-- Vectorized String Operations
-- Working with Time Series
-- High-Performance Pandas: eval() 
-
-Use the NYC Motor Vehicle Collisions Data
-- Data from Jan 01 2023 12:00 AM to Jan 31 2023 11:45 PM
-
-```{python}
-import pandas as pd
-import numpy as np
-```
-
-```{python}
-jan23 = pd.read_csv("data/nyc_crashes_202301.csv") 
-jan23.head()
-```
-
-```{python}
-jan23["CONTRIBUTING FACTOR VEHICLE 1"] = (
-    jan23["CONTRIBUTING FACTOR VEHICLE 1"].replace(["Unspecified"], np.nan))
-jan23["CONTRIBUTING FACTOR VEHICLE 2"] = (
-    jan23["CONTRIBUTING FACTOR VEHICLE 2"].replace(["Unspecified"], np.nan))
-jan23["CONTRIBUTING FACTOR VEHICLE 3"] = (
-    jan23["CONTRIBUTING FACTOR VEHICLE 3"].replace(["Unspecified"], np.nan))
-jan23["CONTRIBUTING FACTOR VEHICLE 4"] = (
-    jan23["CONTRIBUTING FACTOR VEHICLE 4"].replace(["Unspecified"], np.nan))
-jan23["CONTRIBUTING FACTOR VEHICLE 5"] = (
-    jan23["CONTRIBUTING FACTOR VEHICLE 5"].replace(["Unspecified"], np.nan))
-jan23["LATITUDE"] = jan23["LATITUDE"].replace([0.0], np.nan)
-jan23["LONGITUDE"] = jan23["LONGITUDE"].replace([0.0], np.nan)
-jan23.describe()
-```
-
-## Combining Datasets: Merge and Join
-
-- pd.merge( ) : allows a user to do one-to-one, one-to-many, and many-to-many joins
+- `pd.merge( )`: allows a user to do one-to-one, one-to-many, and many-to-many joins
     - One-to-one joins mean each row is related on a single row in a different table using a key column
     - One-to-many joins mean each row in one table in related to one or more rows in a different table using a key column
     - Many-to-many joins mean one or more rows in one table is related to one or more rows in a seperate table using a key column
@@ -55,6 +11,7 @@ jan23.describe()
 - Using pd.merge( ) the two data frames are combined using that common column as a key
 
 ```{python}
+jan23 = pd.read_csv("data/nyc_crashes_202301.csv") 
 crash_zip = jan23[["CRASH DATE", "ZIP CODE"]].copy().drop_duplicates(subset = [ "ZIP CODE"])
 crash_zip.tail() # to view DF of crash date & zip code
 ```
@@ -69,7 +26,7 @@ merge_w_zip = pd.merge(crash_zip, borough_zip)
 merge_w_zip.tail() # to view joined data frames
 ```
 
-### We can specify the name of the key column using 'on'
+We can specify the name of the key column using `on`:
 
 ```{python}
 pd.merge(crash_zip, borough_zip, on = 'ZIP CODE').tail()
@@ -104,8 +61,8 @@ sup_emp_dept_hire
 
 ### Ex: Merging when the Key has Different Variable Names
 - We will merge two dataframes that have a similar column containing the same information, but are named differently
-- Using the employee data from above, but changing 'employee' in 'emp_hire' to 'employee_name'
-- Need to drop either 'employee' or 'employee_name' after merging to not have redundant information
+- Using the employee data from above, but changing `employee` in `emp_hire` to `employee_name`
+- Need to drop either `employee` or `employee_name` after merging to not have redundant information
 
 ```{python}
 emp_dept_names = pd.DataFrame({'employee': ['Emily', 'Jake', 'Paul', 'Jackie'],
@@ -278,7 +235,7 @@ bname.str.startswith('B').head(15).dropna() # to see if starts with a letter B
     - Pandas provides the Timedelta type
     
 
-#### Can create a Timestamp object
+### Can create a Timestamp object
 - combines 'datetime' and 'dateutil' to be used as a Series or DataFrame
 
 ```{python}
@@ -287,7 +244,7 @@ date
 type(date)
 ```
 
-#### Can create Series that has time indexed data
+### Can create Series that has time indexed data
 
 ```{python}
 ind = pd.DatetimeIndex(['2022-07-04', '2022-08-04',
@@ -296,7 +253,7 @@ inddata = pd.Series([0,1,2,3], index = ind)
 inddata
 ```
 
-#### Frequencies and Offsets
+### Frequencies and Offsets
 
 The following are the main codes avaiable: 
 
@@ -324,10 +281,10 @@ The following are the main codes avaiable:
 pd.timedelta_range(0, periods = 5, freq = "2H30T")
 ```
 
-## High Performance Pandas: eval() 
+## High Performance Pandas: `eval()`
 
-- eval( ) uses string expressions to compute operations using DataFrames
-    - supports all arithmetic operations, comparison operators, bitwise operators ( & , | ), and the use of 'and' and 'or' in Boolean expressions
+- `eval()` uses string expressions to compute operations using DataFrames
+    - supports all arithmetic operations, comparison operators, bitwise operators (`&` and `|`), and the use of `and` and `or` in Boolean expressions
 
 ```{python}
 #| scrolled: false
@@ -338,8 +295,7 @@ dfa, dfb = (pd.DataFrame(rand.rand(nrows, ncols))
 
 # to compute sum of dfa and dfb and place into one table
 
-
-print("dfa",dfa)
+print("dfa", dfa)
 print("dfb", dfb)
 pd.eval('dfa + dfb')
 ```

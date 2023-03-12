@@ -1,0 +1,76 @@
+---
+title: "This Is The Title"
+subtitle: "This is subtitle"
+author: "Jun Yan and John Smith"
+format:
+  revealjs: 
+    embed-resources: true
+    slide-number: true
+#    chalkboard: 
+#      buttons: false
+    preview-links: auto
+#    logo: images/quarto.png
+#    css: styles.css
+    footer: "UConn Intro to Data Science: STAT 3255/5255"
+resources:
+  - demo.pdf
+---
+
+
+## Slide Title
+
+Here is an outline of the presentation
+
++ Background
++ Data
++ Analysis
++ Conclusion
+
+## Import the Data
+
+- Time frame: Jan. 15--22, 2023
+- All 311 requests
+
+```{python}
+#| echo: true
+import pandas as pd
+
+d311 = pd.read_csv("../data/nyc311_011523-012123_by022023.csv")
+d311.columns
+```
+
+
+## Cleaning
+
++ Action 1
++ Action 2
+
+
+## Visualization
+
+Show plot (and the code that generated it)
+
+```{python}
+#| label: fig-polar
+#| fig-cap: "A line plot on a polar axis"
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+r = np.arange(0, 2, 0.01)
+theta = 2 * np.pi * r
+fig, ax = plt.subplots(
+  subplot_kw = {'projection': 'polar'} 
+)
+ax.plot(theta, r)
+ax.set_rticks([0.5, 1, 1.5, 2])
+ax.grid(True)
+plt.show()
+```
+
+
+
+## Conclusion
+
++ Something 1
++ Something 1
