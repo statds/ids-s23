@@ -1,13 +1,14 @@
 ---
-title: "Introduction to GeoPandas"
+title: "Handling Spatial Data with `GeoPandas`"
 author: "Kaitlyn Bedard"
 format:
   html:
     code-fold: true
+    embed-resources: true
 execute:
   warning: false
   error: false
-jupyter: python3
+kernel : python3.9.6
 ---
 
 ## Introduction
@@ -134,26 +135,22 @@ from shapely.geometry import Point
 # To create GeodataFrame
 import geopandas as gpd 
 
-jan23 = pd.read_csv('data/nyc_crashes_202301.csv')
-# replacing all 0.0 coordinates with NaN
-jan23_cleaning = jan23.copy()
-jan23_cleaning["LATITUDE"] = jan23["LATITUDE"].replace([0.0], np.nan)
-jan23_cleaning["LONGITUDE"] = jan23["LONGITUDE"].replace([0.0], np.nan)
-jan23_cleaning.head()
+jan23 = pd.read_csv('data/nyc_crashes_202301_cleaned.csv')
 
 # creating geometry using shapely (removing empty points)
-geometry = [Point(xy) for xy in zip(jan23_cleaning["LONGITUDE"], jan23_cleaning["LATITUDE"]) if not Point(xy).is_empty]
+geometry = [Point(xy) for xy in zip(jan23["LONGITUDE"], \
+            jan23["LATITUDE"]) if not Point(xy).is_empty]
 
 # creating geometry column to be used by geopandas
 geometry2 = gpd.points_from_xy(jan23["LONGITUDE"], jan23["LATITUDE"])
 
-# coordinate reference system (epsg:4326 implies that data is geographic coordinates)
+# coordinate reference system (epsg:4326 implies geographic coordinates)
 crs = {'init': 'epsg:4326'}
 
-# create Geographic data frame (removing rows with missing coordinate information)
-jan23_gdf = gpd.GeoDataFrame(jan23_cleaning.loc[~pd.isna(jan23_cleaning["LATITUDE"]) & ~pd.isna(jan23_cleaning["LONGITUDE"])], 
-                             crs=crs, 
-                             geometry=geometry)
+# create Geographic data frame (removing rows with missing coordinates)
+jan23_gdf = gpd.GeoDataFrame(jan23.loc[~pd.isna(\
+            jan23["LATITUDE"]) & ~pd.isna(\
+            jan23["LONGITUDE"])],crs=crs, geometry=geometry)
 
 jan23_gdf.head()
 ```
@@ -167,7 +164,8 @@ jan23_gdf.plot()
 jan23_gdf.plot(column = 'BOROUGH',legend=True)
 
 # Color the plot by number persons injuried
-jan23_gdf.plot(column = 'NUMBER OF PERSONS INJURED',legend=True, cmap= "OrRd")
+jan23_gdf.plot(column = 'NUMBER OF PERSONS INJURED',legend=True, \
+               cmap= "OrRd")
 
 # Plotting missing information 
 jan23_gdf.plot(column='BOROUGH', missing_kwds={'color': 'lightgrey'})
@@ -178,14 +176,19 @@ We can also easily create an interactive plot, using `.explore()`.
 ```{python}
 # interactive map of just the latitude and longitude points
 jan23_gdf.explore()
+```
 
+```{python}
 # interactive map where points are colored by borough
 jan23_gdf.explore(column='BOROUGH',legend=True)
+```
 
-# interative map that plots the crashes where 1 or more persons are killed
+```{python}
+# interative map that plots the crashes where 1+ persons are killed
 jan23_gdf_edit = jan23_gdf.copy()
 jan23_gdf_edit = jan23_gdf[jan23_gdf["NUMBER OF PERSONS KILLED"] > 0]
-jan23_gdf_edit.explore(column='NUMBER OF PERSONS KILLED',  style_kwds={'radius': 7})
+jan23_gdf_edit.explore(column='NUMBER OF PERSONS KILLED', \
+                        style_kwds={'radius': 7})
 ```
 
 # Setting and Changing Projections
@@ -209,12 +212,8 @@ We can also change the CRS of a geometry using the `.to_crs()` function. Some op
 
 Note that 4326 is the most common.
 
-## Merging Data
-Below, I will import NYC Borough data set from NYC Open data, and perform a merge with the NYC crash data.
-GeoPandas allows for spatial joining. To merge the data, we see which borough (based on the NYC Borough geometry) 
-contains each point in the NYC crash data. In this example, we keep the geometry of the borough data, but this 
-can be easily altered. Notice that this acted to 'geocode' the borough name of each point in the NYC crash 
-data, so one could omit this `'BOROUGH'` column from the crash data to avoid redundancy.
+## Merging Data and Demonstrations
+The below code imports the NYC borough and zip code level spatial data.
 ```{python}
 import geopandas as gpd
 
@@ -222,60 +221,58 @@ import geopandas as gpd
 boros = gpd.read_file("data/nyc_boroughs.geojson")
 boros.set_crs("EPSG:4326")
 boros.head()
-
-# merge the borough data with the crash data
-boro_merge= boros.sjoin(jan23_gdf, op='contains')
-boro_merge.head()
 ```
-I do the same as above, but with NYC zip code data.
 ```{python}
 # import NYC Zip Code Data
 zipcodes = gpd.read_file("data/nyc_zipcodes.geojson")
 zipcodes.set_crs("EPSG:4326")
 zipcodes.head()
-
-# merge the zipcode data with the crash data
-zip_merge= zipcodes.sjoin(jan23_gdf, op='contains')
-zip_merge.head()
-
 ```
 
-## Merge Demonstrations
+
 I will demonstrate some more tools using the NYC Borough data, NYC Zip Code data, 
 NYC Crash Data, and the merged data sets. 
 
-For example, we can overlay plots.
-```{python}
-base = boros.plot(color='white', edgecolor='black')
-
-jan23_gdf.plot(ax=base, marker='o', color='red', markersize=5)
-```
-
-We can also plot the borough data based on the number of people killed, for example. First, 
-compute the average number of injuries per borough. Then merge the averages into the borough 
+We can plot the borough data based on the number of people killed, for example. First, 
+compute the average number of deaths per borough. Then merge the averages into the borough 
 data frame, and plot accordingly.
-
 ```{python}
+# change input to match
+boros['boro_name'] = boros['boro_name'].apply(lambda x: x.upper())
+
+# change name of column to match
+jan23_gdf = jan23_gdf.rename(columns={"BOROUGH":"boro_name"})
+
 # Compute the average number of deaths per borough
-avg_deaths_per_boro = boro_merge.groupby('boro_name')['NUMBER OF PERSONS KILLED'].mean()
+avg_deaths_per_boro = jan23_gdf.groupby('boro_name')['NUMBER OF PERSONS KILLED'].mean()
 
 # Merge the average deaths per borough back into the borough GeoDataFrame
 boros = boros.merge(avg_deaths_per_boro, on='boro_name', suffixes=('', '_mean'))
 boros.head()
-
+```
+```{python}
 # plot 
 boros.plot(column = "NUMBER OF PERSONS KILLED", legend = True)
 ```
 
 We can follow this same process to plot the average number of injuries on the zip code level.
 ```{python}
+# format changes
+jan23_gdf = jan23_gdf.rename(columns={"ZIP CODE":"ZIPCODE"})
+jan23_gdf["ZIPCODE"] = jan23_gdf["ZIPCODE"].replace(np.nan, 0)
+jan23_gdf["ZIPCODE"] = jan23_gdf["ZIPCODE"].astype(int)
+jan23_gdf["ZIPCODE"] = jan23_gdf["ZIPCODE"].astype(str)
+jan23_gdf["ZIPCODE"] = jan23_gdf["ZIPCODE"].replace('0', np.nan)
+
 # Compute the average number of injuries per zipcode
-avg_injuries_per_zip = zip_merge.groupby('ZIPCODE')['NUMBER OF PERSONS INJURED'].mean()
+avg_injuries_per_zip = jan23_gdf.groupby('ZIPCODE')['NUMBER OF PERSONS INJURED'].mean()
 
 # Merge the average injuries per zip back into the zipcodes GeoDataFrame
 zipcodes = zipcodes.merge(avg_injuries_per_zip, on='ZIPCODE', suffixes=('', '_mean'))
 zipcodes.head()
+```
 
+```{python}
 # plot 
 zipcodes.explore(column = "NUMBER OF PERSONS INJURED", legend = True)
 ```
@@ -283,7 +280,7 @@ zipcodes.explore(column = "NUMBER OF PERSONS INJURED", legend = True)
 We can also plot the number of crashes by zip code (or borough) as well. See the below code:
 ```{python}
 # count the number of crashes per zipcode
-crash_count_by_zipcode = zip_merge.groupby('ZIPCODE')['CRASH DATE'].count().reset_index()
+crash_count_by_zipcode = jan23_gdf.groupby('ZIPCODE')['CRASH DATE'].count().reset_index()
 
 # merge the count with the zipcodes data frame
 zipcodes_with_crash_count = zipcodes.merge(crash_count_by_zipcode, on='ZIPCODE')
@@ -303,4 +300,5 @@ For more information see the following:
     + <https://data.cityofnewyork.us/City-Government/Borough-Boundaries/tqmj-j8zm>
 
 * NYC Zip Code Data
-    + < https://data.beta.nyc/en/dataset/nyc-zip-code-tabulation-areas/resource/894e9162-871c-4552-a09c-c6915d8783fb>
+    + <https://data.beta.nyc/en/dataset/nyc-zip-code-tabulation-areas/resource/894e9162-871c-4552-a09c-c6915d8783fb>
+
