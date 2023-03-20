@@ -1,0 +1,304 @@
+---
+title: "Handling Spatial Data with `GeoPandas`"
+author: "Kaitlyn Bedard"
+format:
+  html:
+    code-fold: true
+    embed-resources: true
+execute:
+  warning: false
+  error: false
+kernel : python3.9.6
+---
+
+## Introduction
+GeoPandas is a python library created as an extension of pandas to offer support for geographic data. 
+Like pandas, GeoPandas has a series type and a dataframe type: `GeoSeries` and `GeoDataFrame`. It 
+allows users to do work that would otherwise need a GIS database. Note that since GeoPandas is an 
+extension of Pandas, it inherits all its attributes and methods. Please review the pandas presentations 
+for information on these tools, if needed. 
+
+## Installation
+You can install GeoPandas using the below commands in terminal. The documentation recommends the first method.
+
+`conda install -c conda-forge geopandas`
+
+`conda install geopandas`
+
+`pip install geopandas`
+
+## Basic Concepts
+The GeoPandas `GeoDataFrame` is essentially a pandas dataframe that supports typical data, however, 
+it also supports geometries. Though the dataframe can have multiple geometry columns, there is one 
+"active" column on which all operations are applied to. 
+
+The types of geometries are:
+
+* Points: coordinates
+
+* Lines: set of two coordinates
+
+* Polygons: list of coordinate tuples, first and last must be the same (closed shape)
+
+These geometries are often represented by `shapely.geometry` objects. Note, we can also have multi-points, 
+multi-lines, and multi-polygons. Below are examples of creating these geometries using shapely. Each 
+GeoSeries has a specified CRS (Coordinate Reference System) that stores information about the data. 
+```{python}
+from shapely.geometry import LineString, Point, Polygon
+import geopandas as gpd
+
+# point example
+point = Point(0.5, 0.5)
+gdf1 = gpd.GeoDataFrame(geometry=[point])
+
+# line example
+line = LineString([(0, 0), (1, 1)])
+gdf2 = gpd.GeoDataFrame(geometry=[line])
+
+# polygon example
+polygon = Polygon([(0, 0), (0, 1), (1, 1), (1, 0), (0, 0)])
+gdf3 = gpd.GeoDataFrame(geometry=[polygon])
+```
+
+The following are some examples of basic attributes of a GeoSeries:
+
+* `length`: returns the length of a line
+
+```{python}
+gdf2.length
+```
+
+* `area`: returns the area of the shape
+
+```{python}
+gdf3.area
+```
+
+* `bounds`: gives the bounds of each row in a geometry column
+
+* `total_bounds`: gives the total bounds of a geometry series
+
+* `geom_type`: gives the geometry type 
+
+```{python}
+gdf3.geom_type
+```
+
+* `is_valid`: returns True for valid geometries and False otherwise
+
+Below are some examples of basic methods that can be applied to a GeoSeries:
+
+* `distance()`: returns the (minimum) distance of each row of a geometry to a specified paramater
+    + parameter `other`: can be a single geometry, or an entire geometry series
+    + parameter `align`: True if you want to align GeoSeries by index, false otherwise
+
+```{python}
+gdf2.distance(Point((1,0)))
+```
+
+* `centroid`: returns a new GeoSeries with the centers of each row in the geometry
+
+```{python}
+gdf3.centroid
+```
+
+Below are examples of some relationship tests that can be applied to a GeoSeries:
+
+* `contains()`: returns true if shape contains a specified `other`
+    + parameter `other`: can be a single geometry, or an entire geometry series
+    + parameter `align`: True if you want to align GeoSeries by index, false otherwise
+
+```{python}
+gdf3.contains(gdf1)
+```
+
+* `intersects()`: returns true if shape intersects a specified `other`
+    + parameter `other`: can be a single geometry, or an entire geometry series
+    + parameter `align`: True if you want to align GeoSeries by index, false otherwise
+
+```{python}
+gdf2.intersects(gdf3)
+```
+
+## Reading Files
+If you have a file that contains data and geometry information, you can read it directly 
+with geopandas using the `geopandas.read_file()` command. Examples of these files are GeoPackage, 
+GeoJSON, Shapefile. However, we can convert other types of files to a GeoDataFrame. For example, 
+we can transform the NYC crash data. The below code creates a point geometry. The points are the 
+coordinates of the crashes. 
+```{python}
+# Reading csv file 
+import pandas as pd 
+import numpy as np
+# Shapely for converting latitude/longtitude to geometry
+from shapely.geometry import Point 
+# To create GeodataFrame
+import geopandas as gpd 
+
+jan23 = pd.read_csv('data/nyc_crashes_202301_cleaned.csv')
+
+# creating geometry using shapely (removing empty points)
+geometry = [Point(xy) for xy in zip(jan23["LONGITUDE"], \
+            jan23["LATITUDE"]) if not Point(xy).is_empty]
+
+# creating geometry column to be used by geopandas
+geometry2 = gpd.points_from_xy(jan23["LONGITUDE"], jan23["LATITUDE"])
+
+# coordinate reference system (epsg:4326 implies geographic coordinates)
+crs = {'init': 'epsg:4326'}
+
+# create Geographic data frame (removing rows with missing coordinates)
+jan23_gdf = gpd.GeoDataFrame(jan23.loc[~pd.isna(\
+            jan23["LATITUDE"]) & ~pd.isna(\
+            jan23["LONGITUDE"])],crs=crs, geometry=geometry)
+
+jan23_gdf.head()
+```
+
+## Plotting
+We can easily plot our data now that has been transformed to a geometric data frame. 
+```{python}
+# Basic Plot
+jan23_gdf.plot()
+# Color the plot by borough
+jan23_gdf.plot(column = 'BOROUGH',legend=True)
+
+# Color the plot by number persons injuried
+jan23_gdf.plot(column = 'NUMBER OF PERSONS INJURED',legend=True, \
+               cmap= "OrRd")
+
+# Plotting missing information 
+jan23_gdf.plot(column='BOROUGH', missing_kwds={'color': 'lightgrey'})
+```
+
+## Interactive Maps
+We can also easily create an interactive plot, using `.explore()`.
+```{python}
+# interactive map of just the latitude and longitude points
+jan23_gdf.explore()
+```
+
+```{python}
+# interactive map where points are colored by borough
+jan23_gdf.explore(column='BOROUGH',legend=True)
+```
+
+```{python}
+# interative map that plots the crashes where 1+ persons are killed
+jan23_gdf_edit = jan23_gdf.copy()
+jan23_gdf_edit = jan23_gdf[jan23_gdf["NUMBER OF PERSONS KILLED"] > 0]
+jan23_gdf_edit.explore(column='NUMBER OF PERSONS KILLED', \
+                        style_kwds={'radius': 7})
+```
+
+# Setting and Changing Projections
+Earlier, we showed how to set a CRS using `crs = {'init': 'epsg:4326'}`. However, 
+the CRS can also be set using the `.set_crs` function on GeoDataFrame that does not 
+yet have a defined CRS. Going back to our first example, `gdf1`, we can set the CRS 
+as follows.
+
+```{python}
+gdf1 = gdf1.set_crs("EPSG:4326")
+gdf1.plot()
+```
+
+We can also change the CRS of a geometry using the `.to_crs()` function. Some options are:
+
+* EPSG:3395 - World Mercator system
+
+* ESPG:4326 - Standard Coordinates
+
+* EPSG:2163 - NAD83, a system for the US and Canada
+
+Note that 4326 is the most common.
+
+## Merging Data and Demonstrations
+The below code imports the NYC borough and zip code level spatial data.
+```{python}
+import geopandas as gpd
+
+# import NYC Borough Data
+boros = gpd.read_file("data/nyc_boroughs.geojson")
+boros.set_crs("EPSG:4326")
+boros.head()
+```
+```{python}
+# import NYC Zip Code Data
+zipcodes = gpd.read_file("data/nyc_zipcodes.geojson")
+zipcodes.set_crs("EPSG:4326")
+zipcodes.head()
+```
+
+
+I will demonstrate some more tools using the NYC Borough data, NYC Zip Code data, 
+NYC Crash Data, and the merged data sets. 
+
+We can plot the borough data based on the number of people killed, for example. First, 
+compute the average number of deaths per borough. Then merge the averages into the borough 
+data frame, and plot accordingly.
+```{python}
+# change input to match
+boros['boro_name'] = boros['boro_name'].apply(lambda x: x.upper())
+
+# change name of column to match
+jan23_gdf = jan23_gdf.rename(columns={"BOROUGH":"boro_name"})
+
+# Compute the average number of deaths per borough
+avg_deaths_per_boro = jan23_gdf.groupby('boro_name')['NUMBER OF PERSONS KILLED'].mean()
+
+# Merge the average deaths per borough back into the borough GeoDataFrame
+boros = boros.merge(avg_deaths_per_boro, on='boro_name', suffixes=('', '_mean'))
+boros.head()
+```
+```{python}
+# plot 
+boros.plot(column = "NUMBER OF PERSONS KILLED", legend = True)
+```
+
+We can follow this same process to plot the average number of injuries on the zip code level.
+```{python}
+# format changes
+jan23_gdf = jan23_gdf.rename(columns={"ZIP CODE":"ZIPCODE"})
+jan23_gdf["ZIPCODE"] = jan23_gdf["ZIPCODE"].replace(np.nan, 0)
+jan23_gdf["ZIPCODE"] = jan23_gdf["ZIPCODE"].astype(int)
+jan23_gdf["ZIPCODE"] = jan23_gdf["ZIPCODE"].astype(str)
+jan23_gdf["ZIPCODE"] = jan23_gdf["ZIPCODE"].replace('0', np.nan)
+
+# Compute the average number of injuries per zipcode
+avg_injuries_per_zip = jan23_gdf.groupby('ZIPCODE')['NUMBER OF PERSONS INJURED'].mean()
+
+# Merge the average injuries per zip back into the zipcodes GeoDataFrame
+zipcodes = zipcodes.merge(avg_injuries_per_zip, on='ZIPCODE', suffixes=('', '_mean'))
+zipcodes.head()
+```
+
+```{python}
+# plot 
+zipcodes.explore(column = "NUMBER OF PERSONS INJURED", legend = True)
+```
+
+We can also plot the number of crashes by zip code (or borough) as well. See the below code:
+```{python}
+# count the number of crashes per zipcode
+crash_count_by_zipcode = jan23_gdf.groupby('ZIPCODE')['CRASH DATE'].count().reset_index()
+
+# merge the count with the zipcodes data frame
+zipcodes_with_crash_count = zipcodes.merge(crash_count_by_zipcode, on='ZIPCODE')
+
+# plot 
+zipcodes_with_crash_count.plot(column='CRASH DATE', cmap='OrRd', legend=True)
+```
+
+## Resources
+
+For more information see the following: 
+
+* GeoPandas Documentation
+    + <https://geopandas.org/en/stable/docs.html>
+
+* NYC Borough Data
+    + <https://data.cityofnewyork.us/City-Government/Borough-Boundaries/tqmj-j8zm>
+
+* NYC Zip Code Data
+    + <https://data.beta.nyc/en/dataset/nyc-zip-code-tabulation-areas/resource/894e9162-871c-4552-a09c-c6915d8783fb>
+
