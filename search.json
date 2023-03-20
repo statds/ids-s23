@@ -46,35 +46,42 @@
     "href": "intro.html#presentation-task-board",
     "title": "1  Introduction",
     "section": "1.6 Presentation Task Board",
-    "text": "1.6 Presentation Task Board\nHere are some example tasks:\n\nImport/Export data\nDescriptive statistics\nStatistical hypothesis tests scypy.stats\nModel formulas with patsy\nStatistical models with statsmodels\nData visualization with matplotlib\nGrammer of graphics for python plotnine\nHandling spatial data with geopandas\nShow your Data in a Google map with gmplot\nRandom forest\nNaive Bayes\nBagging vs boosting\nCalling C/C++ from Python\nCalling R from Python and vice versa\nDevelop a Python module\nNeural networks\nDeep learning\nTensorFlow\nAutoencoders\nReinforcement learning\n\nPlease use the following table to sign up. \n\n\n\n\n\n\n\n\nDate\nPresenter\nTopic\n\n\n\n\n02/06\nCheu, Catherine\nVisualization with matplotlib\n\n\n02/08\nHo, Garrick\nPandas part 1\n\n\n02/13\nMastrorilli, Ginamarie\nPandas part 2\n\n\n02/13\nYi, Guanghong\nGrammer of graphics for python plotnine\n\n\n02/15\nKarandikar, Shivaram\nText processing with nltk\n\n\n02/20\nChua, Yang Kang\nSupport Vector Machine with scikit-learn\n\n\n02/20\nJones, Courtney\nDescriptive Statistics\n\n\n02/22\nSullivan, Colin\nStatistical hypothesis tests scypy.stats\n\n\n02/27\nShen, Tong\nDecision tree with scikit-learn\n\n\n03/01\nBedard, Kaitlyn\nHandling spatial data with geopandas\n\n\n03/06\nNhan, Nathan\nBagging vs boosting\n\n\n03/08\nParchekani, Kian\nNaive Bayes\n\n\n03/20\nNoel, Luke\nPlotting on maps with gmplot\n\n\n03/20\nWhitney, William\n\n\n\n03/22\nNguyen, Christine\nCalling R from Python and vice versa\n\n\n03/27\nCummins, Patrick\n\n\n\n03/29\nZheng, Michael\nWeb Scraping with Selenium\n\n\n04/03\nLunetta, Giovanni\nSoftmax Regression & Neural Networks with TensorFlow"
+    "text": "1.6 Presentation Task Board\nHere are some example tasks:\n\nImport/Export data\nDescriptive statistics\nStatistical hypothesis tests scypy.stats\nModel formulas with patsy\nStatistical models with statsmodels\nData visualization with matplotlib\nGrammer of graphics for python plotnine\nHandling spatial data with geopandas\nShow your Data in a Google map with gmplot\nRandom forest\nNaive Bayes\nBagging vs boosting\nCalling C/C++ from Python\nCalling R from Python and vice versa\nDevelop a Python module\nNeural networks\nDeep learning\nTensorFlow\nAutoencoders\nReinforcement learning\n\nPlease use the following table to sign up.\n\n\n\n\n\n\n\n\nDate\nPresenter\nTopic\n\n\n\n\n02/06\nCheu, Catherine\nVisualization with matplotlib\n\n\n02/08\nHo, Garrick\nPandas part 1\n\n\n02/13\nMastrorilli, Ginamarie\nPandas part 2\n\n\n02/13\nYi, Guanghong\nGrammer of graphics for python plotnine\n\n\n02/15\nKarandikar, Shivaram\nText processing with nltk\n\n\n02/20\nChua, Yang Kang\nSupport Vector Machine with scikit-learn\n\n\n02/20\nJones, Courtney\nDescriptive Statistics\n\n\n02/22\nSullivan, Colin\nStatistical hypothesis tests scypy.stats\n\n\n02/27\nShen, Tong\nDecision tree with scikit-learn\n\n\n03/01\nBedard, Kaitlyn\nHandling spatial data with geopandas\n\n\n03/06\nNhan, Nathan\nBagging vs boosting\n\n\n03/08\nParchekani, Kian\nNaive Bayes\n\n\n03/20\nNoel, Luke\nPlotting on maps with gmplot\n\n\n03/20\nWhitney, William\n\n\n\n03/22\nNguyen, Christine\nCalling R from Python and vice versa\n\n\n03/27\nCummins, Patrick\n\n\n\n03/29\nZheng, Michael\nWeb Scraping with Selenium\n\n\n04/03\nLunetta, Giovanni\nSoftmax Regression & Neural Networks with TensorFlow"
+  },
+  {
+    "objectID": "intro.html#final-project-presentation-schedule",
+    "href": "intro.html#final-project-presentation-schedule",
+    "title": "1  Introduction",
+    "section": "1.7 Final Project Presentation Schedule",
+    "text": "1.7 Final Project Presentation Schedule\nWe use the same order as the topic presentation for undergraduate final presentation.\n\n\n\nDate\nPresenter\n\n\n\n\n04/17\nHo, Garrick\n\n\n04/17\nMastrorilli, Ginamarie\n\n\n04/17\nYi, Guanghong\n\n\n04/17\nKarandikar, Shivaram\n\n\n04/19\nJones, Courtney\n\n\n04/19\nSullivan, Colin\n\n\n04/19\nBedard, Kaitlyn\n\n\n04/19\nNhan, Nathan\n\n\n04/24\nParchekani, Kian\n\n\n04/24\nNoel, Luke\n\n\n04/24\nWhitney, William\n\n\n04/24\nNguyen, Christine\n\n\n04/26\nCummins, Patrick\n\n\n04/26\nZheng, Michael\n\n\n04/26\nLunetta, Giovanni\n\n\n\nI encourage you to work on NYC open data or other open data for your projects and submit an abstract to the Government Advances in Statistical Programming (GASP) 2023 conference, June 14-15, 2023. The deadline for abstract submission is April 1."
   },
   {
     "objectID": "intro.html#contribute-to-the-class-notes",
     "href": "intro.html#contribute-to-the-class-notes",
     "title": "1  Introduction",
-    "section": "1.7 Contribute to the Class Notes",
-    "text": "1.7 Contribute to the Class Notes\n\nStart a new branch and switch to the new branch.\nOn the new branch, add a qmd file for your presentation\nEdit _quarto.yml add a line for your qmd file to include it in the notes.\nWork on your qmd file, test with quarto render.\nWhen satisfied, commit and make a pull request.\n\nI have added a template file mysection.qmd and a new line to _quarto.yml as an example.\nFor more detailed style guidance, please see my notes on statistical wrirting."
+    "section": "1.8 Contribute to the Class Notes",
+    "text": "1.8 Contribute to the Class Notes\n\nStart a new branch and switch to the new branch.\nOn the new branch, add a qmd file for your presentation\nEdit _quarto.yml add a line for your qmd file to include it in the notes.\nWork on your qmd file, test with quarto render.\nWhen satisfied, commit and make a pull request.\n\nI have added a template file mysection.qmd and a new line to _quarto.yml as an example.\nFor more detailed style guidance, please see my notes on statistical wrirting."
   },
   {
     "objectID": "intro.html#homework-requirements",
     "href": "intro.html#homework-requirements",
     "title": "1  Introduction",
-    "section": "1.8 Homework Requirements",
-    "text": "1.8 Homework Requirements\n\nUse the repo from Git Classroom to submit your work. See Chapter 2.\n\nKeep the repo clean (no tracking generated files).\nNever “Upload” your files; use the git command lines.\nMake commit message informative (think about the readers).\n\nUse quarto source only. See Chapter 3.\nFor the conveinence of greading, add your html output to a release in your repo."
+    "section": "1.9 Homework Requirements",
+    "text": "1.9 Homework Requirements\n\nUse the repo from Git Classroom to submit your work. See Chapter 2.\n\nKeep the repo clean (no tracking generated files).\nNever “Upload” your files; use the git command lines.\nMake commit message informative (think about the readers).\n\nUse quarto source only. See Chapter 3.\nFor the conveinence of greading, add your html output to a release in your repo."
   },
   {
     "objectID": "intro.html#my-presentation-topic-template",
     "href": "intro.html#my-presentation-topic-template",
     "title": "1  Introduction",
-    "section": "1.9 My Presentation Topic (Template)",
-    "text": "1.9 My Presentation Topic (Template)\n\n1.9.1 Introduction\nPut an overview here. Use Markdown syntax.\n\n\n1.9.2 Sub Topic 1\nPut materials on topic 1 here\nPython examples can be put into python code chunks:\n\nimport pandas as pd\n\n# do something\n\n\n\n1.9.3 Sub Topic 2\nPut materials on topic 2 here.\n\n\n1.9.4 Conclusion\nPut sumaries here."
+    "section": "1.10 My Presentation Topic (Template)",
+    "text": "1.10 My Presentation Topic (Template)\n\n1.10.1 Introduction\nPut an overview here. Use Markdown syntax.\n\n\n1.10.2 Sub Topic 1\nPut materials on topic 1 here\nPython examples can be put into python code chunks:\n\nimport pandas as pd\n\n# do something\n\n\n\n1.10.3 Sub Topic 2\nPut materials on topic 2 here.\n\n\n1.10.4 Conclusion\nPut sumaries here."
   },
   {
     "objectID": "intro.html#practical-tips",
     "href": "intro.html#practical-tips",
     "title": "1  Introduction",
-    "section": "1.10 Practical Tips",
-    "text": "1.10 Practical Tips\n\n1.10.1 Data analysis\n\nUse an IDE so you can play with the data interactively\nCollect codes that have tested out into a script for batch processing\nDuring data cleaning, keep in mind how each variable will be used later\nNo keeping large data files in a repo; assume a reasonable location with your collaborators\n\n\n\n1.10.2 Presentation\n\nDon’t forget to introduce yourself if there is no moderator\nHighlight your research questions and results, not code\nGive an outline, carry it out, and summarize"
+    "section": "1.11 Practical Tips",
+    "text": "1.11 Practical Tips\n\n1.11.1 Data analysis\n\nUse an IDE so you can play with the data interactively\nCollect codes that have tested out into a script for batch processing\nDuring data cleaning, keep in mind how each variable will be used later\nNo keeping large data files in a repo; assume a reasonable location with your collaborators\n\n\n\n1.11.2 Presentation\n\nDon’t forget to introduce yourself if there is no moderator\nHighlight your research questions and results, not code\nGive an outline, carry it out, and summarize"
   },
   {
     "objectID": "git.html#set-up",
