@@ -4,28 +4,43 @@
 
 ### Introduction
 
-Before we talk about Bagging and Boosting we first must talk about ensemble learning. Ensemble learning is a technique used in machine-learning where we have multiple models (often times called "weak learners") that are trained to solve the same problem and then combined to obtain better results that they could individually. With this, we can obtain more accurate and more robust models for our data using this technique. 
+Before we talk about Bagging and Boosting we first must talk about ensemble
+learning. Ensemble learning is a technique used in machine-learning where we
+have multiple models (often times called "weak learners") that are trained to
+solve the same problem and then combined to obtain better results that they
+could individually. With this, we can obtain more accurate and more robust
+models for our data using this technique. 
 
-Bagging and boosting are two types of ensemble learning techniques. They decrease the variance of a single estimate as they combine multiple estimates from different models to create a model with higher stability. Additionally, ensemble learning techniques increase the stability of the final model by reducing faactors of error in our models such as unnecessary noise, bias, and variance that we might find hurts the accuracy of our model. Specifically:
+
+Bagging and boosting are two types of ensemble learning techniques. They
+decrease the variance of a single estimate as they combine multiple estimates
+from different models to create a model with higher stability. Additionally,
+ensemble learning techniques increase the stability of the final model by
+reducing faactors of error in our models such as unnecessary noise, bias, and
+variance that we might find hurts the accuracy of our model. Specifically:
+
 
 * Bagging helps decrease the model’s variance and prevent over-fitting.
-
 * Boosting helps decrease the model’s bias.
 
 
-## Bagging
+### Bagging
 
-### How it Works:
 
-Bagging also known as Bootrap Aggregation is a ensemble learning algorithm designed to improve the stability and accuracy of algorithms used in statistical classification and regression. In Bagging, multiple homogenous algorithms are trained independently and combined afterward to determine the model’s average. It works like this: 
+Bagging, which stands for bootrap aggregation, is a ensemble learning algorithm
+designed to improve the stability and accuracy of algorithms used in statistical
+classification and regression. In Bagging, multiple homogenous algorithms are
+trained independently and combined afterward to determine the model’s
+average. It works like this: 
 
-* From the original dataset, multiple subsets are created, selecting observations with replacement.
 
+* From the original dataset, multiple subsets are created, selecting
+  observations with replacement.
 * On each of these subsets, a base learner (weak learner) is created for each
-
 * Next, all the independent models are run in parallel with one another
-
-* The final predictions are determined by combining the predictions from all the models.
+* The final predictions are determined by combining the predictions from all the
+  models.
+  
 
 
 ![Visualization on how the bagging algorithm works](images/Bagging.png)
@@ -33,20 +48,23 @@ Bagging also known as Bootrap Aggregation is a ensemble learning algorithm desig
 
 The benefits of using bagging algorithms are that 
 * Bagging algorithms reduce bias and variance errors.
-* Bagging algorithms can handle overfitting (when a model works with a training dataset but fails with the actual testing dataset).
+* Bagging algorithms can handle overfitting (when a model works with a training
+  dataset but fails with the actual testing dataset).
 * Bagging can easily be implemented and produce more robust models.
 
 
-### Implementation:
+#### Illustration
 
-First we must load the dataset. For this topic I will be generating a madeup dataset shown below. It is recommended to make sure the dataset has no missing values as datasets with missing values leads to inconsistent results and poor model performance.
+First we must load the dataset. For this topic I will be generating a madeup
+dataset shown below. It is recommended to make sure the dataset has no missing
+values as datasets with missing values leads to inconsistent results and poor
+model performance.
+
 
 ```{python}
 import pandas as pd
 import numpy as np
 import random
-
-
 
 length = 1000
 random.seed(0)
@@ -77,18 +95,22 @@ df
 ```
 
 
-Next, we need to specify the x and y variables where the x-variable will hold all the input columns containing numbers and y-variable will contain the output column
-
+Next, we need to specify the x and y variables where the x-variable will hold
+all the input columns containing numbers and y-variable will contain the output
+column.
 
 ```{python}
 X = df.drop(["Healthy?"], axis="columns")
 y = df['Healthy?']
 
 print(X)
-
 ```
 
-Next we must scale our data. Dataset scaling is transforming the dataset to fit within a specific range. This ensures that no data point is left out during model training. In the example giving we will use the `StandardScaler` method to scale our dataset.
+Next we must scale our data. Dataset scaling is transforming the dataset to fit
+within a specific range. This ensures that no data point is left out during
+model training. In the example giving we will use the `StandardScaler` method to
+scale our dataset.
+
 
 ```{python}
 from sklearn.preprocessing import StandardScaler
@@ -100,7 +122,12 @@ print(X)
 print(X_scaled)
 ```
 
-After scaling the dataset, we can split it. We will split the scaled dataset into two subsets: training and testing. To split the dataset, we will use the train_test_split method. We will be using the default splitting ratio for the `train_test_split` method which means that 80% of the data will be the training set and 20% the testing set.
+After scaling the dataset, we can split it. We will split the scaled dataset
+into two subsets: training and testing. To split the dataset, we will use the
+train_test_split method. We will be using the default splitting ratio for the
+`train_test_split` method which means that 80% of the data will be the training
+set and 20% the testing set.
+
 
 ```{python}
 from sklearn.model_selection import train_test_split
@@ -108,19 +135,25 @@ from sklearn.model_selection import train_test_split
 X_train, X_test, y_train, y_test = train_test_split(X_scaled, y, stratify=y, random_state=0)
 ```
 
-Now that we have split our data, we can now perform our classification. The `BaggingClassifier` classifier will perform all the bagging steps and build an optimized model based on our data. The `BaggingClassifier` will fit the weak/base learners on the randomly sampled subsets. The listed parameters are as follows: 
+Now that we have split our data, we can now perform our classification. The
+`BaggingClassifier` classifier will perform all the bagging steps and build an
+optimized model based on our data. The `BaggingClassifier` will fit the
+weak/base learners on the randomly sampled subsets. The listed parameters are as
+follows: 
 
-* `estimator` - this parameter takes the algoithm we want to use, in this example we use the `DecisionTreeClassifier` for our weak learners.
-
-* `n_estimators` - this parameter takes the amount of weak learners we want to use.
-
-* `max_samples` - this parameter represents The maximum number of data that is sampled from the training set. We use 80% of the training dataset for resampling.
-
-* `bootstrap` - this parameter allows for resampling of the training dataset without replacement when set to `True`.
-
-* `oob_score` - this parameter is used to compute the model’s accuracy score after training.
-
-* `random_state` - Seed used by the random number generator so we can reproduce out results
+* `estimator` - this parameter takes the algoithm we want to use, in this
+  example we use the `DecisionTreeClassifier` for our weak learners.
+* `n_estimators` - this parameter takes the amount of weak learners we want to
+  use.
+* `max_samples` - this parameter represents The maximum number of data that is
+  sampled from the training set. We use 80% of the training dataset for
+  resampling.
+* `bootstrap` - this parameter allows for resampling of the training dataset
+  without replacement when set to `True`.
+* `oob_score` - this parameter is used to compute the model’s accuracy score
+  after training.
+* `random_state` - Seed used by the random number generator so we can reproduce
+  out results
 
 
 ```{python}
@@ -137,11 +170,11 @@ random_state = 0
 
 bag_model.fit(X_train, y_train)
 AccScore = bag_model.oob_score_
-print("Accuracy Score for Bagging Classifier: "+ str(AccScore))
-
+print("Accuracy Score for Bagging Classifier: " + str(AccScore))
 ```
 
-We can find if overfitting occurs when we get a lower accuracy when using the testing dataset. We can find this by running the following code: 
+We can find if overfitting occurs when we get a lower accuracy when using the
+testing dataset. We can find this by running the following code: 
 
 ```{python}
 if bag_model.score(X_test, y_test) < AccScore:
@@ -149,7 +182,6 @@ if bag_model.score(X_test, y_test) < AccScore:
 else:
     print("No overfitting has occurred")
 ```
-
 
 Comparing this to the non-bagging algorithm like K-fold cross-validation: 
 
@@ -160,9 +192,12 @@ scores = cross_val_score(DecisionTreeClassifier(), X, y, cv=5)
 print("Accuracy Score for Bagging Classifier: " + str(scores.mean())) 
 ```
 
-### Example: Random Forest Classifier
+#### Example: Random Forest Classifier
 
-The Random Forest Classifier algorithm is a typical example of a bagging algorithm. Random Forests uses bagging underneath to sample the dataset with replacement randomly. Random Forests samples not only data rows but also columns. It also follows the bagging steps to produce an aggregated final model.
+The Random Forest Classifier algorithm is a typical example of a bagging
+algorithm. Random Forests uses bagging underneath to sample the dataset with
+replacement randomly. Random Forests samples not only data rows but also
+columns. It also follows the bagging steps to produce an aggregated final model.
 
 ```{python}
 from sklearn.ensemble import RandomForestClassifier
@@ -179,41 +214,57 @@ clf = clf.fit(X, y)
 print("Accuracy Score for Random Forest Regression Algoritm Classifier: " + str(clf.oob_score_)) 
 ```
 
-## Boosting
+### Boosting
 
-### How it Works:
+The Boosting algorithm is a type of ensemble learning algorithm that works by
+training weak models sequentially. First, a model is built from the training
+data. Then an additional model is built which tries to correct the errors
+present in the first model. When an input is misclassified by a model, its
+weight is increased so that next model is more likely to classify it
+correctly. This procedure is continued and models are added until either the
+complete training data set is predicted correctly or the maximum number of n
+models are added. 
 
-The Boosting algorithm is a type of ensemble learning algorithm that works by training weak models sequentially. First, a model is built from the training data. Then an additional model is built which tries to correct the errors present in the first model. When an input is misclassified by a model, its weight is increased so that next model is more likely to classify it correctly. This procedure is continued and models are added until either the complete training data set is predicted correctly or the maximum number of n models are added. 
 
 It works step-by-step like this: 
 
-* A subset is created from the original dataset, where initially all the data points are given equal weights.
+* A subset is created from the original dataset, where initially all the data
+  points are given equal weights.
+* A base model is created on this subset which is used to make predictions on
+  the whole dataset.
+* Errors are calculated by comparing the actual values vs. the predicted
+  values. The observations that are incorrectly predicted, are given higher
+  weights. 
+* An additional model is created and predictions are made on the dataset, trying
+  to correct the errors of the previous model
+* The cycle will repeat until the maximum number of n models are added.
+* The final model (strong model) is the weighted mean of all the models (weak
+  model).
 
-* A base model is created on this subset which is used to make predictions on the whole dataset.
-
-* Errors are calculated by comparing the actual values vs. the predicted values. The observations that are incorrectly predicted, are given higher weights. 
-
-* An additional model is created and predictions are made on the dataset, trying to correct the errors of the previous model
-
-* The cycle will repeat until the maximum number of n models are added
-
-* The final model (strong model) is the weighted mean of all the models (weak model)
 
 ![Visualization on how the boosting algorithm works](images/Boosting.png)
 
 
-### Example: AdaBoost
-The AdaBoost algorithm, which is short for "Adaptive Boosting," was one of the first boosting methods that saw an increase in accuracy and speed performance of models. AdaBoost focuses on enhnacement in performance in areas where the first iteration of the model fails.
+#### Example: AdaBoost
+The AdaBoost algorithm, which is short for "Adaptive Boosting," was one of the
+first boosting methods that saw an increase in accuracy and speed performance of
+models. AdaBoost focuses on enhnacement in performance in areas where the first
+iteration of the model fails.
+
 
 We can see an implmentation of this algorithm below:
 
 The `AdaBoostClassifier` method has some of the following parameters:
 
-* `estimator` - this parameter takes the algoithm we want to use, in this example we use the `DecisionTreeClassifier` for our weak learners.
-* `n_estimators` - this parameter takes the amount of weak learners we want to use.
-* `learning_rate` - this parameter learning rate reduces the contribution of the classifier by this value. It has a default value of 1.
-
-* `random_state` - Seed used by the random number generator so we can reproduce out results
+* `estimator` - this parameter takes the algoithm we want to use, in this
+  example we use the `DecisionTreeClassifier` for our weak learners.
+* `n_estimators` - this parameter takes the amount of weak learners we want to
+  use.
+* `learning_rate` - this parameter learning rate reduces the contribution of the
+  classifier by this value. It has a default value of 1.
+* `random_state` - Seed used by the random number generator so we can reproduce
+  out results.
+  
 
 ```{python}
 from sklearn.ensemble import AdaBoostClassifier
@@ -230,19 +281,31 @@ score = adaboost.score(X_test, y_test)
 print("Accuracy Score for Adaboost Classifier: " + str(score)) 
 ```
 
-### Example: XGBoost
+#### Example: XGBoost
 
-`XGBoost` is widely considered as one of the most important boosting methods for its advantages over other boosting algorithms.
+`XGBoost` is widely considered as one of the most important boosting methods for
+its advantages over other boosting algorithms.
 
-Other boosting algorithms typically use gradiant descent to find the minima of the 'n' features mapped in 'n' dimensional space. However, `XGBoost` instead uses the a mathematical technique called the Newton-Raphson method which uses the second derivative of the function which provides curvature information in contract to algorithms using gradiant descent which only use the first derivative.
 
-`XGBoost` has its own python library called `xgboost` just to itself for which we wrote the example code below.
+Other boosting algorithms typically use gradiant descent to find the minima of
+the `n` features mapped in `n` dimensional space. However, `XGBoost` instead
+uses the a mathematical technique called the Newton--Raphson method which uses
+the second derivative of the function which provides curvature information in
+contract to algorithms using gradiant descent which only use the first
+derivative.
+
+
+`XGBoost` has its own python library called `xgboost` just to itself for which
+we wrote the example code below.
+
 
 The `XGBClassifer` contains some of the following parameters:
 
-* `learning_rate` - this parameter takes the amount of weak learners we want to use.
+* `learning_rate` - this parameter takes the amount of weak learners we want to
+  use.
 * `random_state` - Random number seed.
-* `importance_type` - The feature to focus on; either gain, weight, cover, total_gain or total_cover.
+* `importance_type` - The feature to focus on; either gain, weight, cover,
+  total_gain or total_cover.
 
 
 ```{python}
@@ -259,17 +322,26 @@ print("Accuracy Score for XGBoost Classifier: " + str(score_xgb))
 ```
 
 
-## Bagging vs. Boosting
+### Comparison
 
 Now with all that being said, which should you use? Bagging or Boosting?
 
-Both Bagging and Boosting combine several estimates from different models so both will turn out a model with higher stability. 
 
-If you find that the problem when using a single model gets a high error, bagging will rarely be better but on the other hand boosting will generate a combined model with fewer errors.
+Both Bagging and Boosting combine several estimates from different models so
+both will turn out a model with higher stability. 
 
-Conversely, if your single model is over-fitting then typically bagging is the best option and boosting will not help for over-fitting. Therefore, bagging iw what you want.
 
-### Similarites 
+If you find that the problem when using a single model gets a high error,
+bagging will rarely be better but on the other hand boosting will generate a
+combined model with lower errors.
+
+
+Conversely, if your single model is over-fitting then typically bagging is the
+best option and boosting will not help for over-fitting. Therefore, bagging iw
+what you want.
+
+
+#### Similarites 
 
 Below is a set of similarites between Bagging and Boosting:
 
@@ -281,32 +353,34 @@ Below is a set of similarites between Bagging and Boosting:
 
 * Both reduce variance and provide higher data stability than one individual model would.
 
-### Differences:
+#### Differences:
 
 Below is a set of differences between Bagging and Boosting:
 
-* Bagging combines predictions belonging to the same type while boosting is a way of combining predictions that belong to different types
-
-* Bagging decreases variance while boosting decreases bias. If the classifier is unstable (high variance), then we using Bagging. If the classifier is stable and simple (high bias), then we should use Boosting.
-
-* Bagging each model receives equal weight where in Boosting each model is weighted based on their performance.
-
-* Bagging has models run in parallel, independent of one another while Boosting has them run sequentially so each model is dependent on the previous
-
-* In Bagging different training data subsets are randomly generated with replacement segemnts of the original training dataset. In Boosting each new subsets contains the elements that were misclassified by previous models.
-
+* Bagging combines predictions belonging to the same type while boosting is a
+  way of combining predictions that belong to different types
+* Bagging decreases variance while boosting decreases bias. If the classifier is
+  unstable (high variance), then we using Bagging. If the classifier is stable
+  and simple (high bias), then we should use Boosting.
+* Bagging each model receives equal weight where in Boosting each model is
+  weighted based on their performance.
+* Bagging has models run in parallel, independent of one another while Boosting
+  has them run sequentially so each model is dependent on the previous
+* In Bagging different training data subsets are randomly generated with
+  replacement segemnts of the original training dataset. In Boosting each new
+  subsets contains the elements that were misclassified by previous models.
 * Bagging attempts to solve over-fitting problem while Boosting does not.
 
 
-### Conclusion: 
+#### Conclusion: 
 
-* We have explained what an ensemble method is and how Bagging and Boosting algorithms function
-
-* We have demonstrated the differences and similaries between the two ensemble methods: Bagging and Boosting
-
+* We have explained what an ensemble method is and how Bagging and Boosting
+  algorithms function.
+* We have demonstrated the differences and similaries between the two ensemble
+  methods: Bagging and Boosting.
 * We showed how to implement both Bagging and Boosting algorithms into Python
 
-### References:
+### References
 
 [Kaggle: Bagging vs. Boosting](https://www.kaggle.com/code/prashant111/bagging-vs-boostingaggingClassifier)
 

@@ -213,7 +213,6 @@ Here are some example tasks:
 
 
 Please use the following table to sign up.
-  <!-- W  |  'Yeung, Shannon', -->
 
    Date  | Presenter              | Topic
   ------ | ---------------------- | ------
@@ -230,11 +229,41 @@ Please use the following table to sign up.
   03/06  | Nhan, Nathan           | Bagging vs boosting
   03/08  | Parchekani, Kian       | Naive Bayes
   03/20  | Noel, Luke             | Plotting on maps with `gmplot`
-  03/20  | Whitney, William       |
+  03/20  | Whitney, William       | 
   03/22  | Nguyen, Christine      | Calling R from Python and vice versa
   03/27  | Cummins, Patrick       |
   03/29  | Zheng, Michael         | Web Scraping with `Selenium`
   04/03  | Lunetta, Giovanni      | Softmax Regression & Neural Networks with `TensorFlow`
+
+## Final Project Presentation Schedule
+
+We use the same order as the topic presentation for undergraduate final presentation.
+
+   Date  | Presenter
+  ------ | ---------------------- 
+  04/17  | Ho, Garrick
+  04/17  | Mastrorilli, Ginamarie
+  04/17  | Yi, Guanghong
+  04/17  | Karandikar, Shivaram
+  04/19  | Jones, Courtney
+  04/19  | Sullivan, Colin
+  04/19  | Bedard, Kaitlyn
+  04/19  | Nhan, Nathan
+  04/24  | Parchekani, Kian
+  04/24  | Noel, Luke
+  04/24  | Whitney, William
+  04/24  | Nguyen, Christine
+  04/26  | Cummins, Patrick
+  04/26  | Zheng, Michael
+  04/26  | Lunetta, Giovanni
+
+I encourage you to work on NYC open data or other open data for your projects and
+submit an abstract to the [Government Advances in Statistical Programming (GASP) 2023](https://www.fcsm.gov/assets/files/docs/GASP%202023%20Call%20for%20Abstracts%20FINAL.pdf) conference, 
+June 14-15, 2023. The deadline for abstract submission is April 1.
+
+
+
+
 
 ## Contribute to the Class Notes
 

@@ -107,3 +107,6 @@ classification results.
 
 {{< include _rf.qmd >}}
 
+<!-- ## bagging versus boosting -->
+
+{{< include _baggingboosting.qmd >}}
