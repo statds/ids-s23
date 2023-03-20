@@ -1,24 +1,15 @@
----
-title: "Handling Spatial Data with `GeoPandas`"
-author: "Kaitlyn Bedard"
-format:
-  html:
-    code-fold: true
-    embed-resources: true
-execute:
-  warning: false
-  error: false
-kernel : python3.9.6
----
+## "Handling Spatial Data with `GeoPandas`"
 
-## Introduction
-GeoPandas is a python library created as an extension of pandas to offer support for geographic data. 
+**Kaitlyn Bedard**
+
+
+`GeoPandas` is a python library created as an extension of pandas to offer support for geographic data. 
 Like pandas, GeoPandas has a series type and a dataframe type: `GeoSeries` and `GeoDataFrame`. It 
 allows users to do work that would otherwise need a GIS database. Note that since GeoPandas is an 
 extension of Pandas, it inherits all its attributes and methods. Please review the pandas presentations 
 for information on these tools, if needed. 
 
-## Installation
+### Installation
 You can install GeoPandas using the below commands in terminal. The documentation recommends the first method.
 
 `conda install -c conda-forge geopandas`
@@ -27,7 +18,7 @@ You can install GeoPandas using the below commands in terminal. The documentatio
 
 `pip install geopandas`
 
-## Basic Concepts
+### Basic Concepts
 The GeoPandas `GeoDataFrame` is essentially a pandas dataframe that supports typical data, however, 
 it also supports geometries. Though the dataframe can have multiple geometry columns, there is one 
 "active" column on which all operations are applied to. 
@@ -35,9 +26,7 @@ it also supports geometries. Though the dataframe can have multiple geometry col
 The types of geometries are:
 
 * Points: coordinates
-
 * Lines: set of two coordinates
-
 * Polygons: list of coordinate tuples, first and last must be the same (closed shape)
 
 These geometries are often represented by `shapely.geometry` objects. Note, we can also have multi-points, 
@@ -120,7 +109,7 @@ gdf3.contains(gdf1)
 gdf2.intersects(gdf3)
 ```
 
-## Reading Files
+### Reading Files
 If you have a file that contains data and geometry information, you can read it directly 
 with geopandas using the `geopandas.read_file()` command. Examples of these files are GeoPackage, 
 GeoJSON, Shapefile. However, we can convert other types of files to a GeoDataFrame. For example, 
@@ -155,7 +144,7 @@ jan23_gdf = gpd.GeoDataFrame(jan23.loc[~pd.isna(\
 jan23_gdf.head()
 ```
 
-## Plotting
+### Plotting
 We can easily plot our data now that has been transformed to a geometric data frame. 
 ```{python}
 # Basic Plot
@@ -171,8 +160,8 @@ jan23_gdf.plot(column = 'NUMBER OF PERSONS INJURED',legend=True, \
 jan23_gdf.plot(column='BOROUGH', missing_kwds={'color': 'lightgrey'})
 ```
 
-## Interactive Maps
-We can also easily create an interactive plot, using `.explore()`.
+### Interactive Maps
+We can also easily create an interactive plot, using the `.explore()` method.
 ```{python}
 # interactive map of just the latitude and longitude points
 jan23_gdf.explore()
@@ -191,7 +180,7 @@ jan23_gdf_edit.explore(column='NUMBER OF PERSONS KILLED', \
                         style_kwds={'radius': 7})
 ```
 
-# Setting and Changing Projections
+### Setting and Changing Projections
 Earlier, we showed how to set a CRS using `crs = {'init': 'epsg:4326'}`. However, 
 the CRS can also be set using the `.set_crs` function on GeoDataFrame that does not 
 yet have a defined CRS. Going back to our first example, `gdf1`, we can set the CRS 
@@ -212,7 +201,7 @@ We can also change the CRS of a geometry using the `.to_crs()` function. Some op
 
 Note that 4326 is the most common.
 
-## Merging Data and Demonstrations
+### Merging Data and Demonstrations
 The below code imports the NYC borough and zip code level spatial data.
 ```{python}
 import geopandas as gpd
@@ -289,7 +278,7 @@ zipcodes_with_crash_count = zipcodes.merge(crash_count_by_zipcode, on='ZIPCODE')
 zipcodes_with_crash_count.plot(column='CRASH DATE', cmap='OrRd', legend=True)
 ```
 
-## Resources
+### Resources
 
 For more information see the following: 
 
