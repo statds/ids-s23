@@ -90,7 +90,7 @@ Optional Parameters:
 
 ```{python}
 # Creating a map centered around the UConn campus
-gmap = gmplot.GoogleMapPlotter.from_geocode('UConn', 16, apikey=apikey)
+gmap = gmplot.GoogleMapPlotter.from_geocode('UConn, Storrs', 16, apikey=apikey)
 gmap.draw('map3.html')
 ```
 ![map3.png](images/map3.png)
@@ -100,7 +100,7 @@ gmap.draw('map3.html')
 If you want to know the latitude and longitude coordinates of a certain location you can use the `.geocode()` function attached to `GoogleMapPlotter`. Input a string of said location inside the parenthesis. **THIS REQUIRES AN API KEY**
 ```{python}
 # Printing the coordinates of some locations at UConn
-uconn = gmplot.GoogleMapPlotter.geocode('UConn', apikey=apikey)
+uconn = gmplot.GoogleMapPlotter.geocode('UConn, Storrs', apikey=apikey)
 garrigus = gmplot.GoogleMapPlotter.geocode('Garrigus Suites, Storrs', apikey=apikey)
 gentry = gmplot.GoogleMapPlotter.geocode('Gentry Building, Storrs', apikey=apikey)
 
