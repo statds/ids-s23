@@ -217,11 +217,11 @@ Please use the following table to sign up.
 
    Date  | Presenter              | Topic
   ------ | ---------------------- | ------
-  02/06  | Cheu, Catherine        | Introduction to matplotlib in Python
+  02/06  | Cheu, Catherine        | Visualization with `matplotlib`
   02/08  | Ho, Garrick            | Pandas part 1
   02/13  | Mastrorilli, Ginamarie | Pandas part 2
   02/13  | Yi, Guanghong          | Grammer of graphics for python `plotnine`
-  02/15  | Karandikar, Shivaram   | Text processing with NLTK
+  02/15  | Karandikar, Shivaram   | Text processing with `nltk`
   02/20  | Chua, Yang Kang        | Support Vector Machine with `scikit-learn`
   02/20  | Jones, Courtney        | Descriptive Statistics
   02/22  | Sullivan, Colin        | Statistical hypothesis tests scypy.stats
@@ -229,14 +229,13 @@ Please use the following table to sign up.
   02/27  | Alsubai, Nadia         | Web Scraping with Beautiful Soup
   03/01  | Bedard, Kaitlyn        | Handling spatial data with `geopandas`
   03/06  | Nhan, Nathan           | Bagging vs boosting
-  03/08  | Parchekani, Kian       |
+  03/08  | Parchekani, Kian       | Naive Bayes
   03/20  | Noel, Luke             | Plotting on maps with `gmplot`
   03/20  | Whitney, William       |
-  03/22  | Wang, Chaoyang         |
-  03/27  | Nguyen, Christine      | Calling R from Python and vice versa
+  03/22  | Nguyen, Christine      | Calling R from Python and vice versa
   03/27  | Cummins, Patrick       |
-  03/29  | Zheng, Michael         |
-  04/03  | Lunetta, Giovanni      | Intro to Softmax Regression & Neural Networks with `TensorFlow`
+  03/29  | Zheng, Michael         | Web Scraping with Selenium
+  04/03  | Lunetta, Giovanni      | Softmax Regression & Neural Networks with `TensorFlow`
 
 ## Contribute to the Class Notes
 
@@ -267,3 +266,17 @@ For more detailed style guidance, please see my notes on [statistical wrirting](
 {{< include _mysection.qmd >}}
 
 
+## Practical Tips
+
+### Data analysis
+
++ Use an IDE so you can play with the data interactively
++ Collect codes that have tested out into a script for batch processing
++ During data cleaning, keep in mind how each variable will be used later
++ No keeping large data files in a repo; assume a reasonable location with your collaborators
+
+### Presentation
+
++ Don't forget to introduce yourself if there is no moderator
++ Highlight your research questions and results, not code
++ Give an outline, carry it out, and summarize

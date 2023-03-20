@@ -112,13 +112,16 @@
        `Created Date`?); summarize your suggestions to the data curator in
        several bullet points.
     1. Remove requests that are not made to NYPD and create a new variable
-       `duration`, which represents the time period from the `Crated Date` to
+       `duration`, which represents the time period from the `Created Date` to
        `Closed Date`. Note that `duration` may be censored for some
        requests. Visualize the distribution of uncensored `duration` by
-       weekdays/weekend and by borough, and test whether the distributions are
-       the same across weekdays/weekends and across borough.
-    1. Build a model to predict the `duration` for 311 requests to get
-       closed. If your model has tuning parameters, justify their choices. Apply
+       weekdays/weekend and by borough, and test whether the distributions
+       are the same across weekdays/weekends of their creation
+	   and across boroughs.
+    1. Define a binary variable `over3h` which is 1 if `duration` is greater
+       than 3 hours. Note that it can be obtained even for censored `duration`.
+	   Build a model to predict `over3h`.
+	   If your model has tuning parameters, justify their choices. Apply
        this model to the 311 requests of NYPD in the week of 01/22/2023. Assess
        the performance of your model.
     1. Now you know the data quite well. Come up with a research question of

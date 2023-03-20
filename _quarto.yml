@@ -14,6 +14,7 @@ book:
     - python.qmd
     - pandas.qmd
     - geopandas.qmd
+    - descr.qmd
     - stats.qmd
     - visual.qmd
     - supervised.qmd
