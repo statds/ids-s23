@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Introduction to Data Science - 8&nbsp; Visualization</title>
+<title>Introduction to Data Science - 9&nbsp; Visualization</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -136,7 +136,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
     <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Visualization</span></h1>
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Visualization</span></h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -191,37 +191,42 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./descr.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Descriptive Statistics</span></a>
+  <a href="./geo.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Geospatial Data</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./stats.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Statistical Tests and Models</span></a>
+  <a href="./descr.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Descriptive Statistics</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./visual.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Visualization</span></a>
+  <a href="./stats.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Statistical Tests and Models</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./supervised.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Supervised Learning</span></a>
+  <a href="./visual.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Visualization</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./advanced.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Advanced Topics</span></a>
+  <a href="./supervised.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Supervised Learning</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./nycrash.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">NYC Crash Data</span></a>
+  <a href="./advanced.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Advanced Topics</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./exercises.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Exercises</span></a>
+  <a href="./nycrash.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">NYC Crash Data</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./exercises.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Exercises</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -238,19 +243,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#matplotlib" id="toc-matplotlib" class="nav-link active" data-scroll-target="#matplotlib"><span class="toc-section-number">8.1</span>  Matplotlib</a>
+  <li><a href="#matplotlib" id="toc-matplotlib" class="nav-link active" data-scroll-target="#matplotlib"><span class="toc-section-number">9.1</span>  Matplotlib</a>
   <ul class="collapse">
-  <li><a href="#usage" id="toc-usage" class="nav-link" data-scroll-target="#usage"><span class="toc-section-number">8.1.1</span>  Usage</a></li>
-  <li><a href="#animation-to-be-completed" id="toc-animation-to-be-completed" class="nav-link" data-scroll-target="#animation-to-be-completed"><span class="toc-section-number">8.1.2</span>  Animation (to be completed)</a></li>
-  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion"><span class="toc-section-number">8.1.3</span>  Conclusion</a></li>
+  <li><a href="#usage" id="toc-usage" class="nav-link" data-scroll-target="#usage"><span class="toc-section-number">9.1.1</span>  Usage</a></li>
+  <li><a href="#animation-to-be-completed" id="toc-animation-to-be-completed" class="nav-link" data-scroll-target="#animation-to-be-completed"><span class="toc-section-number">9.1.2</span>  Animation (to be completed)</a></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion"><span class="toc-section-number">9.1.3</span>  Conclusion</a></li>
   </ul></li>
-  <li><a href="#gg-plot-with-plotnine" id="toc-gg-plot-with-plotnine" class="nav-link" data-scroll-target="#gg-plot-with-plotnine"><span class="toc-section-number">8.2</span>  GG-Plot with Plotnine</a>
+  <li><a href="#gg-plot-with-plotnine" id="toc-gg-plot-with-plotnine" class="nav-link" data-scroll-target="#gg-plot-with-plotnine"><span class="toc-section-number">9.2</span>  GG-Plot with Plotnine</a>
   <ul class="collapse">
-  <li><a href="#installation" id="toc-installation" class="nav-link" data-scroll-target="#installation"><span class="toc-section-number">8.2.1</span>  Installation</a></li>
-  <li><a href="#import" id="toc-import" class="nav-link" data-scroll-target="#import"><span class="toc-section-number">8.2.2</span>  Import</a></li>
-  <li><a href="#some-fundimental-plots-via-plotnine" id="toc-some-fundimental-plots-via-plotnine" class="nav-link" data-scroll-target="#some-fundimental-plots-via-plotnine"><span class="toc-section-number">8.2.3</span>  Some fundimental plots via plotnine</a></li>
-  <li><a href="#sub-graphs" id="toc-sub-graphs" class="nav-link" data-scroll-target="#sub-graphs"><span class="toc-section-number">8.2.4</span>  Sub Graphs</a></li>
-  <li><a href="#some-useful-resources" id="toc-some-useful-resources" class="nav-link" data-scroll-target="#some-useful-resources"><span class="toc-section-number">8.2.5</span>  Some useful resources</a></li>
+  <li><a href="#installation" id="toc-installation" class="nav-link" data-scroll-target="#installation"><span class="toc-section-number">9.2.1</span>  Installation</a></li>
+  <li><a href="#import" id="toc-import" class="nav-link" data-scroll-target="#import"><span class="toc-section-number">9.2.2</span>  Import</a></li>
+  <li><a href="#some-fundimental-plots-via-plotnine" id="toc-some-fundimental-plots-via-plotnine" class="nav-link" data-scroll-target="#some-fundimental-plots-via-plotnine"><span class="toc-section-number">9.2.3</span>  Some fundimental plots via plotnine</a></li>
+  <li><a href="#sub-graphs" id="toc-sub-graphs" class="nav-link" data-scroll-target="#sub-graphs"><span class="toc-section-number">9.2.4</span>  Sub Graphs</a></li>
+  <li><a href="#some-useful-resources" id="toc-some-useful-resources" class="nav-link" data-scroll-target="#some-useful-resources"><span class="toc-section-number">9.2.5</span>  Some useful resources</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -260,7 +265,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Visualization</span></h1>
+<h1 class="title d-none d-lg-block"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Visualization</span></h1>
 </div>
 
 
@@ -275,8 +280,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </header>
 
-<section id="matplotlib" class="level2" data-number="8.1">
-<h2 data-number="8.1" class="anchored" data-anchor-id="matplotlib"><span class="header-section-number">8.1</span> Matplotlib</h2>
+<section id="matplotlib" class="level2" data-number="9.1">
+<h2 data-number="9.1" class="anchored" data-anchor-id="matplotlib"><span class="header-section-number">9.1</span> Matplotlib</h2>
 <p>The <code>matplotlib</code> library can provide methods in plotting and arranging data visually in order to help viewers understand the main concepts of the data analysis. In this chapter, a progression of graphs will be shown to demonstrate some of the capabilities the library has to graph and plot data.</p>
 <p>There are several types of graphs that can be used, such as:</p>
 <ol type="1">
@@ -288,8 +293,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># pip install matplotlib</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<section id="usage" class="level3" data-number="8.1.1">
-<h3 data-number="8.1.1" class="anchored" data-anchor-id="usage"><span class="header-section-number">8.1.1</span> Usage</h3>
+<section id="usage" class="level3" data-number="9.1.1">
+<h3 data-number="9.1.1" class="anchored" data-anchor-id="usage"><span class="header-section-number">9.1.1</span> Usage</h3>
 <p>Let’s start with a simple scatter plot. We would need to import the libraries as shown. For this example, we use the pyplot submodule, abbreviated to plt. We will use randomly generated data in 3 dimensions (x,y,z).</p>
 <div class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
@@ -344,8 +349,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </div>
 </section>
-<section id="animation-to-be-completed" class="level3" data-number="8.1.2">
-<h3 data-number="8.1.2" class="anchored" data-anchor-id="animation-to-be-completed"><span class="header-section-number">8.1.2</span> Animation (to be completed)</h3>
+<section id="animation-to-be-completed" class="level3" data-number="9.1.2">
+<h3 data-number="9.1.2" class="anchored" data-anchor-id="animation-to-be-completed"><span class="header-section-number">9.1.2</span> Animation (to be completed)</h3>
 <p>Animations can also be done through matplotlib. This requires the use of the animation submodule which has a variety functions that can be used to plot animations. Inputs required include the frames and other functions needed to update the plots per frame.</p>
 <div class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.animation <span class="im">as</span> animation</span>
@@ -355,16 +360,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <p>We can use the <code>FuncAnimation(args, updatept(), frames)</code> to update.</p>
 </section>
-<section id="conclusion" class="level3" data-number="8.1.3">
-<h3 data-number="8.1.3" class="anchored" data-anchor-id="conclusion"><span class="header-section-number">8.1.3</span> Conclusion</h3>
+<section id="conclusion" class="level3" data-number="9.1.3">
+<h3 data-number="9.1.3" class="anchored" data-anchor-id="conclusion"><span class="header-section-number">9.1.3</span> Conclusion</h3>
 <p>We have demonstrated some capabilities of the matplotlib library but more complex methods of plotting and arranging visual elements can be found in the documentation.</p>
 </section>
 </section>
-<section id="gg-plot-with-plotnine" class="level2" data-number="8.2">
-<h2 data-number="8.2" class="anchored" data-anchor-id="gg-plot-with-plotnine"><span class="header-section-number">8.2</span> GG-Plot with Plotnine</h2>
+<section id="gg-plot-with-plotnine" class="level2" data-number="9.2">
+<h2 data-number="9.2" class="anchored" data-anchor-id="gg-plot-with-plotnine"><span class="header-section-number">9.2</span> GG-Plot with Plotnine</h2>
 <p>The <code>plotnine</code> package facilitates the creation of highly-informative plots of structured data based on the R implementation of <code>ggplot2</code>. The plotnine package is built on the top of Matplotlib and interacts well with Pandas.</p>
-<section id="installation" class="level3" data-number="8.2.1">
-<h3 data-number="8.2.1" class="anchored" data-anchor-id="installation"><span class="header-section-number">8.2.1</span> Installation</h3>
+<section id="installation" class="level3" data-number="9.2.1">
+<h3 data-number="9.2.1" class="anchored" data-anchor-id="installation"><span class="header-section-number">9.2.1</span> Installation</h3>
 <p>We need to install the package from our command before we start to use it.</p>
 <p>Using <code>pip</code>:</p>
 <pre class="{bash}"><code>pip install plotnine        
@@ -372,8 +377,8 @@ pip install plotnine[all]  # For the whole package of Plotnine</code></pre>
 <p>Or using <code>conda</code>:</p>
 <pre class="{bash}"><code>conda install -c conda-forge plotnine`</code></pre>
 </section>
-<section id="import" class="level3" data-number="8.2.2">
-<h3 data-number="8.2.2" class="anchored" data-anchor-id="import"><span class="header-section-number">8.2.2</span> Import</h3>
+<section id="import" class="level3" data-number="9.2.2">
+<h3 data-number="9.2.2" class="anchored" data-anchor-id="import"><span class="header-section-number">9.2.2</span> Import</h3>
 <p>Now we can call <code>plotnine</code> in our python code</p>
 <div class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> plotnine <span class="im">as</span> p9</span>
@@ -381,8 +386,8 @@ pip install plotnine[all]  # For the whole package of Plotnine</code></pre>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> plotnine.data <span class="im">import</span> <span class="op">*</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="some-fundimental-plots-via-plotnine" class="level3" data-number="8.2.3">
-<h3 data-number="8.2.3" class="anchored" data-anchor-id="some-fundimental-plots-via-plotnine"><span class="header-section-number">8.2.3</span> Some fundimental plots via plotnine</h3>
+<section id="some-fundimental-plots-via-plotnine" class="level3" data-number="9.2.3">
+<h3 data-number="9.2.3" class="anchored" data-anchor-id="some-fundimental-plots-via-plotnine"><span class="header-section-number">9.2.3</span> Some fundimental plots via plotnine</h3>
 <p>Actually there are plenty plots that Plotnine can make, but because of the time limitation we will only introduce these four</p>
 <ul>
 <li>Bar Chart</li>
@@ -555,8 +560,8 @@ pip install plotnine[all]  # For the whole package of Plotnine</code></pre>
 </div>
 </div>
 </div>
-<section id="bar-chart" class="level4" data-number="8.2.3.1">
-<h4 data-number="8.2.3.1" class="anchored" data-anchor-id="bar-chart"><span class="header-section-number">8.2.3.1</span> Bar Chart</h4>
+<section id="bar-chart" class="level4" data-number="9.2.3.1">
+<h4 data-number="9.2.3.1" class="anchored" data-anchor-id="bar-chart"><span class="header-section-number">9.2.3.1</span> Bar Chart</h4>
 <p>geom_bar(mapping=None, data=None, stat=‘count’, position=‘stack’, na_rm=False, inherit_aes=True, show_legend=None, raster=False, width=None, **kwargs)</p>
 <p>Suppose we are curious about the types of vehicle in the crash, we can make a bar chart to illlustrate that</p>
 <div class="cell" data-execution_count="8">
@@ -598,8 +603,8 @@ pip install plotnine[all]  # For the whole package of Plotnine</code></pre>
 </div>
 </div>
 </section>
-<section id="scatter-plot" class="level4" data-number="8.2.3.2">
-<h4 data-number="8.2.3.2" class="anchored" data-anchor-id="scatter-plot"><span class="header-section-number">8.2.3.2</span> Scatter Plot</h4>
+<section id="scatter-plot" class="level4" data-number="9.2.3.2">
+<h4 data-number="9.2.3.2" class="anchored" data-anchor-id="scatter-plot"><span class="header-section-number">9.2.3.2</span> Scatter Plot</h4>
 <p>geom_point(mapping=None, data=None, stat=‘identity’, position=‘identity’, na_rm=False, inherit_aes=True, show_legend=None, raster=False, **kwargs)</p>
 <p>Suppose we are curious about the place where Crashes happend, we may do a scatter plot for the longitude and latitude</p>
 <div class="cell" data-execution_count="10">
@@ -665,8 +670,8 @@ pip install plotnine[all]  # For the whole package of Plotnine</code></pre>
 </div>
 </div>
 </section>
-<section id="histogram" class="level4" data-number="8.2.3.3">
-<h4 data-number="8.2.3.3" class="anchored" data-anchor-id="histogram"><span class="header-section-number">8.2.3.3</span> Histogram</h4>
+<section id="histogram" class="level4" data-number="9.2.3.3">
+<h4 data-number="9.2.3.3" class="anchored" data-anchor-id="histogram"><span class="header-section-number">9.2.3.3</span> Histogram</h4>
 <p>geom_histogram(mapping=None, data=None, stat=‘bin’, position=‘stack’, na_rm=False, inherit_aes=True, show_legend=None, raster=False, **kwargs)</p>
 <p>I can not find a continuous variable in the NYC Car Crach dataset, so it might be better to import other dataset to do that</p>
 <p>In here I will use a dataset plant in Python called diamonds</p>
@@ -835,8 +840,8 @@ pip install plotnine[all]  # For the whole package of Plotnine</code></pre>
 </div>
 </div>
 </section>
-<section id="boxplot" class="level4" data-number="8.2.3.4">
-<h4 data-number="8.2.3.4" class="anchored" data-anchor-id="boxplot"><span class="header-section-number">8.2.3.4</span> Boxplot</h4>
+<section id="boxplot" class="level4" data-number="9.2.3.4">
+<h4 data-number="9.2.3.4" class="anchored" data-anchor-id="boxplot"><span class="header-section-number">9.2.3.4</span> Boxplot</h4>
 <p>Back to the NYC Crash Data, suppose we want to analysis the relationship among numbers of persons injured and borough, we might build a boxplot to see that</p>
 <div class="cell" data-execution_count="17">
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>(</span>
@@ -878,8 +883,8 @@ pip install plotnine[all]  # For the whole package of Plotnine</code></pre>
 </div>
 </section>
 </section>
-<section id="sub-graphs" class="level3" data-number="8.2.4">
-<h3 data-number="8.2.4" class="anchored" data-anchor-id="sub-graphs"><span class="header-section-number">8.2.4</span> Sub Graphs</h3>
+<section id="sub-graphs" class="level3" data-number="9.2.4">
+<h3 data-number="9.2.4" class="anchored" data-anchor-id="sub-graphs"><span class="header-section-number">9.2.4</span> Sub Graphs</h3>
 <p>As any other library supporting the Grammar of Graphics, <code>plotnine</code> has a special technique called facet that allows to split one plot into multiple plots based on a factor variable included in the dataset</p>
 <p>For the sub graphs plotnine we are going to talk about two important grammar– <code>facet_wrap</code> and <code>facet_grid</code></p>
 <p>The examples will be illustrated via diamonds dataset</p>
@@ -976,8 +981,8 @@ pip install plotnine[all]  # For the whole package of Plotnine</code></pre>
 </div>
 </div>
 </div>
-<section id="facet_wrap" class="level4" data-number="8.2.4.1">
-<h4 data-number="8.2.4.1" class="anchored" data-anchor-id="facet_wrap"><span class="header-section-number">8.2.4.1</span> <code>facet_wrap</code></h4>
+<section id="facet_wrap" class="level4" data-number="9.2.4.1">
+<h4 data-number="9.2.4.1" class="anchored" data-anchor-id="facet_wrap"><span class="header-section-number">9.2.4.1</span> <code>facet_wrap</code></h4>
 <p>plotnine.facets.facet_wrap(facets=None, nrow=None, ncol=None, scales=‘fixed’, shrink=True, labeller=‘label_value’, as_table=True, drop=True, dir=‘h’)</p>
 <p><strong>Sometimes we might want to see a lot of charts inside one large one, we can also do this within <code>Facet_wrap</code></strong></p>
 <p><strong>For example, in the diamond dataset, Suppose we are curious about the carat vs.&nbsp;price graphs for each levels of cut, we can do a plot like that</strong></p>
@@ -997,8 +1002,8 @@ pip install plotnine[all]  # For the whole package of Plotnine</code></pre>
 </div>
 </div>
 </section>
-<section id="facet_grid" class="level4" data-number="8.2.4.2">
-<h4 data-number="8.2.4.2" class="anchored" data-anchor-id="facet_grid"><span class="header-section-number">8.2.4.2</span> <code>Facet_grid</code></h4>
+<section id="facet_grid" class="level4" data-number="9.2.4.2">
+<h4 data-number="9.2.4.2" class="anchored" data-anchor-id="facet_grid"><span class="header-section-number">9.2.4.2</span> <code>Facet_grid</code></h4>
 <p>plotnine.facets.facet_grid(facets, margins=False, scales=‘fixed’, space=‘fixed’, shrink=True, labeller=‘label_value’, as_table=True, drop=True)</p>
 <p><strong>Sometimes we may want to see the facets with more than one variables, we can use <code>Facet_grid</code></strong></p>
 <p><strong>In this case, suppose we are curious about the graphs of carat vs.&nbsp;price for each levels of cut and clarity</strong></p>
@@ -1048,8 +1053,8 @@ pip install plotnine[all]  # For the whole package of Plotnine</code></pre>
 </div>
 </section>
 </section>
-<section id="some-useful-resources" class="level3" data-number="8.2.5">
-<h3 data-number="8.2.5" class="anchored" data-anchor-id="some-useful-resources"><span class="header-section-number">8.2.5</span> Some useful resources</h3>
+<section id="some-useful-resources" class="level3" data-number="9.2.5">
+<h3 data-number="9.2.5" class="anchored" data-anchor-id="some-useful-resources"><span class="header-section-number">9.2.5</span> Some useful resources</h3>
 <p>Learn all you need to know about Plotnine via its own website: <a href="https://plotnine.readthedocs.io/en/stable/index.html" class="uri">https://plotnine.readthedocs.io/en/stable/index.html</a>.</p>
 <p>In case you are interested in data visualization via python, check out this website! <a href="https://pythonplot.com/" class="uri">https://pythonplot.com/</a>.</p>
 <p>And finally there is a useful data visualization Github I found, read it if you are interested! <a href="https://github.com/pmaji/practical-python-data-viz-guide" class="uri">https://github.com/pmaji/practical-python-data-viz-guide</a>.</p>
@@ -1195,12 +1200,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="./stats.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Statistical Tests and Models</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Statistical Tests and Models</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="./supervised.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Supervised Learning</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Supervised Learning</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

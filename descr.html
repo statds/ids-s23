@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Introduction to Data Science - 6&nbsp; Descriptive Statistics</title>
+<title>Introduction to Data Science - 7&nbsp; Descriptive Statistics</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -94,7 +94,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
 <link href="./stats.html" rel="next">
-<link href="./pandas.html" rel="prev">
+<link href="./geo.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -136,7 +136,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
     <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Descriptive Statistics</span></h1>
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Descriptive Statistics</span></h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -191,37 +191,42 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./descr.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Descriptive Statistics</span></a>
+  <a href="./geo.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Geospatial Data</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./stats.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Statistical Tests and Models</span></a>
+  <a href="./descr.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Descriptive Statistics</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./visual.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Visualization</span></a>
+  <a href="./stats.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Statistical Tests and Models</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./supervised.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Supervised Learning</span></a>
+  <a href="./visual.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Visualization</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./advanced.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Advanced Topics</span></a>
+  <a href="./supervised.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Supervised Learning</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./nycrash.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">NYC Crash Data</span></a>
+  <a href="./advanced.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Advanced Topics</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./exercises.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Exercises</span></a>
+  <a href="./nycrash.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">NYC Crash Data</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./exercises.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Exercises</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -238,33 +243,33 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#different-python-methods-and-which-to-use" id="toc-different-python-methods-and-which-to-use" class="nav-link active" data-scroll-target="#different-python-methods-and-which-to-use"><span class="toc-section-number">6.1</span>  Different Python methods and which to use</a>
+  <li><a href="#different-python-methods-and-which-to-use" id="toc-different-python-methods-and-which-to-use" class="nav-link active" data-scroll-target="#different-python-methods-and-which-to-use"><span class="toc-section-number">7.1</span>  Different Python methods and which to use</a>
   <ul class="collapse">
-  <li><a href="#explanation-of-methods" id="toc-explanation-of-methods" class="nav-link" data-scroll-target="#explanation-of-methods"><span class="toc-section-number">6.1.1</span>  Explanation of Methods</a></li>
-  <li><a href="#example-mean" id="toc-example-mean" class="nav-link" data-scroll-target="#example-mean"><span class="toc-section-number">6.1.2</span>  Example: mean</a></li>
-  <li><a href="#so-what-do-we-use" id="toc-so-what-do-we-use" class="nav-link" data-scroll-target="#so-what-do-we-use"><span class="toc-section-number">6.1.3</span>  So what do we use?</a></li>
+  <li><a href="#explanation-of-methods" id="toc-explanation-of-methods" class="nav-link" data-scroll-target="#explanation-of-methods"><span class="toc-section-number">7.1.1</span>  Explanation of Methods</a></li>
+  <li><a href="#example-mean" id="toc-example-mean" class="nav-link" data-scroll-target="#example-mean"><span class="toc-section-number">7.1.2</span>  Example: mean</a></li>
+  <li><a href="#so-what-do-we-use" id="toc-so-what-do-we-use" class="nav-link" data-scroll-target="#so-what-do-we-use"><span class="toc-section-number">7.1.3</span>  So what do we use?</a></li>
   </ul></li>
-  <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data"><span class="toc-section-number">6.2</span>  Data</a>
+  <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data"><span class="toc-section-number">7.2</span>  Data</a>
   <ul class="collapse">
-  <li><a href="#isolating-parts-of-the-dataframe" id="toc-isolating-parts-of-the-dataframe" class="nav-link" data-scroll-target="#isolating-parts-of-the-dataframe"><span class="toc-section-number">6.2.1</span>  Isolating Parts of the Dataframe</a></li>
-  <li><a href="#data-isolated" id="toc-data-isolated" class="nav-link" data-scroll-target="#data-isolated"><span class="toc-section-number">6.2.2</span>  Data Isolated</a></li>
+  <li><a href="#isolating-parts-of-the-dataframe" id="toc-isolating-parts-of-the-dataframe" class="nav-link" data-scroll-target="#isolating-parts-of-the-dataframe"><span class="toc-section-number">7.2.1</span>  Isolating Parts of the Dataframe</a></li>
+  <li><a href="#data-isolated" id="toc-data-isolated" class="nav-link" data-scroll-target="#data-isolated"><span class="toc-section-number">7.2.2</span>  Data Isolated</a></li>
   </ul></li>
-  <li><a href="#common-operations" id="toc-common-operations" class="nav-link" data-scroll-target="#common-operations"><span class="toc-section-number">6.3</span>  Common Operations</a>
+  <li><a href="#common-operations" id="toc-common-operations" class="nav-link" data-scroll-target="#common-operations"><span class="toc-section-number">7.3</span>  Common Operations</a>
   <ul class="collapse">
-  <li><a href="#descriptive-statistics-with-pandas" id="toc-descriptive-statistics-with-pandas" class="nav-link" data-scroll-target="#descriptive-statistics-with-pandas"><span class="toc-section-number">6.3.1</span>  Descriptive Statistics with Pandas</a></li>
-  <li><a href="#center" id="toc-center" class="nav-link" data-scroll-target="#center"><span class="toc-section-number">6.3.2</span>  center</a></li>
-  <li><a href="#spread" id="toc-spread" class="nav-link" data-scroll-target="#spread"><span class="toc-section-number">6.3.3</span>  spread</a></li>
-  <li><a href="#shape" id="toc-shape" class="nav-link" data-scroll-target="#shape"><span class="toc-section-number">6.3.4</span>  shape</a></li>
-  <li><a href="#correlation-deals-with-two-variables" id="toc-correlation-deals-with-two-variables" class="nav-link" data-scroll-target="#correlation-deals-with-two-variables"><span class="toc-section-number">6.3.5</span>  correlation (deals with two variables)</a></li>
-  <li><a href="#other-important-operations" id="toc-other-important-operations" class="nav-link" data-scroll-target="#other-important-operations"><span class="toc-section-number">6.3.6</span>  other important operations</a></li>
-  <li><a href="#important-operators" id="toc-important-operators" class="nav-link" data-scroll-target="#important-operators"><span class="toc-section-number">6.3.7</span>  Important operators</a></li>
-  <li><a href="#center-1" id="toc-center-1" class="nav-link" data-scroll-target="#center-1"><span class="toc-section-number">6.3.8</span>  Center</a></li>
-  <li><a href="#spread-1" id="toc-spread-1" class="nav-link" data-scroll-target="#spread-1"><span class="toc-section-number">6.3.9</span>  Spread</a></li>
-  <li><a href="#shape-1" id="toc-shape-1" class="nav-link" data-scroll-target="#shape-1"><span class="toc-section-number">6.3.10</span>  Shape</a></li>
-  <li><a href="#correlation" id="toc-correlation" class="nav-link" data-scroll-target="#correlation"><span class="toc-section-number">6.3.11</span>  Correlation</a></li>
-  <li><a href="#describe" id="toc-describe" class="nav-link" data-scroll-target="#describe"><span class="toc-section-number">6.3.12</span>  Describe</a></li>
+  <li><a href="#descriptive-statistics-with-pandas" id="toc-descriptive-statistics-with-pandas" class="nav-link" data-scroll-target="#descriptive-statistics-with-pandas"><span class="toc-section-number">7.3.1</span>  Descriptive Statistics with Pandas</a></li>
+  <li><a href="#center" id="toc-center" class="nav-link" data-scroll-target="#center"><span class="toc-section-number">7.3.2</span>  center</a></li>
+  <li><a href="#spread" id="toc-spread" class="nav-link" data-scroll-target="#spread"><span class="toc-section-number">7.3.3</span>  spread</a></li>
+  <li><a href="#shape" id="toc-shape" class="nav-link" data-scroll-target="#shape"><span class="toc-section-number">7.3.4</span>  shape</a></li>
+  <li><a href="#correlation-deals-with-two-variables" id="toc-correlation-deals-with-two-variables" class="nav-link" data-scroll-target="#correlation-deals-with-two-variables"><span class="toc-section-number">7.3.5</span>  correlation (deals with two variables)</a></li>
+  <li><a href="#other-important-operations" id="toc-other-important-operations" class="nav-link" data-scroll-target="#other-important-operations"><span class="toc-section-number">7.3.6</span>  other important operations</a></li>
+  <li><a href="#important-operators" id="toc-important-operators" class="nav-link" data-scroll-target="#important-operators"><span class="toc-section-number">7.3.7</span>  Important operators</a></li>
+  <li><a href="#center-1" id="toc-center-1" class="nav-link" data-scroll-target="#center-1"><span class="toc-section-number">7.3.8</span>  Center</a></li>
+  <li><a href="#spread-1" id="toc-spread-1" class="nav-link" data-scroll-target="#spread-1"><span class="toc-section-number">7.3.9</span>  Spread</a></li>
+  <li><a href="#shape-1" id="toc-shape-1" class="nav-link" data-scroll-target="#shape-1"><span class="toc-section-number">7.3.10</span>  Shape</a></li>
+  <li><a href="#correlation" id="toc-correlation" class="nav-link" data-scroll-target="#correlation"><span class="toc-section-number">7.3.11</span>  Correlation</a></li>
+  <li><a href="#describe" id="toc-describe" class="nav-link" data-scroll-target="#describe"><span class="toc-section-number">7.3.12</span>  Describe</a></li>
   </ul></li>
-  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion"><span class="toc-section-number">6.4</span>  Conclusion</a></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion"><span class="toc-section-number">7.4</span>  Conclusion</a></li>
   </ul>
 </nav>
     </div>
@@ -273,7 +278,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Descriptive Statistics</span></h1>
+<h1 class="title d-none d-lg-block"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Descriptive Statistics</span></h1>
 </div>
 
 
@@ -289,18 +294,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </header>
 
 <p>In basic terms, descriptive statistics are how we describe the data. Descriptive Statistics is extremely important to exploratory data analysis, as it allows us to <em>describe</em> and <em>summarize</em> the data to put it into <em>context</em> and <em>visualize</em> it. If we just were looking at a bunch of raw data, what use is that to us? We use terms to describe center, spread, correlation, counts, and more to to give us context to the raw data we have.</p>
-<section id="different-python-methods-and-which-to-use" class="level2" data-number="6.1">
-<h2 data-number="6.1" class="anchored" data-anchor-id="different-python-methods-and-which-to-use"><span class="header-section-number">6.1</span> Different Python methods and which to use</h2>
-<section id="explanation-of-methods" class="level3" data-number="6.1.1">
-<h3 data-number="6.1.1" class="anchored" data-anchor-id="explanation-of-methods"><span class="header-section-number">6.1.1</span> Explanation of Methods</h3>
+<section id="different-python-methods-and-which-to-use" class="level2" data-number="7.1">
+<h2 data-number="7.1" class="anchored" data-anchor-id="different-python-methods-and-which-to-use"><span class="header-section-number">7.1</span> Different Python methods and which to use</h2>
+<section id="explanation-of-methods" class="level3" data-number="7.1.1">
+<h3 data-number="7.1.1" class="anchored" data-anchor-id="explanation-of-methods"><span class="header-section-number">7.1.1</span> Explanation of Methods</h3>
 <p>There are many methods to perform descriptive statistics operations. After briefly describing them, we will perform example operations to put into context how they work.</p>
 <p><strong>Python’s built-in functions</strong>: These built-in operations are in the Python library, where we would not have to import any packages. There are not many operations already built-in, and it cannot compute large datasets well.</p>
 <p><strong>Statistics package</strong>: Includes some additional functions for computation. NumPy is more compatible for using opertions than this package.</p>
 <p><strong>NumPy</strong>: NumPy is a very common package to import. It is beneficial when working with single and multi dimensional arrays.</p>
 <p><strong>Pandas</strong>: Pandas is based off of the same numerical computing as NumPy and works with series and dataframes.</p>
 </section>
-<section id="example-mean" class="level3" data-number="6.1.2">
-<h3 data-number="6.1.2" class="anchored" data-anchor-id="example-mean"><span class="header-section-number">6.1.2</span> Example: mean</h3>
+<section id="example-mean" class="level3" data-number="7.1.2">
+<h3 data-number="7.1.2" class="anchored" data-anchor-id="example-mean"><span class="header-section-number">7.1.2</span> Example: mean</h3>
 <p>Below is an example of computing <em>mean</em> with all of the above methods to express their differences.</p>
 <p>Just for this example, I will create my own datasets (as the NYC data does not portray the differences as easily).</p>
 <div class="cell" data-execution_count="1">
@@ -376,14 +381,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </div>
 </section>
-<section id="so-what-do-we-use" class="level3" data-number="6.1.3">
-<h3 data-number="6.1.3" class="anchored" data-anchor-id="so-what-do-we-use"><span class="header-section-number">6.1.3</span> So what do we use?</h3>
+<section id="so-what-do-we-use" class="level3" data-number="7.1.3">
+<h3 data-number="7.1.3" class="anchored" data-anchor-id="so-what-do-we-use"><span class="header-section-number">7.1.3</span> So what do we use?</h3>
 <p>As shown above, pandas is nice as it automatically ignores nan by default when computing numeric operations, rather than just outputting nan. This is faster, cleaner, and preferrable to me when I am calculating operations. So, outside of the context of this class, I prefer using pandas if I had the choice.</p>
 <p>Moreover, in the context of this class, the data we will be analyzing is typically in the form of a dataframe. Pandas will typically be the best option when working with a dataframe, so it is best to continue using pandas.</p>
 </section>
 </section>
-<section id="data" class="level2" data-number="6.2">
-<h2 data-number="6.2" class="anchored" data-anchor-id="data"><span class="header-section-number">6.2</span> Data</h2>
+<section id="data" class="level2" data-number="7.2">
+<h2 data-number="7.2" class="anchored" data-anchor-id="data"><span class="header-section-number">7.2</span> Data</h2>
 <p>The data I will pull from is the January 2023 NYC Crash Data (cleaned).</p>
 <div class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>jan23 <span class="op">=</span> pd.read_csv(<span class="st">"data/nyc_crashes_202301_cleaned.csv"</span>)</span>
@@ -400,11 +405,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>       <span class="st">'COLLISION_ID'</span>, <span class="st">'VEHICLE TYPE CODE 1'</span>, <span class="st">'VEHICLE TYPE CODE 2'</span>,</span>
 <span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>       <span class="st">'VEHICLE TYPE CODE 3'</span>, <span class="st">'VEHICLE TYPE CODE 4'</span>, <span class="st">'VEHICLE TYPE CODE 5'</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<section id="isolating-parts-of-the-dataframe" class="level3" data-number="6.2.1">
-<h3 data-number="6.2.1" class="anchored" data-anchor-id="isolating-parts-of-the-dataframe"><span class="header-section-number">6.2.1</span> Isolating Parts of the Dataframe</h3>
+<section id="isolating-parts-of-the-dataframe" class="level3" data-number="7.2.1">
+<h3 data-number="7.2.1" class="anchored" data-anchor-id="isolating-parts-of-the-dataframe"><span class="header-section-number">7.2.1</span> Isolating Parts of the Dataframe</h3>
 <p>Descriptive statistics do not make sense in context with all aspects of the dataframe we will be using. Most of the descriptive statistics shown below will only make sense with continuous variables. Thus, I will briefly show how to isolate certain aspects of the dataframe, so that we can do so later.</p>
-<section id="columns" class="level4" data-number="6.2.1.1">
-<h4 data-number="6.2.1.1" class="anchored" data-anchor-id="columns"><span class="header-section-number">6.2.1.1</span> Columns</h4>
+<section id="columns" class="level4" data-number="7.2.1.1">
+<h4 data-number="7.2.1.1" class="anchored" data-anchor-id="columns"><span class="header-section-number">7.2.1.1</span> Columns</h4>
 <div class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>jan23[<span class="st">"BOROUGH"</span>] <span class="co"># isolating BOROUGH column</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="11">
@@ -529,8 +534,8 @@ Name: NUMBER OF PEDESTRIANS KILLED, dtype: int64</code></pre>
 </div>
 </div>
 </section>
-<section id="rows" class="level4" data-number="6.2.1.2">
-<h4 data-number="6.2.1.2" class="anchored" data-anchor-id="rows"><span class="header-section-number">6.2.1.2</span> Rows</h4>
+<section id="rows" class="level4" data-number="7.2.1.2">
+<h4 data-number="7.2.1.2" class="anchored" data-anchor-id="rows"><span class="header-section-number">7.2.1.2</span> Rows</h4>
 <p>Descriptive Statistics on rows are not very beneficial, as comparing the variables in rows of this NYC dataframe do not make much sense. Often, looking at rows is not very ideal, and the outputs are not always useful. However, here are a few ways that rows can be isolated from the dataframe if necessary.</p>
 <div class="cell" data-execution_count="16">
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>jan23.iloc[<span class="dv">6543</span>:<span class="dv">6547</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -780,8 +785,8 @@ Name: NUMBER OF PEDESTRIANS KILLED, dtype: int64</code></pre>
 </div>
 </section>
 </section>
-<section id="data-isolated" class="level3" data-number="6.2.2">
-<h3 data-number="6.2.2" class="anchored" data-anchor-id="data-isolated"><span class="header-section-number">6.2.2</span> Data Isolated</h3>
+<section id="data-isolated" class="level3" data-number="7.2.2">
+<h3 data-number="7.2.2" class="anchored" data-anchor-id="data-isolated"><span class="header-section-number">7.2.2</span> Data Isolated</h3>
 <p>Only the continuous variables will make sense for most of the descriptive statistics below, so we will use the following dataframe of just the continous variables, when applicable.</p>
 <div class="cell" data-execution_count="20">
 <div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>cjan23 <span class="op">=</span> jan23[[<span class="st">"NUMBER OF PEDESTRIANS INJURED"</span>, <span class="st">"NUMBER OF PEDESTRIANS KILLED"</span>, <span class="st">"NUMBER OF CYCLIST INJURED"</span>, </span>
@@ -789,21 +794,21 @@ Name: NUMBER OF PEDESTRIANS KILLED, dtype: int64</code></pre>
 </div>
 </section>
 </section>
-<section id="common-operations" class="level2" data-number="6.3">
-<h2 data-number="6.3" class="anchored" data-anchor-id="common-operations"><span class="header-section-number">6.3</span> Common Operations</h2>
-<section id="descriptive-statistics-with-pandas" class="level3" data-number="6.3.1">
-<h3 data-number="6.3.1" class="anchored" data-anchor-id="descriptive-statistics-with-pandas"><span class="header-section-number">6.3.1</span> Descriptive Statistics with Pandas</h3>
+<section id="common-operations" class="level2" data-number="7.3">
+<h2 data-number="7.3" class="anchored" data-anchor-id="common-operations"><span class="header-section-number">7.3</span> Common Operations</h2>
+<section id="descriptive-statistics-with-pandas" class="level3" data-number="7.3.1">
+<h3 data-number="7.3.1" class="anchored" data-anchor-id="descriptive-statistics-with-pandas"><span class="header-section-number">7.3.1</span> Descriptive Statistics with Pandas</h3>
 </section>
-<section id="center" class="level3" data-number="6.3.2">
-<h3 data-number="6.3.2" class="anchored" data-anchor-id="center"><span class="header-section-number">6.3.2</span> center</h3>
+<section id="center" class="level3" data-number="7.3.2">
+<h3 data-number="7.3.2" class="anchored" data-anchor-id="center"><span class="header-section-number">7.3.2</span> center</h3>
 <ul>
 <li><code>mean()</code>: mean</li>
 <li><code>median()</code>: median</li>
 <li><code>mode()</code>: mode</li>
 </ul>
 </section>
-<section id="spread" class="level3" data-number="6.3.3">
-<h3 data-number="6.3.3" class="anchored" data-anchor-id="spread"><span class="header-section-number">6.3.3</span> spread</h3>
+<section id="spread" class="level3" data-number="7.3.3">
+<h3 data-number="7.3.3" class="anchored" data-anchor-id="spread"><span class="header-section-number">7.3.3</span> spread</h3>
 <ul>
 <li><code>min()</code>: minimum</li>
 <li><code>max()</code>: maximum</li>
@@ -812,21 +817,21 @@ Name: NUMBER OF PEDESTRIANS KILLED, dtype: int64</code></pre>
 <li><code>quantile()</code>: quantiles</li>
 </ul>
 </section>
-<section id="shape" class="level3" data-number="6.3.4">
-<h3 data-number="6.3.4" class="anchored" data-anchor-id="shape"><span class="header-section-number">6.3.4</span> shape</h3>
+<section id="shape" class="level3" data-number="7.3.4">
+<h3 data-number="7.3.4" class="anchored" data-anchor-id="shape"><span class="header-section-number">7.3.4</span> shape</h3>
 <ul>
 <li><code>skew()</code>: adjusted Fisher-Pearson standardized moment</li>
 </ul>
 </section>
-<section id="correlation-deals-with-two-variables" class="level3" data-number="6.3.5">
-<h3 data-number="6.3.5" class="anchored" data-anchor-id="correlation-deals-with-two-variables"><span class="header-section-number">6.3.5</span> correlation (deals with two variables)</h3>
+<section id="correlation-deals-with-two-variables" class="level3" data-number="7.3.5">
+<h3 data-number="7.3.5" class="anchored" data-anchor-id="correlation-deals-with-two-variables"><span class="header-section-number">7.3.5</span> correlation (deals with two variables)</h3>
 <ul>
 <li><code>corr()</code>: correlation coefficient</li>
 <li><code>cov()</code>: covariance</li>
 </ul>
 </section>
-<section id="other-important-operations" class="level3" data-number="6.3.6">
-<h3 data-number="6.3.6" class="anchored" data-anchor-id="other-important-operations"><span class="header-section-number">6.3.6</span> other important operations</h3>
+<section id="other-important-operations" class="level3" data-number="7.3.6">
+<h3 data-number="7.3.6" class="anchored" data-anchor-id="other-important-operations"><span class="header-section-number">7.3.6</span> other important operations</h3>
 <ul>
 <li><code>count()</code>: total count</li>
 <li><code>sum()</code>: summation</li>
@@ -835,8 +840,8 @@ Name: NUMBER OF PEDESTRIANS KILLED, dtype: int64</code></pre>
 </ul>
 <p>Below I worked on a few specific descriptive statistics operators to give a general idea of how the operators work. If an operator is not used below, it is listed under where it would be used similarly.</p>
 </section>
-<section id="important-operators" class="level3" data-number="6.3.7">
-<h3 data-number="6.3.7" class="anchored" data-anchor-id="important-operators"><span class="header-section-number">6.3.7</span> Important operators</h3>
+<section id="important-operators" class="level3" data-number="7.3.7">
+<h3 data-number="7.3.7" class="anchored" data-anchor-id="important-operators"><span class="header-section-number">7.3.7</span> Important operators</h3>
 <p><strong>Sum</strong></p>
 <p><code>sum(axis = None, skipna = False)</code>. Below we focus on the usage of axis.</p>
 <div class="cell" data-execution_count="21">
@@ -872,8 +877,8 @@ Length: 7244, dtype: int64</code></pre>
 </div>
 <p>These functions: <code>mean()</code>, <code>median()</code>, <code>mode()</code>, <code>min()</code>, <code>max()</code> <code>std()</code>, <code>var()</code>, <code>quantile()</code>, <code>skew()</code>, and <code>count()</code> are used similarly, where their default will operate on the columns, and a specification of <code>axis = 1</code> will operate on the rows. Any of these operators not shown below, give a similar looking output as <code>sum()</code> does above.</p>
 </section>
-<section id="center-1" class="level3" data-number="6.3.8">
-<h3 data-number="6.3.8" class="anchored" data-anchor-id="center-1"><span class="header-section-number">6.3.8</span> Center</h3>
+<section id="center-1" class="level3" data-number="7.3.8">
+<h3 data-number="7.3.8" class="anchored" data-anchor-id="center-1"><span class="header-section-number">7.3.8</span> Center</h3>
 <p><strong>Mode</strong></p>
 <div class="cell" data-execution_count="23">
 <div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>jan23.mode() <span class="co"># lists the most frequent value</span></span>
@@ -1182,8 +1187,8 @@ Length: 7244, dtype: int64</code></pre>
 </div>
 <p>The mode outputs the most frequent value. If there are multiple values that are the most frequent, then all of those values will be outputted. For example, “OFF STREET NAME” has four values that are the most frequent. Thus, four values are outputted. Since <code>mode()</code> was outputted in the format of a dataframe, the NaN values just represent empty spaces, where other columns have a value in that row. See: “COLLISION_ID”. There are 7244 rows because there are 7244 unique collision ID’s, so they all are the most frequent value (one occurrence of each). This explains all the empty spaces with all of the other variables, since the dataframe format needed a filler to still output a dataframe.</p>
 </section>
-<section id="spread-1" class="level3" data-number="6.3.9">
-<h3 data-number="6.3.9" class="anchored" data-anchor-id="spread-1"><span class="header-section-number">6.3.9</span> Spread</h3>
+<section id="spread-1" class="level3" data-number="7.3.9">
+<h3 data-number="7.3.9" class="anchored" data-anchor-id="spread-1"><span class="header-section-number">7.3.9</span> Spread</h3>
 <p><strong>Quantile</strong></p>
 <div class="cell" data-execution_count="24">
 <div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>cjan23.quantile([<span class="fl">.65</span>, <span class="fl">.9</span>]) <span class="co"># can specify specific quantiles</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1228,8 +1233,8 @@ Length: 7244, dtype: int64</code></pre>
 </div>
 </div>
 </section>
-<section id="shape-1" class="level3" data-number="6.3.10">
-<h3 data-number="6.3.10" class="anchored" data-anchor-id="shape-1"><span class="header-section-number">6.3.10</span> Shape</h3>
+<section id="shape-1" class="level3" data-number="7.3.10">
+<h3 data-number="7.3.10" class="anchored" data-anchor-id="shape-1"><span class="header-section-number">7.3.10</span> Shape</h3>
 <p><strong>Skew</strong></p>
 <div class="cell" data-execution_count="25">
 <div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>cjan23.skew() <span class="co"># negative skew means left skewness, positive means right</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1244,8 +1249,8 @@ dtype: float64</code></pre>
 </div>
 </div>
 </section>
-<section id="correlation" class="level3" data-number="6.3.11">
-<h3 data-number="6.3.11" class="anchored" data-anchor-id="correlation"><span class="header-section-number">6.3.11</span> Correlation</h3>
+<section id="correlation" class="level3" data-number="7.3.11">
+<h3 data-number="7.3.11" class="anchored" data-anchor-id="correlation"><span class="header-section-number">7.3.11</span> Correlation</h3>
 <p><strong>Correlation Coefficient</strong></p>
 <div class="cell" data-execution_count="26">
 <div class="sourceCode cell-code" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>jan23[<span class="st">"NUMBER OF PEDESTRIANS INJURED"</span>].corr(jan23[<span class="st">"NUMBER OF PEDESTRIANS KILLED"</span>])  </span>
@@ -1256,8 +1261,8 @@ dtype: float64</code></pre>
 </div>
 <p><code>cov()</code> would be calculated in the same way.</p>
 </section>
-<section id="describe" class="level3" data-number="6.3.12">
-<h3 data-number="6.3.12" class="anchored" data-anchor-id="describe"><span class="header-section-number">6.3.12</span> Describe</h3>
+<section id="describe" class="level3" data-number="7.3.12">
+<h3 data-number="7.3.12" class="anchored" data-anchor-id="describe"><span class="header-section-number">7.3.12</span> Describe</h3>
 <p>Above calculates each chosen operation indivudally. Is there one operation that can show multiple descriptive statistics at once?</p>
 <p>Just for the purpose of showing how to make changes to the default function where the character values are needed to portray, I will be using all variables (dataframe jan23). Later, I will use cjan23 when delving more into editing the describe function, as the descriptie statistics automatically count numeric values as continuous (which is not true for many of these numeric variables).</p>
 <div class="cell" data-execution_count="27">
@@ -1413,8 +1418,8 @@ dtype: float64</code></pre>
 <p>It may be useful to edit the <code>describe()</code> feature to show moreso the values that we wish to see. The default <code>.describe()</code> output is shown above.</p>
 <p><strong>The default <code>describe()</code> input</strong>:</p>
 <p><code>DataFrame.describe(percentiles = None, include = None, exclude = None, datetime_is_numeric = False)</code></p>
-<section id="changing-the-default" class="level4" data-number="6.3.12.1">
-<h4 data-number="6.3.12.1" class="anchored" data-anchor-id="changing-the-default"><span class="header-section-number">6.3.12.1</span> Changing the default</h4>
+<section id="changing-the-default" class="level4" data-number="7.3.12.1">
+<h4 data-number="7.3.12.1" class="anchored" data-anchor-id="changing-the-default"><span class="header-section-number">7.3.12.1</span> Changing the default</h4>
 <div class="cell" data-execution_count="28">
 <div class="sourceCode cell-code" id="cb45"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="co"># changing percentile default</span></span>
 <span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>jan23.describe([<span class="fl">.2</span>, <span class="fl">.45</span>, <span class="fl">.9</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -2313,8 +2318,8 @@ dtype: float64</code></pre>
 </div>
 <p>Including datetime as numeric works if the date times are inputted in a different style (typically, <strong>YYYY-MM-DD 00:00:00.000000</strong>), which our data is not. Thus, as we see, the date and time is still treated as an object.</p>
 </section>
-<section id="changing-rows-with-describe" class="level4" data-number="6.3.12.2">
-<h4 data-number="6.3.12.2" class="anchored" data-anchor-id="changing-rows-with-describe"><span class="header-section-number">6.3.12.2</span> Changing rows with <code>describe()</code></h4>
+<section id="changing-rows-with-describe" class="level4" data-number="7.3.12.2">
+<h4 data-number="7.3.12.2" class="anchored" data-anchor-id="changing-rows-with-describe"><span class="header-section-number">7.3.12.2</span> Changing rows with <code>describe()</code></h4>
 <p>Above were specific ways to change the function that were already built into the function itself. What if we want to add more rows describing another descriptive statistic? I will be using just the discrete values for the following examples.</p>
 <div class="cell" data-execution_count="32">
 <div class="sourceCode cell-code" id="cb49"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="co"># adding sum to the dataframe</span></span>
@@ -2625,8 +2630,8 @@ dtype: float64</code></pre>
 </div>
 </div>
 </section>
-<section id="changing-columns-with-describe" class="level4" data-number="6.3.12.3">
-<h4 data-number="6.3.12.3" class="anchored" data-anchor-id="changing-columns-with-describe"><span class="header-section-number">6.3.12.3</span> Changing columns with <code>describe()</code></h4>
+<section id="changing-columns-with-describe" class="level4" data-number="7.3.12.3">
+<h4 data-number="7.3.12.3" class="anchored" data-anchor-id="changing-columns-with-describe"><span class="header-section-number">7.3.12.3</span> Changing columns with <code>describe()</code></h4>
 <div class="cell" data-execution_count="35">
 <div class="sourceCode cell-code" id="cb54"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="co"># removing a column</span></span>
 <span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>cjan23.describe().drop(columns <span class="op">=</span> <span class="st">"NUMBER OF CYCLIST INJURED"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -2842,8 +2847,8 @@ Name: NUMBER OF PEDESTRIANS KILLED, dtype: float64</code></pre>
 </section>
 </section>
 </section>
-<section id="conclusion" class="level2" data-number="6.4">
-<h2 data-number="6.4" class="anchored" data-anchor-id="conclusion"><span class="header-section-number">6.4</span> Conclusion</h2>
+<section id="conclusion" class="level2" data-number="7.4">
+<h2 data-number="7.4" class="anchored" data-anchor-id="conclusion"><span class="header-section-number">7.4</span> Conclusion</h2>
 <p>In this presentation we looked into different methods of performing descriptive statistics, and saw how to use many of these operators. There are many ways to compute descriptive statistics, and we explored how to do so with pandas. We then focused on how to maniputlate the <code>describe()</code> function in many ways that may help us to visualize the data much easier. Afterwards, we looked at isolating columns and rows to perform descriptive statistics on. Analyzing the descriptive statistics is extremely important to understaning data. Another way to possibly put data into a more digestible form is to visualize it, which other presentations touch on.</p>
 
 
@@ -2985,13 +2990,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./pandas.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Data Manipulation with Pandas</span></span>
+      <a href="./geo.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Geospatial Data</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="./stats.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Statistical Tests and Models</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Statistical Tests and Models</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

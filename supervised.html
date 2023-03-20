@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Introduction to Data Science - 9&nbsp; Supervised Learning</title>
+<title>Introduction to Data Science - 10&nbsp; Supervised Learning</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -137,7 +137,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
     <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Supervised Learning</span></h1>
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Supervised Learning</span></h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -192,37 +192,42 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./descr.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Descriptive Statistics</span></a>
+  <a href="./geo.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Geospatial Data</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./stats.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Statistical Tests and Models</span></a>
+  <a href="./descr.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Descriptive Statistics</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./visual.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Visualization</span></a>
+  <a href="./stats.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Statistical Tests and Models</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./supervised.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Supervised Learning</span></a>
+  <a href="./visual.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Visualization</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./advanced.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Advanced Topics</span></a>
+  <a href="./supervised.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Supervised Learning</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./nycrash.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">NYC Crash Data</span></a>
+  <a href="./advanced.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Advanced Topics</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./exercises.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Exercises</span></a>
+  <a href="./nycrash.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">NYC Crash Data</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./exercises.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Exercises</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -239,32 +244,40 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="toc-section-number">9.1</span>  Introduction</a></li>
-  <li><a href="#classification-vs-regression" id="toc-classification-vs-regression" class="nav-link" data-scroll-target="#classification-vs-regression"><span class="toc-section-number">9.2</span>  Classification vs Regression</a>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="toc-section-number">10.1</span>  Introduction</a></li>
+  <li><a href="#classification-vs-regression" id="toc-classification-vs-regression" class="nav-link" data-scroll-target="#classification-vs-regression"><span class="toc-section-number">10.2</span>  Classification vs Regression</a>
   <ul class="collapse">
-  <li><a href="#regression-metrics" id="toc-regression-metrics" class="nav-link" data-scroll-target="#regression-metrics"><span class="toc-section-number">9.2.1</span>  Regression metrics</a></li>
-  <li><a href="#classification-metrics" id="toc-classification-metrics" class="nav-link" data-scroll-target="#classification-metrics"><span class="toc-section-number">9.2.2</span>  Classification metrics</a></li>
-  <li><a href="#cross-validation" id="toc-cross-validation" class="nav-link" data-scroll-target="#cross-validation"><span class="toc-section-number">9.2.3</span>  Cross-validation</a></li>
+  <li><a href="#regression-metrics" id="toc-regression-metrics" class="nav-link" data-scroll-target="#regression-metrics"><span class="toc-section-number">10.2.1</span>  Regression metrics</a></li>
+  <li><a href="#classification-metrics" id="toc-classification-metrics" class="nav-link" data-scroll-target="#classification-metrics"><span class="toc-section-number">10.2.2</span>  Classification metrics</a></li>
+  <li><a href="#cross-validation" id="toc-cross-validation" class="nav-link" data-scroll-target="#cross-validation"><span class="toc-section-number">10.2.3</span>  Cross-validation</a></li>
   </ul></li>
-  <li><a href="#support-vector-machines" id="toc-support-vector-machines" class="nav-link" data-scroll-target="#support-vector-machines"><span class="toc-section-number">9.3</span>  Support Vector Machines</a>
+  <li><a href="#support-vector-machines" id="toc-support-vector-machines" class="nav-link" data-scroll-target="#support-vector-machines"><span class="toc-section-number">10.3</span>  Support Vector Machines</a>
   <ul class="collapse">
-  <li><a href="#introduction-1" id="toc-introduction-1" class="nav-link" data-scroll-target="#introduction-1"><span class="toc-section-number">9.3.1</span>  Introduction</a></li>
-  <li><a href="#package-that-need-to-install" id="toc-package-that-need-to-install" class="nav-link" data-scroll-target="#package-that-need-to-install"><span class="toc-section-number">9.3.2</span>  Package that need to install</a></li>
-  <li><a href="#support-vector-classifier" id="toc-support-vector-classifier" class="nav-link" data-scroll-target="#support-vector-classifier"><span class="toc-section-number">9.3.3</span>  Support Vector Classifier</a></li>
-  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion"><span class="toc-section-number">9.3.4</span>  Conclusion</a></li>
-  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references"><span class="toc-section-number">9.3.5</span>  References</a></li>
+  <li><a href="#introduction-1" id="toc-introduction-1" class="nav-link" data-scroll-target="#introduction-1"><span class="toc-section-number">10.3.1</span>  Introduction</a></li>
+  <li><a href="#package-that-need-to-install" id="toc-package-that-need-to-install" class="nav-link" data-scroll-target="#package-that-need-to-install"><span class="toc-section-number">10.3.2</span>  Package that need to install</a></li>
+  <li><a href="#support-vector-classifier" id="toc-support-vector-classifier" class="nav-link" data-scroll-target="#support-vector-classifier"><span class="toc-section-number">10.3.3</span>  Support Vector Classifier</a></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion"><span class="toc-section-number">10.3.4</span>  Conclusion</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references"><span class="toc-section-number">10.3.5</span>  References</a></li>
   </ul></li>
-  <li><a href="#decision-trees" id="toc-decision-trees" class="nav-link" data-scroll-target="#decision-trees"><span class="toc-section-number">9.4</span>  Decision Trees</a>
+  <li><a href="#decision-trees" id="toc-decision-trees" class="nav-link" data-scroll-target="#decision-trees"><span class="toc-section-number">10.4</span>  Decision Trees</a>
   <ul class="collapse">
-  <li><a href="#introduction-2" id="toc-introduction-2" class="nav-link" data-scroll-target="#introduction-2"><span class="toc-section-number">9.4.1</span>  Introduction</a></li>
-  <li><a href="#tree-algorithms" id="toc-tree-algorithms" class="nav-link" data-scroll-target="#tree-algorithms"><span class="toc-section-number">9.4.2</span>  Tree algorithms</a></li>
-  <li><a href="#demo" id="toc-demo" class="nav-link" data-scroll-target="#demo"><span class="toc-section-number">9.4.3</span>  Demo</a></li>
-  <li><a href="#conclusion-1" id="toc-conclusion-1" class="nav-link" data-scroll-target="#conclusion-1"><span class="toc-section-number">9.4.4</span>  Conclusion</a></li>
-  <li><a href="#references-1" id="toc-references-1" class="nav-link" data-scroll-target="#references-1"><span class="toc-section-number">9.4.5</span>  References</a></li>
+  <li><a href="#introduction-2" id="toc-introduction-2" class="nav-link" data-scroll-target="#introduction-2"><span class="toc-section-number">10.4.1</span>  Introduction</a></li>
+  <li><a href="#tree-algorithms" id="toc-tree-algorithms" class="nav-link" data-scroll-target="#tree-algorithms"><span class="toc-section-number">10.4.2</span>  Tree algorithms</a></li>
+  <li><a href="#demo" id="toc-demo" class="nav-link" data-scroll-target="#demo"><span class="toc-section-number">10.4.3</span>  Demo</a></li>
+  <li><a href="#conclusion-1" id="toc-conclusion-1" class="nav-link" data-scroll-target="#conclusion-1"><span class="toc-section-number">10.4.4</span>  Conclusion</a></li>
+  <li><a href="#references-1" id="toc-references-1" class="nav-link" data-scroll-target="#references-1"><span class="toc-section-number">10.4.5</span>  References</a></li>
   </ul></li>
-  <li><a href="#random-forest" id="toc-random-forest" class="nav-link" data-scroll-target="#random-forest"><span class="toc-section-number">9.5</span>  Random forest</a>
+  <li><a href="#random-forest" id="toc-random-forest" class="nav-link" data-scroll-target="#random-forest"><span class="toc-section-number">10.5</span>  Random forest</a>
   <ul class="collapse">
-  <li><a href="#algorithm" id="toc-algorithm" class="nav-link" data-scroll-target="#algorithm"><span class="toc-section-number">9.5.1</span>  Algorithm</a></li>
+  <li><a href="#algorithm" id="toc-algorithm" class="nav-link" data-scroll-target="#algorithm"><span class="toc-section-number">10.5.1</span>  Algorithm</a></li>
+  </ul></li>
+  <li><a href="#bagging-vs.-boosting" id="toc-bagging-vs.-boosting" class="nav-link" data-scroll-target="#bagging-vs.-boosting"><span class="toc-section-number">10.6</span>  Bagging vs.&nbsp;Boosting</a>
+  <ul class="collapse">
+  <li><a href="#introduction-3" id="toc-introduction-3" class="nav-link" data-scroll-target="#introduction-3"><span class="toc-section-number">10.6.1</span>  Introduction</a></li>
+  <li><a href="#bagging" id="toc-bagging" class="nav-link" data-scroll-target="#bagging"><span class="toc-section-number">10.6.2</span>  Bagging</a></li>
+  <li><a href="#boosting" id="toc-boosting" class="nav-link" data-scroll-target="#boosting"><span class="toc-section-number">10.6.3</span>  Boosting</a></li>
+  <li><a href="#bagging-vs.-boosting-1" id="toc-bagging-vs.-boosting-1" class="nav-link" data-scroll-target="#bagging-vs.-boosting-1"><span class="toc-section-number">10.6.4</span>  Bagging vs.&nbsp;Boosting</a></li>
+  <li><a href="#references-2" id="toc-references-2" class="nav-link" data-scroll-target="#references-2"><span class="toc-section-number">10.6.5</span>  References</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -274,7 +287,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Supervised Learning</span></h1>
+<h1 class="title d-none d-lg-block"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Supervised Learning</span></h1>
 </div>
 
 
@@ -289,29 +302,29 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </header>
 
-<section id="introduction" class="level2" data-number="9.1">
-<h2 data-number="9.1" class="anchored" data-anchor-id="introduction"><span class="header-section-number">9.1</span> Introduction</h2>
+<section id="introduction" class="level2" data-number="10.1">
+<h2 data-number="10.1" class="anchored" data-anchor-id="introduction"><span class="header-section-number">10.1</span> Introduction</h2>
 <p>Supervised learning uses labeled datasets to train algorithms that to classify data or predict outcomes accurately. As input data is fed into the model, it adjusts its weights until the model has been fitted appropriately, which occurs as part of the cross validation process.</p>
 <p>In contrast, unsupervised learning uses unlabeled data to discover patterns that help solve for clustering or association problems. This is particularly useful when subject matter experts are unsure of common properties within a data set.</p>
 </section>
-<section id="classification-vs-regression" class="level2" data-number="9.2">
-<h2 data-number="9.2" class="anchored" data-anchor-id="classification-vs-regression"><span class="header-section-number">9.2</span> Classification vs Regression</h2>
+<section id="classification-vs-regression" class="level2" data-number="10.2">
+<h2 data-number="10.2" class="anchored" data-anchor-id="classification-vs-regression"><span class="header-section-number">10.2</span> Classification vs Regression</h2>
 <ul>
 <li>Classificaiton: outcome variable is categorical</li>
 <li>Regression: outcome variable is continuous</li>
 <li>Both problems can have many covariates (predictors/features)</li>
 </ul>
-<section id="regression-metrics" class="level3" data-number="9.2.1">
-<h3 data-number="9.2.1" class="anchored" data-anchor-id="regression-metrics"><span class="header-section-number">9.2.1</span> Regression metrics</h3>
+<section id="regression-metrics" class="level3" data-number="10.2.1">
+<h3 data-number="10.2.1" class="anchored" data-anchor-id="regression-metrics"><span class="header-section-number">10.2.1</span> Regression metrics</h3>
 <ul>
 <li>Mean squared error (MSE)</li>
 <li>Mean absolute error (MAE)</li>
 </ul>
 </section>
-<section id="classification-metrics" class="level3" data-number="9.2.2">
-<h3 data-number="9.2.2" class="anchored" data-anchor-id="classification-metrics"><span class="header-section-number">9.2.2</span> Classification metrics</h3>
-<section id="confusion-matrix" class="level4" data-number="9.2.2.1">
-<h4 data-number="9.2.2.1" class="anchored" data-anchor-id="confusion-matrix"><span class="header-section-number">9.2.2.1</span> Confusion matrix</h4>
+<section id="classification-metrics" class="level3" data-number="10.2.2">
+<h3 data-number="10.2.2" class="anchored" data-anchor-id="classification-metrics"><span class="header-section-number">10.2.2</span> Classification metrics</h3>
+<section id="confusion-matrix" class="level4" data-number="10.2.2.1">
+<h4 data-number="10.2.2.1" class="anchored" data-anchor-id="confusion-matrix"><span class="header-section-number">10.2.2.1</span> Confusion matrix</h4>
 <p><a href="https://en.wikipedia.org/wiki/Confusion_matrix" class="uri">https://en.wikipedia.org/wiki/Confusion_matrix</a></p>
 <p>Four entries in the confusion matrix:</p>
 <ul>
@@ -336,8 +349,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>NPV: TN / (FN + TN).</li>
 </ul>
 </section>
-<section id="measure-of-classification-performance" class="level4" data-number="9.2.2.2">
-<h4 data-number="9.2.2.2" class="anchored" data-anchor-id="measure-of-classification-performance"><span class="header-section-number">9.2.2.2</span> Measure of classification performance</h4>
+<section id="measure-of-classification-performance" class="level4" data-number="10.2.2.2">
+<h4 data-number="10.2.2.2" class="anchored" data-anchor-id="measure-of-classification-performance"><span class="header-section-number">10.2.2.2</span> Measure of classification performance</h4>
 <p>Measures for a given confusion matrix:</p>
 <ul>
 <li>Accuracy: (TP + TN) / (P + N). The proportion of all corrected predictions. Not good for highly imbalanced data.</li>
@@ -358,8 +371,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 </section>
 </section>
-<section id="cross-validation" class="level3" data-number="9.2.3">
-<h3 data-number="9.2.3" class="anchored" data-anchor-id="cross-validation"><span class="header-section-number">9.2.3</span> Cross-validation</h3>
+<section id="cross-validation" class="level3" data-number="10.2.3">
+<h3 data-number="10.2.3" class="anchored" data-anchor-id="cross-validation"><span class="header-section-number">10.2.3</span> Cross-validation</h3>
 <ul>
 <li>Goal: strike a bias-variance tradeoff.</li>
 <li>K-fold: hold out each fold as testing data.</li>
@@ -368,14 +381,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <!-- ## Support Vector Machine -->
 </section>
 </section>
-<section id="support-vector-machines" class="level2" data-number="9.3">
-<h2 data-number="9.3" class="anchored" data-anchor-id="support-vector-machines"><span class="header-section-number">9.3</span> Support Vector Machines</h2>
-<section id="introduction-1" class="level3" data-number="9.3.1">
-<h3 data-number="9.3.1" class="anchored" data-anchor-id="introduction-1"><span class="header-section-number">9.3.1</span> Introduction</h3>
+<section id="support-vector-machines" class="level2" data-number="10.3">
+<h2 data-number="10.3" class="anchored" data-anchor-id="support-vector-machines"><span class="header-section-number">10.3</span> Support Vector Machines</h2>
+<section id="introduction-1" class="level3" data-number="10.3.1">
+<h3 data-number="10.3.1" class="anchored" data-anchor-id="introduction-1"><span class="header-section-number">10.3.1</span> Introduction</h3>
 <p>Support Vector Machine (SVM) is a type of suppervised learning models that can be used to analyze classification and regression. In this section will develop the intuition behind support vector machines and provide some examples.</p>
 </section>
-<section id="package-that-need-to-install" class="level3" data-number="9.3.2">
-<h3 data-number="9.3.2" class="anchored" data-anchor-id="package-that-need-to-install"><span class="header-section-number">9.3.2</span> Package that need to install</h3>
+<section id="package-that-need-to-install" class="level3" data-number="10.3.2">
+<h3 data-number="10.3.2" class="anchored" data-anchor-id="package-that-need-to-install"><span class="header-section-number">10.3.2</span> Package that need to install</h3>
 <p>Before we begin ensure that these this package are installed in your python</p>
 <pre><code>pip install scikit-learn</code></pre>
 <p><a href="https://scikit-learn.org/stable/">Scikit-learn</a> is a python package that provides efficient versions of a large number of common algorithms It constist of all type of machine learning model which is wildly known such as:</p>
@@ -391,8 +404,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Randomly generated datasets function such as <code>make_moon</code> , <code>make_circle</code> etc.</li>
 </ul>
 </section>
-<section id="support-vector-classifier" class="level3" data-number="9.3.3">
-<h3 data-number="9.3.3" class="anchored" data-anchor-id="support-vector-classifier"><span class="header-section-number">9.3.3</span> Support Vector Classifier</h3>
+<section id="support-vector-classifier" class="level3" data-number="10.3.3">
+<h3 data-number="10.3.3" class="anchored" data-anchor-id="support-vector-classifier"><span class="header-section-number">10.3.3</span> Support Vector Classifier</h3>
 <p>Before we get into SVM , let us take a look at this simple classification problem. Consider a distinguishable datasets</p>
 <div class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>matplotlib inline</span>
@@ -589,8 +602,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><img src="supervised_files/figure-html/cell-8-output-1.png" width="649" height="434"></p>
 </div>
 </div>
-<section id="support-vector-machine" class="level4" data-number="9.3.3.1">
-<h4 data-number="9.3.3.1" class="anchored" data-anchor-id="support-vector-machine"><span class="header-section-number">9.3.3.1</span> Support Vector Machine</h4>
+<section id="support-vector-machine" class="level4" data-number="10.3.3.1">
+<h4 data-number="10.3.3.1" class="anchored" data-anchor-id="support-vector-machine"><span class="header-section-number">10.3.3.1</span> Support Vector Machine</h4>
 <p>Now we have some basic understanding on classifiying thing, lets take a look at the sample problem below.</p>
 <div class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> make_circles</span>
@@ -641,7 +654,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">'y'</span>)<span class="op">;</span></span>
 <span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>ax.set_zlabel(<span class="st">'r'</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<p><img src="supervised_files/figure-html/cell-12-output-1.png" width="407" height="394"></p>
+<p><img src="supervised_files/figure-html/cell-12-output-1.png" width="407" height="395"></p>
 </div>
 </div>
 <p>Now you can see that it is seperated. We can apply the <strong>Support Vector Classifier</strong> to the dataset</p>
@@ -721,8 +734,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Find a <strong>Support Vector Classifier</strong> that seperate the data into two groups.</li>
 </ol>
 </section>
-<section id="kernel" class="level4" data-number="9.3.3.2">
-<h4 data-number="9.3.3.2" class="anchored" data-anchor-id="kernel"><span class="header-section-number">9.3.3.2</span> Kernel</h4>
+<section id="kernel" class="level4" data-number="10.3.3.2">
+<h4 data-number="10.3.3.2" class="anchored" data-anchor-id="kernel"><span class="header-section-number">10.3.3.2</span> Kernel</h4>
 <p>Let talk more about the kernel. There are mutiple type of kernel. We will go through a few of them. Generaly, they call as a kernel trick or kernel method or kernel function. For simple explanation, these kernel can be view as a method on how we transform the data points into. It may need to transform to a higher dimension it may not.</p>
 <ul>
 <li><p>Linear Kernel The linear kernel is a kernel that uses the dot product of the input vectors to measure their similarity: <span class="math display">\[k(x,x')= (x\cdot x')\]</span></p></li>
@@ -737,8 +750,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><span class="math inline">\(k(x,x') = \exp\left(-\gamma\left\Vert x-x' \right\Vert^2\right)\)</span></p>
 <p><span class="math inline">\(\gamma &gt;0\)</span>. Sometimes parametrized using <span class="math inline">\(\gamma = \frac{1}{2\sigma^2}\)</span></p>
 </section>
-<section id="regression-problem" class="level4" data-number="9.3.3.3">
-<h4 data-number="9.3.3.3" class="anchored" data-anchor-id="regression-problem"><span class="header-section-number">9.3.3.3</span> Regression Problem</h4>
+<section id="regression-problem" class="level4" data-number="10.3.3.3">
+<h4 data-number="10.3.3.3" class="anchored" data-anchor-id="regression-problem"><span class="header-section-number">10.3.3.3</span> Regression Problem</h4>
 <p>We will talk a little on Regression Problem and how it works on Support Vector Machine.</p>
 <p>Lets consider a data output as shown below.</p>
 <div class="cell" data-execution_count="14">
@@ -776,8 +789,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>As you can see for regression problem Support Vector Machine for Regression or SVR create a two black lines as the decision boundary and the red line as the hyperplane. Our objective is to ensure points are within the boundary. The best fit line is the hyperplane that has a maximum number of points.</p>
 <p>You can control the model by adjust the <code>C</code> value and <code>epsilon</code> value. <code>C</code> value change the slope of the line, lower the value will reduce the slope of the fit line. <code>epsilon</code> change the distance of the decision boundary, lower the <code>epsilon</code> reduce the distance of the dicision boundary.</p>
 </section>
-<section id="example-classification" class="level4" data-number="9.3.3.4">
-<h4 data-number="9.3.3.4" class="anchored" data-anchor-id="example-classification"><span class="header-section-number">9.3.3.4</span> Example: Classification</h4>
+<section id="example-classification" class="level4" data-number="10.3.3.4">
+<h4 data-number="10.3.3.4" class="anchored" data-anchor-id="example-classification"><span class="header-section-number">10.3.3.4</span> Example: Classification</h4>
 <p>Let take a look at our NYC database. We would like to create a machine learning model with SVM.</p>
 <div class="cell" data-execution_count="16">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
@@ -1108,13 +1121,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>accuracy</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="21">
-<pre><code>0.68</code></pre>
+<pre><code>0.7</code></pre>
 </div>
 </div>
 </section>
 </section>
-<section id="conclusion" class="level3" data-number="9.3.4">
-<h3 data-number="9.3.4" class="anchored" data-anchor-id="conclusion"><span class="header-section-number">9.3.4</span> Conclusion</h3>
+<section id="conclusion" class="level3" data-number="10.3.4">
+<h3 data-number="10.3.4" class="anchored" data-anchor-id="conclusion"><span class="header-section-number">10.3.4</span> Conclusion</h3>
 <p>Support Vector Machines is one of the powerful tool mainly for classifications.</p>
 <ul>
 <li>Their dependence on relatively few support vectors means that they are very compact models, and take up very little memory.</li>
@@ -1129,8 +1142,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>The results do not have a direct probabilistic interpretation. This can be estimated via an internal cross-validation (see the probability parameter of SVC), but this extra estimation is costly.</li>
 </ul>
 </section>
-<section id="references" class="level3" data-number="9.3.5">
-<h3 data-number="9.3.5" class="anchored" data-anchor-id="references"><span class="header-section-number">9.3.5</span> References</h3>
+<section id="references" class="level3" data-number="10.3.5">
+<h3 data-number="10.3.5" class="anchored" data-anchor-id="references"><span class="header-section-number">10.3.5</span> References</h3>
 <ul>
 <li><a href="https://jakevdp.github.io/PythonDataScienceHandbook/05.07-support-vector-machines.html">In-Depth: Support Vector Machines</a></li>
 <li><a href="https://www.youtube.com/watch?v=efR1C6CvhmE">Support Vector Machines Video</a></li>
@@ -1138,10 +1151,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <!-- ## Decision Tree -->
 </section>
 </section>
-<section id="decision-trees" class="level2" data-number="9.4">
-<h2 data-number="9.4" class="anchored" data-anchor-id="decision-trees"><span class="header-section-number">9.4</span> Decision Trees</h2>
-<section id="introduction-2" class="level3" data-number="9.4.1">
-<h3 data-number="9.4.1" class="anchored" data-anchor-id="introduction-2"><span class="header-section-number">9.4.1</span> Introduction</h3>
+<section id="decision-trees" class="level2" data-number="10.4">
+<h2 data-number="10.4" class="anchored" data-anchor-id="decision-trees"><span class="header-section-number">10.4</span> Decision Trees</h2>
+<section id="introduction-2" class="level3" data-number="10.4.1">
+<h3 data-number="10.4.1" class="anchored" data-anchor-id="introduction-2"><span class="header-section-number">10.4.1</span> Introduction</h3>
 <p>Decision Trees (DTs) are a non-parametric supervised learning method used for classification and regression. The goal is to create a model that predicts the value of a target variable by learning simple decision rules inferred from the data features. A tree can be seen as a piecewise constant approximation.</p>
 <p>For instance, in the example below, decision trees learn from data to approximate a sine curve with a set of if-then-else decision rules. The deeper the tree, the more complex the decision rules and the fitter the model.</p>
 <div class="quarto-figure quarto-figure-center">
@@ -1286,12 +1299,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Given an input, the predicted outcome is obtained by traversing the decision tree. The traversal starts from the root node, and chooses left or right subtree based on the node’s splitting rule recursively, until it reaches a leaf node.</p>
 <p>For the example input [1, 1, 0], its unknown_sender feature is 1, so we follow the right subtree based on the root node’s splitting rule. The next node splits on the scam_words feature, and since its value is 0, we follow the left subtree. The next node uses the sales_words feature, and its value is 1, so we should go down to the right subtree, where we reach a leaf node. Thus the predicted outcome is the value 1 (class “spam”).</p>
 </section>
-<section id="tree-algorithms" class="level3" data-number="9.4.2">
-<h3 data-number="9.4.2" class="anchored" data-anchor-id="tree-algorithms"><span class="header-section-number">9.4.2</span> Tree algorithms</h3>
+<section id="tree-algorithms" class="level3" data-number="10.4.2">
+<h3 data-number="10.4.2" class="anchored" data-anchor-id="tree-algorithms"><span class="header-section-number">10.4.2</span> Tree algorithms</h3>
 <p>As many other supervised learning approaches, the decision trees are constructed in a way that minimizes a chosen cost function. It is computationally infeasible to find the optimal decision tree that minimizes the cost function. Thus, a greedy approach known as recursive binary splitting is often used.</p>
 <p>Package <code>scikit-learn</code> uses an optimized version of the CART algorithm; however, the <code>scikit-learn</code> implementation does not support categorical variables for now. Minimal cost-complexity pruning is an algorithm used to prune a tree to avoid over-fitting.</p>
-<section id="cost-function" class="level4" data-number="9.4.2.1">
-<h4 data-number="9.4.2.1" class="anchored" data-anchor-id="cost-function"><span class="header-section-number">9.4.2.1</span> Cost function</h4>
+<section id="cost-function" class="level4" data-number="10.4.2.1">
+<h4 data-number="10.4.2.1" class="anchored" data-anchor-id="cost-function"><span class="header-section-number">10.4.2.1</span> Cost function</h4>
 <p>Gini and entropy are classification criteria. Mean Squared Error (MSE or L2 error), Poisson deviance and Mean Absolute Error (MAE or L1 error) are Regression criteria. Here shows the mathematical formulations to get gini and entropy.</p>
 <p>As we see from the above example, in a decision tree, each tree node <span class="math inline">\(m\)</span> is associated with a subset of the training data set. Assume there are <span class="math inline">\(n_m\)</span> data points associated with <span class="math inline">\(m\)</span>, and the class values of the data points are in the set <span class="math inline">\(Q_m\)</span>.</p>
 <p>Further assume that there are K classes, and let <span class="math display">\[
@@ -1303,8 +1316,8 @@ H(Q_m)=-\sum_{k}p_{mk}log(p_{mk})
 \]</span></p>
 <p>In <code>sklearn.tree.DecisionTreeClassifierhe</code>, the default criterion is gini. One advantage of using Gini impurity over entropy is that it can be faster to compute, since it involves only a simple sum of squares rather than logarithmic functions. Additionally, Gini impurity tends to be more robust to small changes in the data, while entropy can be sensitive to noise.</p>
 </section>
-<section id="how-to-choose-what-feature-and-threshold-to-split-on-at-each-node" class="level4" data-number="9.4.2.2">
-<h4 data-number="9.4.2.2" class="anchored" data-anchor-id="how-to-choose-what-feature-and-threshold-to-split-on-at-each-node"><span class="header-section-number">9.4.2.2</span> How to choose what feature and threshold to split on at each node?</h4>
+<section id="how-to-choose-what-feature-and-threshold-to-split-on-at-each-node" class="level4" data-number="10.4.2.2">
+<h4 data-number="10.4.2.2" class="anchored" data-anchor-id="how-to-choose-what-feature-and-threshold-to-split-on-at-each-node"><span class="header-section-number">10.4.2.2</span> How to choose what feature and threshold to split on at each node?</h4>
 <p>The decision tree algorithm iterates over all possible features and thresholds and chooses the one that maximize purity or minimize impurity or maximize information gain.</p>
 <p>Let’s use the spam email example to calulate the impurity reduction.</p>
 <p>The impurity reduction based on Gini is calculated as the difference between the Gini index of the parent node and the weighted average of the Gini of the child nodes. The split that results in the highest impurity reduction based on Gini is chosen as the best split.</p>
@@ -1315,8 +1328,8 @@ H(Q_m)=-\sum_{k}p_{mk}log(p_{mk})
 </div>
 </div>
 </section>
-<section id="when-to-stop-splitting" class="level4" data-number="9.4.2.3">
-<h4 data-number="9.4.2.3" class="anchored" data-anchor-id="when-to-stop-splitting"><span class="header-section-number">9.4.2.3</span> When to stop splitting?</h4>
+<section id="when-to-stop-splitting" class="level4" data-number="10.4.2.3">
+<h4 data-number="10.4.2.3" class="anchored" data-anchor-id="when-to-stop-splitting"><span class="header-section-number">10.4.2.3</span> When to stop splitting?</h4>
 <p>There are several stopping criteria that can be used to decide when to stop splitting in a decision tree algorithm. Here are some common ones:</p>
 <p>When a node is 100% one class</p>
 <p>Maximum depth: Stop splitting when the tree reaches a maximum depth, i.e., when the number of levels in the tree exceeds a predefined threshold.</p>
@@ -1325,12 +1338,12 @@ H(Q_m)=-\sum_{k}p_{mk}log(p_{mk})
 <p>Maximum number of leaf nodes: Stop splitting when the number of leaf nodes reaches a predefined maximum.</p>
 </section>
 </section>
-<section id="demo" class="level3" data-number="9.4.3">
-<h3 data-number="9.4.3" class="anchored" data-anchor-id="demo"><span class="header-section-number">9.4.3</span> Demo</h3>
-<section id="preparation" class="level4" data-number="9.4.3.1">
-<h4 data-number="9.4.3.1" class="anchored" data-anchor-id="preparation"><span class="header-section-number">9.4.3.1</span> Preparation</h4>
-<section id="step-1-install-scikit-learn" class="level5" data-number="9.4.3.1.1">
-<h5 data-number="9.4.3.1.1" class="anchored" data-anchor-id="step-1-install-scikit-learn"><span class="header-section-number">9.4.3.1.1</span> Step 1: install scikit-learn</h5>
+<section id="demo" class="level3" data-number="10.4.3">
+<h3 data-number="10.4.3" class="anchored" data-anchor-id="demo"><span class="header-section-number">10.4.3</span> Demo</h3>
+<section id="preparation" class="level4" data-number="10.4.3.1">
+<h4 data-number="10.4.3.1" class="anchored" data-anchor-id="preparation"><span class="header-section-number">10.4.3.1</span> Preparation</h4>
+<section id="step-1-install-scikit-learn" class="level5" data-number="10.4.3.1.1">
+<h5 data-number="10.4.3.1.1" class="anchored" data-anchor-id="step-1-install-scikit-learn"><span class="header-section-number">10.4.3.1.1</span> Step 1: install scikit-learn</h5>
 <p>Use pip</p>
 <div class="sourceCode" id="cb29"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install <span class="at">-U</span> scikit-learn</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Use Conda</p>
@@ -1338,16 +1351,16 @@ H(Q_m)=-\sum_{k}p_{mk}log(p_{mk})
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> activate sklearn-env</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
-<section id="step-2-import-required-libraries" class="level5" data-number="9.4.3.1.2">
-<h5 data-number="9.4.3.1.2" class="anchored" data-anchor-id="step-2-import-required-libraries"><span class="header-section-number">9.4.3.1.2</span> Step 2: Import Required Libraries</h5>
+<section id="step-2-import-required-libraries" class="level5" data-number="10.4.3.1.2">
+<h5 data-number="10.4.3.1.2" class="anchored" data-anchor-id="step-2-import-required-libraries"><span class="header-section-number">10.4.3.1.2</span> Step 2: Import Required Libraries</h5>
 <div class="cell" data-execution_count="26">
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn <span class="im">import</span> tree</span>
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="step-3-preparing-the-data" class="level5" data-number="9.4.3.1.3">
-<h5 data-number="9.4.3.1.3" class="anchored" data-anchor-id="step-3-preparing-the-data"><span class="header-section-number">9.4.3.1.3</span> Step 3: Preparing the Data</h5>
+<section id="step-3-preparing-the-data" class="level5" data-number="10.4.3.1.3">
+<h5 data-number="10.4.3.1.3" class="anchored" data-anchor-id="step-3-preparing-the-data"><span class="header-section-number">10.4.3.1.3</span> Step 3: Preparing the Data</h5>
 <div class="cell" data-execution_count="27">
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>NYC <span class="op">=</span> pd.read_csv(<span class="st">"data/merged.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -1671,8 +1684,8 @@ H(Q_m)=-\sum_{k}p_{mk}log(p_{mk})
 </div>
 </section>
 </section>
-<section id="building-the-decision-tree-model" class="level4" data-number="9.4.3.2">
-<h4 data-number="9.4.3.2" class="anchored" data-anchor-id="building-the-decision-tree-model"><span class="header-section-number">9.4.3.2</span> Building the Decision Tree Model</h4>
+<section id="building-the-decision-tree-model" class="level4" data-number="10.4.3.2">
+<h4 data-number="10.4.3.2" class="anchored" data-anchor-id="building-the-decision-tree-model"><span class="header-section-number">10.4.3.2</span> Building the Decision Tree Model</h4>
 <div class="cell" data-execution_count="31">
 <div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit the model and plot the tree (using default parameters)</span></span>
 <span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>injury_clf <span class="op">=</span> tree.DecisionTreeClassifier(</span>
@@ -1685,7 +1698,7 @@ H(Q_m)=-\sum_{k}p_{mk}log(p_{mk})
 <div class="cell" data-execution_count="32">
 <div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>injury_clf.tree_.node_count</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="32">
-<pre><code>3563</code></pre>
+<pre><code>3685</code></pre>
 </div>
 </div>
 <p>Arguments related to stopping criteria: * max_depth * min_samples_split * min_samples_leaf * min_weight_fraction_leaf * max_features * max_leaf_nodes * min_impurity_decrease</p>
@@ -1709,8 +1722,8 @@ H(Q_m)=-\sum_{k}p_{mk}log(p_{mk})
 <span id="cb39-16"><a href="#cb39-16" aria-hidden="true" tabindex="-1"></a><span class="co"># print the best hyperparameters found</span></span>
 <span id="cb39-17"><a href="#cb39-17" aria-hidden="true" tabindex="-1"></a>grid_search.best_params_</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="33">
-<pre><code>{'ccp_alpha': 1e-05,
- 'criterion': 'gini',
+<pre><code>{'ccp_alpha': 0.0,
+ 'criterion': 'entropy',
  'max_depth': 20,
  'min_impurity_decrease': 0.0001}</code></pre>
 </div>
@@ -1725,7 +1738,7 @@ H(Q_m)=-\sum_{k}p_{mk}log(p_{mk})
 <span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a>injury_clf2 <span class="op">=</span> injury_clf2.fit(X_train, y_train)</span>
 <span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a>injury_clf2.tree_.node_count</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="34">
-<pre><code>805</code></pre>
+<pre><code>839</code></pre>
 </div>
 </div>
 <div class="cell" data-execution_count="35">
@@ -1738,7 +1751,7 @@ H(Q_m)=-\sum_{k}p_{mk}log(p_{mk})
 <span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a>injury_clf3 <span class="op">=</span> injury_clf3.fit(X_train, y_train)</span>
 <span id="cb43-8"><a href="#cb43-8" aria-hidden="true" tabindex="-1"></a>injury_clf3.tree_.node_count</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="35">
-<pre><code>13</code></pre>
+<pre><code>11</code></pre>
 </div>
 </div>
 <div class="cell" data-execution_count="36">
@@ -1750,8 +1763,8 @@ H(Q_m)=-\sum_{k}p_{mk}log(p_{mk})
 </div>
 </div>
 </section>
-<section id="evaluation" class="level4" data-number="9.4.3.3">
-<h4 data-number="9.4.3.3" class="anchored" data-anchor-id="evaluation"><span class="header-section-number">9.4.3.3</span> Evaluation</h4>
+<section id="evaluation" class="level4" data-number="10.4.3.3">
+<h4 data-number="10.4.3.3" class="anchored" data-anchor-id="evaluation"><span class="header-section-number">10.4.3.3</span> Evaluation</h4>
 <div class="cell" data-execution_count="37">
 <div class="sourceCode cell-code" id="cb46"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="co"># caculate the predicted values</span></span>
 <span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>clf_pred <span class="op">=</span> injury_clf.predict(X_test)</span>
@@ -1823,48 +1836,48 @@ H(Q_m)=-\sum_{k}p_{mk}log(p_{mk})
 <div class="cell-output cell-output-stdout">
 <pre><code>Default parameter results:
 Confusion matrix:
-[[598 223]
- [365 147]]
-Accuracy: 0.5588897224306076
-Precision: 0.3972972972972973
-Recall: 0.287109375
-F1-score: 0.33333333333333337
-AUC: 0.507744699680268
+[[608 218]
+ [360 147]]
+Accuracy: 0.5663915978994749
+Precision: 0.40273972602739727
+Recall: 0.28994082840236685
+F1-score: 0.3371559633027523
+AUC: 0.5130091551212803
 
 
 Cross-valiation parameter results:
 Confusion matrix:
-[[652 169]
- [388 124]]
-Accuracy: 0.582145536384096
-Precision: 0.4232081911262799
-Recall: 0.2421875
-F1-score: 0.30807453416149067
-AUC: 0.5181704856881851
+[[662 164]
+ [383 124]]
+Accuracy: 0.5896474118529632
+Precision: 0.4305555555555556
+Recall: 0.2445759368836292
+F1-score: 0.3119496855345912
+AUC: 0.5230143606936306
 
 
 More aggressive pruning results:
 Confusion matrix:
-[[789  32]
- [477  35]]
-Accuracy: 0.6181545386346586
-Precision: 0.5223880597014925
-Recall: 0.068359375
-F1-score: 0.12089810017271156
-AUC: 0.5146912587545677</code></pre>
+[[761  65]
+ [457  50]]
+Accuracy: 0.6084021005251313
+Precision: 0.43478260869565216
+Recall: 0.09861932938856016
+F1-score: 0.1607717041800643
+AUC: 0.5099634177209145</code></pre>
 </div>
 </div>
 </section>
 </section>
-<section id="conclusion-1" class="level3" data-number="9.4.4">
-<h3 data-number="9.4.4" class="anchored" data-anchor-id="conclusion-1"><span class="header-section-number">9.4.4</span> Conclusion</h3>
+<section id="conclusion-1" class="level3" data-number="10.4.4">
+<h3 data-number="10.4.4" class="anchored" data-anchor-id="conclusion-1"><span class="header-section-number">10.4.4</span> Conclusion</h3>
 <p>In conclusion, decision trees are a widely used supervised learning algorithm for classification and regression tasks. They are easy to understand and interpret. The algorithm works by recursively splitting the dataset based on the attribute that provides the most information gain or the impurity reduction. The tree structure is built from the root node to the leaf nodes, where each node represents a decision based on a feature of the data.</p>
 <p>One advantage of decision trees is their interpretability, which allows us to easily understand the decision-making process. They can also model complex problems with multiple outcomes. They are not affected by missing values or outliers.</p>
 <p>However, decision trees can be prone to overfitting and may not perform well on complex datasets. They can also be sensitive to small variations in the training data and may require pruning to prevent overfitting. Random forest would be a better choice in this situation. Furthermore, decision trees may not perform well on imbalanced datasets, and their performance can be affected by the selection of splitting criteria.</p>
 <p>Overall, decision trees are a useful and versatile tool in machine learning, but it is important to carefully consider their advantages and disadvantages before applying them to a specific problem.</p>
 </section>
-<section id="references-1" class="level3" data-number="9.4.5">
-<h3 data-number="9.4.5" class="anchored" data-anchor-id="references-1"><span class="header-section-number">9.4.5</span> References</h3>
+<section id="references-1" class="level3" data-number="10.4.5">
+<h3 data-number="10.4.5" class="anchored" data-anchor-id="references-1"><span class="header-section-number">10.4.5</span> References</h3>
 <p>
 https://scikit-learn.org/stable/modules/tree.html#
 </p><p>
@@ -1872,15 +1885,15 @@ https://scikit-learn.org/stable/modules/tree.html#
 <!-- ## Random forest -->
 </section>
 </section>
-<section id="random-forest" class="level2" data-number="9.5">
-<h2 data-number="9.5" class="anchored" data-anchor-id="random-forest"><span class="header-section-number">9.5</span> Random forest</h2>
+<section id="random-forest" class="level2" data-number="10.5">
+<h2 data-number="10.5" class="anchored" data-anchor-id="random-forest"><span class="header-section-number">10.5</span> Random forest</h2>
 <p>Random forest (RF) is a commonly-used ensemble machine learning algorithm. It is a bagging, also known as bootstrap aggregation, method, which combines the output of multiple decision trees to reach a single result.</p>
 <ul>
 <li>Regression: mean</li>
 <li>Classification: majority vote</li>
 </ul>
-<section id="algorithm" class="level3" data-number="9.5.1">
-<h3 data-number="9.5.1" class="anchored" data-anchor-id="algorithm"><span class="header-section-number">9.5.1</span> Algorithm</h3>
+<section id="algorithm" class="level3" data-number="10.5.1">
+<h3 data-number="10.5.1" class="anchored" data-anchor-id="algorithm"><span class="header-section-number">10.5.1</span> Algorithm</h3>
 <p>RF baggs on both data (rows) and features (columns).</p>
 <ul>
 <li>A random sample of the training data in a training set is selected with replacement (bootstrap)</li>
@@ -1909,6 +1922,456 @@ https://scikit-learn.org/stable/modules/tree.html#
 <li>Resource hungery</li>
 <li>Interpretation</li>
 </ul>
+<!-- ## bagging versus boosting -->
+</section>
+</section>
+<section id="bagging-vs.-boosting" class="level2" data-number="10.6">
+<h2 data-number="10.6" class="anchored" data-anchor-id="bagging-vs.-boosting"><span class="header-section-number">10.6</span> Bagging vs.&nbsp;Boosting</h2>
+<p><strong>By Nathan Nhan</strong></p>
+<section id="introduction-3" class="level3" data-number="10.6.1">
+<h3 data-number="10.6.1" class="anchored" data-anchor-id="introduction-3"><span class="header-section-number">10.6.1</span> Introduction</h3>
+<p>Before we talk about Bagging and Boosting we first must talk about ensemble learning. Ensemble learning is a technique used in machine-learning where we have multiple models (often times called “weak learners”) that are trained to solve the same problem and then combined to obtain better results that they could individually. With this, we can obtain more accurate and more robust models for our data using this technique.</p>
+<p>Bagging and boosting are two types of ensemble learning techniques. They decrease the variance of a single estimate as they combine multiple estimates from different models to create a model with higher stability. Additionally, ensemble learning techniques increase the stability of the final model by reducing faactors of error in our models such as unnecessary noise, bias, and variance that we might find hurts the accuracy of our model. Specifically:</p>
+<ul>
+<li>Bagging helps decrease the model’s variance and prevent over-fitting.</li>
+<li>Boosting helps decrease the model’s bias.</li>
+</ul>
+</section>
+<section id="bagging" class="level3" data-number="10.6.2">
+<h3 data-number="10.6.2" class="anchored" data-anchor-id="bagging"><span class="header-section-number">10.6.2</span> Bagging</h3>
+<p>Bagging, which stands for bootrap aggregation, is a ensemble learning algorithm designed to improve the stability and accuracy of algorithms used in statistical classification and regression. In Bagging, multiple homogenous algorithms are trained independently and combined afterward to determine the model’s average. It works like this:</p>
+<ul>
+<li>From the original dataset, multiple subsets are created, selecting observations with replacement.</li>
+<li>On each of these subsets, a base learner (weak learner) is created for each</li>
+<li>Next, all the independent models are run in parallel with one another</li>
+<li>The final predictions are determined by combining the predictions from all the models.</li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/Bagging.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Visualization on how the bagging algorithm works</figcaption><p></p>
+</figure>
+</div>
+<p>The benefits of using bagging algorithms are that * Bagging algorithms reduce bias and variance errors. * Bagging algorithms can handle overfitting (when a model works with a training dataset but fails with the actual testing dataset). * Bagging can easily be implemented and produce more robust models.</p>
+<section id="illustration" class="level4" data-number="10.6.2.1">
+<h4 data-number="10.6.2.1" class="anchored" data-anchor-id="illustration"><span class="header-section-number">10.6.2.1</span> Illustration</h4>
+<p>First we must load the dataset. For this topic I will be generating a madeup dataset shown below. It is recommended to make sure the dataset has no missing values as datasets with missing values leads to inconsistent results and poor model performance.</p>
+<div class="cell" data-execution_count="40">
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> random</span>
+<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a>length <span class="op">=</span> <span class="dv">1000</span></span>
+<span id="cb50-6"><a href="#cb50-6" aria-hidden="true" tabindex="-1"></a>random.seed(<span class="dv">0</span>)</span>
+<span id="cb50-7"><a href="#cb50-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-8"><a href="#cb50-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate a random dataset</span></span>
+<span id="cb50-9"><a href="#cb50-9" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> {</span>
+<span id="cb50-10"><a href="#cb50-10" aria-hidden="true" tabindex="-1"></a>        <span class="st">'Age'</span>: [random.randint(<span class="dv">10</span>, <span class="dv">80</span>) <span class="cf">for</span> x <span class="kw">in</span> <span class="bu">range</span>(length)],</span>
+<span id="cb50-11"><a href="#cb50-11" aria-hidden="true" tabindex="-1"></a>        <span class="st">'Weight'</span>: [random.randint(<span class="dv">110</span>, <span class="dv">250</span>) <span class="cf">for</span> x <span class="kw">in</span> <span class="bu">range</span>(length)],</span>
+<span id="cb50-12"><a href="#cb50-12" aria-hidden="true" tabindex="-1"></a>        <span class="st">'Height'</span>: [random.randint(<span class="dv">55</span>, <span class="dv">77</span>) <span class="cf">for</span> x <span class="kw">in</span> <span class="bu">range</span>(length)],</span>
+<span id="cb50-13"><a href="#cb50-13" aria-hidden="true" tabindex="-1"></a>        <span class="st">'Average BPM'</span>: [random.randint(<span class="dv">70</span>, <span class="dv">100</span>) <span class="cf">for</span> x <span class="kw">in</span> <span class="bu">range</span>(length)],</span>
+<span id="cb50-14"><a href="#cb50-14" aria-hidden="true" tabindex="-1"></a>        <span class="st">'Amount of Surgeries'</span>: [random.randint(<span class="dv">0</span>, <span class="dv">3</span>) <span class="cf">for</span> x <span class="kw">in</span> <span class="bu">range</span>(length)],</span>
+<span id="cb50-15"><a href="#cb50-15" aria-hidden="true" tabindex="-1"></a>        <span class="st">'Blood Pressure'</span>: [random.randint(<span class="dv">100</span>, <span class="dv">180</span>) <span class="cf">for</span> x <span class="kw">in</span> <span class="bu">range</span>(length)],</span>
+<span id="cb50-16"><a href="#cb50-16" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb50-17"><a href="#cb50-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-18"><a href="#cb50-18" aria-hidden="true" tabindex="-1"></a>data[<span class="st">'Healthy?'</span>] <span class="op">=</span> np.nan</span>
+<span id="cb50-19"><a href="#cb50-19" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.DataFrame(data)</span>
+<span id="cb50-20"><a href="#cb50-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-21"><a href="#cb50-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-22"><a href="#cb50-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate a random response variable displaying "1" for healthy and "0" for unhealthy</span></span>
+<span id="cb50-23"><a href="#cb50-23" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> index, row <span class="kw">in</span> df.iterrows():</span>
+<span id="cb50-24"><a href="#cb50-24" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> row[<span class="st">'Blood Pressure'</span>] <span class="op">&lt;</span> <span class="dv">110</span> <span class="kw">and</span> row[<span class="st">'Average BPM'</span>] <span class="op">&gt;</span> <span class="dv">80</span>:</span>
+<span id="cb50-25"><a href="#cb50-25" aria-hidden="true" tabindex="-1"></a>        df.at[index, <span class="st">'Healthy?'</span>] <span class="op">=</span> random.choice([<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>])</span>
+<span id="cb50-26"><a href="#cb50-26" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb50-27"><a href="#cb50-27" aria-hidden="true" tabindex="-1"></a>        df.at[index, <span class="st">'Healthy?'</span>] <span class="op">=</span> random.choice([<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>])</span>
+<span id="cb50-28"><a href="#cb50-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-29"><a href="#cb50-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-30"><a href="#cb50-30" aria-hidden="true" tabindex="-1"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="40">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>Age</th>
+      <th>Weight</th>
+      <th>Height</th>
+      <th>Average BPM</th>
+      <th>Amount of Surgeries</th>
+      <th>Blood Pressure</th>
+      <th>Healthy?</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>59</td>
+      <td>125</td>
+      <td>61</td>
+      <td>92</td>
+      <td>1</td>
+      <td>177</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>63</td>
+      <td>198</td>
+      <td>71</td>
+      <td>72</td>
+      <td>0</td>
+      <td>149</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>15</td>
+      <td>218</td>
+      <td>72</td>
+      <td>74</td>
+      <td>0</td>
+      <td>117</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>43</td>
+      <td>144</td>
+      <td>66</td>
+      <td>96</td>
+      <td>3</td>
+      <td>132</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>75</td>
+      <td>165</td>
+      <td>69</td>
+      <td>84</td>
+      <td>3</td>
+      <td>173</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>995</th>
+      <td>15</td>
+      <td>113</td>
+      <td>73</td>
+      <td>74</td>
+      <td>2</td>
+      <td>147</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>996</th>
+      <td>11</td>
+      <td>184</td>
+      <td>63</td>
+      <td>74</td>
+      <td>3</td>
+      <td>102</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>997</th>
+      <td>38</td>
+      <td>139</td>
+      <td>73</td>
+      <td>72</td>
+      <td>1</td>
+      <td>110</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>998</th>
+      <td>51</td>
+      <td>152</td>
+      <td>68</td>
+      <td>99</td>
+      <td>0</td>
+      <td>159</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>999</th>
+      <td>18</td>
+      <td>180</td>
+      <td>56</td>
+      <td>80</td>
+      <td>1</td>
+      <td>162</td>
+      <td>1.0</td>
+    </tr>
+  </tbody>
+</table>
+<p>1000 rows × 7 columns</p>
+</div>
+</div>
+</div>
+<p>Next, we need to specify the x and y variables where the x-variable will hold all the input columns containing numbers and y-variable will contain the output column.</p>
+<div class="cell" data-execution_count="41">
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> df.drop([<span class="st">"Healthy?"</span>], axis<span class="op">=</span><span class="st">"columns"</span>)</span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> df[<span class="st">'Healthy?'</span>]</span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(X)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     Age  Weight  Height  Average BPM  Amount of Surgeries  Blood Pressure
+0     59     125      61           92                    1             177
+1     63     198      71           72                    0             149
+2     15     218      72           74                    0             117
+3     43     144      66           96                    3             132
+4     75     165      69           84                    3             173
+..   ...     ...     ...          ...                  ...             ...
+995   15     113      73           74                    2             147
+996   11     184      63           74                    3             102
+997   38     139      73           72                    1             110
+998   51     152      68           99                    0             159
+999   18     180      56           80                    1             162
+
+[1000 rows x 6 columns]</code></pre>
+</div>
+</div>
+<p>Next we must scale our data. Dataset scaling is transforming the dataset to fit within a specific range. This ensures that no data point is left out during model training. In the example giving we will use the <code>StandardScaler</code> method to scale our dataset.</p>
+<div class="cell" data-execution_count="42">
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a>scaler <span class="op">=</span> StandardScaler()</span>
+<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a>X_scaled <span class="op">=</span> scaler.fit_transform(X)</span>
+<span id="cb53-5"><a href="#cb53-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-6"><a href="#cb53-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(X)</span>
+<span id="cb53-7"><a href="#cb53-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(X_scaled)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     Age  Weight  Height  Average BPM  Amount of Surgeries  Blood Pressure
+0     59     125      61           92                    1             177
+1     63     198      71           72                    0             149
+2     15     218      72           74                    0             117
+3     43     144      66           96                    3             132
+4     75     165      69           84                    3             173
+..   ...     ...     ...          ...                  ...             ...
+995   15     113      73           74                    2             147
+996   11     184      63           74                    3             102
+997   38     139      73           72                    1             110
+998   51     152      68           99                    0             159
+999   18     180      56           80                    1             162
+
+[1000 rows x 6 columns]
+[[ 0.71876116 -1.33938121 -0.78473753  0.77849777 -0.44769866  1.59373784]
+ [ 0.91291599  0.44444037  0.71600359 -1.46533498 -1.3613694   0.39947944]
+ [-1.41694191  0.93315861  0.8660777  -1.2409517  -1.3613694  -0.96538731]
+ ...
+ [-0.30055167 -0.99727844  1.01615181 -1.46533498 -0.44769866 -1.26395191]
+ [ 0.33045151 -0.67961158  0.26578125  1.56383923 -1.3613694   0.82600029]
+ [-1.27132579  0.00459395 -1.53510809 -0.56780188 -0.44769866  0.95395655]]</code></pre>
+</div>
+</div>
+<p>After scaling the dataset, we can split it. We will split the scaled dataset into two subsets: training and testing. To split the dataset, we will use the train_test_split method. We will be using the default splitting ratio for the <code>train_test_split</code> method which means that 80% of the data will be the training set and 20% the testing set.</p>
+<div class="cell" data-execution_count="43">
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a>X_train, X_test, y_train, y_test <span class="op">=</span> train_test_split(X_scaled, y, stratify<span class="op">=</span>y, random_state<span class="op">=</span><span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now that we have split our data, we can now perform our classification. The <code>BaggingClassifier</code> classifier will perform all the bagging steps and build an optimized model based on our data. The <code>BaggingClassifier</code> will fit the weak/base learners on the randomly sampled subsets. The listed parameters are as follows:</p>
+<ul>
+<li><code>estimator</code> - this parameter takes the algoithm we want to use, in this example we use the <code>DecisionTreeClassifier</code> for our weak learners.</li>
+<li><code>n_estimators</code> - this parameter takes the amount of weak learners we want to use.</li>
+<li><code>max_samples</code> - this parameter represents The maximum number of data that is sampled from the training set. We use 80% of the training dataset for resampling.</li>
+<li><code>bootstrap</code> - this parameter allows for resampling of the training dataset without replacement when set to <code>True</code>.</li>
+<li><code>oob_score</code> - this parameter is used to compute the model’s accuracy score after training.</li>
+<li><code>random_state</code> - Seed used by the random number generator so we can reproduce out results</li>
+</ul>
+<div class="cell" data-execution_count="44">
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.ensemble <span class="im">import</span> BaggingClassifier</span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.tree <span class="im">import</span> DecisionTreeClassifier</span>
+<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a>bag_model <span class="op">=</span> BaggingClassifier(</span>
+<span id="cb56-5"><a href="#cb56-5" aria-hidden="true" tabindex="-1"></a>estimator<span class="op">=</span>DecisionTreeClassifier(), <span class="co"># DecisionTreeClassifier() if estimator is not defined</span></span>
+<span id="cb56-6"><a href="#cb56-6" aria-hidden="true" tabindex="-1"></a>n_estimators<span class="op">=</span><span class="dv">100</span>, </span>
+<span id="cb56-7"><a href="#cb56-7" aria-hidden="true" tabindex="-1"></a>bootstrap<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb56-8"><a href="#cb56-8" aria-hidden="true" tabindex="-1"></a>oob_score<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb56-9"><a href="#cb56-9" aria-hidden="true" tabindex="-1"></a>random_state <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb56-10"><a href="#cb56-10" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb56-11"><a href="#cb56-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-12"><a href="#cb56-12" aria-hidden="true" tabindex="-1"></a>bag_model.fit(X_train, y_train)</span>
+<span id="cb56-13"><a href="#cb56-13" aria-hidden="true" tabindex="-1"></a>AccScore <span class="op">=</span> bag_model.oob_score_</span>
+<span id="cb56-14"><a href="#cb56-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Accuracy Score for Bagging Classifier: "</span> <span class="op">+</span> <span class="bu">str</span>(AccScore))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Accuracy Score for Bagging Classifier: 0.8853333333333333</code></pre>
+</div>
+</div>
+<p>We can find if overfitting occurs when we get a lower accuracy when using the testing dataset. We can find this by running the following code:</p>
+<div class="cell" data-execution_count="45">
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> bag_model.score(X_test, y_test) <span class="op">&lt;</span> AccScore:</span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'Overfitting has occurred since the testing dataset has a lower accuracy than the training dataset'</span>)</span>
+<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb58-4"><a href="#cb58-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"No overfitting has occurred"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Overfitting has occurred since the testing dataset has a lower accuracy than the training dataset</code></pre>
+</div>
+</div>
+<p>Comparing this to the non-bagging algorithm like K-fold cross-validation:</p>
+<div class="cell" data-execution_count="46">
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> cross_val_score</span>
+<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a>scores <span class="op">=</span> cross_val_score(DecisionTreeClassifier(), X, y, cv<span class="op">=</span><span class="dv">5</span>)</span>
+<span id="cb60-4"><a href="#cb60-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Accuracy Score for Bagging Classifier: "</span> <span class="op">+</span> <span class="bu">str</span>(scores.mean())) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Accuracy Score for Bagging Classifier: 0.7870000000000001</code></pre>
+</div>
+</div>
+</section>
+<section id="example-random-forest-classifier" class="level4" data-number="10.6.2.2">
+<h4 data-number="10.6.2.2" class="anchored" data-anchor-id="example-random-forest-classifier"><span class="header-section-number">10.6.2.2</span> Example: Random Forest Classifier</h4>
+<p>The Random Forest Classifier algorithm is a typical example of a bagging algorithm. Random Forests uses bagging underneath to sample the dataset with replacement randomly. Random Forests samples not only data rows but also columns. It also follows the bagging steps to produce an aggregated final model.</p>
+<div class="cell" data-execution_count="47">
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.ensemble <span class="im">import</span> RandomForestClassifier</span>
+<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a>clf <span class="op">=</span> RandomForestClassifier(</span>
+<span id="cb62-4"><a href="#cb62-4" aria-hidden="true" tabindex="-1"></a>n_estimators<span class="op">=</span><span class="dv">100</span>, </span>
+<span id="cb62-5"><a href="#cb62-5" aria-hidden="true" tabindex="-1"></a>bootstrap <span class="op">=</span> <span class="va">True</span>,</span>
+<span id="cb62-6"><a href="#cb62-6" aria-hidden="true" tabindex="-1"></a>oob_score<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb62-7"><a href="#cb62-7" aria-hidden="true" tabindex="-1"></a>random_state <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb62-8"><a href="#cb62-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb62-9"><a href="#cb62-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb62-10"><a href="#cb62-10" aria-hidden="true" tabindex="-1"></a>clf <span class="op">=</span> clf.fit(X, y)</span>
+<span id="cb62-11"><a href="#cb62-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb62-12"><a href="#cb62-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Accuracy Score for Random Forest Regression Algoritm Classifier: "</span> <span class="op">+</span> <span class="bu">str</span>(clf.oob_score_)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Accuracy Score for Random Forest Regression Algoritm Classifier: 0.869</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="boosting" class="level3" data-number="10.6.3">
+<h3 data-number="10.6.3" class="anchored" data-anchor-id="boosting"><span class="header-section-number">10.6.3</span> Boosting</h3>
+<p>The Boosting algorithm is a type of ensemble learning algorithm that works by training weak models sequentially. First, a model is built from the training data. Then an additional model is built which tries to correct the errors present in the first model. When an input is misclassified by a model, its weight is increased so that next model is more likely to classify it correctly. This procedure is continued and models are added until either the complete training data set is predicted correctly or the maximum number of n models are added.</p>
+<p>It works step-by-step like this:</p>
+<ul>
+<li>A subset is created from the original dataset, where initially all the data points are given equal weights.</li>
+<li>A base model is created on this subset which is used to make predictions on the whole dataset.</li>
+<li>Errors are calculated by comparing the actual values vs.&nbsp;the predicted values. The observations that are incorrectly predicted, are given higher weights.</li>
+<li>An additional model is created and predictions are made on the dataset, trying to correct the errors of the previous model</li>
+<li>The cycle will repeat until the maximum number of n models are added.</li>
+<li>The final model (strong model) is the weighted mean of all the models (weak model).</li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/Boosting.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Visualization on how the boosting algorithm works</figcaption><p></p>
+</figure>
+</div>
+<section id="example-adaboost" class="level4" data-number="10.6.3.1">
+<h4 data-number="10.6.3.1" class="anchored" data-anchor-id="example-adaboost"><span class="header-section-number">10.6.3.1</span> Example: AdaBoost</h4>
+<p>The AdaBoost algorithm, which is short for “Adaptive Boosting,” was one of the first boosting methods that saw an increase in accuracy and speed performance of models. AdaBoost focuses on enhnacement in performance in areas where the first iteration of the model fails.</p>
+<p>We can see an implmentation of this algorithm below:</p>
+<p>The <code>AdaBoostClassifier</code> method has some of the following parameters:</p>
+<ul>
+<li><code>estimator</code> - this parameter takes the algoithm we want to use, in this example we use the <code>DecisionTreeClassifier</code> for our weak learners.</li>
+<li><code>n_estimators</code> - this parameter takes the amount of weak learners we want to use.</li>
+<li><code>learning_rate</code> - this parameter learning rate reduces the contribution of the classifier by this value. It has a default value of 1.</li>
+<li><code>random_state</code> - Seed used by the random number generator so we can reproduce out results.</li>
+</ul>
+<div class="cell" data-execution_count="48">
+<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.ensemble <span class="im">import</span> AdaBoostClassifier</span>
+<span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-3"><a href="#cb64-3" aria-hidden="true" tabindex="-1"></a>adaboost <span class="op">=</span> AdaBoostClassifier(</span>
+<span id="cb64-4"><a href="#cb64-4" aria-hidden="true" tabindex="-1"></a>    estimator <span class="op">=</span> DecisionTreeClassifier(),</span>
+<span id="cb64-5"><a href="#cb64-5" aria-hidden="true" tabindex="-1"></a>    n_estimators <span class="op">=</span> <span class="dv">100</span>, </span>
+<span id="cb64-6"><a href="#cb64-6" aria-hidden="true" tabindex="-1"></a>    learning_rate <span class="op">=</span> <span class="fl">0.2</span>,</span>
+<span id="cb64-7"><a href="#cb64-7" aria-hidden="true" tabindex="-1"></a>    random_state <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb64-8"><a href="#cb64-8" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb64-9"><a href="#cb64-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-10"><a href="#cb64-10" aria-hidden="true" tabindex="-1"></a>adaboost.fit(X_train, y_train)</span>
+<span id="cb64-11"><a href="#cb64-11" aria-hidden="true" tabindex="-1"></a>score <span class="op">=</span> adaboost.score(X_test, y_test)</span>
+<span id="cb64-12"><a href="#cb64-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Accuracy Score for Adaboost Classifier: "</span> <span class="op">+</span> <span class="bu">str</span>(score)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Accuracy Score for Adaboost Classifier: 0.76</code></pre>
+</div>
+</div>
+</section>
+<section id="example-xgboost" class="level4" data-number="10.6.3.2">
+<h4 data-number="10.6.3.2" class="anchored" data-anchor-id="example-xgboost"><span class="header-section-number">10.6.3.2</span> Example: XGBoost</h4>
+<p><code>XGBoost</code> is widely considered as one of the most important boosting methods for its advantages over other boosting algorithms.</p>
+<p>Other boosting algorithms typically use gradiant descent to find the minima of the <code>n</code> features mapped in <code>n</code> dimensional space. However, <code>XGBoost</code> instead uses the a mathematical technique called the Newton–Raphson method which uses the second derivative of the function which provides curvature information in contract to algorithms using gradiant descent which only use the first derivative.</p>
+<p><code>XGBoost</code> has its own python library called <code>xgboost</code> just to itself for which we wrote the example code below.</p>
+<p>The <code>XGBClassifer</code> contains some of the following parameters:</p>
+<ul>
+<li><code>learning_rate</code> - this parameter takes the amount of weak learners we want to use.</li>
+<li><code>random_state</code> - Random number seed.</li>
+<li><code>importance_type</code> - The feature to focus on; either gain, weight, cover, total_gain or total_cover.</li>
+</ul>
+<div class="cell" data-execution_count="49">
+<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> xgboost <span class="im">import</span> XGBClassifier</span>
+<span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a>xgboost <span class="op">=</span> XGBClassifier(</span>
+<span id="cb66-3"><a href="#cb66-3" aria-hidden="true" tabindex="-1"></a>    n_estimators <span class="op">=</span> <span class="dv">1000</span>, </span>
+<span id="cb66-4"><a href="#cb66-4" aria-hidden="true" tabindex="-1"></a>    learning_rate <span class="op">=</span> <span class="fl">0.05</span>,</span>
+<span id="cb66-5"><a href="#cb66-5" aria-hidden="true" tabindex="-1"></a>    random_state <span class="op">=</span> <span class="dv">0</span>)</span>
+<span id="cb66-6"><a href="#cb66-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb66-7"><a href="#cb66-7" aria-hidden="true" tabindex="-1"></a>xgboost.fit(X_train, y_train)</span>
+<span id="cb66-8"><a href="#cb66-8" aria-hidden="true" tabindex="-1"></a>score_xgb <span class="op">=</span> xgboost.score(X_test,y_test)</span>
+<span id="cb66-9"><a href="#cb66-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Accuracy Score for XGBoost Classifier: "</span> <span class="op">+</span> <span class="bu">str</span>(score_xgb)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Accuracy Score for XGBoost Classifier: 0.836</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="bagging-vs.-boosting-1" class="level3" data-number="10.6.4">
+<h3 data-number="10.6.4" class="anchored" data-anchor-id="bagging-vs.-boosting-1"><span class="header-section-number">10.6.4</span> Bagging vs.&nbsp;Boosting</h3>
+<p>Now with all that being said, which should you use? Bagging or Boosting?</p>
+<p>Both Bagging and Boosting combine several estimates from different models so both will turn out a model with higher stability.</p>
+<p>If you find that the problem when using a single model gets a high error, bagging will rarely be better but on the other hand boosting will generate a combined model with lower errors.</p>
+<p>Conversely, if your single model is over-fitting then typically bagging is the best option and boosting will not help for over-fitting. Therefore, bagging iw what you want.</p>
+<section id="similarites" class="level4" data-number="10.6.4.1">
+<h4 data-number="10.6.4.1" class="anchored" data-anchor-id="similarites"><span class="header-section-number">10.6.4.1</span> Similarites</h4>
+<p>Below is a set of similarites between Bagging and Boosting:</p>
+<ul>
+<li><p>Both are ensemble learning methods to get N models all from one individual model</p></li>
+<li><p>Both use random sampling to generate several random subsets</p></li>
+<li><p>Both make the final decision by averaging and combining the N learners (or taking the majority of them i.e Majority Voting).</p></li>
+<li><p>Both reduce variance and provide higher data stability than one individual model would.</p></li>
+</ul>
+</section>
+<section id="differences" class="level4" data-number="10.6.4.2">
+<h4 data-number="10.6.4.2" class="anchored" data-anchor-id="differences"><span class="header-section-number">10.6.4.2</span> Differences:</h4>
+<p>Below is a set of differences between Bagging and Boosting:</p>
+<ul>
+<li>Bagging combines predictions belonging to the same type while boosting is a way of combining predictions that belong to different types</li>
+<li>Bagging decreases variance while boosting decreases bias. If the classifier is unstable (high variance), then we using Bagging. If the classifier is stable and simple (high bias), then we should use Boosting.</li>
+<li>Bagging each model receives equal weight where in Boosting each model is weighted based on their performance.</li>
+<li>Bagging has models run in parallel, independent of one another while Boosting has them run sequentially so each model is dependent on the previous</li>
+<li>In Bagging different training data subsets are randomly generated with replacement segemnts of the original training dataset. In Boosting each new subsets contains the elements that were misclassified by previous models.</li>
+<li>Bagging attempts to solve over-fitting problem while Boosting does not.</li>
+</ul>
+</section>
+<section id="conclusion-2" class="level4" data-number="10.6.4.3">
+<h4 data-number="10.6.4.3" class="anchored" data-anchor-id="conclusion-2"><span class="header-section-number">10.6.4.3</span> Conclusion:</h4>
+<ul>
+<li>We have explained what an ensemble method is and how Bagging and Boosting algorithms function.</li>
+<li>We have demonstrated the differences and similaries between the two ensemble methods: Bagging and Boosting.</li>
+<li>We showed how to implement both Bagging and Boosting algorithms into Python</li>
+</ul>
+</section>
+</section>
+<section id="references-2" class="level3" data-number="10.6.5">
+<h3 data-number="10.6.5" class="anchored" data-anchor-id="references-2"><span class="header-section-number">10.6.5</span> References</h3>
+<p><a href="https://www.kaggle.com/code/prashant111/bagging-vs-boostingaggingClassifier">Kaggle: Bagging vs.&nbsp;Boosting</a></p>
+<p><a href="https://scikit-learn.org/stable/modules/ensemble.html">Scikit.learn</a></p>
+<p><a href="https://www.section.io/engineering-education/implementing-bagging-algorithms-in-python/#how-bagging-works">Bagging algorithms in Python</a></p>
+<p><a href="https://www.section.io/engineering-education/boosting-algorithms-python/#bagging-vs-boosting">Boosting Algorithms in Python</a></p>
+<p><a href="https://www.geeksforgeeks.org/bagging-vs-boosting-in-machine-learning/">GeeksforGeeks</a></p>
 
 
 </section>
@@ -2051,12 +2514,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="./visual.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Visualization</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Visualization</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="./advanced.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Advanced Topics</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Advanced Topics</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
