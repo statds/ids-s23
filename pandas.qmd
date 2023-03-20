@@ -1,0 +1,9 @@
+# Data Manipulation with Pandas
+
+
+{{< include _pandas1.qmd >}}
+
+{{< include _pandas2.qmd >}}
+
+
+

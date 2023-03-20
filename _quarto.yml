@@ -4,7 +4,7 @@ project:
 book:
   title: "Introduction to Data Science"
   subtitle: "STAT 3255/5255 @ UConn"
-  author: "Jun Yan"
+  author: "Jun Yan and Students in Spring 2023"
   date: "1/17/2023"
   chapters:
     - index.qmd
@@ -12,12 +12,16 @@ book:
     - git.qmd
     - quarto.qmd
     - python.qmd
+    - pandas.qmd
+    - geo.qmd
+    - descr.qmd
     - stats.qmd
+    - visual.qmd
+    - supervised.qmd
+    - advanced.qmd
     - nycrash.qmd
-    - mysection.qmd
     - exercises.qmd
     - references.qmd
-
 bibliography: references.bib
 
 format:

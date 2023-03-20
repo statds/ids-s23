@@ -1,0 +1,531 @@
+## Support Vector Machines
+
+
+### Introduction
+
+Support Vector Machine (SVM) is a type of suppervised learning models that can be used to analyze classification and regression. In this section will develop the intuition behind support vector machines and provide some examples.
+
+### Package that need to install
+
+Before we begin ensure that these this package are installed in your python 
+
+```
+pip install scikit-learn
+```
+
+[Scikit-learn](https://scikit-learn.org/stable/) is a python package that provides efficient versions of a large number of common algorithms It constist of all type of machine learning model which is wildly known such as:
+
+*    Linear Regression
+*    Logistic Regression
+*    Decision Trees
+*    Gaussian Process
+
+Furthermore, it also provide function that can be used anytime and use it on the provided machine learning algorithm. There are two type of functions: 
+
+*   Avalable dataset functions such as Iris dataset `load_iris`
+*   Randomly generated datasets function such as `make_moon` , `make_circle` etc. 
+
+### Support Vector Classifier
+
+Before we get into SVM , let us take a look at this simple classification problem. Consider a distinguishable datasets
+
+```{python}
+%matplotlib inline
+import numpy as np
+import matplotlib.pyplot as plt
+
+seed = 220
+
+from sklearn.datasets import make_blobs
+X, y = make_blobs(n_samples=50, centers=2,
+                  random_state= seed, cluster_std=1)
+plt.scatter(X[:, 0], X[:, 1], c=y, s=50);
+
+
+```
+One of the solution we can do is to draw lines as a way to seperate these two classes.
+
+```{python}
+
+def xfit(m,b):
+    t = np.linspace(-5,5,50)
+    y = m*t + b
+
+    return y
+
+X, y = make_blobs(n_samples=50, centers=2,
+                  random_state= 220, cluster_std=1)
+    
+ax = plt.gca()
+ax.scatter(X[:, 0], X[:, 1], c=y, s=50)
+t = np.linspace(-5,5,50)
+y1 = xfit(7,-5)
+y2 = xfit(15,9)
+y3 = xfit(-5,-4)
+ax.plot(t,y1,label = 'Line 1')
+ax.plot(t,y2,label = 'Line 2')
+ax.plot(t,y3,label = 'Line 3')
+ax.set_xlim(-5, 5)
+ax.set_ylim(-7, 0)
+ax.legend();
+
+```
+How do we find the best line that divide them both? In other word we need to find the optimal line or best decision boundary.
+
+Lets import Support Vector Machine module for now to help us find the best line to classify the data set.
+
+```{python}
+from sklearn.svm import SVC # "Support vector classifier"
+model = SVC(kernel='linear', C=1E10)
+# For now lets not think about the purpose of C
+model.fit(X, y)
+
+ax = plt.gca()
+ax.set_xlim(-5, 5)
+ax.set_ylim(-7, 0)
+
+xlim = ax.get_xlim()
+ylim = ax.get_ylim()
+
+# Create a mesh grid
+x_grid = np.linspace(xlim[0], xlim[1], 30)
+y_grid = np.linspace(ylim[0], ylim[1], 30)
+Y_mesh, X_mesh = np.meshgrid(y_grid,x_grid)
+xy = np.vstack([X_mesh.ravel(),Y_mesh.ravel()]).T
+
+P = model.decision_function(xy).reshape(X_mesh.shape)
+
+ax.contour(X_mesh, Y_mesh, P, colors='k',
+               levels=[-1, 0 ,1], alpha=0.5,
+               linestyles= ['--','-','--']);
+
+ax.scatter(X[:, 0], X[:, 1], c=y, s=50);
+
+ax.scatter(model.support_vectors_[:, 0],
+                   model.support_vectors_[:, 1],
+                   s=300, linewidth=2, facecolor ='none', edgecolor = 'black');
+
+```
+
+There is a name for this line. Is called **margin**, it is the shortest distance between the selected observation and the line. In this case we are using the largest margin to seperate the observation. We called it **Maximal Margin Classifier**.
+
+The selected observation (circled points) are called **Support Vectors**. For simple explaination, it is the points that used to create the **margin**. 
+
+What if we have a weird observation as shown below? What happend if we try to use **Maximal Margin Classifier**? Lets add a point on an interesting location.
+
+```{python}
+# Addiing a point near yellow side and name it blue
+from sklearn.datasets import make_blobs
+X, y = make_blobs(n_samples=50, centers=2,
+                  random_state= 220, cluster_std=1)
+
+X_new = [2, -4]
+
+X = np.vstack([X,X_new])
+
+y_new = np.array([1]).reshape(1)
+
+y = np.append(y, [0], axis=0)
+
+ax = plt.subplot()
+ax.scatter(X[:, 0], X[:, 1], c=y, s=51);
+```
+
+Using **Maximum Margin Classifier**
+```{python}
+model = SVC(kernel='linear', C=1E10)
+model.fit(X, y)
+
+ax = plt.gca()
+ax.set_xlim(-5, 5)
+ax.set_ylim(-7, 0)
+
+xlim = ax.get_xlim()
+ylim = ax.get_ylim()
+
+# Create a mesh grid
+x_grid = np.linspace(xlim[0], xlim[1], 30)
+y_grid = np.linspace(ylim[0], ylim[1], 30)
+Y_mesh, X_mesh = np.meshgrid(y_grid,x_grid)
+xy = np.vstack([X_mesh.ravel(),Y_mesh.ravel()]).T
+
+P = model.decision_function(xy).reshape(X_mesh.shape)
+
+ax.contour(X_mesh, Y_mesh, P, colors='k',
+               levels=[-1, 0 ,1], alpha=0.5,
+               linestyles= ['--','-','--']);
+
+ax.scatter(X[:, 0], X[:, 1], c=y, s=50);
+```
+
+As you can see **Maximal Margin Classifier** might not be a useful in this case. We must make the margin that is not sensitve to outliers and allow a few misclassifications. So we need to implement **Soft Margin** to get a better prediction. This is where parameter C comes in.
+
+```{python}
+# New fit with modifiying the C
+
+model = SVC(kernel='linear', C=0.1)
+model.fit(X, y)
+
+ax = plt.gca()
+ax.set_xlim(-5, 5)
+ax.set_ylim(-7, 0)
+
+xlim = ax.get_xlim()
+ylim = ax.get_ylim()
+
+# Create a mesh grid
+x_grid = np.linspace(xlim[0], xlim[1], 30)
+y_grid = np.linspace(ylim[0], ylim[1], 30)
+Y_mesh, X_mesh = np.meshgrid(y_grid,x_grid)
+xy = np.vstack([X_mesh.ravel(),Y_mesh.ravel()]).T
+
+P = model.decision_function(xy).reshape(X_mesh.shape)
+
+ax.contour(X_mesh, Y_mesh, P, colors='k',
+               levels=0, alpha=0.5, linestyles= '-');
+
+ax.scatter(X[:, 0], X[:, 1], c=y, s=50);
+
+```
+Increasing the parameter C will greatly influence the classification line location
+
+```{python}
+X, y = make_blobs(n_samples=100, centers=2,
+                  random_state=0, cluster_std=1.2)
+
+fig, ax = plt.subplots(1, 2)
+fig.subplots_adjust(left=0.0625, right=0.95, wspace=0.1)
+
+for axi, C in zip(ax, [100.0, 0.1]):
+    model = SVC(kernel='linear', C=C).fit(X, y)
+    
+
+    axi.set_xlim(-3, 6)
+    axi.set_ylim(-2, 7)
+
+    xlim = axi.get_xlim()
+    ylim = axi.get_ylim()
+
+    # Create a mesh grid
+    x_grid = np.linspace(xlim[0], xlim[1], 30)
+    y_grid = np.linspace(ylim[0], ylim[1], 30)
+    Y_mesh, X_mesh = np.meshgrid(y_grid,x_grid)
+    xy = np.vstack([X_mesh.ravel(),Y_mesh.ravel()]).T
+
+    P = model.decision_function(xy).reshape(X_mesh.shape)
+
+    axi.contour(X_mesh, Y_mesh, P, colors='k',
+               levels=[-1,0,1], alpha=0.5, linestyles=['--','-','--']);
+
+    axi.scatter(X[:, 0], X[:, 1], c=y, s=50)
+    axi.set_title('C = {0:.1f}'.format(C), size=14)
+
+```
+#### Support Vector Machine
+Now we have some basic understanding on classifiying thing, lets take a look at the sample problem below.
+
+```{python}
+from sklearn.datasets import make_circles
+X, y = make_circles(100, factor=.1, noise=.1)
+
+plt.scatter(X[:, 0], X[:, 1], c=y, s=50);
+```
+
+If we apply a standard **Support Vector Classifier** the result will be like this. 
+
+```{python}
+clf = SVC(kernel='linear').fit(X, y)
+
+ax = plt.gca()
+ax.set_xlim(-1.5, 1.5)
+ax.set_ylim(-1.5, 1.5)
+
+xlim = ax.get_xlim()
+ylim = ax.get_ylim()
+
+# Create a mesh grid
+x_grid = np.linspace(xlim[0], xlim[1], 30)
+y_grid = np.linspace(ylim[0], ylim[1], 30)
+Y_mesh, X_mesh = np.meshgrid(y_grid,x_grid)
+xy = np.vstack([X_mesh.ravel(),Y_mesh.ravel()]).T
+
+P = clf.decision_function(xy).reshape(X_mesh.shape)
+
+ax.contour(X_mesh, Y_mesh, P, colors='k',
+               levels=0, alpha=0.5, linestyles= '-');
+
+ax.scatter(X[:, 0], X[:, 1], c=y, s=50);
+
+```
+
+This is not a good classifier. We need a way to make it better. Instead of just using the available data, let us try to convert a data to a better dimension space.
+
+```{python}
+r = np.exp(-(X ** 2).sum(1))
+```
+
+In this case we will implement a kernel that will translate our data to a new diemension. This is one of the way to fit a nonlinear relationship with a linear classifier.
+
+```{python}
+ax = plt.subplot(projection='3d')
+ax.scatter3D(X[:, 0], X[:, 1], r, c=y, s=50);
+#ax.view_init(elev=-90, azim=30)
+ax.set_xlabel('x');
+ax.set_ylabel('y');
+ax.set_zlabel('r');
+
+```
+
+Now you can see that it is seperated. We can apply the **Support Vector Classifier** to the dataset
+```{python}
+r = r.reshape(100,1)
+
+b = np.concatenate((X,r),1)
+
+from sklearn.svm import SVC 
+
+clf = SVC(kernel='linear').fit(b, y)
+
+ax = plt.gca()
+ax.set_xlim(-1.5, 1.5)
+ax.set_ylim(-1.5, 1.5)
+
+xlim = ax.get_xlim()
+ylim = ax.get_ylim()
+
+# Create a mesh grid
+x_grid = np.linspace(xlim[0], xlim[1], 30)
+y_grid = np.linspace(ylim[0], ylim[1], 30)
+Y_mesh, X_mesh = np.meshgrid(y_grid,x_grid)
+xy = np.vstack([X_mesh.ravel(),Y_mesh.ravel()]).T
+
+r_1 = np.exp(-(xy ** 2).sum(1))
+
+r_1 = r_1.reshape(900,1)
+
+b_1 = np.concatenate((xy,r_1),1)
+
+P = clf.decision_function(b_1).reshape(X_mesh.shape)
+
+ax.contour(X_mesh, Y_mesh, P, colors='k',
+                levels=0, alpha=0.5, linestyles= '-');
+
+ax.scatter(X[:, 0], X[:, 1], c=y, s=50);
+```
+
+Or you can just use SVC radial basis fucntion kernel to automatically create a decision boundary for you.
+
+```{python}
+clf = SVC(kernel='rbf').fit(X, y)
+
+ax = plt.gca()
+ax.set_xlim(-1.5, 1.5)
+ax.set_ylim(-1.5, 1.5)
+
+xlim = ax.get_xlim()
+ylim = ax.get_ylim()
+
+# Create a mesh grid
+x_grid = np.linspace(xlim[0], xlim[1], 30)
+y_grid = np.linspace(ylim[0], ylim[1], 30)
+Y_mesh, X_mesh = np.meshgrid(y_grid,x_grid)
+xy = np.vstack([X_mesh.ravel(),Y_mesh.ravel()]).T
+
+P = clf.decision_function(xy).reshape(X_mesh.shape)
+
+ax.contour(X_mesh, Y_mesh, P, colors='k',
+               levels=[-1, 0, 1], alpha=0.5, linestyles=['--', '-','--']);
+
+ax.scatter(X[:, 0], X[:, 1], c=y, s=50);
+
+ax.scatter(clf.support_vectors_[:, 0],
+                   clf.support_vectors_[:, 1],
+                   s=300, linewidth=2, facecolor ='none', edgecolor = 'black');
+
+```
+
+As for summary, **Support Vector Machine** follow these steps:
+
+1. Start with a data in low dimension.
+2. Use kernel to move the data to a higher dimension.
+3. Find a **Support Vector Classifier** that seperate the data into two groups. 
+
+#### Kernel
+
+Let talk more about the kernel. There are mutiple type of kernel. We will go through a few of them. Generaly, they call as a kernel trick or kernel method or kernel function. For simple explanation, these kernel can be view as a method on how we transform the data points into. It may need to transform to a higher dimension it may not.
+
+* Linear Kernel
+The linear kernel is a kernel that uses the dot product of the input vectors to measure their similarity:
+$$k(x,x')= (x\cdot x')$$
+
+* Polynomial Kernel
+    + For homogeneous case:
+$$k(x,x')= (x\cdot x')^d$$
+where if $d = 1$ it wil be act as linear kernel.
+
+    + For inhomogeneous case:
+$$k(x,x')= (x\cdot x' + r )^d$$
+where r is a coefficient.
+
+* Radial Basis Function Kernel (or rbf) is a well know kernel that can transform the data to a infinite dimension space.
+
+The function is known as:
+
+$k(x,x') = \exp\left(-\gamma\left\Vert  x-x' \right\Vert^2\right)$
+
+$\gamma >0$. Sometimes parametrized using $\gamma = \frac{1}{2\sigma^2}$
+
+#### Regression Problem
+
+We will talk a little on Regression Problem and how it works on Support Vector Machine. 
+
+Lets consider a data output as shown below.
+
+```{python}
+from sklearn.datasets import make_regression
+import matplotlib.pyplot as plt
+
+X, y = make_regression(n_samples=100, n_features=1, noise=10, random_state = 2220)
+
+plt.scatter(X, y, marker='o')
+plt.show()
+```
+So how Support Vector Machine works for regression problem? Instead of giving some math formulas. Let do a fit and show the output of the graph.
+
+```{python}
+from sklearn.svm import SVR
+
+model = SVR(kernel='linear', C = 100, epsilon = 10)
+
+model.fit(X, y)
+
+X_new = np.linspace(-3, 3, 100).reshape(-1, 1)
+y_pred = model.predict(X_new)
+
+plt.scatter(X, y, marker='o')
+plt.plot(X_new, y_pred, color='red')
+plt.plot(X_new, y_pred + model.epsilon, color='black', linestyle='--')
+plt.plot(X_new, y_pred - model.epsilon, color='black', linestyle='--')
+plt.show()
+```
+
+As you can see for regression problem Support Vector Machine for Regression or SVR create a two black lines as the decision boundary and the red line as the hyperplane. Our objective is to ensure points are within the boundary. The best fit line is the hyperplane that has a maximum number of points.
+
+You can control the model by adjust the `C` value and `epsilon` value. `C` value change the slope of the line, lower the value will reduce the slope of the fit line. `epsilon` change the distance of the decision boundary, lower the `epsilon` reduce the distance of the dicision boundary.
+
+
+#### Example: Classification
+
+Let take a look at our NYC database. We would like to create a machine learning model with SVM.
+
+```{python}
+import pandas as pd
+
+jan23 = pd.read_csv("data/nyc_crashes_202301_cleaned.csv")
+jan23.head()
+```
+
+Let us merge with `uszipcode` database to increase the number of input value to predict injury.
+
+```{python}
+#Calculate the sum
+jan23['sum'] = jan23['NUMBER OF PERSONS INJURED'] + jan23['NUMBER OF PEDESTRIANS INJURED']+ jan23['NUMBER OF CYCLIST INJURED'] + jan23['NUMBER OF MOTORIST INJURED']
+
+for index in jan23.index:
+    if jan23['sum'][index] > 0:
+        jan23.loc[index,['injured']] = 1
+    else:
+        jan23.loc[index,['injured']] = 0
+        
+from uszipcode import SearchEngine
+
+search = SearchEngine()
+
+resultlist = []
+
+for index in jan23.index:
+    checkZip = jan23['ZIP CODE'][index]
+    if np.isnan(checkZip) == False:
+        zipcode = int(checkZip)
+        result = search.by_zipcode(zipcode)
+        resultlist.append(result.to_dict())
+    else:
+        resultlist.append({})
+
+Zipcode_data = pd.DataFrame.from_records(resultlist)
+
+merge = pd.concat([jan23, Zipcode_data], axis=1)
+
+# Drop the repeated zipcode
+merge = merge.drop(['zipcode','lat','lng'],axis = 1)
+
+merge = merge[merge['population'].notnull()]
+
+Focus_data = merge[['radius_in_miles', 'population', 'population_density',
+'land_area_in_sqmi', 'water_area_in_sqmi', 'housing_units',
+'occupied_housing_units','median_home_value','median_household_income','injured']]
+
+```
+These are the focus data that we will apply SVM to.
+
+```{python}
+Focus_data.head()
+```
+To reduce the complexity, we will get 1000 sample from the dataset and import `train_test_split` to split up our data to measure the performance.
+
+```{python}
+random_sample = Focus_data.sample(n=1000, random_state=220)
+
+#Create X input
+X = random_sample[['radius_in_miles', 'population', 'population_density',
+'land_area_in_sqmi', 'water_area_in_sqmi', 'housing_units',
+'occupied_housing_units','median_home_value','median_household_income']].values
+
+#Create Y for output
+y  = random_sample['injured'].values
+
+from sklearn.model_selection import train_test_split 
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.20)
+
+```
+
+Apply SVM to our dataset and make a prediction on `X_test`
+
+```{python}
+from sklearn.svm import SVC 
+
+clf = SVC(kernel='rbf').fit(X_train, y_train)
+
+#Make prediction using X_test
+y_pred = clf.predict(X_test)
+
+```
+Check our accuracy of our model by importing `accuracy_score` from `sklearn.metrics`
+```{python}
+from sklearn.metrics import accuracy_score
+
+accuracy = accuracy_score(y_test, y_pred)
+
+accuracy
+```
+
+### Conclusion
+
+Support Vector Machines is one of the powerful tool mainly for classifications.
+
+* Their dependence on relatively few support vectors means that they are very compact models, and take up very little memory.
+* Once the model is trained, the prediction phase is very fast.
+* Because they are affected only by points near the margin, they work well with high-dimensional data—even data with more dimensions than samples, which is a challenging regime for other algorithms.
+* Their integration with kernel methods makes them very versatile, able to adapt to many types of data.
+
+However, SVMs have several disadvantages as well:
+
+* The scaling with the number of samples $N$ is $O[N^3]$ at worst, or $O[N^2]$ for efficient implementations. For large numbers of training samples, this computational cost can be prohibitive.
+* The results are strongly dependent on a suitable choice for the softening parameter $C$.This must be carefully chosen via cross-validation, which can be expensive as datasets grow in size.
+* The results do not have a direct probabilistic interpretation. This can be estimated via an internal cross-validation (see the probability parameter of SVC), but this extra estimation is costly.
+
+### References
+
++ [In-Depth: Support Vector Machines](https://jakevdp.github.io/PythonDataScienceHandbook/05.07-support-vector-machines.html)
++ [Support Vector Machines Video](https://www.youtube.com/watch?v=efR1C6CvhmE)

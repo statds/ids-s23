@@ -1,0 +1,39 @@
+## Random forest
+
+Random forest (RF) is a commonly-used ensemble machine learning algorithm.
+It is a bagging, also known as bootstrap aggregation, method, which combines the
+output of multiple decision trees to reach a single result. 
+
++ Regression: mean
++ Classification: majority vote
+
+### Algorithm
+
+RF baggs on both data (rows) and features (columns).
+
++ A random sample of the training data in a training set is selected with
+  replacement (bootstrap)
++ A random subset of the features is selected as features (which ensures low
+  correlation among the decision trees)
++ Hyperparameters
+    - node size
+	- number of trees
+	- number of features
+
+Use cross-valudation to select the hyperparameters.
+
+
+Advantages:
+
++ Reduced risk of overfitting since averaging of uncorrelated trees lowers
+  overall variance and prediction error.
++ Provides flexibility in handeling missing data. 
++ Easy to evaluate feature importance
+    - Mean decrease in impurity (MDI): when a feature is excluded
+	- Mean decrease accuracy: when the values of a feature is randomly permuted
+
+Disadvantages:
+
++ Computing intensive
++ Resource hungery
++ Interpretation

@@ -7,27 +7,27 @@ Consider the NYC Crash Data in January 2022.
 ```{python}
 import pandas as pd
 
-jan22 = pd.read_csv("data/nyc_mv_collisions_202201.csv")
-jan22.head()
-jan22.describe()
+jan23 = pd.read_csv("data/nyc_crashes_202301.csv")
+jan23.head()
+jan23.describe()
 ```
 
 Frequency tables for categorical variables.
 ```{python}
-jan22["BOROUGH"].value_counts(dropna=False)
+jan23["BOROUGH"].value_counts(dropna=False)
 ```
 
 Some tables are too long.
 ```{python}
-# jan22["CONTRIBUTING FACTOR VEHICLE 1"].value_counts(dropna=False)
+# jan23["CONTRIBUTING FACTOR VEHICLE 1"].value_counts(dropna=False)
 with pd.option_context('display.max_rows', None):
-    print(jan22["VEHICLE TYPE CODE 1"].value_counts(dropna=False))
+    print(jan23["VEHICLE TYPE CODE 1"].value_counts(dropna=False))
 ```
 
 Cross-tables 
 ```{python}
-pd.crosstab(index = jan22["CONTRIBUTING FACTOR VEHICLE 1"],
-			columns = jan22["BOROUGH"], dropna = False)
+pd.crosstab(index = jan23["CONTRIBUTING FACTOR VEHICLE 1"],
+			columns = jan23["BOROUGH"], dropna = False)
 ```
 
 ## Some Cleaning
@@ -48,27 +48,34 @@ Questions from Dr. Douglas Bates:
 
 ```{python}
 with pd.option_context('display.max_rows', None):
-	print(jan22["CRASH TIME"].value_counts())
+	print(jan23["CRASH TIME"].value_counts())
 ```
 
 For example, here are some cleaning steps:
 ```{python}
 import numpy as np
 
-jan22["CONTRIBUTING FACTOR VEHICLE 1"] = (
-    jan22["CONTRIBUTING FACTOR VEHICLE 1"].replace(["Unspecified"], np.nan))
-jan22["CONTRIBUTING FACTOR VEHICLE 2"] = (
-    jan22["CONTRIBUTING FACTOR VEHICLE 2"].replace(["Unspecified"], np.nan))
-jan22["CONTRIBUTING FACTOR VEHICLE 3"] = (
-    jan22["CONTRIBUTING FACTOR VEHICLE 3"].replace(["Unspecified"], np.nan))
-jan22["CONTRIBUTING FACTOR VEHICLE 4"] = (
-    jan22["CONTRIBUTING FACTOR VEHICLE 4"].replace(["Unspecified"], np.nan))
-jan22["CONTRIBUTING FACTOR VEHICLE 5"] = (
-    jan22["CONTRIBUTING FACTOR VEHICLE 5"].replace(["Unspecified"], np.nan))
-jan22["LATITUDE"] = jan22["LATITUDE"].replace([0.0], np.nan)
-jan22["LONGITUDE"] = jan22["LONGITUDE"].replace([0.0], np.nan)
-jan22.describe()
+jan23["CONTRIBUTING FACTOR VEHICLE 1"] = (
+    jan23["CONTRIBUTING FACTOR VEHICLE 1"].replace(["Unspecified"], np.nan))
+jan23["CONTRIBUTING FACTOR VEHICLE 2"] = (
+    jan23["CONTRIBUTING FACTOR VEHICLE 2"].replace(["Unspecified"], np.nan))
+jan23["CONTRIBUTING FACTOR VEHICLE 3"] = (
+    jan23["CONTRIBUTING FACTOR VEHICLE 3"].replace(["Unspecified"], np.nan))
+jan23["CONTRIBUTING FACTOR VEHICLE 4"] = (
+    jan23["CONTRIBUTING FACTOR VEHICLE 4"].replace(["Unspecified"], np.nan))
+jan23["CONTRIBUTING FACTOR VEHICLE 5"] = (
+    jan23["CONTRIBUTING FACTOR VEHICLE 5"].replace(["Unspecified"], np.nan))
+jan23["LATITUDE"] = jan23["LATITUDE"].replace([0.0], np.nan)
+jan23["LONGITUDE"] = jan23["LONGITUDE"].replace([0.0], np.nan)
+jan23.describe()
 ```
+
+
+By the data dictionary, `OFF STREET NAME` is the street address of the collision
+site. Some records have `OFF STREET NAME` but missing `LATITUDE` and
+`LONGITUDE`. The geocode can be filled by geocoding the street address with
+package 
+
 
 ## Filling the Missing Zip Codes by Reverse Geocoding
 
@@ -151,5 +158,60 @@ def nyczip2borough(zips: Union[np.ndarray, pd.Series]) -> Union[np.ndarray, pd.S
 
 Try it out
 ```{python}
-nyczip2borough(jan22["ZIP CODE"].dropna().head(10))
+nyczip2borough(jan23["ZIP CODE"].dropna().head(10))
+```
+
+
+The `uszipcode` package provides databases at the zip code level from the US
+Census. Such information could be merged with the NYC crash data for further
+analysis.
+
+```{python}
+from uszipcode import SearchEngine, SimpleZipcode
+import os
+# set the default database file location
+db_file = os.path.join(os.getenv("HOME"), "simple_db.sqlite")
+search = SearchEngine(db_file_path=db_file)
+search.by_zipcode("10030")
+```
+
+The SQL database of US zip code is stored in `$HOME/.uszipcode`. It can be imported
+as a `pandas dataframe`.
+
+```{python}
+import sqlite3
+import pandas as pd
+# change to your own path after installing uszipcode
+con = sqlite3.connect(db_file)
+zipdf = pd.read_sql_query("SELECT * from simple_zipcode", con)
+zipdf.info()
+```
+
+The zip code dataframe can be merged with the crash dataframe.
+
+
+## Map the Crash Sites
+
+We can do this with package `gmplot`. See instructions from
+[this tutorial](https://www.tutorialspoint.com/plotting-google-map-using-gmplot-package-in-python).
+
+```{python}
+import gmplot
+import numpy as np
+
+# prepare the geododes
+latitude  = jan23["LATITUDE"].dropna().values
+longitude = jan23["LONGITUDE"].dropna().values
+
+# center of the map and zoom level
+gmap = gmplot.GoogleMapPlotter(40.769737, -73.91244, 14)
+
+# plot heatmap
+gmap.heatmap(latitude, longitude)
+gmap.scatter(latitude, longitude, c = 'r', marker = True)
+# gmap.scatter(latitude, longitude, '#FF0000', size = 50, marker = False)
+# Your Google_API_Key
+# gmap.apikey = "put your key here"
+# save it to html
+gmap.draw(r"nycrashmap.html")
 ```
