@@ -111,6 +111,4 @@ classification results.
 
 {{< include _baggingboosting.qmd >}}
 
-<!-- ## Naive Bayes -->
 
-{{< include _nb.qmd >}}
