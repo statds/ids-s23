@@ -1,8 +1,6 @@
 
 ## Naive Bayes
 
-###### Kian Parchekani
-
 
 ### Introduction
 
@@ -18,7 +16,7 @@ Naive Bayes classifiers are found in `scikit-learn`
 ```
 pip install scikit-learn
 ```
-#### Types of Naive Bayes classifiers
+##### Types of Naive Bayes classifiers
 
 
 
@@ -98,7 +96,7 @@ Along with Gaussian Naive Bayes, Multinomial Naive Bayes operates off of the ass
 
 Multinomial Naive Bayes is well-suited for features that represent counts or count rates since the multinomial distribution models the probability of observing counts across multiple categories.
 
-#### Text Classification
+##### Text Classification
 
 One of the best uses for this is in text classification, as it deals with counts/frequencies of words.
 
