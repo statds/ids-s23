@@ -1,9 +1,9 @@
-STAT 3255 scipy.stats --
+## Statistical Functions from `scypy.stat`
+
 Colin Sullivan
----
-## SCIPY.STATS
-The scipy.stats module is a SciPy sub-package used for probabilistic distributions and general
-statistical operations. SciPy, the parent module, is one of the largest and most well known
+
+The `scipy.stats` module is a `SciPy` sub-package used for probabilistic distributions and general
+statistical operations. `SciPy`, the parent module, is one of the largest and most well known
 packages available for Python, which deals with common science and engineering problems.
 
 First, you will need to install scipy on your computer. To do so, use one of the following commands:
@@ -30,30 +30,31 @@ There are three different classes available in scipy.stats:
 - ```rv_histogram```, used to generate specific distribution histograms
 
 
-# Discrete Variables
+### Discrete Variables
+
 First, lets talk about discrete variables. The default initialization variables are as folows:
 ```{python}
 stats.rv_discrete(a=0, b=None, name=None, badvalue=None, moment_tol=1e-08, values=None, inc=1, longname=None, shapes=None, extradoc=None, seed=None)
 ```
-- a, b are floats representing the lower and upper bound of the distribution, respectively.
+- `a`, `b` are floats representing the lower and upper bound of the distribution, respectively.
 
-- name represents the name of the distribution, which is optional.
+- `name` represents the name of the distribution, which is optional.
 
-- badvalue is used to indicate a value for which some argument restriction is violated.
+- `badvalue` is used to indicate a value for which some argument restriction is violated.
 
-- moment_tol is the tolerance for calculations of moments.
+- `moment_tol` is the tolerance for calculations of moments.
 
-- values is a tuple of arrays of equal length, one representing integers and one representing their probability.
+- `values` is a tuple of arrays of equal length, one representing integers and one representing their probability.
 
-- inc is the increment for the support of the distribution.
+- `inc` is the increment for the support of the distribution.
 
-- longname is used to provide a line for the docstring if you are creating a class without one.
+- `longname` is used to provide a line for the docstring if you are creating a class without one.
 
-- shapes represents the shape of the distribution. If no values are provided here it will default to the pmf and cdf.
+- `shapes` represents the shape of the distribution. If no values are provided here it will default to the pmf and cdf.
 
-- extradoc is the last line for the docstring given in longname.
+- `extradoc` is the last line for the docstring given in longname.
 
-- seed represents a random seed. If none is provided, scipy.stats' default random seed will be used.
+- `seed` represents a random seed. If none is provided, scipy.stats' default random seed will be used.
 
 You can build your own discrete variables by defining their pdf and cdf using classes. An example is shown below for a 4 sided die:
 ```{python}
@@ -176,7 +177,7 @@ plt.show()
 
 All of these different random variables, including ones that you choose to define yourself, can be used with all of scipy.stats' operations which will be discussed later. 
 
-# Continuous Variables
+### Continuous Variables
 ```{python}
 stats.rv_continuous(momtype=1, a=None, b=None, xtol=1e-14, badvalue=None, name=None, longname=None, shapes=None, extradoc=None, seed=None)
 ```
@@ -298,7 +299,7 @@ ax.plot(x, rv.pdf(x), 'k-', lw=2)
 plt.show()
 ```
 
-# Summary Statistics
+### Summary Statistics
 When examining data, often you want to find different summary statistics before beginning statistical tests.
 
 There are several built in methods to do so. First, lets take a look at describe:
@@ -345,7 +346,7 @@ print("IQR: " + str(stats.iqr(array1)))
 print("Std Error of the Mean: " + str(stats.sem(array1)))
 ```
 
-# Frequency Statistics
+### Frequency Statistics
 There are several methods in scipy.stats related to frequency statistics. Relfreq and Cumfreq are used to create a relative frequency and
  cumulative frequency histogram, respectively. This can provide more insight on the data then a regular histogram would. An example is demonstrated
  below.
@@ -395,7 +396,7 @@ print("Score at the 90th percentile is: " + str(stats.scoreatpercentile(array2, 
 
 As you can see, the values differ. This is important information that can be used to determine more than just the IQR.
 
-# Statistical Tests
+### Statistical Tests
 Finally, statistical tests are arguably the most useful part of the scipy.stats package. The most important correlation function is the one-way ANOVA function.
 As a reminder, one-way ANOVA (analysis of variance) is used to compare the means of two or more independent groups, with the goal of determining if the means are
 significantly different. It is a parametric test that can be tedious and complicated to do by hand, so the scipy.stats functionality allows us to save a lot of time.
@@ -472,12 +473,13 @@ As you can see, our p-value is greater than 0.05, so we cannot say with 95% conf
 
 This one-sample test compares the distribution of a sample vs a given distribution. The test takes as input an array and a callable distribution's cdf. An example is below.
 
-# NYC CRASH DATA EXAMPLES
+### NYC crash data examples
 Let's try and use the Kolmogorov-Smirnov test for goodness of fit for checking our data of crashes by hour.
 
 ```{python}
 import pandas as pd
-df = pd.read_csv('nyc_crashes_202301.csv')
+df = pd.read_csv('data/nyc_crashes_202301.csv')
+df["HOUR"] = pd.to_numeric(df["CRASH TIME"].str.split(":").str[0])
 plt.hist(df['HOUR'], bins=24)
 plt.show()
 ```
@@ -523,8 +525,8 @@ We can also use statistical tests to draw some conclusions from the data. Let's 
 split up the data.
 
 ```{python}
-df = pd.read_csv('nyc_crashes_202301.csv', index_col='BOROUGH')
 ## Create new dataframes for each borough
+df = pd.read_csv('data/nyc_crashes_202301.csv', index_col='BOROUGH')
 bronx = df.loc['BRONX']
 staten_island = df.loc['STATEN ISLAND']
 brooklyn = df.loc['BROOKLYN']
@@ -537,6 +539,7 @@ print(staten_island.head())
 Now, let's perform an anova test to determine if the number of people injured on average differs between borough.
 
 ```{python}
+#| eval: false
 ## Get arrays for each borough
 bronx_injuries = bronx['NUMBER_OF_PERSONS_INJURED'].to_numpy()
 si_injuries = staten_island['NUMBER_OF_PERSONS_INJURED'].to_numpy()
@@ -553,6 +556,7 @@ If we were to check with 95% confidence, we can say that the means of each borou
 Finally, we can use a test to compare boroughs against each other to draw more meaningful conclusions.
 
 ```{python}
+#| eval: false
 print(stats.ttest_ind(bronx_injuries, brooklyn_injuries, alternative='two-sided'))
 
 print(np.mean(bronx_injuries))
@@ -561,7 +565,7 @@ print(np.mean(brooklyn_injuries))
 As you can see, our p value is too large to reject the null. Comparing the two means, we can see that they are similar so it makes sense why they are not rejected.
 
 
-# REFERENCES
+### REFERENCES
 [Scipy Offical Documentation](https://docs.scipy.org/doc/scipy/reference/stats.html)
 
 [GeeksForGeeks Documentation](https://www.geeksforgeeks.org/scipy-stats/)

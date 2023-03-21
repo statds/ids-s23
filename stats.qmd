@@ -53,6 +53,11 @@ res = stats.fisher_test(m.to_numpy(), simulate_p_value = True)
 res[0][0]
 ```
 
+<!-- ## scypy statistics functions -->
+
+{{< include _scipy-stat.qmd >}}
+
+
 ## Linear Model
 
 Let's simulate some data for illustrations.
