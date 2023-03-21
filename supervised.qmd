@@ -110,3 +110,7 @@ classification results.
 <!-- ## bagging versus boosting -->
 
 {{< include _baggingboosting.qmd >}}
+
+<!-- ## Naive Bayes -->
+
+{{< include _nb.qmd >}}
