@@ -1,0 +1,2747 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.313">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Introduction to Data Science - 12&nbsp; NYC Crash Data</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./exercises.html" rel="next">
+<link href="./advanced.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">NYC Crash Data</span></h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Introduction to Data Science</a> 
+    </div>
+      </div>
+      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">Preface</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./intro.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./git.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Project Management with Git</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./quarto.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Reproducibile Data Science with Quarto</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./python.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Python Refreshment</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./pandas.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Data Manipulation with Pandas</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./geo.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Geospatial Data</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./descr.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Descriptive Statistics</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./stats.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Statistical Tests and Models</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./visual.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Visualization</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./supervised.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Supervised Learning</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./advanced.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Advanced Topics</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./nyccrash.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">NYC Crash Data</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./exercises.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Exercises</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">References</a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#first-glance" id="toc-first-glance" class="nav-link active" data-scroll-target="#first-glance"><span class="toc-section-number">12.1</span>  First Glance</a></li>
+  <li><a href="#some-cleaning" id="toc-some-cleaning" class="nav-link" data-scroll-target="#some-cleaning"><span class="toc-section-number">12.2</span>  Some Cleaning</a></li>
+  <li><a href="#filling-the-missing-zip-codes-by-reverse-geocoding" id="toc-filling-the-missing-zip-codes-by-reverse-geocoding" class="nav-link" data-scroll-target="#filling-the-missing-zip-codes-by-reverse-geocoding"><span class="toc-section-number">12.3</span>  Filling the Missing Zip Codes by Reverse Geocoding</a></li>
+  <li><a href="#map-the-crash-sites" id="toc-map-the-crash-sites" class="nav-link" data-scroll-target="#map-the-crash-sites"><span class="toc-section-number">12.4</span>  Map the Crash Sites</a></li>
+  <li><a href="#predicting-injuries" id="toc-predicting-injuries" class="nav-link" data-scroll-target="#predicting-injuries"><span class="toc-section-number">12.5</span>  Predicting Injuries</a>
+  <ul class="collapse">
+  <li><a href="#preparation" id="toc-preparation" class="nav-link" data-scroll-target="#preparation"><span class="toc-section-number">12.5.1</span>  Preparation</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">NYC Crash Data</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="first-glance" class="level2" data-number="12.1">
+<h2 data-number="12.1" class="anchored" data-anchor-id="first-glance"><span class="header-section-number">12.1</span> First Glance</h2>
+<p>Consider the NYC Crash Data in January 2022.</p>
+<div class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>jan23 <span class="op">=</span> pd.read_csv(<span class="st">"data/nyc_crashes_202301.csv"</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>jan23.head()</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>jan23.describe()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="1">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>ZIP CODE</th>
+      <th>LATITUDE</th>
+      <th>LONGITUDE</th>
+      <th>NUMBER OF PERSONS INJURED</th>
+      <th>NUMBER OF PERSONS KILLED</th>
+      <th>NUMBER OF PEDESTRIANS INJURED</th>
+      <th>NUMBER OF PEDESTRIANS KILLED</th>
+      <th>NUMBER OF CYCLIST INJURED</th>
+      <th>NUMBER OF CYCLIST KILLED</th>
+      <th>NUMBER OF MOTORIST INJURED</th>
+      <th>NUMBER OF MOTORIST KILLED</th>
+      <th>COLLISION_ID</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>count</th>
+      <td>4796.000000</td>
+      <td>6764.000000</td>
+      <td>6764.000000</td>
+      <td>7244.000000</td>
+      <td>7244.000000</td>
+      <td>7244.000000</td>
+      <td>7244.000000</td>
+      <td>7244.000000</td>
+      <td>7244.000000</td>
+      <td>7244.000000</td>
+      <td>7244.000000</td>
+      <td>7.244000e+03</td>
+    </tr>
+    <tr>
+      <th>mean</th>
+      <td>10893.521685</td>
+      <td>40.234660</td>
+      <td>-73.033403</td>
+      <td>0.502761</td>
+      <td>0.002347</td>
+      <td>0.116372</td>
+      <td>0.000690</td>
+      <td>0.033269</td>
+      <td>0.000414</td>
+      <td>0.333103</td>
+      <td>0.001242</td>
+      <td>4.599022e+06</td>
+    </tr>
+    <tr>
+      <th>std</th>
+      <td>526.392428</td>
+      <td>4.430595</td>
+      <td>8.041457</td>
+      <td>0.813641</td>
+      <td>0.051164</td>
+      <td>0.397927</td>
+      <td>0.026265</td>
+      <td>0.180118</td>
+      <td>0.020348</td>
+      <td>0.749174</td>
+      <td>0.038951</td>
+      <td>2.365885e+03</td>
+    </tr>
+    <tr>
+      <th>min</th>
+      <td>10001.000000</td>
+      <td>0.000000</td>
+      <td>-74.250150</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>4.594332e+06</td>
+    </tr>
+    <tr>
+      <th>25%</th>
+      <td>10457.000000</td>
+      <td>40.663230</td>
+      <td>-73.964888</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>4.597113e+06</td>
+    </tr>
+    <tr>
+      <th>50%</th>
+      <td>11208.000000</td>
+      <td>40.711880</td>
+      <td>-73.921230</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>4.599058e+06</td>
+    </tr>
+    <tr>
+      <th>75%</th>
+      <td>11239.000000</td>
+      <td>40.775640</td>
+      <td>-73.865389</td>
+      <td>1.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>4.600953e+06</td>
+    </tr>
+    <tr>
+      <th>max</th>
+      <td>11694.000000</td>
+      <td>40.912827</td>
+      <td>0.000000</td>
+      <td>21.000000</td>
+      <td>2.000000</td>
+      <td>19.000000</td>
+      <td>1.000000</td>
+      <td>2.000000</td>
+      <td>1.000000</td>
+      <td>8.000000</td>
+      <td>2.000000</td>
+      <td>4.605324e+06</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+<p>Frequency tables for categorical variables.</p>
+<div class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>jan23[<span class="st">"BOROUGH"</span>].value_counts(dropna<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="2">
+<pre><code>NaN              2448
+BROOKLYN         1653
+QUEENS           1316
+BRONX             821
+MANHATTAN         811
+STATEN ISLAND     195
+Name: BOROUGH, dtype: int64</code></pre>
+</div>
+</div>
+<p>Some tables are too long.</p>
+<div class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># jan23["CONTRIBUTING FACTOR VEHICLE 1"].value_counts(dropna=False)</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> pd.option_context(<span class="st">'display.max_rows'</span>, <span class="va">None</span>):</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(jan23[<span class="st">"VEHICLE TYPE CODE 1"</span>].value_counts(dropna<span class="op">=</span><span class="va">False</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Sedan                                  3478
+Station Wagon/Sport Utility Vehicle    2505
+Taxi                                    177
+Pick-up Truck                           162
+NaN                                     136
+Bus                                     135
+Box Truck                               110
+Bike                                     84
+Ambulance                                55
+Tractor Truck Diesel                     53
+E-Bike                                   50
+Van                                      43
+Motorcycle                               28
+E-Scooter                                28
+Dump                                     18
+Garbage or Refuse                        17
+Flat Bed                                 17
+Moped                                    17
+PK                                       16
+Convertible                              11
+Chassis Cab                               9
+Carry All                                 9
+Tanker                                    7
+Tow Truck / Wrecker                       7
+Tractor Truck Gasoline                    7
+LIMO                                      5
+AMBULANCE                                 5
+Motorscooter                              5
+Flat Rack                                 3
+Motorbike                                 3
+4 dr sedan                                3
+Concrete Mixer                            2
+Firetruck                                 2
+MOTOR SCOO                                2
+STAK                                      2
+SANITATION                                1
+Beverage Truck                            1
+SCHOOL BUS                                1
+Waste truc                                1
+Forklift                                  1
+AMBU                                      1
+UTILITY                                   1
+Log                                       1
+PAS                                       1
+3-Door                                    1
+FDNY AMBUL                                1
+Multi-Wheeled Vehicle                     1
+Scooter                                   1
+Stake or Rack                             1
+Lift Boom                                 1
+Gas Moped                                 1
+Bulk Agriculture                          1
+Armored Truck                             1
+TRAILER                                   1
+electric s                                1
+Motorized                                 1
+VAn                                       1
+ELECTRIC S                                1
+UTIL                                      1
+FORK LIFT                                 1
+STREET SWE                                1
+GARBAGE TR                                1
+Chevy                                     1
+cart                                      1
+Tow Truck                                 1
+NYC FDNY #                                1
+Scooter ga                                1
+VAN TRUCK                                 1
+Name: VEHICLE TYPE CODE 1, dtype: int64</code></pre>
+</div>
+</div>
+<p>Cross-tables</p>
+<div class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>pd.crosstab(index <span class="op">=</span> jan23[<span class="st">"CONTRIBUTING FACTOR VEHICLE 1"</span>],</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>            columns <span class="op">=</span> jan23[<span class="st">"BOROUGH"</span>], dropna <span class="op">=</span> <span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="4">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th>BOROUGH</th>
+      <th>BRONX</th>
+      <th>BROOKLYN</th>
+      <th>MANHATTAN</th>
+      <th>QUEENS</th>
+      <th>STATEN ISLAND</th>
+    </tr>
+    <tr>
+      <th>CONTRIBUTING FACTOR VEHICLE 1</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Accelerator Defective</th>
+      <td>3</td>
+      <td>4</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>Aggressive Driving/Road Rage</th>
+      <td>9</td>
+      <td>12</td>
+      <td>6</td>
+      <td>12</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>Alcohol Involvement</th>
+      <td>7</td>
+      <td>32</td>
+      <td>9</td>
+      <td>30</td>
+      <td>8</td>
+    </tr>
+    <tr>
+      <th>Animals Action</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>Backing Unsafely</th>
+      <td>31</td>
+      <td>57</td>
+      <td>29</td>
+      <td>54</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <th>Brakes Defective</th>
+      <td>3</td>
+      <td>6</td>
+      <td>2</td>
+      <td>4</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>Cell Phone (hand-Held)</th>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>Driver Inattention/Distraction</th>
+      <td>177</td>
+      <td>415</td>
+      <td>211</td>
+      <td>307</td>
+      <td>45</td>
+    </tr>
+    <tr>
+      <th>Driver Inexperience</th>
+      <td>15</td>
+      <td>41</td>
+      <td>20</td>
+      <td>18</td>
+      <td>6</td>
+    </tr>
+    <tr>
+      <th>Driverless/Runaway Vehicle</th>
+      <td>1</td>
+      <td>1</td>
+      <td>2</td>
+      <td>3</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>Drugs (illegal)</th>
+      <td>2</td>
+      <td>5</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>Failure to Keep Right</th>
+      <td>1</td>
+      <td>2</td>
+      <td>0</td>
+      <td>2</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>Failure to Yield Right-of-Way</th>
+      <td>58</td>
+      <td>108</td>
+      <td>51</td>
+      <td>157</td>
+      <td>12</td>
+    </tr>
+    <tr>
+      <th>Fatigued/Drowsy</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>3</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>Fell Asleep</th>
+      <td>3</td>
+      <td>8</td>
+      <td>3</td>
+      <td>10</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>Following Too Closely</th>
+      <td>30</td>
+      <td>56</td>
+      <td>38</td>
+      <td>69</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <th>Glare</th>
+      <td>2</td>
+      <td>2</td>
+      <td>1</td>
+      <td>2</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>Illnes</th>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+      <td>5</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>Lane Marking Improper/Inadequate</th>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>Lost Consciousness</th>
+      <td>2</td>
+      <td>3</td>
+      <td>1</td>
+      <td>4</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>Obstruction/Debris</th>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>Other Electronic Device</th>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>Other Lighting Defects</th>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>Other Vehicular</th>
+      <td>40</td>
+      <td>33</td>
+      <td>28</td>
+      <td>29</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <th>Outside Car Distraction</th>
+      <td>5</td>
+      <td>5</td>
+      <td>0</td>
+      <td>3</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>Oversized Vehicle</th>
+      <td>5</td>
+      <td>7</td>
+      <td>2</td>
+      <td>3</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>Passenger Distraction</th>
+      <td>1</td>
+      <td>4</td>
+      <td>5</td>
+      <td>4</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>Passing Too Closely</th>
+      <td>41</td>
+      <td>70</td>
+      <td>36</td>
+      <td>44</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>Passing or Lane Usage Improper</th>
+      <td>26</td>
+      <td>68</td>
+      <td>33</td>
+      <td>80</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <th>Pavement Defective</th>
+      <td>0</td>
+      <td>2</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>Pavement Slippery</th>
+      <td>1</td>
+      <td>6</td>
+      <td>5</td>
+      <td>5</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>Pedestrian/Bicyclist/Other Pedestrian Error/Confusion</th>
+      <td>10</td>
+      <td>14</td>
+      <td>17</td>
+      <td>3</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>Physical Disability</th>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>Reaction to Uninvolved Vehicle</th>
+      <td>1</td>
+      <td>6</td>
+      <td>10</td>
+      <td>12</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>Steering Failure</th>
+      <td>5</td>
+      <td>4</td>
+      <td>0</td>
+      <td>7</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>Texting</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>Tinted Windows</th>
+      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>Tire Failure/Inadequate</th>
+      <td>0</td>
+      <td>2</td>
+      <td>0</td>
+      <td>3</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>Traffic Control Device Improper/Non-Working</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>Traffic Control Disregarded</th>
+      <td>25</td>
+      <td>39</td>
+      <td>16</td>
+      <td>50</td>
+      <td>8</td>
+    </tr>
+    <tr>
+      <th>Turning Improperly</th>
+      <td>22</td>
+      <td>48</td>
+      <td>20</td>
+      <td>35</td>
+      <td>11</td>
+    </tr>
+    <tr>
+      <th>Unsafe Lane Changing</th>
+      <td>7</td>
+      <td>16</td>
+      <td>14</td>
+      <td>9</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>Unsafe Speed</th>
+      <td>29</td>
+      <td>32</td>
+      <td>22</td>
+      <td>56</td>
+      <td>8</td>
+    </tr>
+    <tr>
+      <th>Unspecified</th>
+      <td>229</td>
+      <td>508</td>
+      <td>209</td>
+      <td>273</td>
+      <td>38</td>
+    </tr>
+    <tr>
+      <th>View Obstructed/Limited</th>
+      <td>15</td>
+      <td>15</td>
+      <td>7</td>
+      <td>12</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>Windshield Inadequate</th>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+</section>
+<section id="some-cleaning" class="level2" data-number="12.2">
+<h2 data-number="12.2" class="anchored" data-anchor-id="some-cleaning"><span class="header-section-number">12.2</span> Some Cleaning</h2>
+<p>Questions from Dr.&nbsp;Douglas Bates:</p>
+<ul>
+<li>The <code>CRASH_DATE</code>s are all in the correct month and there are no missing values</li>
+<li>There are no missing values in the <code>CRASH_TIME</code>s but there are 117 values of exactly <code>00:00:00</code>. Is this a matter of bad luck when the clock strikes midnight?</li>
+<li>Over 1/3 of the <code>ZIP_CODE</code> and <code>BOROUGH</code> values are missing. There are the same number of missing values in these columns - do they always co-occur? If <code>LATITUDE</code> and <code>LONGITUDE</code> are available, can they be used to infer the <code>ZIP_CODE</code>?</li>
+<li>There are 178 unique non-missing <code>ZIP_CODE</code> values as stated in the Jamboree description. (“Trust, but verify.”) Is there really a zip code of 10000 in New York?</li>
+<li>There are 20 values of 0.0 for <code>LATITUDE</code> and <code>LONGITUDE</code>? These are obviously incorrect - should they be coded as missing?</li>
+<li>Is it redundant to keep the <code>LOCATIO</code> in addition to <code>LATITUDE</code> and <code>LONGITUDE</code>?</li>
+<li>The <code>COLLISION_ID</code> is unique to each row and can be used as a key. The values are not consecutive - why not?</li>
+<li>The <code>NUMBER_OF_...</code> columns seem reasonable. A further consistency check is suggested in the Jamboree tasks.</li>
+<li>In the <code>CONTRIBUTING_FACTOR</code>_… columns, is <code>Unspecified</code> different from <code>missing</code>?</li>
+<li>The codes in the <code>VEHICLE_TYPE_CODE_...</code> columns are the usual hodge-podge of results from “free-form” data entry. Should <code>unk</code>, <code>UNK</code>, <code>UNKNOWN</code>, and <code>Unknown</code> be converted to missing?</li>
+<li>In contrast, the codes in the <code>CONTRIBUTING_FACTOR_...</code> columns appear to be standardized (not sure why <code>Illnes</code> isn’t <code>Illness</code>).</li>
+</ul>
+<div class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> pd.option_context(<span class="st">'display.max_rows'</span>, <span class="va">None</span>):</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(jan23[<span class="st">"CRASH TIME"</span>].value_counts())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>0:00     116
+15:00     75
+18:00     72
+17:00     69
+10:00     65
+8:00      61
+8:30      59
+13:00     58
+7:00      58
+14:00     56
+19:00     55
+16:00     54
+23:00     54
+12:00     54
+9:00      53
+20:00     53
+17:30     51
+14:30     51
+10:30     51
+12:30     51
+11:00     49
+9:30      42
+15:30     40
+16:30     39
+18:30     38
+21:00     38
+6:00      36
+11:30     35
+20:30     35
+6:30      33
+4:00      32
+1:00      31
+5:00      31
+22:00     31
+13:30     30
+23:30     27
+22:30     27
+6:50      27
+21:30     26
+18:20     26
+15:20     25
+17:20     25
+15:15     24
+18:45     24
+14:50     23
+7:30      23
+15:45     23
+1:30      23
+14:40     23
+8:20      23
+19:30     23
+9:45      22
+13:20     22
+3:00      22
+16:20     22
+7:50      22
+18:40     21
+21:45     21
+16:45     21
+17:45     21
+10:50     21
+16:10     21
+8:40      20
+10:40     20
+8:15      20
+20:50     19
+1:20      19
+13:40     19
+18:35     19
+11:20     19
+17:40     19
+6:20      19
+9:40      19
+2:00      19
+18:50     18
+18:10     18
+9:20      18
+9:15      18
+20:15     18
+12:50     18
+16:35     18
+0:30      18
+12:20     18
+14:45     18
+22:40     18
+12:15     18
+16:40     18
+12:45     18
+19:40     18
+10:45     17
+17:50     17
+19:50     17
+19:20     17
+8:45      17
+15:50     17
+17:55     17
+10:20     17
+12:10     17
+3:30      16
+13:45     16
+17:35     16
+7:45      16
+11:40     16
+15:10     16
+16:15     16
+11:45     16
+14:15     16
+15:40     16
+13:15     15
+9:50      15
+17:15     15
+1:45      15
+6:45      15
+19:10     15
+12:40     15
+18:05     15
+22:20     14
+16:50     14
+17:25     14
+21:40     14
+20:40     14
+5:30      14
+8:50      14
+11:15     14
+22:45     14
+12:25     14
+11:50     14
+16:55     14
+11:10     14
+14:20     13
+14:35     13
+8:55      13
+19:45     13
+17:10     13
+11:55     13
+8:25      13
+4:30      13
+7:20      13
+14:55     13
+6:40      13
+23:40     12
+6:55      12
+19:15     12
+6:05      12
+11:05     12
+10:15     12
+7:05      12
+8:35      12
+7:15      12
+13:10     12
+15:35     12
+22:15     12
+23:45     12
+5:45      12
+19:05     12
+21:50     11
+7:10      11
+16:25     11
+9:25      11
+14:10     11
+19:55     11
+14:05     11
+17:05     11
+5:35      11
+22:10     11
+20:10     11
+10:25     11
+13:25     11
+15:05     10
+20:45     10
+6:15      10
+19:35     10
+23:15     10
+3:50      10
+20:35     10
+0:40      10
+5:10      10
+18:15     10
+23:20     10
+21:15     10
+2:20      10
+7:25      10
+9:05       9
+4:50       9
+23:50      9
+18:29      9
+1:50       9
+20:20      9
+9:10       9
+13:05      9
+2:30       9
+19:25      9
+16:05      9
+11:04      9
+13:50      9
+20:25      9
+22:50      9
+7:40       9
+15:25      9
+0:20       9
+16:49      9
+10:35      9
+18:25      9
+1:10       8
+22:41      8
+21:20      8
+0:55       8
+3:45       8
+0:10       8
+12:35      8
+3:10       8
+1:55       8
+23:05      8
+8:17       8
+12:05      8
+5:40       8
+18:55      8
+8:10       8
+8:05       8
+17:16      8
+5:50       8
+10:55      8
+23:35      7
+18:08      7
+18:51      7
+11:34      7
+21:10      7
+6:10       7
+2:40       7
+22:25      7
+10:05      7
+17:54      7
+3:20       7
+16:48      7
+18:34      7
+5:20       7
+15:55      7
+4:20       7
+20:05      7
+1:15       7
+10:28      7
+4:40       7
+12:55      7
+18:18      7
+1:05       7
+23:25      7
+15:43      7
+4:15       7
+3:15       7
+7:35       7
+22:35      7
+21:35      7
+19:19      6
+14:51      6
+11:25      6
+10:10      6
+17:13      6
+20:37      6
+20:23      6
+14:58      6
+17:08      6
+19:49      6
+17:39      6
+21:08      6
+23:13      6
+22:55      6
+12:08      6
+10:19      6
+23:23      6
+7:48       6
+16:28      6
+14:22      6
+18:22      6
+8:44       6
+18:58      6
+16:33      6
+6:54       6
+7:55       6
+7:06       6
+8:08       6
+2:15       6
+21:04      6
+21:25      6
+19:18      6
+5:55       6
+3:25       6
+5:05       6
+0:45       6
+20:55      6
+17:29      6
+15:33      6
+2:35       6
+0:50       6
+14:54      6
+15:57      6
+13:24      6
+13:36      6
+18:28      6
+2:50       6
+8:14       6
+6:25       6
+10:37      6
+21:01      5
+19:51      5
+0:06       5
+17:11      5
+3:40       5
+16:37      5
+18:16      5
+14:57      5
+20:14      5
+19:57      5
+1:25       5
+7:19       5
+18:06      5
+13:34      5
+13:52      5
+20:59      5
+8:28       5
+19:36      5
+13:28      5
+14:11      5
+12:46      5
+17:44      5
+2:27       5
+16:38      5
+17:46      5
+8:58       5
+19:26      5
+15:26      5
+22:18      5
+11:56      5
+14:25      5
+11:32      5
+18:48      5
+19:11      5
+8:47       5
+13:04      5
+18:07      5
+20:24      5
+9:35       5
+21:58      5
+23:06      5
+8:16       5
+19:52      5
+12:51      5
+17:28      5
+4:37       5
+18:04      5
+17:26      5
+13:48      5
+13:55      5
+10:54      5
+18:52      5
+17:58      5
+21:06      5
+19:21      5
+16:16      5
+14:28      5
+17:12      5
+18:37      5
+22:12      5
+11:35      5
+18:44      5
+14:44      5
+1:40       5
+13:07      5
+18:24      5
+0:25       5
+12:48      5
+0:09       5
+21:05      5
+13:35      5
+0:35       5
+21:55      5
+9:22       5
+20:48      5
+21:29      5
+21:07      5
+11:17      5
+16:58      4
+13:56      4
+6:37       4
+14:21      4
+7:41       4
+20:18      4
+5:44       4
+6:49       4
+16:02      4
+20:49      4
+14:39      4
+5:12       4
+22:05      4
+13:09      4
+8:43       4
+4:10       4
+12:54      4
+19:28      4
+17:14      4
+5:38       4
+1:21       4
+15:21      4
+0:18       4
+0:15       4
+18:57      4
+21:03      4
+19:06      4
+17:48      4
+23:38      4
+12:18      4
+6:53       4
+21:23      4
+19:59      4
+16:31      4
+10:04      4
+13:54      4
+8:02       4
+6:52       4
+16:51      4
+23:33      4
+0:42       4
+17:17      4
+9:44       4
+19:12      4
+19:13      4
+22:17      4
+16:27      4
+15:48      4
+10:48      4
+8:52       4
+7:18       4
+17:52      4
+7:08       4
+15:04      4
+9:59       4
+14:26      4
+20:17      4
+17:57      4
+6:38       4
+20:32      4
+23:19      4
+18:14      4
+11:24      4
+19:47      4
+12:03      4
+10:18      4
+14:06      4
+14:38      4
+19:16      4
+3:35       4
+4:25       4
+16:13      4
+8:12       4
+14:53      4
+21:13      4
+6:58       4
+14:56      4
+8:36       4
+18:26      4
+13:53      4
+11:23      4
+22:14      4
+15:41      4
+9:41       4
+13:57      4
+13:02      4
+15:16      4
+15:13      4
+10:11      4
+4:05       4
+20:06      4
+11:42      4
+14:37      4
+5:07       4
+0:05       4
+10:56      4
+8:21       4
+21:47      4
+9:55       4
+16:04      4
+17:36      4
+22:58      4
+8:34       4
+8:46       4
+16:14      4
+15:58      4
+15:42      4
+6:27       4
+19:23      4
+16:44      4
+8:59       4
+23:10      4
+12:37      4
+18:43      4
+21:16      4
+5:15       4
+22:23      4
+11:18      4
+17:49      4
+4:55       4
+15:08      4
+10:38      4
+9:28       4
+13:18      4
+20:31      4
+16:47      4
+13:43      4
+9:11       4
+9:57       3
+12:28      3
+12:07      3
+2:45       3
+3:17       3
+3:02       3
+0:13       3
+12:47      3
+12:29      3
+23:39      3
+23:48      3
+12:33      3
+18:38      3
+20:41      3
+16:12      3
+16:43      3
+14:14      3
+16:32      3
+23:09      3
+21:44      3
+18:09      3
+22:39      3
+17:51      3
+6:59       3
+1:18       3
+7:42       3
+23:54      3
+17:34      3
+11:19      3
+5:27       3
+8:41       3
+23:55      3
+23:07      3
+21:51      3
+14:24      3
+9:03       3
+23:01      3
+7:39       3
+22:13      3
+22:46      3
+3:05       3
+18:17      3
+19:46      3
+7:51       3
+15:52      3
+9:07       3
+20:51      3
+11:38      3
+14:33      3
+14:02      3
+8:48       3
+8:57       3
+15:22      3
+18:56      3
+18:47      3
+15:44      3
+21:21      3
+4:45       3
+17:06      3
+16:59      3
+17:21      3
+17:42      3
+20:44      3
+18:12      3
+12:01      3
+17:43      3
+18:02      3
+7:52       3
+22:53      3
+10:39      3
+14:01      3
+19:33      3
+17:41      3
+20:42      3
+12:34      3
+6:35       3
+2:55       3
+20:11      3
+1:42       3
+17:47      3
+12:38      3
+23:57      3
+18:42      3
+16:24      3
+4:34       3
+9:12       3
+0:19       3
+17:18      3
+2:10       3
+2:07       3
+0:47       3
+22:08      3
+0:57       3
+21:09      3
+7:38       3
+14:03      3
+4:36       3
+20:39      3
+9:54       3
+13:44      3
+19:04      3
+14:16      3
+11:29      3
+2:21       3
+15:12      3
+13:46      3
+1:29       3
+11:53      3
+14:27      3
+18:03      3
+20:52      3
+12:11      3
+18:41      3
+7:26       3
+10:33      3
+21:33      3
+8:13       3
+19:09      3
+0:11       3
+1:35       3
+14:29      3
+17:38      3
+6:07       3
+19:03      3
+3:23       3
+0:01       3
+16:26      3
+22:52      3
+19:53      3
+11:51      3
+17:31      3
+21:54      3
+17:07      3
+3:11       3
+8:42       3
+9:26       3
+9:42       3
+16:21      3
+17:22      3
+13:37      3
+9:53       3
+20:07      3
+17:33      3
+23:31      3
+19:32      3
+0:04       3
+18:32      3
+19:48      3
+22:11      3
+20:26      3
+7:12       3
+16:36      3
+16:46      3
+8:49       3
+11:13      3
+15:32      3
+14:12      3
+21:11      3
+12:39      3
+9:51       3
+1:34       3
+18:19      3
+14:04      3
+17:59      3
+20:12      3
+9:18       3
+10:17      3
+21:38      3
+6:06       3
+3:29       3
+21:02      3
+22:36      3
+4:35       3
+10:57      3
+22:24      3
+19:38      3
+9:29       3
+9:47       3
+8:24       3
+11:16      3
+17:53      3
+13:31      3
+18:27      3
+17:02      3
+13:14      3
+10:36      3
+16:41      3
+3:16       3
+19:54      3
+12:59      3
+2:26       3
+9:01       3
+21:42      2
+9:06       2
+11:52      2
+0:07       2
+11:49      2
+18:13      2
+17:24      2
+12:04      2
+5:59       2
+15:51      2
+11:48      2
+17:19      2
+3:37       2
+19:31      2
+7:01       2
+8:38       2
+4:51       2
+21:56      2
+15:19      2
+19:56      2
+21:22      2
+18:39      2
+20:38      2
+15:11      2
+14:31      2
+0:24       2
+3:53       2
+9:04       2
+20:57      2
+20:16      2
+15:47      2
+20:28      2
+7:09       2
+9:49       2
+20:29      2
+16:22      2
+14:47      2
+9:17       2
+9:19       2
+11:33      2
+17:37      2
+18:23      2
+8:27       2
+21:52      2
+5:49       2
+1:51       2
+14:13      2
+20:09      2
+11:44      2
+12:23      2
+9:08       2
+22:51      2
+10:32      2
+13:49      2
+16:08      2
+16:17      2
+6:46       2
+22:38      2
+12:16      2
+9:31       2
+19:17      2
+7:56       2
+12:52      2
+2:53       2
+14:36      2
+22:27      2
+15:49      2
+13:27      2
+19:58      2
+15:29      2
+10:34      2
+12:53      2
+12:13      2
+18:53      2
+5:25       2
+12:14      2
+14:52      2
+10:46      2
+4:57       2
+15:54      2
+23:14      2
+14:59      2
+1:44       2
+1:47       2
+15:38      2
+15:06      2
+6:31       2
+23:12      2
+19:14      2
+7:44       2
+10:12      2
+11:28      2
+13:59      2
+0:12       2
+23:18      2
+15:39      2
+21:27      2
+23:28      2
+4:19       2
+7:04       2
+21:41      2
+20:13      2
+4:28       2
+23:24      2
+3:55       2
+19:22      2
+7:46       2
+14:17      2
+21:26      2
+16:42      2
+12:12      2
+9:43       2
+2:52       2
+17:23      2
+16:18      2
+4:42       2
+8:06       2
+6:19       2
+15:01      2
+15:34      2
+23:44      2
+5:47       2
+13:17      2
+15:28      2
+18:36      2
+10:41      2
+10:24      2
+17:27      2
+19:08      2
+1:13       2
+21:32      2
+2:29       2
+1:52       2
+4:16       2
+1:24       2
+17:04      2
+16:53      2
+20:47      2
+21:59      2
+20:22      2
+3:48       2
+0:34       2
+2:41       2
+12:44      2
+3:14       2
+18:46      2
+9:39       2
+6:21       2
+14:19      2
+4:54       2
+14:42      2
+0:02       2
+10:51      2
+3:07       2
+5:42       2
+3:04       2
+0:26       2
+2:11       2
+16:01      2
+20:53      2
+9:23       2
+8:04       2
+10:53      2
+16:29      2
+15:03      2
+22:47      2
+0:17       2
+7:17       2
+7:34       2
+10:26      2
+18:11      2
+18:21      2
+21:18      2
+10:01      2
+8:29       2
+15:36      2
+23:11      2
+2:25       2
+11:57      2
+2:42       2
+17:56      2
+20:02      2
+16:56      2
+6:18       2
+22:49      2
+6:44       2
+0:49       2
+13:13      2
+17:09      2
+23:59      2
+2:51       2
+17:32      2
+8:33       2
+13:41      2
+0:16       2
+23:21      2
+14:48      2
+9:46       2
+10:22      2
+12:41      2
+13:12      2
+19:41      2
+4:43       2
+4:53       2
+3:12       2
+0:43       2
+21:19      2
+16:07      2
+13:06      2
+21:37      2
+20:36      2
+14:09      2
+14:23      2
+23:02      2
+18:54      2
+23:42      2
+13:26      2
+5:01       2
+23:08      2
+0:32       2
+16:03      2
+1:32       2
+23:41      2
+8:09       2
+3:54       2
+11:47      2
+8:26       2
+22:04      2
+10:16      2
+23:52      2
+15:23      2
+16:34      2
+2:08       2
+8:01       2
+2:36       2
+5:36       2
+4:32       2
+0:27       2
+20:54      2
+15:18      2
+7:07       2
+22:01      2
+22:26      2
+18:49      2
+6:36       2
+20:04      2
+9:32       2
+22:16      2
+1:17       2
+12:57      2
+15:02      2
+1:01       2
+2:05       2
+1:38       2
+7:03       2
+16:11      2
+0:38       2
+13:22      2
+10:07      2
+13:01      2
+0:08       2
+5:09       2
+13:38      2
+23:16      2
+11:09      1
+2:56       1
+19:43      1
+1:36       1
+7:13       1
+16:09      1
+13:21      1
+3:57       1
+12:36      1
+22:42      1
+22:03      1
+3:56       1
+6:17       1
+11:07      1
+4:46       1
+13:32      1
+1:16       1
+2:22       1
+10:42      1
+4:07       1
+23:51      1
+9:36       1
+2:34       1
+20:19      1
+16:52      1
+11:46      1
+4:31       1
+10:23      1
+18:33      1
+7:58       1
+10:29      1
+3:46       1
+1:11       1
+1:22       1
+1:09       1
+22:33      1
+5:19       1
+11:36      1
+9:34       1
+12:17      1
+3:59       1
+23:53      1
+2:04       1
+13:39      1
+4:47       1
+10:02      1
+10:03      1
+6:43       1
+0:23       1
+21:53      1
+0:03       1
+2:54       1
+2:18       1
+6:33       1
+2:38       1
+0:58       1
+6:08       1
+14:32      1
+22:07      1
+13:47      1
+19:37      1
+5:37       1
+1:59       1
+6:14       1
+22:34      1
+5:22       1
+20:58      1
+1:19       1
+3:08       1
+0:41       1
+18:01      1
+9:16       1
+10:21      1
+7:29       1
+13:16      1
+1:12       1
+18:59      1
+2:59       1
+1:57       1
+11:03      1
+5:34       1
+5:33       1
+6:24       1
+0:37       1
+1:49       1
+1:56       1
+2:23       1
+11:22      1
+13:19      1
+4:48       1
+2:17       1
+0:28       1
+19:29      1
+7:37       1
+19:02      1
+2:47       1
+4:39       1
+4:27       1
+0:53       1
+4:09       1
+2:48       1
+3:47       1
+3:36       1
+11:43      1
+3:09       1
+4:49       1
+1:08       1
+6:47       1
+14:49      1
+0:33       1
+4:17       1
+16:54      1
+6:09       1
+12:42      1
+22:29      1
+23:22      1
+22:31      1
+0:31       1
+5:11       1
+5:32       1
+5:39       1
+7:31       1
+3:28       1
+8:32       1
+19:34      1
+5:41       1
+10:13      1
+12:27      1
+1:26       1
+6:23       1
+1:02       1
+22:56      1
+19:44      1
+22:54      1
+7:24       1
+6:29       1
+12:24      1
+8:31       1
+3:26       1
+22:37      1
+9:24       1
+23:46      1
+23:27      1
+1:31       1
+3:52       1
+7:54       1
+8:51       1
+9:27       1
+1:14       1
+5:24       1
+22:09      1
+3:43       1
+10:59      1
+5:02       1
+3:19       1
+6:51       1
+1:58       1
+5:46       1
+1:37       1
+15:07      1
+13:33      1
+12:06      1
+16:19      1
+11:59      1
+6:03       1
+22:02      1
+11:08      1
+20:01      1
+6:04       1
+15:14      1
+23:32      1
+21:36      1
+7:57       1
+19:01      1
+10:14      1
+12:56      1
+15:17      1
+10:43      1
+16:39      1
+3:03       1
+11:39      1
+12:49      1
+2:28       1
+9:58       1
+5:29       1
+11:58      1
+8:18       1
+11:12      1
+22:59      1
+6:41       1
+5:03       1
+7:33       1
+22:21      1
+6:56       1
+8:56       1
+17:03      1
+1:03       1
+7:59       1
+7:43       1
+15:31      1
+12:19      1
+15:24      1
+7:49       1
+6:16       1
+20:43      1
+20:21      1
+10:06      1
+6:22       1
+14:43      1
+15:46      1
+11:11      1
+7:23       1
+15:53      1
+5:28       1
+2:44       1
+10:08      1
+9:33       1
+19:07      1
+20:56      1
+23:47      1
+5:21       1
+7:22       1
+9:02       1
+3:44       1
+13:29      1
+4:58       1
+2:33       1
+2:13       1
+5:52       1
+11:37      1
+17:01      1
+23:17      1
+2:58       1
+6:13       1
+6:26       1
+7:28       1
+3:24       1
+11:06      1
+19:27      1
+4:08       1
+10:09      1
+13:08      1
+21:14      1
+0:56       1
+12:32      1
+12:02      1
+5:06       1
+15:27      1
+0:48       1
+11:54      1
+3:38       1
+4:23       1
+7:53       1
+14:46      1
+6:01       1
+21:12      1
+8:37       1
+2:02       1
+21:43      1
+3:42       1
+6:48       1
+23:49      1
+22:48      1
+1:39       1
+0:44       1
+22:43      1
+20:08      1
+5:56       1
+8:53       1
+13:58      1
+4:06       1
+2:03       1
+5:26       1
+11:14      1
+8:03       1
+0:36       1
+2:14       1
+23:56      1
+6:42       1
+8:23       1
+14:18      1
+Name: CRASH TIME, dtype: int64</code></pre>
+</div>
+</div>
+<p>For example, here are some cleaning steps:</p>
+<div class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>jan23[<span class="st">"CONTRIBUTING FACTOR VEHICLE 1"</span>] <span class="op">=</span> (</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    jan23[<span class="st">"CONTRIBUTING FACTOR VEHICLE 1"</span>].replace([<span class="st">"Unspecified"</span>], np.nan))</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>jan23[<span class="st">"CONTRIBUTING FACTOR VEHICLE 2"</span>] <span class="op">=</span> (</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    jan23[<span class="st">"CONTRIBUTING FACTOR VEHICLE 2"</span>].replace([<span class="st">"Unspecified"</span>], np.nan))</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>jan23[<span class="st">"CONTRIBUTING FACTOR VEHICLE 3"</span>] <span class="op">=</span> (</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>    jan23[<span class="st">"CONTRIBUTING FACTOR VEHICLE 3"</span>].replace([<span class="st">"Unspecified"</span>], np.nan))</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>jan23[<span class="st">"CONTRIBUTING FACTOR VEHICLE 4"</span>] <span class="op">=</span> (</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>    jan23[<span class="st">"CONTRIBUTING FACTOR VEHICLE 4"</span>].replace([<span class="st">"Unspecified"</span>], np.nan))</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>jan23[<span class="st">"CONTRIBUTING FACTOR VEHICLE 5"</span>] <span class="op">=</span> (</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>    jan23[<span class="st">"CONTRIBUTING FACTOR VEHICLE 5"</span>].replace([<span class="st">"Unspecified"</span>], np.nan))</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>jan23[<span class="st">"LATITUDE"</span>] <span class="op">=</span> jan23[<span class="st">"LATITUDE"</span>].replace([<span class="fl">0.0</span>], np.nan)</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>jan23[<span class="st">"LONGITUDE"</span>] <span class="op">=</span> jan23[<span class="st">"LONGITUDE"</span>].replace([<span class="fl">0.0</span>], np.nan)</span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>jan23.describe()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="6">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>ZIP CODE</th>
+      <th>LATITUDE</th>
+      <th>LONGITUDE</th>
+      <th>NUMBER OF PERSONS INJURED</th>
+      <th>NUMBER OF PERSONS KILLED</th>
+      <th>NUMBER OF PEDESTRIANS INJURED</th>
+      <th>NUMBER OF PEDESTRIANS KILLED</th>
+      <th>NUMBER OF CYCLIST INJURED</th>
+      <th>NUMBER OF CYCLIST KILLED</th>
+      <th>NUMBER OF MOTORIST INJURED</th>
+      <th>NUMBER OF MOTORIST KILLED</th>
+      <th>COLLISION_ID</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>count</th>
+      <td>4796.000000</td>
+      <td>6683.000000</td>
+      <td>6683.000000</td>
+      <td>7244.000000</td>
+      <td>7244.000000</td>
+      <td>7244.000000</td>
+      <td>7244.000000</td>
+      <td>7244.000000</td>
+      <td>7244.000000</td>
+      <td>7244.000000</td>
+      <td>7244.000000</td>
+      <td>7.244000e+03</td>
+    </tr>
+    <tr>
+      <th>mean</th>
+      <td>10893.521685</td>
+      <td>40.722317</td>
+      <td>-73.918590</td>
+      <td>0.502761</td>
+      <td>0.002347</td>
+      <td>0.116372</td>
+      <td>0.000690</td>
+      <td>0.033269</td>
+      <td>0.000414</td>
+      <td>0.333103</td>
+      <td>0.001242</td>
+      <td>4.599022e+06</td>
+    </tr>
+    <tr>
+      <th>std</th>
+      <td>526.392428</td>
+      <td>0.081602</td>
+      <td>0.085654</td>
+      <td>0.813641</td>
+      <td>0.051164</td>
+      <td>0.397927</td>
+      <td>0.026265</td>
+      <td>0.180118</td>
+      <td>0.020348</td>
+      <td>0.749174</td>
+      <td>0.038951</td>
+      <td>2.365885e+03</td>
+    </tr>
+    <tr>
+      <th>min</th>
+      <td>10001.000000</td>
+      <td>40.504658</td>
+      <td>-74.250150</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>4.594332e+06</td>
+    </tr>
+    <tr>
+      <th>25%</th>
+      <td>10457.000000</td>
+      <td>40.665350</td>
+      <td>-73.965530</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>4.597113e+06</td>
+    </tr>
+    <tr>
+      <th>50%</th>
+      <td>11208.000000</td>
+      <td>40.713196</td>
+      <td>-73.922740</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>4.599058e+06</td>
+    </tr>
+    <tr>
+      <th>75%</th>
+      <td>11239.000000</td>
+      <td>40.777754</td>
+      <td>-73.867714</td>
+      <td>1.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>4.600953e+06</td>
+    </tr>
+    <tr>
+      <th>max</th>
+      <td>11694.000000</td>
+      <td>40.912827</td>
+      <td>-73.702095</td>
+      <td>21.000000</td>
+      <td>2.000000</td>
+      <td>19.000000</td>
+      <td>1.000000</td>
+      <td>2.000000</td>
+      <td>1.000000</td>
+      <td>8.000000</td>
+      <td>2.000000</td>
+      <td>4.605324e+06</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+<p>By the data dictionary, <code>OFF STREET NAME</code> is the street address of the collision site. Some records have <code>OFF STREET NAME</code> but missing <code>LATITUDE</code> and <code>LONGITUDE</code>. The geocode can be filled by geocoding the street address with package</p>
+</section>
+<section id="filling-the-missing-zip-codes-by-reverse-geocoding" class="level2" data-number="12.3">
+<h2 data-number="12.3" class="anchored" data-anchor-id="filling-the-missing-zip-codes-by-reverse-geocoding"><span class="header-section-number">12.3</span> Filling the Missing Zip Codes by Reverse Geocoding</h2>
+<p>The package <code>uszipcode</code> is the most powerful and easy to use programmable zipcode database in Python. It provides information about 42,724 zipcodes in the US with data crawled from &lt;data.census.gov&gt;. See <a href="https://uszipcode.readthedocs.io/index.html">its documentation</a> for details.</p>
+<div class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> uszipcode <span class="im">import</span> SearchEngine</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>sr <span class="op">=</span> SearchEngine()</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>sr.by_zipcode(<span class="st">"10001"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="7">
+<pre><code>SimpleZipcode(zipcode='10001', zipcode_type='STANDARD', major_city='New York', post_office_city='New York, NY', common_city_list=['New York'], county='New York County', state='NY', lat=40.75, lng=-74.0, timezone='America/New_York', radius_in_miles=0.9090909090909091, area_code_list='718,917,347,646', population=21102, population_density=33959.0, land_area_in_sqmi=0.62, water_area_in_sqmi=0.0, housing_units=12476, occupied_housing_units=11031, median_home_value=650200, median_household_income=81671, bounds_west=-74.008621, bounds_east=-73.984076, bounds_north=40.759731, bounds_south=40.743451)</code></pre>
+</div>
+</div>
+<p>We can use <code>uszipcode</code> to reverse geocode a point by its coordinates. The returned zipcode can be used to handle missing zipcode.</p>
+<div class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>z <span class="op">=</span> sr.by_coordinates(<span class="fl">40.769993</span>, <span class="op">-</span><span class="fl">73.915825</span>, radius <span class="op">=</span> <span class="dv">1</span>)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>z[<span class="dv">0</span>].zipcode</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>z[<span class="dv">0</span>].median_home_value</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="8">
+<pre><code>597700</code></pre>
+</div>
+</div>
+<p>Once we have found the zipcode, we can find its borough. See the <a href="https://bklyndesigns.com/new-york-city-zip-code/">complete NYC zip code list</a>.</p>
+<div class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> nyczip2burough(<span class="bu">zip</span>):</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    nzip <span class="op">=</span> <span class="bu">int</span>(<span class="bu">zip</span>)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> nzip <span class="op">&gt;=</span> <span class="dv">10001</span> <span class="kw">and</span> nzip <span class="op">&lt;=</span> <span class="dv">10282</span>:</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">"MANHATTAN"</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> nzip <span class="op">&gt;=</span> <span class="dv">10301</span> <span class="kw">and</span> nzip <span class="op">&lt;=</span> <span class="dv">10314</span>:</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">"STATEN ISLAND"</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> nzip <span class="op">&gt;=</span> <span class="dv">10451</span> <span class="kw">and</span> nzip <span class="op">&lt;=</span> <span class="dv">10475</span>:</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">"BRONX"</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> nzip <span class="op">&gt;=</span> <span class="dv">11004</span> <span class="kw">and</span> nzip <span class="op">&lt;=</span> <span class="dv">11109</span>:</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">"QUEENS"</span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> nzip <span class="op">&gt;=</span> <span class="dv">11351</span> <span class="kw">and</span> nzip <span class="op">&lt;=</span> <span class="dv">11697</span>:</span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">"QUEENS"</span></span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> nzip <span class="op">&gt;=</span> <span class="dv">11201</span> <span class="kw">and</span> nzip <span class="op">&lt;=</span> <span class="dv">11256</span>:</span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">"BROOKLYN"</span></span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> np.nan</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Let’s try it out:</p>
+<div class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>nyczip2burough(z[<span class="dv">0</span>].zipcode)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="10">
+<pre><code>'QUEENS'</code></pre>
+</div>
+</div>
+<p>Here is a vectorized version:</p>
+<div class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> typing <span class="im">import</span> Union, List</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> nyczip2borough(zips: Union[np.ndarray, pd.Series]) <span class="op">-&gt;</span> Union[np.ndarray, pd.Series]:</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>    zips <span class="op">=</span> zips.values <span class="cf">if</span> <span class="bu">isinstance</span>(zips, pd.Series) <span class="cf">else</span> zips</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>    condlist <span class="op">=</span> [</span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>        (zips <span class="op">&gt;=</span> <span class="dv">10001</span>) <span class="op">&amp;</span> (zips <span class="op">&lt;=</span> <span class="dv">10282</span>),</span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>        (zips <span class="op">&gt;=</span> <span class="dv">10301</span>) <span class="op">&amp;</span> (zips <span class="op">&lt;=</span> <span class="dv">10314</span>),</span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>        (zips <span class="op">&gt;=</span> <span class="dv">10451</span>) <span class="op">&amp;</span> (zips <span class="op">&lt;=</span> <span class="dv">10475</span>),</span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>        (zips <span class="op">&gt;=</span> <span class="dv">11004</span>) <span class="op">&amp;</span> (zips <span class="op">&lt;=</span> <span class="dv">11109</span>),</span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>        (zips <span class="op">&gt;=</span> <span class="dv">11351</span>) <span class="op">&amp;</span> (zips <span class="op">&lt;=</span> <span class="dv">11697</span>),</span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>        (zips <span class="op">&gt;=</span> <span class="dv">11201</span>) <span class="op">&amp;</span> (zips <span class="op">&lt;=</span> <span class="dv">11256</span>),</span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>    ]</span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>    choicelist <span class="op">=</span> [</span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a>        <span class="st">"MANHATTAN"</span>,</span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a>        <span class="st">"STATEN ISLAND"</span>,</span>
+<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a>        <span class="st">"BRONX"</span>,</span>
+<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a>        <span class="st">"QUEENS"</span>,</span>
+<span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a>        <span class="st">"QUEENS"</span>,</span>
+<span id="cb17-21"><a href="#cb17-21" aria-hidden="true" tabindex="-1"></a>        <span class="st">"BROOKLYN"</span>,</span>
+<span id="cb17-22"><a href="#cb17-22" aria-hidden="true" tabindex="-1"></a>    ]</span>
+<span id="cb17-23"><a href="#cb17-23" aria-hidden="true" tabindex="-1"></a>    result <span class="op">=</span> np.select(condlist, choicelist, default<span class="op">=</span>np.nan)</span>
+<span id="cb17-24"><a href="#cb17-24" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> pd.Series(result) <span class="cf">if</span> <span class="bu">isinstance</span>(zips, pd.Series) <span class="cf">else</span> result</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Try it out</p>
+<div class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>nyczip2borough(jan23[<span class="st">"ZIP CODE"</span>].dropna().head(<span class="dv">10</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="12">
+<pre><code>array(['BROOKLYN', 'QUEENS', 'MANHATTAN', 'QUEENS', 'BROOKLYN', 'QUEENS',
+       'QUEENS', 'BROOKLYN', 'QUEENS', 'STATEN ISLAND'], dtype='&lt;U32')</code></pre>
+</div>
+</div>
+<p>The <code>uszipcode</code> package provides databases at the zip code level from the US Census. Such information could be merged with the NYC crash data for further analysis.</p>
+<div class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> uszipcode <span class="im">import</span> SearchEngine, SimpleZipcode</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="co"># set the default database file location</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>db_file <span class="op">=</span> os.path.join(os.getenv(<span class="st">"HOME"</span>), <span class="st">"simple_db.sqlite"</span>)</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>search <span class="op">=</span> SearchEngine(db_file_path<span class="op">=</span>db_file)</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>search.by_zipcode(<span class="st">"10030"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="13">
+<pre><code>SimpleZipcode(zipcode='10030', zipcode_type='STANDARD', major_city='New York', post_office_city='New York, NY', common_city_list=['New York'], county='New York County', state='NY', lat=40.82, lng=-73.94, timezone='America/New_York', radius_in_miles=0.5681818181818182, area_code_list='212,646,917', population=26999, population_density=96790.0, land_area_in_sqmi=0.28, water_area_in_sqmi=0.0, housing_units=12976, occupied_housing_units=11395, median_home_value=509000, median_household_income=31925, bounds_west=-73.948677, bounds_east=-73.936232, bounds_north=40.824032, bounds_south=40.812791)</code></pre>
+</div>
+</div>
+<p>The SQL database of US zip code is stored in <code>$HOME/.uszipcode</code>. It can be imported as a <code>pandas dataframe</code>.</p>
+<div class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sqlite3</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="co"># change to your own path after installing uszipcode</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>con <span class="op">=</span> sqlite3.<span class="ex">connect</span>(db_file)</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>zipdf <span class="op">=</span> pd.read_sql_query(<span class="st">"SELECT * from simple_zipcode"</span>, con)</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>zipdf.info()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&lt;class 'pandas.core.frame.DataFrame'&gt;
+RangeIndex: 42724 entries, 0 to 42723
+Data columns (total 24 columns):
+ #   Column                   Non-Null Count  Dtype  
+---  ------                   --------------  -----  
+ 0   zipcode                  42724 non-null  object 
+ 1   zipcode_type             42724 non-null  object 
+ 2   major_city               42724 non-null  object 
+ 3   post_office_city         33104 non-null  object 
+ 4   common_city_list         41877 non-null  object 
+ 5   county                   42724 non-null  object 
+ 6   state                    42724 non-null  object 
+ 7   lat                      42724 non-null  float64
+ 8   lng                      42724 non-null  float64
+ 9   timezone                 42724 non-null  object 
+ 10  radius_in_miles          33104 non-null  float64
+ 11  area_code_list           42724 non-null  object 
+ 12  population               31448 non-null  float64
+ 13  population_density       31448 non-null  float64
+ 14  land_area_in_sqmi        31448 non-null  float64
+ 15  water_area_in_sqmi       31448 non-null  float64
+ 16  housing_units            31448 non-null  float64
+ 17  occupied_housing_units   31448 non-null  float64
+ 18  median_home_value        31448 non-null  float64
+ 19  median_household_income  31448 non-null  float64
+ 20  bounds_west              33104 non-null  float64
+ 21  bounds_east              33104 non-null  float64
+ 22  bounds_north             33104 non-null  float64
+ 23  bounds_south             33104 non-null  float64
+dtypes: float64(15), object(9)
+memory usage: 7.8+ MB</code></pre>
+</div>
+</div>
+<p>The zip code dataframe can be merged with the crash dataframe.</p>
+</section>
+<section id="map-the-crash-sites" class="level2" data-number="12.4">
+<h2 data-number="12.4" class="anchored" data-anchor-id="map-the-crash-sites"><span class="header-section-number">12.4</span> Map the Crash Sites</h2>
+<p>We can do this with package <code>gmplot</code>. See instructions from <a href="https://www.tutorialspoint.com/plotting-google-map-using-gmplot-package-in-python">this tutorial</a>.</p>
+<div class="cell" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> gmplot</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="co"># prepare the geododes</span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>latitude  <span class="op">=</span> jan23[<span class="st">"LATITUDE"</span>].dropna().values</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>longitude <span class="op">=</span> jan23[<span class="st">"LONGITUDE"</span>].dropna().values</span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a><span class="co"># center of the map and zoom level</span></span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>gmap <span class="op">=</span> gmplot.GoogleMapPlotter(<span class="fl">40.769737</span>, <span class="op">-</span><span class="fl">73.91244</span>, <span class="dv">14</span>)</span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a><span class="co"># plot heatmap</span></span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>gmap.heatmap(latitude, longitude)</span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a>gmap.scatter(latitude, longitude, c <span class="op">=</span> <span class="st">'r'</span>, marker <span class="op">=</span> <span class="va">True</span>)</span>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a><span class="co"># gmap.scatter(latitude, longitude, '#FF0000', size = 50, marker = False)</span></span>
+<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Your Google_API_Key</span></span>
+<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a><span class="co"># gmap.apikey = "put your key here"</span></span>
+<span id="cb24-17"><a href="#cb24-17" aria-hidden="true" tabindex="-1"></a><span class="co"># save it to html</span></span>
+<span id="cb24-18"><a href="#cb24-18" aria-hidden="true" tabindex="-1"></a>gmap.draw(<span class="vs">r"nycrashmap.html"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="predicting-injuries" class="level2" data-number="12.5">
+<h2 data-number="12.5" class="anchored" data-anchor-id="predicting-injuries"><span class="header-section-number">12.5</span> Predicting Injuries</h2>
+<p>Let’s start by imporing the cleaned data. We define <code>INJURY</code> as an indicator of personal injuries and creat an <code>HOUR</code> variable for the crash hours.</p>
+<div class="cell" data-execution_count="16">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>jan23 <span class="op">=</span> pd.read_csv(<span class="st">"data/nyc_crashes_202301_cleaned.csv"</span>)</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>jan23[<span class="st">"INJURY"</span>] <span class="op">=</span> [<span class="dv">1</span> <span class="cf">if</span> x <span class="op">&gt;</span> <span class="dv">0</span> <span class="cf">else</span> <span class="dv">0</span> <span class="cf">for</span> x <span class="kw">in</span> jan23[<span class="st">"NUMBER OF PERSONS INJURED"</span>]]</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>jan23[<span class="st">"HOUR"</span>] <span class="op">=</span> jan23[<span class="st">"CRASH TIME"</span>].<span class="bu">str</span>.split(<span class="st">":"</span>).<span class="bu">str</span>[<span class="dv">0</span>].astype(<span class="bu">int</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We import zipcode level information from package <code>uszipcode</code> and merge it.</p>
+<div class="cell" data-execution_count="17">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>zipdf <span class="op">=</span> pd.read_sql_query(<span class="st">"SELECT * from simple_zipcode WHERE state = 'NY'"</span>, con)</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>zipdf[<span class="st">"zipcode"</span>] <span class="op">=</span> zipdf[<span class="st">"zipcode"</span>].astype(<span class="bu">float</span>)</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>crashdf <span class="op">=</span> pd.merge(jan23, zipdf, left_on <span class="op">=</span> <span class="st">"ZIP CODE"</span>, right_on <span class="op">=</span> <span class="st">"zipcode"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Let’s select a few columns that might be useful:</p>
+<div class="cell" data-execution_count="18">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>crashdf <span class="op">=</span> crashdf[[<span class="st">"INJURY"</span>, <span class="st">"HOUR"</span>, <span class="st">"BOROUGH"</span>, <span class="st">"LATITUDE"</span>, <span class="st">"LONGITUDE"</span>,</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>                   <span class="st">"zipcode"</span>, <span class="st">"population_density"</span>, <span class="st">"median_home_value"</span>,</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>                   <span class="st">"median_household_income"</span>]]</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>crashdf.info()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&lt;class 'pandas.core.frame.DataFrame'&gt;
+Int64Index: 7240 entries, 0 to 7239
+Data columns (total 9 columns):
+ #   Column                   Non-Null Count  Dtype  
+---  ------                   --------------  -----  
+ 0   INJURY                   7240 non-null   int64  
+ 1   HOUR                     7240 non-null   int64  
+ 2   BOROUGH                  7219 non-null   object 
+ 3   LATITUDE                 7240 non-null   float64
+ 4   LONGITUDE                7240 non-null   float64
+ 5   zipcode                  7240 non-null   float64
+ 6   population_density       7105 non-null   float64
+ 7   median_home_value        7105 non-null   float64
+ 8   median_household_income  7105 non-null   float64
+dtypes: float64(6), int64(2), object(1)
+memory usage: 565.6+ KB</code></pre>
+</div>
+</div>
+<section id="preparation" class="level3" data-number="12.5.1">
+<h3 data-number="12.5.1" class="anchored" data-anchor-id="preparation"><span class="header-section-number">12.5.1</span> Preparation</h3>
+<p>Categorical variables need to be coded appropriately. Ordinal variables can be coded with <code>OrdinalEncoder</code>. Nominal variables can be coded with <code>OneHotEncoder</code>. We want to treat <code>HOUR</code>, <code>BOROUGH</code>, and <code>zipcode</code> as nominal categorical variables. One way to encode them is <code>pd.get_dummies</code>.</p>
+<div class="cell" data-execution_count="19">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>catVars <span class="op">=</span> [<span class="st">"HOUR"</span>, <span class="st">"BOROUGH"</span>] <span class="co">#, "zipcode"]</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>crashdf <span class="op">=</span> pd.get_dummies(crashdf, columns <span class="op">=</span> catVars, prefix <span class="op">=</span> catVars)</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>crashdf.shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="19">
+<pre><code>(7240, 36)</code></pre>
+</div>
+</div>
+<p>It is important to note that we get one dummy variable for each level of the categorical variable. For example, we get 5 dummies for <code>BOROUGH</code> and 24 dummies for <code>HOUR</code>. If these dummies were to used in a regression model, the model matrix is not of full rank; in other words, there is perfect colinearity among the covariates. An error would occur from the model fitting. For regularized regression models or many machine learning methods (e.g., decision tree, random forest, SVM, etc.), this is less an issue.</p>
+<p>We need to standardize the continuous covariates so that their impacts are comparable. Standardization also makes the numerical computation more stable. If one variable has a variance that 100 times larger than others, it might dominate the objective function and make it hard for the optimization algorithms to find the optimum. This preprocessing can be done with the <code>sklearn.preprocessing</code> module.</p>
+<div class="cell" data-execution_count="20">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>scaler <span class="op">=</span> StandardScaler()</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>conVars <span class="op">=</span> [<span class="st">"population_density"</span>, <span class="st">"median_home_value"</span>, <span class="st">"median_household_income"</span>]</span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>crashdf[conVars] <span class="op">=</span> scaler.fit_transform(crashdf[conVars])</span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>crashdf.columns</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="20">
+<pre><code>Index(['INJURY', 'LATITUDE', 'LONGITUDE', 'zipcode', 'population_density',
+       'median_home_value', 'median_household_income', 'HOUR_0', 'HOUR_1',
+       'HOUR_2', 'HOUR_3', 'HOUR_4', 'HOUR_5', 'HOUR_6', 'HOUR_7', 'HOUR_8',
+       'HOUR_9', 'HOUR_10', 'HOUR_11', 'HOUR_12', 'HOUR_13', 'HOUR_14',
+       'HOUR_15', 'HOUR_16', 'HOUR_17', 'HOUR_18', 'HOUR_19', 'HOUR_20',
+       'HOUR_21', 'HOUR_22', 'HOUR_23', 'BOROUGH_BRONX', 'BOROUGH_BROOKLYN',
+       'BOROUGH_MANHATTAN', 'BOROUGH_QUEENS', 'BOROUGH_STATEN ISLAND'],
+      dtype='object')</code></pre>
+</div>
+</div>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./advanced.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Advanced Topics</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./exercises.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Exercises</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+</body></html>
