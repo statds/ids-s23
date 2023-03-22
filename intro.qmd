@@ -229,8 +229,8 @@ Please use the following table to sign up.
   03/06  | Nhan, Nathan           | Bagging vs boosting
   03/08  | Parchekani, Kian       | Naive Bayes
   03/20  | Noel, Luke             | Plotting on maps with `gmplot`
-  03/20  | Whitney, William       | 
-  03/22  | Nguyen, Christine      | Calling R from Python and vice versa
+  03/20  | Whitney, William       | Autoencoder
+  03/27  | Nguyen, Christine      | Calling R from Python and vice versa
   03/27  | Cummins, Patrick       |
   03/29  | Zheng, Michael         | Web Scraping with `Selenium`
   04/03  | Lunetta, Giovanni      | Softmax Regression & Neural Networks with `TensorFlow`
