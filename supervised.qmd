@@ -93,6 +93,16 @@ classification results.
 + K-fold: hold out each fold as testing data.
 + Scores: minimized to train a model
 
+Cross-validation is an important measure to prevent over-fitting. Good in-sample
+performance does not necessarily mean good out-sample performance. A general
+work flow in model selection with cross-validation is as follows.
+
++ Split the data into training and testing
++ For each candidate model $m$ (with possibly multiple tuning parameters)
+    - Fit the model to the training data
+    - Obtain the performance measure $f(m)$ on the testing data (e.g., CV score,
+      MSE, loss, etc.)
++ Choose the model $m^* = \arg\max_m f(m)$.
 
 
 <!-- ## Support Vector Machine -->
