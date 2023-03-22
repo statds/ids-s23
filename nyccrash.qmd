@@ -215,3 +215,68 @@ gmap.scatter(latitude, longitude, c = 'r', marker = True)
 # save it to html
 gmap.draw(r"nycrashmap.html")
 ```
+
+## Predicting Injuries
+
+Let's start by imporing the cleaned data. We define `INJURY` as an indicator of
+personal injuries and creat an `HOUR` variable for the crash hours.
+```{python}
+jan23 = pd.read_csv("data/nyc_crashes_202301_cleaned.csv")
+jan23["INJURY"] = [1 if x > 0 else 0 for x in jan23["NUMBER OF PERSONS INJURED"]]
+jan23["HOUR"] = jan23["CRASH TIME"].str.split(":").str[0].astype(int)
+```
+
+We import zipcode level information from package `uszipcode` and merge it.
+```{python}
+zipdf = pd.read_sql_query("SELECT * from simple_zipcode WHERE state = 'NY'", con)
+zipdf["zipcode"] = zipdf["zipcode"].astype(float)
+crashdf = pd.merge(jan23, zipdf, left_on = "ZIP CODE", right_on = "zipcode")
+```
+
+Let's select a few columns that might be useful:
+```{python}
+crashdf = crashdf[["INJURY", "HOUR", "BOROUGH", "LATITUDE", "LONGITUDE",
+				   "zipcode", "population_density", "median_home_value",
+				   "median_household_income"]]
+crashdf.info()
+```
+
+### Preparation
+
+Categorical variables need to be coded appropriately. Ordinal variables can be
+coded with `OrdinalEncoder`. Nominal variables can be coded with
+`OneHotEncoder`. We want to treat `HOUR`, `BOROUGH`, and `zipcode` as nominal
+categorical variables. One way to encode them is `pd.get_dummies`.
+
+```{python}
+catVars = ["HOUR", "BOROUGH"] #, "zipcode"]
+crashdf = pd.get_dummies(crashdf, columns = catVars, prefix = catVars)
+crashdf.shape
+```
+
+It is important to note that we get one dummy variable for each level of the
+categorical variable. For example, we get 5 dummies for `BOROUGH` and 24 dummies
+for `HOUR`. If these dummies were to used in a regression model, the model
+matrix is not of full rank; in other words, there is perfect colinearity among
+the covariates. An error would occur from the model fitting. For regularized
+regression models or many machine learning methods (e.g., decision tree, random
+forest, SVM, etc.), this is less an issue.
+
+
+We need to standardize the continuous covariates so that their impacts are
+comparable. Standardization also makes the numerical computation more stable. If
+one variable has a variance that 100 times larger than others, it might dominate
+the objective function and make it hard for the optimization algorithms to find
+the optimum. This preprocessing can be done with the `sklearn.preprocessing`
+module.
+
+
+```{python}
+from sklearn.preprocessing import StandardScaler
+scaler = StandardScaler()
+conVars = ["population_density", "median_home_value", "median_household_income"]
+crashdf[conVars] = scaler.fit_transform(crashdf[conVars])
+crashdf.columns
+```
+
+
