@@ -19,7 +19,7 @@ book:
     - visual.qmd
     - supervised.qmd
     - advanced.qmd
-    - nycrash.qmd
+    - nyccrash.qmd
     - exercises.qmd
     - references.qmd
 bibliography: references.bib
