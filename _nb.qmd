@@ -1,0 +1,308 @@
+
+## Naive Bayes
+
+
+### Introduction
+
+Naive Bayes classifiers are based on Bayesian classification methods that are derived from Bayes's theorem. This theorem is an equation that describes the relationship between the conditional probabilities of statistical quantities. In Bayesian classification, the objective is to find the probability of a label given a set of observed features. Bayes's theorem enables us to express this in terms of more computationally feasible quantities. 
+
+$$P(y|x_1, x_2, ..., x_n) = \frac{P(y) \times P(x_1|y) \times P(x_2|y) \times ... \times P(x_n|y)}{P(x_1, x_2, ..., x_n)}$$
+
+The "naive" part of Naive Bayes comes from the assumption of independence between features, which is a simplifying assumption that allows for efficient computation and makes the algorithm particularly well-suited for high-dimensional data. However, this assumption may not hold true in all cases, and there are variants of Naive Bayes that relax this assumption. These classifiers are most commonly used in fields such as natural language processing, image recognition, and spam filtering.
+
+##### Installation
+
+Naive Bayes classifiers are found in `scikit-learn`
+```
+pip install scikit-learn
+```
+##### Types of Naive Bayes classifiers
+
+
+
+There are three main types of Naive Bayes classifiers:
+
+1. Gaussian Naive Bayes - used for continuous input variables that are normally distributed
+2. Multinomial Naive Bayes - used for discrete input variables such as text
+3. Bernoulli Naive Bayes - used for binary input variables such as spam detection
+
+### Gaussian Naive Bayes
+
+Gaussian Naive Bayes is possibly the simplest of the three, with the assumption being that data from each label is drawn from a simple Gaussian distribution.
+In doing this, all the model needs for prediction is the mean and standard deviation of each target's distribution. 
+
+Before getting into anything, we need to load all the necessary packages, including those outside of `sklearn `.
+
+`load_iris` is a dataset available from `sklearn` to use for classification testing.
+```{python}
+import pandas as pd
+import numpy as np
+import seaborn as sns
+import matplotlib.pyplot as plt
+from sklearn.datasets import load_iris
+from sklearn.model_selection import train_test_split
+from sklearn.naive_bayes import GaussianNB
+from sklearn.metrics import accuracy_score, confusion_matrix
+```
+
+First, we load the iris dataset, transform it into a pandas dataframe, adjust labels and preview the data
+
+```{python}
+iris = load_iris()
+
+df = pd.DataFrame(data=iris.data, columns=iris.feature_names)
+df["target"] = iris.target
+df["species"] = df["target"].replace(dict(enumerate(iris.target_names)))
+
+print(df.head())
+```
+We plot the data using a pairplot to visualize the relationships between the features
+```{python}
+sns.pairplot(df, hue="species")
+plt.show()
+```
+
+As we can see, certain variables graphed against one another show distinct clusters. `GaussianNB()` accounts for these, and utilizes these distinctions in classification.
+
+Split the data into training and testing sets before calling `GaussianNB()` and fitting the data.
+```{python}
+X_train, X_test, y_train, y_test = train_test_split(
+    iris.data, iris.target, test_size=0.2, random_state=42)
+
+gnb = GaussianNB()
+
+gnb.fit(X_train, y_train)
+```
+We then create `y_pred`, evaluate the accuracy of the model, and view the confusion matrix.
+```{python}
+y_pred = gnb.predict(X_test)
+
+
+accuracy = accuracy_score(y_test, y_pred)
+print(f"Accuracy: {accuracy:.2f}")
+
+cm = confusion_matrix(y_test, y_pred)
+sns.heatmap(cm, annot=True, fmt="d", cmap="Blues")
+plt.xlabel("Predicted Label")
+plt.ylabel("True Label")
+plt.show()
+```
+
+This data is meant for displaying classification methods, so it is no surprise that our model is perfect. In general, however, dealing with data that has plenty of targets/labels can be perfect for Gaussian Naive Bayes, as in these instances, the assumptions of independence become less detrimental.
+
+### Multinomial Naive Bayes Classifiers
+
+Along with Gaussian Naive Bayes, Multinomial Naive Bayes operates off of the assumption that the features are generated from a simple multinomial distribution.
+
+Multinomial Naive Bayes is well-suited for features that represent counts or count rates since the multinomial distribution models the probability of observing counts across multiple categories.
+
+##### Text Classification
+
+One of the best uses for this is in text classification, as it deals with counts/frequencies of words.
+
+To start this example, we load a dataset from `sklearn`, along with `MultinomialNB`.
+`CountVectorizer` is also loaded, as we are no longer dealing with numerical data.
+
+```{python}
+from sklearn.datasets import fetch_20newsgroups
+from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.naive_bayes import MultinomialNB
+```
+
+This example will use the `fetch_20newsgroups` dataset, which is a collection of newsgroup posts on various topics. Now we split it into a training set and a test set.
+
+We can also preview the data, and see the target names, data, and targets
+```{python}
+newsgroups_train = fetch_20newsgroups(subset='train')
+newsgroups_test = fetch_20newsgroups(subset='test')
+
+print(newsgroups_train.target_names)
+print(newsgroups_train.data[0])
+print(newsgroups_train.target[0])
+```
+Here we get an idea of our targets, as well as one data example and the target it belongs to. 
+
+We then preprocess the data, converting categorical data to numerical.
+```{python}
+vectorizer = CountVectorizer()
+X_train = vectorizer.fit_transform(newsgroups_train.data)
+X_test = vectorizer.transform(newsgroups_test.data)
+```
+We then train the classifier and make our precitions using `.predict()`
+```{python}
+clf = MultinomialNB()
+clf.fit(X_train, newsgroups_train.target)
+
+y_pred1 = clf.predict(X_test)
+```
+Finally, we evaluate the performance.
+```{python}
+accuracy1 = accuracy_score(newsgroups_test.target, y_pred1)
+print('Accuracy:', accuracy1)
+```
+
+We can plot a heatmap of the confusion matrix with `seaborn` to better visualize the accuracy. 
+```{python}
+conf_mat = confusion_matrix(newsgroups_test.target, y_pred1)
+sns.heatmap(conf_mat, annot=True, cmap='Blues')
+plt.xlabel('Predicted Labels')
+plt.ylabel('True Labels')
+plt.show()
+```
+
+The true labels are shown on the y-axis and the predicted labels are shown on the x-axis. The cells of the heatmap show the number of test instances that belong to a particular class (true label) and were classified as another class (predicted label).
+
+### Complement Naive Bayes
+
+Often in cases of imbalanced datasets where certain targets have more data, `ComplementNB` is used to provide balance to the targets with less data. First we should view our targets.
+
+```{python}
+unique, counts = np.unique(newsgroups_test.target, return_counts=True)
+for target_name, count in zip(newsgroups_test.target_names, counts):
+    print(f"{target_name}: {count}")
+```
+
+Our data is fairly balanced here, so `ComplementNB` may not be necessary.
+
+However, using the `nyc311` data from the midterm, we can see that the frequency of values by `Agency` is very imbalanced.
+
+```{python}
+from sklearn.naive_bayes import ComplementNB
+nyc = pd.read_csv('data/nyc311_011523-012123_by022023.csv')
+nyc = nyc[['Descriptor', 'Agency']]
+
+sns.countplot(x='Agency', data=nyc)
+plt.show()
+```
+
+As we can see, the NYPD skews the data. We can try using this Naive Bayes classifier to predict what agency a call was made to based on the description.
+
+We once again convert the data to vectors, fit our model and evaluate the accuracy/ confusion matrix
+
+```{python}
+nyc = nyc.dropna()
+
+vectorizer = CountVectorizer()
+X = vectorizer.fit_transform(nyc['Descriptor'])
+
+
+y = nyc['Agency']
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+
+model = ComplementNB()
+
+model.fit(X_train, y_train)
+
+y_pred = model.predict(X_test)
+
+print('Accuracy:', accuracy_score(y_test, y_pred))
+
+cm = confusion_matrix(y_test, y_pred)
+sns.heatmap(cm, annot=True, fmt="d", cmap="Reds", robust = True)
+plt.xlabel("Predicted Label")
+plt.ylabel("True Label")
+plt.show()
+```
+
+Our model is very accurate despite containing very different frequencies. Let's compare to an ordinary Multinomial model.
+
+```{python}
+model = MultinomialNB()
+
+model.fit(X_train, y_train)
+
+y_pred = model.predict(X_test)
+
+print('Accuracy:', accuracy_score(y_test, y_pred))
+
+cm = confusion_matrix(y_test, y_pred)
+sns.heatmap(cm, annot=True, fmt="d", cmap="Reds", robust = True)
+plt.xlabel("Predicted Label")
+plt.ylabel("True Label")
+plt.show()
+```
+
+It appears that the Multinomial model actually has a higher accuracy; however, if we look a bit closer, we can see that the `ComplementNB` model indeed does a better job of classifying targets with less data in some cases. For instance, labels 1 and 5 are more accurate. However, it is not true for all labels, and often is slightly less accurate in classification. The use of `ComplementNB` is a matter of personal judgement / trial and error.
+
+### Bernoulli Naive Bayes 
+
+Unlike the Multinomial Naive Bayes algorithm, which works with count-based features, Bernoulli Naive Bayes operates on binary features. This makes it particularly well-suited for modeling the presence or absence of certain words or phrases in a document, and makes is especially useful with spam detection. Each feature is assumed to be conditionally independent of all the other features given the class label. 
+
+$P(x_i|y) = P{(x_i=1}|{y})x_i + (1 - P({x_1 = 1}|y))({1-x_i})$
+
+In this example, we look at the NYC Crash data, and try to classify injuries based on the the number one contributing factor.
+
+```{python}
+from sklearn.naive_bayes import BernoulliNB
+
+crash = pd.read_csv('data/nyc_crashes_202301_cleaned.csv')
+
+crash["INJURY"] = crash["NUMBER OF PERSONS INJURED"].apply(lambda x: 1 if x >= 1 else 0)
+
+crash = crash.dropna(subset=['INJURY', 'CONTRIBUTING FACTOR VEHICLE 1'])
+```
+
+Once again, we split the data into training and testing sets and create a `CountVectorizer` to convert the text data into a binary matrix.
+
+```{python}
+X_train, X_test, y_train, y_test = train_test_split(
+    crash["CONTRIBUTING FACTOR VEHICLE 1"], crash["INJURY"], test_size=0.2, random_state=42)
+
+vectorizer = CountVectorizer(binary=True)
+X_train = vectorizer.fit_transform(X_train)
+X_test = vectorizer.transform(X_test)
+```
+
+Then, a `BernoulliNB` object is created and fit to the training data. We then make predictions on the testing data.
+
+```{python}
+bnb = BernoulliNB()
+
+bnb.fit(X_train, y_train)
+
+y_pred4 = bnb.predict(X_test)
+```
+
+Calculate the accuracy of the model.
+```{python}
+accuracy4 = accuracy_score(y_test, y_pred4)
+print(f"Accuracy: {accuracy4:.2f}")
+
+cm = confusion_matrix(y_test, y_pred4)
+print("Confusion Matrix:")
+print(cm)
+```
+
+Obviously, our model has some shortcomings. Namely, the accuracy is not great, and it has a high quantity of false negatives. That can partially be attributed to the variable we used, as there is not a lot of distinctions that can be made within the text for factors of each crash. With that being said, for a baseline, it is not bad, and with some tuning and more diverse, larger data to work with, it could classify injuries much better. 
+
+### Conclusion
+
+In conclusion, using Naive Bayes as a means of classification does have its benefits and shortcomings.
+
+Pros:
+
+- Efficiency
+
+- Interpretability
+
+- Few parameters
+
+Cons:
+
+- Simplicity 
+
+- Data does not always match the assumptions
+
+- Few parameters
+
+Overall, Naive Bayes classifiers are best used in finding a solid baseline to build off of.
+
+### References
+
+“1.9. Naive Bayes.” Scikit, https://scikit-learn.org/stable/modules/naive_bayes.html. 
+
+Learning, UCI Machine. “SMS Spam Collection Dataset.” Kaggle, 2 Dec. 2016, https://www.kaggle.com/datasets/uciml/sms-spam-collection-dataset?resource=download. 
+
+Vanderplas, Jake. Python Data Science Handbook: Essential Tools for Working with Data. O'REILLY MEDIA, 2023. 
