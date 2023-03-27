@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Introduction to Data Science - 2&nbsp; Project Management with Git</title>
+<title>Introduction to Data Science - 11&nbsp; Unsupervised Learning</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,6 +20,25 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1.6em;
   vertical-align: middle;
 }
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
 </style>
 
 
@@ -30,8 +49,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./quarto.html" rel="next">
-<link href="./intro.html" rel="prev">
+<link href="./advanced.html" rel="next">
+<link href="./supervised.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -70,7 +89,7 @@ ul.task-list li input[type="checkbox"] {
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
     <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Project Management with Git</span></h1>
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Unsupervised Learning</span></h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -105,7 +124,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./git.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Project Management with Git</span></a>
+  <a href="./git.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Project Management with Git</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -150,7 +169,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./unsupervised.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Unsupervised Learning</span></a>
+  <a href="./unsupervised.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Unsupervised Learning</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -182,10 +201,10 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#set-up" id="toc-set-up" class="nav-link active" data-scroll-target="#set-up"><span class="toc-section-number">2.1</span>  Set Up</a></li>
-  <li><a href="#most-frequently-used-git-commands" id="toc-most-frequently-used-git-commands" class="nav-link" data-scroll-target="#most-frequently-used-git-commands"><span class="toc-section-number">2.2</span>  Most Frequently Used Git Commands</a></li>
-  <li><a href="#tips-on-using-git" id="toc-tips-on-using-git" class="nav-link" data-scroll-target="#tips-on-using-git"><span class="toc-section-number">2.3</span>  Tips on using Git:</a></li>
-  <li><a href="#pull-request" id="toc-pull-request" class="nav-link" data-scroll-target="#pull-request"><span class="toc-section-number">2.4</span>  Pull Request</a></li>
+  <li><a href="#principal-component-analysis" id="toc-principal-component-analysis" class="nav-link active" data-scroll-target="#principal-component-analysis"><span class="toc-section-number">11.1</span>  Principal Component Analysis</a>
+  <ul class="collapse">
+  <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction"><span class="toc-section-number">11.1.1</span>  Introduction</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -194,7 +213,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span id="sec-git" class="quarto-section-identifier d-none d-lg-block"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Project Management with Git</span></span></h1>
+<h1 class="title d-none d-lg-block"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Unsupervised Learning</span></h1>
 </div>
 
 
@@ -209,51 +228,22 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<p>Many tutorials are available in different formats. Here is a <a href="https://www.youtube.com/watch?v=RGOj5yH7evk">YouTube video ``Git and GitHub for Beginners — Crash Course’’</a>. The video also covers GitHub, a cloud service for Git which provides a cloud back up of your work and makes collaboration with co-workers easy. Similar services are, for example, <a href="bitbucket.org">bitbucket</a> and <a href="gitlab.com">GitLab</a>.</p>
-<p>Here is a collection of <a href="https://gitexercises.fracz.com">online Git exersices</a> that I used for Git training in other courses that I taught.</p>
-<section id="set-up" class="level2" data-number="2.1">
-<h2 data-number="2.1" class="anchored" data-anchor-id="set-up"><span class="header-section-number">2.1</span> Set Up</h2>
-<p>To set up GitHub (other services like Bitbucket or GitLab are similar), you need to</p>
-<ul>
-<li>Generate an SSH key if you don’t have one already.</li>
-<li>Sign up an GitHub account.</li>
-<li>Add the SSH key to your GitHub account</li>
-</ul>
-</section>
-<section id="most-frequently-used-git-commands" class="level2" data-number="2.2">
-<h2 data-number="2.2" class="anchored" data-anchor-id="most-frequently-used-git-commands"><span class="header-section-number">2.2</span> Most Frequently Used Git Commands</h2>
-<ul>
-<li><code>git clone</code></li>
-<li><code>git pull</code></li>
-<li><code>git status</code></li>
-<li><code>git add</code></li>
-<li><code>git remove</code></li>
-<li><code>git commit</code></li>
-<li><code>git push</code></li>
-</ul>
-</section>
-<section id="tips-on-using-git" class="level2" data-number="2.3">
-<h2 data-number="2.3" class="anchored" data-anchor-id="tips-on-using-git"><span class="header-section-number">2.3</span> Tips on using Git:</h2>
-<ul>
-<li>Use the command line interface instead of the web interface (e.g., upload on GitHub)</li>
-<li>Make frequent small commits instead of rare large commits.</li>
-<li>Make commit messages informative and meaningful.</li>
-<li>Name your files/folders by some reasonable convention.
-<ul>
-<li>Lower cases are better than upper cases.</li>
-<li>No blanks in file/folder names.</li>
-</ul></li>
-<li>Keep the repo clean by not tracking generated files.</li>
-<li>Creat a <code>.gitignore</code> file for better output from <code>git status</code>.</li>
-<li>Keep the linewidth of sources to under 80 for better <code>git diff</code> view.</li>
-</ul>
-</section>
-<section id="pull-request" class="level2" data-number="2.4">
-<h2 data-number="2.4" class="anchored" data-anchor-id="pull-request"><span class="header-section-number">2.4</span> Pull Request</h2>
-<p>To contribute to an open source project (e.g., our classnotes), use pull requests. <a href="https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests">Pull requests</a> “let you tell others about changes you’ve pushed to a branch in a repository on GitHub. Once a pull request is opened, you can discuss and review the potential changes with collaborators and add follow-up commits before your changes are merged into the base branch.”</p>
-<p>Watch this YouTube video: <a href="https://youtu.be/8lGpZkjnkt4">GitHub pull requests in 100 seconds</a>.</p>
+<p>Unsupervised learning methods are for problems where there is no known labels (outcome variable).</p>
+<section id="principal-component-analysis" class="level2" data-number="11.1">
+<h2 data-number="11.1" class="anchored" data-anchor-id="principal-component-analysis"><span class="header-section-number">11.1</span> Principal Component Analysis</h2>
+<p>Principal component analysis (PCA) originated as a dimensionality reduction algorithm which transforms a large set of variables into a smaller one that still contains most of the information in the large set. It can also be useful as a tool for visualization, for noise filtering, for feature extraction and engineering, and much more.</p>
+<section id="introduction" class="level3" data-number="11.1.1">
+<h3 data-number="11.1.1" class="anchored" data-anchor-id="introduction"><span class="header-section-number">11.1.1</span> Introduction</h3>
+<p>PCA can be thought of as fitting an ellipsoid to the data, where each axis of the ellipsoid represents a principal component. If some axis of the ellipsoid is small, then the variance along that axis is also small. More formally, PCA is defined as an orthogonal linear transformation that transforms the data to a new coordinate system such that the greatest variance by some scalar projection of the data comes to lie on the first coordinate, called the first principal component (PC), the second greatest variance on the second coordinate, and so on.</p>
+<p>See further notes from <span class="citation" data-cites="vanderplas2016python">VanderPlas (<a href="references.html#ref-vanderplas2016python" role="doc-biblioref">2016</a>)</span>.</p>
 
 
+<div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography" style="display: none">
+<div id="ref-vanderplas2016python" class="csl-entry" role="doc-biblioentry">
+VanderPlas, Jake. 2016. <em>Python Data Science Handbook: <span>E</span>ssential Tools for Working with Data</em>. O’Reilly Media, Inc.
+</div>
+</div>
+</section>
 </section>
 
 </main> <!-- /main -->
@@ -392,13 +382,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./intro.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></span>
+      <a href="./supervised.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Supervised Learning</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./quarto.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Reproducibile Data Science with Quarto</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./advanced.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Advanced Topics</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

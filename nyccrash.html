@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Introduction to Data Science - 12&nbsp; NYC Crash Data</title>
+<title>Introduction to Data Science - 13&nbsp; NYC Crash Data</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -136,7 +136,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
     <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">NYC Crash Data</span></h1>
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">NYC Crash Data</span></h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -216,17 +216,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./advanced.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Advanced Topics</span></a>
+  <a href="./unsupervised.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Unsupervised Learning</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./nyccrash.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">NYC Crash Data</span></a>
+  <a href="./advanced.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Advanced Topics</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./exercises.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Exercises</span></a>
+  <a href="./nyccrash.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">NYC Crash Data</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./exercises.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Exercises</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -243,13 +248,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#first-glance" id="toc-first-glance" class="nav-link active" data-scroll-target="#first-glance"><span class="toc-section-number">12.1</span>  First Glance</a></li>
-  <li><a href="#some-cleaning" id="toc-some-cleaning" class="nav-link" data-scroll-target="#some-cleaning"><span class="toc-section-number">12.2</span>  Some Cleaning</a></li>
-  <li><a href="#filling-the-missing-zip-codes-by-reverse-geocoding" id="toc-filling-the-missing-zip-codes-by-reverse-geocoding" class="nav-link" data-scroll-target="#filling-the-missing-zip-codes-by-reverse-geocoding"><span class="toc-section-number">12.3</span>  Filling the Missing Zip Codes by Reverse Geocoding</a></li>
-  <li><a href="#map-the-crash-sites" id="toc-map-the-crash-sites" class="nav-link" data-scroll-target="#map-the-crash-sites"><span class="toc-section-number">12.4</span>  Map the Crash Sites</a></li>
-  <li><a href="#predicting-injuries" id="toc-predicting-injuries" class="nav-link" data-scroll-target="#predicting-injuries"><span class="toc-section-number">12.5</span>  Predicting Injuries</a>
+  <li><a href="#first-glance" id="toc-first-glance" class="nav-link active" data-scroll-target="#first-glance"><span class="toc-section-number">13.1</span>  First Glance</a></li>
+  <li><a href="#some-cleaning" id="toc-some-cleaning" class="nav-link" data-scroll-target="#some-cleaning"><span class="toc-section-number">13.2</span>  Some Cleaning</a></li>
+  <li><a href="#filling-the-missing-zip-codes-by-reverse-geocoding" id="toc-filling-the-missing-zip-codes-by-reverse-geocoding" class="nav-link" data-scroll-target="#filling-the-missing-zip-codes-by-reverse-geocoding"><span class="toc-section-number">13.3</span>  Filling the Missing Zip Codes by Reverse Geocoding</a></li>
+  <li><a href="#map-the-crash-sites" id="toc-map-the-crash-sites" class="nav-link" data-scroll-target="#map-the-crash-sites"><span class="toc-section-number">13.4</span>  Map the Crash Sites</a></li>
+  <li><a href="#predicting-injuries" id="toc-predicting-injuries" class="nav-link" data-scroll-target="#predicting-injuries"><span class="toc-section-number">13.5</span>  Predicting Injuries</a>
   <ul class="collapse">
-  <li><a href="#preparation" id="toc-preparation" class="nav-link" data-scroll-target="#preparation"><span class="toc-section-number">12.5.1</span>  Preparation</a></li>
+  <li><a href="#preparation" id="toc-preparation" class="nav-link" data-scroll-target="#preparation"><span class="toc-section-number">13.5.1</span>  Preparation</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -259,7 +264,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">NYC Crash Data</span></h1>
+<h1 class="title d-none d-lg-block"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">NYC Crash Data</span></h1>
 </div>
 
 
@@ -274,8 +279,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </header>
 
-<section id="first-glance" class="level2" data-number="12.1">
-<h2 data-number="12.1" class="anchored" data-anchor-id="first-glance"><span class="header-section-number">12.1</span> First Glance</h2>
+<section id="first-glance" class="level2" data-number="13.1">
+<h2 data-number="13.1" class="anchored" data-anchor-id="first-glance"><span class="header-section-number">13.1</span> First Glance</h2>
 <p>Consider the NYC Crash Data in January 2022.</p>
 <div class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
@@ -923,8 +928,8 @@ Name: VEHICLE TYPE CODE 1, dtype: int64</code></pre>
 </div>
 </div>
 </section>
-<section id="some-cleaning" class="level2" data-number="12.2">
-<h2 data-number="12.2" class="anchored" data-anchor-id="some-cleaning"><span class="header-section-number">12.2</span> Some Cleaning</h2>
+<section id="some-cleaning" class="level2" data-number="13.2">
+<h2 data-number="13.2" class="anchored" data-anchor-id="some-cleaning"><span class="header-section-number">13.2</span> Some Cleaning</h2>
 <p>Questions from Dr.&nbsp;Douglas Bates:</p>
 <ul>
 <li>The <code>CRASH_DATE</code>s are all in the correct month and there are no missing values</li>
@@ -2358,8 +2363,8 @@ Name: CRASH TIME, dtype: int64</code></pre>
 </div>
 <p>By the data dictionary, <code>OFF STREET NAME</code> is the street address of the collision site. Some records have <code>OFF STREET NAME</code> but missing <code>LATITUDE</code> and <code>LONGITUDE</code>. The geocode can be filled by geocoding the street address with package</p>
 </section>
-<section id="filling-the-missing-zip-codes-by-reverse-geocoding" class="level2" data-number="12.3">
-<h2 data-number="12.3" class="anchored" data-anchor-id="filling-the-missing-zip-codes-by-reverse-geocoding"><span class="header-section-number">12.3</span> Filling the Missing Zip Codes by Reverse Geocoding</h2>
+<section id="filling-the-missing-zip-codes-by-reverse-geocoding" class="level2" data-number="13.3">
+<h2 data-number="13.3" class="anchored" data-anchor-id="filling-the-missing-zip-codes-by-reverse-geocoding"><span class="header-section-number">13.3</span> Filling the Missing Zip Codes by Reverse Geocoding</h2>
 <p>The package <code>uszipcode</code> is the most powerful and easy to use programmable zipcode database in Python. It provides information about 42,724 zipcodes in the US with data crawled from &lt;data.census.gov&gt;. See <a href="https://uszipcode.readthedocs.io/index.html">its documentation</a> for details.</p>
 <div class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> uszipcode <span class="im">import</span> SearchEngine</span>
@@ -2496,8 +2501,8 @@ memory usage: 7.8+ MB</code></pre>
 </div>
 <p>The zip code dataframe can be merged with the crash dataframe.</p>
 </section>
-<section id="map-the-crash-sites" class="level2" data-number="12.4">
-<h2 data-number="12.4" class="anchored" data-anchor-id="map-the-crash-sites"><span class="header-section-number">12.4</span> Map the Crash Sites</h2>
+<section id="map-the-crash-sites" class="level2" data-number="13.4">
+<h2 data-number="13.4" class="anchored" data-anchor-id="map-the-crash-sites"><span class="header-section-number">13.4</span> Map the Crash Sites</h2>
 <p>We can do this with package <code>gmplot</code>. See instructions from <a href="https://www.tutorialspoint.com/plotting-google-map-using-gmplot-package-in-python">this tutorial</a>.</p>
 <div class="cell" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> gmplot</span>
@@ -2520,8 +2525,8 @@ memory usage: 7.8+ MB</code></pre>
 <span id="cb24-18"><a href="#cb24-18" aria-hidden="true" tabindex="-1"></a>gmap.draw(<span class="vs">r"nycrashmap.html"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="predicting-injuries" class="level2" data-number="12.5">
-<h2 data-number="12.5" class="anchored" data-anchor-id="predicting-injuries"><span class="header-section-number">12.5</span> Predicting Injuries</h2>
+<section id="predicting-injuries" class="level2" data-number="13.5">
+<h2 data-number="13.5" class="anchored" data-anchor-id="predicting-injuries"><span class="header-section-number">13.5</span> Predicting Injuries</h2>
 <p>Let’s start by imporing the cleaned data. We define <code>INJURY</code> as an indicator of personal injuries and creat an <code>HOUR</code> variable for the crash hours.</p>
 <div class="cell" data-execution_count="16">
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>jan23 <span class="op">=</span> pd.read_csv(<span class="st">"data/nyc_crashes_202301_cleaned.csv"</span>)</span>
@@ -2559,8 +2564,8 @@ dtypes: float64(6), int64(2), object(1)
 memory usage: 565.6+ KB</code></pre>
 </div>
 </div>
-<section id="preparation" class="level3" data-number="12.5.1">
-<h3 data-number="12.5.1" class="anchored" data-anchor-id="preparation"><span class="header-section-number">12.5.1</span> Preparation</h3>
+<section id="preparation" class="level3" data-number="13.5.1">
+<h3 data-number="13.5.1" class="anchored" data-anchor-id="preparation"><span class="header-section-number">13.5.1</span> Preparation</h3>
 <p>Categorical variables need to be coded appropriately. Ordinal variables can be coded with <code>OrdinalEncoder</code>. Nominal variables can be coded with <code>OneHotEncoder</code>. We want to treat <code>HOUR</code>, <code>BOROUGH</code>, and <code>zipcode</code> as nominal categorical variables. One way to encode them is <code>pd.get_dummies</code>.</p>
 <div class="cell" data-execution_count="19">
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>catVars <span class="op">=</span> [<span class="st">"HOUR"</span>, <span class="st">"BOROUGH"</span>] <span class="co">#, "zipcode"]</span></span>
@@ -2731,12 +2736,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="./advanced.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Advanced Topics</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Advanced Topics</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="./exercises.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Exercises</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Exercises</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

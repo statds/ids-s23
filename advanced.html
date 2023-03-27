@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Introduction to Data Science - 11&nbsp; Advanced Topics</title>
+<title>Introduction to Data Science - 12&nbsp; Advanced Topics</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -94,7 +94,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
 <link href="./nyccrash.html" rel="next">
-<link href="./supervised.html" rel="prev">
+<link href="./unsupervised.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -133,7 +133,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
     <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Advanced Topics</span></h1>
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Advanced Topics</span></h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -213,17 +213,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./advanced.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Advanced Topics</span></a>
+  <a href="./unsupervised.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Unsupervised Learning</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./nyccrash.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">NYC Crash Data</span></a>
+  <a href="./advanced.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Advanced Topics</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./exercises.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Exercises</span></a>
+  <a href="./nyccrash.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">NYC Crash Data</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./exercises.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Exercises</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -240,20 +245,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#text-analysis-with-nltk" id="toc-text-analysis-with-nltk" class="nav-link active" data-scroll-target="#text-analysis-with-nltk"><span class="toc-section-number">11.1</span>  Text Analysis with <code>nltk</code></a>
+  <li><a href="#text-analysis-with-nltk" id="toc-text-analysis-with-nltk" class="nav-link active" data-scroll-target="#text-analysis-with-nltk"><span class="toc-section-number">12.1</span>  Text Analysis with <code>nltk</code></a>
   <ul class="collapse">
-  <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction"><span class="toc-section-number">11.1.1</span>  Introduction</a></li>
-  <li><a href="#getting-started" id="toc-getting-started" class="nav-link" data-scroll-target="#getting-started"><span class="toc-section-number">11.1.2</span>  Getting Started</a></li>
-  <li><a href="#tokenizing" id="toc-tokenizing" class="nav-link" data-scroll-target="#tokenizing"><span class="toc-section-number">11.1.3</span>  Tokenizing</a></li>
-  <li><a href="#removing-stopwords" id="toc-removing-stopwords" class="nav-link" data-scroll-target="#removing-stopwords"><span class="toc-section-number">11.1.4</span>  Removing Stopwords</a></li>
-  <li><a href="#stemming" id="toc-stemming" class="nav-link" data-scroll-target="#stemming"><span class="toc-section-number">11.1.5</span>  Stemming</a></li>
-  <li><a href="#pos-tagging" id="toc-pos-tagging" class="nav-link" data-scroll-target="#pos-tagging"><span class="toc-section-number">11.1.6</span>  POS Tagging</a></li>
-  <li><a href="#lemmatizing" id="toc-lemmatizing" class="nav-link" data-scroll-target="#lemmatizing"><span class="toc-section-number">11.1.7</span>  Lemmatizing</a></li>
-  <li><a href="#chunkingchinking" id="toc-chunkingchinking" class="nav-link" data-scroll-target="#chunkingchinking"><span class="toc-section-number">11.1.8</span>  Chunking/Chinking</a></li>
-  <li><a href="#named-entity-recognition" id="toc-named-entity-recognition" class="nav-link" data-scroll-target="#named-entity-recognition"><span class="toc-section-number">11.1.9</span>  Named Entity Recognition</a></li>
-  <li><a href="#analyzing-corpora" id="toc-analyzing-corpora" class="nav-link" data-scroll-target="#analyzing-corpora"><span class="toc-section-number">11.1.10</span>  Analyzing Corpora</a></li>
-  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion"><span class="toc-section-number">11.1.11</span>  Conclusion</a></li>
-  <li><a href="#resources" id="toc-resources" class="nav-link" data-scroll-target="#resources"><span class="toc-section-number">11.1.12</span>  Resources</a></li>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction"><span class="toc-section-number">12.1.1</span>  Introduction</a></li>
+  <li><a href="#getting-started" id="toc-getting-started" class="nav-link" data-scroll-target="#getting-started"><span class="toc-section-number">12.1.2</span>  Getting Started</a></li>
+  <li><a href="#tokenizing" id="toc-tokenizing" class="nav-link" data-scroll-target="#tokenizing"><span class="toc-section-number">12.1.3</span>  Tokenizing</a></li>
+  <li><a href="#removing-stopwords" id="toc-removing-stopwords" class="nav-link" data-scroll-target="#removing-stopwords"><span class="toc-section-number">12.1.4</span>  Removing Stopwords</a></li>
+  <li><a href="#stemming" id="toc-stemming" class="nav-link" data-scroll-target="#stemming"><span class="toc-section-number">12.1.5</span>  Stemming</a></li>
+  <li><a href="#pos-tagging" id="toc-pos-tagging" class="nav-link" data-scroll-target="#pos-tagging"><span class="toc-section-number">12.1.6</span>  POS Tagging</a></li>
+  <li><a href="#lemmatizing" id="toc-lemmatizing" class="nav-link" data-scroll-target="#lemmatizing"><span class="toc-section-number">12.1.7</span>  Lemmatizing</a></li>
+  <li><a href="#chunkingchinking" id="toc-chunkingchinking" class="nav-link" data-scroll-target="#chunkingchinking"><span class="toc-section-number">12.1.8</span>  Chunking/Chinking</a></li>
+  <li><a href="#named-entity-recognition" id="toc-named-entity-recognition" class="nav-link" data-scroll-target="#named-entity-recognition"><span class="toc-section-number">12.1.9</span>  Named Entity Recognition</a></li>
+  <li><a href="#analyzing-corpora" id="toc-analyzing-corpora" class="nav-link" data-scroll-target="#analyzing-corpora"><span class="toc-section-number">12.1.10</span>  Analyzing Corpora</a></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion"><span class="toc-section-number">12.1.11</span>  Conclusion</a></li>
+  <li><a href="#resources" id="toc-resources" class="nav-link" data-scroll-target="#resources"><span class="toc-section-number">12.1.12</span>  Resources</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -263,7 +268,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Advanced Topics</span></h1>
+<h1 class="title d-none d-lg-block"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Advanced Topics</span></h1>
 </div>
 
 
@@ -278,21 +283,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </header>
 
-<section id="text-analysis-with-nltk" class="level2" data-number="11.1">
-<h2 data-number="11.1" class="anchored" data-anchor-id="text-analysis-with-nltk"><span class="header-section-number">11.1</span> Text Analysis with <code>nltk</code></h2>
-<section id="introduction" class="level3" data-number="11.1.1">
-<h3 data-number="11.1.1" class="anchored" data-anchor-id="introduction"><span class="header-section-number">11.1.1</span> Introduction</h3>
+<section id="text-analysis-with-nltk" class="level2" data-number="12.1">
+<h2 data-number="12.1" class="anchored" data-anchor-id="text-analysis-with-nltk"><span class="header-section-number">12.1</span> Text Analysis with <code>nltk</code></h2>
+<section id="introduction" class="level3" data-number="12.1.1">
+<h3 data-number="12.1.1" class="anchored" data-anchor-id="introduction"><span class="header-section-number">12.1.1</span> Introduction</h3>
 <p><code>nltk</code>, or Natural Language Toolkit, is a Python package which provides a set of tools for text analysis. <code>nltk</code> is used in Natural Language Processing (NLP), a field of computer science which focuses on the interaction between computers and human languages. <code>nltk</code> is a very powerful tool for text analysis, and is used by many researchers and data scientists. In this tutorial, we will learn how to use <code>nltk</code> to analyze text.</p>
 </section>
-<section id="getting-started" class="level3" data-number="11.1.2">
-<h3 data-number="11.1.2" class="anchored" data-anchor-id="getting-started"><span class="header-section-number">11.1.2</span> Getting Started</h3>
+<section id="getting-started" class="level3" data-number="12.1.2">
+<h3 data-number="12.1.2" class="anchored" data-anchor-id="getting-started"><span class="header-section-number">12.1.2</span> Getting Started</h3>
 <p>First, we must install <code>nltk</code> using <code>pip</code>.</p>
 <p><code>python -m pip install nltk</code></p>
 <p>Necessary datasets/models are needed for specific functions to work. We can download a popular subset with</p>
 <p><code>python -m nltk.downloader popular</code></p>
 </section>
-<section id="tokenizing" class="level3" data-number="11.1.3">
-<h3 data-number="11.1.3" class="anchored" data-anchor-id="tokenizing"><span class="header-section-number">11.1.3</span> Tokenizing</h3>
+<section id="tokenizing" class="level3" data-number="12.1.3">
+<h3 data-number="12.1.3" class="anchored" data-anchor-id="tokenizing"><span class="header-section-number">12.1.3</span> Tokenizing</h3>
 <p>To analyze text, it needs to be broken down into smaller pieces. This is called tokenization. <code>nltk</code> offers two ways to tokenize text: sentence tokenization and word tokenization.</p>
 <div class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> nltk</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -301,8 +306,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>fd_string <span class="op">=</span> <span class="st">"""The sum of human knowing is beyond any one man; any thousand men. With the destruction of our social fabric, science will be broken into a million pieces. Individuals will know much of exceedingly tiny facets of what there is to know. They will be helpless and useless by themselves. The bits of lore, meaningless, will not be passed on. They will be lost through the generations. But, if we now prepare a giant summary of all knowledge, it will never be lost. Coming generations will build on it, and will not have to rediscover it for themselves. One millennium will do the work of thirty thousand."""</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<section id="sentence-tokenization" class="level4" data-number="11.1.3.1">
-<h4 data-number="11.1.3.1" class="anchored" data-anchor-id="sentence-tokenization"><span class="header-section-number">11.1.3.1</span> Sentence Tokenization</h4>
+<section id="sentence-tokenization" class="level4" data-number="12.1.3.1">
+<h4 data-number="12.1.3.1" class="anchored" data-anchor-id="sentence-tokenization"><span class="header-section-number">12.1.3.1</span> Sentence Tokenization</h4>
 <div class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> nltk <span class="im">import</span> sent_tokenize, word_tokenize</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co"># nltk.download("popular") # only needs to download once</span></span>
@@ -313,8 +318,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </div>
 </section>
-<section id="word-tokenization" class="level4" data-number="11.1.3.2">
-<h4 data-number="11.1.3.2" class="anchored" data-anchor-id="word-tokenization"><span class="header-section-number">11.1.3.2</span> Word Tokenization</h4>
+<section id="word-tokenization" class="level4" data-number="12.1.3.2">
+<h4 data-number="12.1.3.2" class="anchored" data-anchor-id="word-tokenization"><span class="header-section-number">12.1.3.2</span> Word Tokenization</h4>
 <div class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>fd_word <span class="op">=</span> word_tokenize(fd_string)</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(fd_word)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -325,8 +330,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Both the sentence tokenization and word tokenization functions return a list of strings. We can use these lists to perform further analysis.</p>
 </section>
 </section>
-<section id="removing-stopwords" class="level3" data-number="11.1.4">
-<h3 data-number="11.1.4" class="anchored" data-anchor-id="removing-stopwords"><span class="header-section-number">11.1.4</span> Removing Stopwords</h3>
+<section id="removing-stopwords" class="level3" data-number="12.1.4">
+<h3 data-number="12.1.4" class="anchored" data-anchor-id="removing-stopwords"><span class="header-section-number">12.1.4</span> Removing Stopwords</h3>
 <p>The output of the word tokenization gave us a list of words. However, some of these words are not useful for our analysis. These words are called stopwords. <code>nltk</code> provides a list of stopwords for several languages. We can use this list to remove stopwords from our text.</p>
 <div class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> nltk.corpus <span class="im">import</span> stopwords</span>
@@ -345,8 +350,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <p>The resulting list is significantly shorter. There are some words that <code>nltk</code> considers stopwords that we may want to keep, depending on the objective of our analysis. Reducing the size of our data can help us to reduce the time it takes to perform our analysis. However, removing too many words can reduce the accuracy, which is especially important when we are trying to perform sentiment analysis.</p>
 </section>
-<section id="stemming" class="level3" data-number="11.1.5">
-<h3 data-number="11.1.5" class="anchored" data-anchor-id="stemming"><span class="header-section-number">11.1.5</span> Stemming</h3>
+<section id="stemming" class="level3" data-number="12.1.5">
+<h3 data-number="12.1.5" class="anchored" data-anchor-id="stemming"><span class="header-section-number">12.1.5</span> Stemming</h3>
 <p>Stemming is a method which allows us to reduce the number of variants of a word. For example, the words <em>connecting</em>, <em>connected</em>, and <em>connection</em> are all variants of the same word <em>connect</em>. <code>nltk</code> includes a few different stemmers based on different algorithms. We will use the Snowball stemmer, an improved version of the 1979 Porter stemmer.</p>
 <div class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> nltk.stem.snowball <span class="im">import</span> SnowballStemmer</span>
@@ -359,8 +364,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <p>Stemming algorithms are susceptible to errors. Related words that should share a stem may not, which is known as <strong>understemming</strong>, which is a false negative. Unrelated words that should not share a stem may, which is known as <strong>overstemming</strong>, which is a false positive.</p>
 </section>
-<section id="pos-tagging" class="level3" data-number="11.1.6">
-<h3 data-number="11.1.6" class="anchored" data-anchor-id="pos-tagging"><span class="header-section-number">11.1.6</span> POS Tagging</h3>
+<section id="pos-tagging" class="level3" data-number="12.1.6">
+<h3 data-number="12.1.6" class="anchored" data-anchor-id="pos-tagging"><span class="header-section-number">12.1.6</span> POS Tagging</h3>
 <p><code>nltk</code> also enables us to label the parts of speech of each word in a text. This is known as part-of-speech (POS) tagging. <code>nltk</code> uses the Penn Treebank tagset, which is a set of tags that are used to label words in a text. The tags are as follows:</p>
 <div class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>nltk.<span class="bu">help</span>.upenn_tagset()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -518,8 +523,8 @@ WRB: Wh-adverb
 </div>
 <p>The tokenized words from the quote should be easy to tag correctly. The function may encounter difficulty with less conventional words (e.g.&nbsp;Old English), but it will attempt to tag based on context.</p>
 </section>
-<section id="lemmatizing" class="level3" data-number="11.1.7">
-<h3 data-number="11.1.7" class="anchored" data-anchor-id="lemmatizing"><span class="header-section-number">11.1.7</span> Lemmatizing</h3>
+<section id="lemmatizing" class="level3" data-number="12.1.7">
+<h3 data-number="12.1.7" class="anchored" data-anchor-id="lemmatizing"><span class="header-section-number">12.1.7</span> Lemmatizing</h3>
 <p>Lemmatizing is similar to stemming, but it is more accurate. Lemmatizing is a process which reduces words to their lemma, which is the base form of a word.<code>nltk</code> includes a lemmatizer based on the WordNet database. We can demonstrate this using a quote from the 1868 novel <em>Little Women</em> by Louisa May Alcott.</p>
 <div class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> nltk.stem <span class="im">import</span> WordNetLemmatizer</span>
@@ -533,8 +538,8 @@ WRB: Wh-adverb
 </div>
 </div>
 </section>
-<section id="chunkingchinking" class="level3" data-number="11.1.8">
-<h3 data-number="11.1.8" class="anchored" data-anchor-id="chunkingchinking"><span class="header-section-number">11.1.8</span> Chunking/Chinking</h3>
+<section id="chunkingchinking" class="level3" data-number="12.1.8">
+<h3 data-number="12.1.8" class="anchored" data-anchor-id="chunkingchinking"><span class="header-section-number">12.1.8</span> Chunking/Chinking</h3>
 <p>While tokenizing allows us to distinguish individual words and sentences within a larger body of text, <strong>Chunking</strong> allows us to identify phrases based on grammar we specify.</p>
 <div class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co">#nltk.download("averaged_perceptron_tagger")</span></span>
@@ -638,8 +643,8 @@ WRB: Wh-adverb
 </div>
 <p>As you can see, the generated tree shows the chunks that were identified by the grammar rules. There also is a <code>chink</code> operator, which is the opposite of <code>chunk</code>. It allows us to remove a chunk from a larger chunk.</p>
 </section>
-<section id="named-entity-recognition" class="level3" data-number="11.1.9">
-<h3 data-number="11.1.9" class="anchored" data-anchor-id="named-entity-recognition"><span class="header-section-number">11.1.9</span> Named Entity Recognition</h3>
+<section id="named-entity-recognition" class="level3" data-number="12.1.9">
+<h3 data-number="12.1.9" class="anchored" data-anchor-id="named-entity-recognition"><span class="header-section-number">12.1.9</span> Named Entity Recognition</h3>
 <p>Previous methods have been able to identify the parts of speech of each word in a text. However, we may want to identify specific entities within the text. For example, we may want to identify the names of people, places, and organizations. <code>nltk</code> includes a named entity recognizer which can identify these entities. We can demonstrate this using a quote from <em>The Iliad</em> by Homer.</p>
 <div class="cell" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>homer <span class="op">=</span> <span class="st">"In the war of Troy, the Greeks having sacked some of the neighbouring towns, and taken from thence two beautiful captives, Chryseïs and Briseïs, allotted the first to Agamemnon, and the last to Achilles."</span></span>
@@ -674,8 +679,8 @@ In/IN the/DT war/NN of/IN ,/, the/DT having/VBG sacked/VBN some/DT of/IN the/DT 
 </div>
 </div>
 </section>
-<section id="analyzing-corpora" class="level3" data-number="11.1.10">
-<h3 data-number="11.1.10" class="anchored" data-anchor-id="analyzing-corpora"><span class="header-section-number">11.1.10</span> Analyzing Corpora</h3>
+<section id="analyzing-corpora" class="level3" data-number="12.1.10">
+<h3 data-number="12.1.10" class="anchored" data-anchor-id="analyzing-corpora"><span class="header-section-number">12.1.10</span> Analyzing Corpora</h3>
 <p><code>nltk</code> includes a number of corpora, which are large bodies of text. We will try out some methods on the 1851 novel <em>Moby Dick</em> by Herman Melville.</p>
 <div class="cell" data-execution_count="18">
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> nltk.book <span class="im">import</span> <span class="op">*</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -705,8 +710,8 @@ text8: Personals Corpus
 text9: The Man Who Was Thursday by G . K . Chesterton 1908</code></pre>
 </div>
 </div>
-<section id="concordance" class="level4" data-number="11.1.10.1">
-<h4 data-number="11.1.10.1" class="anchored" data-anchor-id="concordance"><span class="header-section-number">11.1.10.1</span> Concordance</h4>
+<section id="concordance" class="level4" data-number="12.1.10.1">
+<h4 data-number="12.1.10.1" class="anchored" data-anchor-id="concordance"><span class="header-section-number">12.1.10.1</span> Concordance</h4>
 <p><code>concordance</code> allows us to find all instances of a word in a text. We can use this to find all instances of the word “whale” in <em>Moby Dick</em>.</p>
 <div class="cell" data-execution_count="19">
 <div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>text1.concordance(<span class="st">"whale"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -740,8 +745,8 @@ contemptible in the comparison . The whale is doubtless the largest animal in c<
 </div>
 </div>
 </section>
-<section id="dispersion-plot" class="level4" data-number="11.1.10.2">
-<h4 data-number="11.1.10.2" class="anchored" data-anchor-id="dispersion-plot"><span class="header-section-number">11.1.10.2</span> Dispersion Plot</h4>
+<section id="dispersion-plot" class="level4" data-number="12.1.10.2">
+<h4 data-number="12.1.10.2" class="anchored" data-anchor-id="dispersion-plot"><span class="header-section-number">12.1.10.2</span> Dispersion Plot</h4>
 <p><code>dispersion_plot</code> allows us to see how a word is used throughout a text. We can use this to see the representation of characters throughout <em>Moby Dick</em>.</p>
 <div class="cell" data-execution_count="20">
 <div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>text1.dispersion_plot([<span class="st">"Ahab"</span>, <span class="st">"Ishmael"</span>, <span class="st">"Starbuck"</span>, <span class="st">"Queequeg"</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -754,8 +759,8 @@ contemptible in the comparison . The whale is doubtless the largest animal in c<
 </div>
 </div>
 </section>
-<section id="frequency-distribution" class="level4" data-number="11.1.10.3">
-<h4 data-number="11.1.10.3" class="anchored" data-anchor-id="frequency-distribution"><span class="header-section-number">11.1.10.3</span> Frequency Distribution</h4>
+<section id="frequency-distribution" class="level4" data-number="12.1.10.3">
+<h4 data-number="12.1.10.3" class="anchored" data-anchor-id="frequency-distribution"><span class="header-section-number">12.1.10.3</span> Frequency Distribution</h4>
 <p><code>FreqDist</code> allows us to see the frequency of each word in a text. We can use this to see the most common words in <em>Moby Dick</em>.</p>
 <div class="cell" data-execution_count="21">
 <div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> nltk <span class="im">import</span> FreqDist</span>
@@ -804,8 +809,8 @@ contemptible in the comparison . The whale is doubtless the largest animal in c<
 </div>
 </div>
 </section>
-<section id="collocations" class="level4" data-number="11.1.10.4">
-<h4 data-number="11.1.10.4" class="anchored" data-anchor-id="collocations"><span class="header-section-number">11.1.10.4</span> Collocations</h4>
+<section id="collocations" class="level4" data-number="12.1.10.4">
+<h4 data-number="12.1.10.4" class="anchored" data-anchor-id="collocations"><span class="header-section-number">12.1.10.4</span> Collocations</h4>
 <p><code>collocations</code> allows us to find words that commonly appear together. We can use this to find the most common collocations in <em>Moby Dick</em>.</p>
 <div class="cell" data-execution_count="24">
 <div class="sourceCode cell-code" id="cb47"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>text1.collocations()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -818,12 +823,12 @@ mate; white whale; ivory leg; one hand</code></pre>
 </div>
 </section>
 </section>
-<section id="conclusion" class="level3" data-number="11.1.11">
-<h3 data-number="11.1.11" class="anchored" data-anchor-id="conclusion"><span class="header-section-number">11.1.11</span> Conclusion</h3>
+<section id="conclusion" class="level3" data-number="12.1.11">
+<h3 data-number="12.1.11" class="anchored" data-anchor-id="conclusion"><span class="header-section-number">12.1.11</span> Conclusion</h3>
 <p>In this tutorial, we have learned how to use <code>nltk</code> to perform basic text analysis. There are many methods included in this package that help provide structure to text. These methods can be used in conjunction with other packages to perform more complex analysis. For example, a dataframe of open-ended customer feedback could be processed to identify common themes, as well as the polarity of the feedback.</p>
 </section>
-<section id="resources" class="level3" data-number="11.1.12">
-<h3 data-number="11.1.12" class="anchored" data-anchor-id="resources"><span class="header-section-number">11.1.12</span> Resources</h3>
+<section id="resources" class="level3" data-number="12.1.12">
+<h3 data-number="12.1.12" class="anchored" data-anchor-id="resources"><span class="header-section-number">12.1.12</span> Resources</h3>
 <ul>
 <li><a href="https://www.nltk.org/">NLTK Documentation</a></li>
 <li><a href="https://www.nltk.org/book/">NLTK Book</a></li>
@@ -969,13 +974,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./supervised.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Supervised Learning</span></span>
+      <a href="./unsupervised.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Unsupervised Learning</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="./nyccrash.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">NYC Crash Data</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">NYC Crash Data</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
