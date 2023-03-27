@@ -18,6 +18,7 @@ book:
     - stats.qmd
     - visual.qmd
     - supervised.qmd
+    - unsupervised.qmd
     - advanced.qmd
     - nyccrash.qmd
     - exercises.qmd

@@ -1,0 +1,23 @@
+## Principal Component Analysis
+
+Principal component analysis (PCA) originated as a dimensionality reduction
+algorithm which transforms a large set of variables into a smaller one that
+still contains most of the information in the large set. It can also be useful
+as a tool for visualization, for noise filtering, for feature extraction and
+engineering, and much more.
+
+
+### Introduction
+PCA can be thought of as fitting an ellipsoid to the data, where each axis of
+the ellipsoid represents a principal component. If some axis of the ellipsoid is
+small, then the variance along that axis is also small. More formally, PCA is
+defined as an orthogonal linear transformation that transforms the data to a new
+coordinate system such that the greatest variance by some scalar projection of
+the data comes to lie on the first coordinate, called the first principal
+component (PC), the second greatest variance on the second coordinate, and so on.
+
+
+See further notes from @vanderplas2016python.
+
+
+
