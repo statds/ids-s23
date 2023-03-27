@@ -284,6 +284,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li><a href="#comparison" id="toc-comparison" class="nav-link" data-scroll-target="#comparison"><span class="toc-section-number">10.6.4</span>  Comparison</a></li>
   <li><a href="#references-2" id="toc-references-2" class="nav-link" data-scroll-target="#references-2"><span class="toc-section-number">10.6.5</span>  References</a></li>
   </ul></li>
+  <li><a href="#naive-bayes" id="toc-naive-bayes" class="nav-link" data-scroll-target="#naive-bayes"><span class="toc-section-number">10.7</span>  Naive Bayes</a>
+  <ul class="collapse">
+  <li><a href="#introduction-4" id="toc-introduction-4" class="nav-link" data-scroll-target="#introduction-4"><span class="toc-section-number">10.7.1</span>  Introduction</a></li>
+  <li><a href="#gaussian-naive-bayes" id="toc-gaussian-naive-bayes" class="nav-link" data-scroll-target="#gaussian-naive-bayes"><span class="toc-section-number">10.7.2</span>  Gaussian Naive Bayes</a></li>
+  <li><a href="#multinomial-naive-bayes-classifiers" id="toc-multinomial-naive-bayes-classifiers" class="nav-link" data-scroll-target="#multinomial-naive-bayes-classifiers"><span class="toc-section-number">10.7.3</span>  Multinomial Naive Bayes Classifiers</a></li>
+  <li><a href="#complement-naive-bayes" id="toc-complement-naive-bayes" class="nav-link" data-scroll-target="#complement-naive-bayes"><span class="toc-section-number">10.7.4</span>  Complement Naive Bayes</a></li>
+  <li><a href="#bernoulli-naive-bayes" id="toc-bernoulli-naive-bayes" class="nav-link" data-scroll-target="#bernoulli-naive-bayes"><span class="toc-section-number">10.7.5</span>  Bernoulli Naive Bayes</a></li>
+  <li><a href="#conclusion-3" id="toc-conclusion-3" class="nav-link" data-scroll-target="#conclusion-3"><span class="toc-section-number">10.7.6</span>  Conclusion</a></li>
+  <li><a href="#references-3" id="toc-references-3" class="nav-link" data-scroll-target="#references-3"><span class="toc-section-number">10.7.7</span>  References</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -1136,7 +1146,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>accuracy</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="21">
-<pre><code>0.69</code></pre>
+<pre><code>0.625</code></pre>
 </div>
 </div>
 </section>
@@ -1713,7 +1723,7 @@ H(Q_m)=-\sum_{k}p_{mk}log(p_{mk})
 <div class="cell" data-execution_count="32">
 <div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>injury_clf.tree_.node_count</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="32">
-<pre><code>3599</code></pre>
+<pre><code>3579</code></pre>
 </div>
 </div>
 <p>Arguments related to stopping criteria: * max_depth * min_samples_split * min_samples_leaf * min_weight_fraction_leaf * max_features * max_leaf_nodes * min_impurity_decrease</p>
@@ -1737,7 +1747,7 @@ H(Q_m)=-\sum_{k}p_{mk}log(p_{mk})
 <span id="cb39-16"><a href="#cb39-16" aria-hidden="true" tabindex="-1"></a><span class="co"># print the best hyperparameters found</span></span>
 <span id="cb39-17"><a href="#cb39-17" aria-hidden="true" tabindex="-1"></a>grid_search.best_params_</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="33">
-<pre><code>{'ccp_alpha': 1e-05,
+<pre><code>{'ccp_alpha': 0.0001,
  'criterion': 'gini',
  'max_depth': 20,
  'min_impurity_decrease': 0.0001}</code></pre>
@@ -1753,7 +1763,7 @@ H(Q_m)=-\sum_{k}p_{mk}log(p_{mk})
 <span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a>injury_clf2 <span class="op">=</span> injury_clf2.fit(X_train, y_train)</span>
 <span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a>injury_clf2.tree_.node_count</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="34">
-<pre><code>933</code></pre>
+<pre><code>937</code></pre>
 </div>
 </div>
 <div class="cell" data-execution_count="35">
@@ -1766,7 +1776,7 @@ H(Q_m)=-\sum_{k}p_{mk}log(p_{mk})
 <span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a>injury_clf3 <span class="op">=</span> injury_clf3.fit(X_train, y_train)</span>
 <span id="cb43-8"><a href="#cb43-8" aria-hidden="true" tabindex="-1"></a>injury_clf3.tree_.node_count</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="35">
-<pre><code>15</code></pre>
+<pre><code>9</code></pre>
 </div>
 </div>
 <div class="cell" data-execution_count="36">
@@ -1851,35 +1861,35 @@ H(Q_m)=-\sum_{k}p_{mk}log(p_{mk})
 <div class="cell-output cell-output-stdout">
 <pre><code>Default parameter results:
 Confusion matrix:
-[[579 233]
- [357 164]]
-Accuracy: 0.5573893473368342
-Precision: 0.41309823677581864
-Recall: 0.31477927063339733
-F1-score: 0.35729847494553374
-AUC: 0.5139167289127577
+[[588 201]
+ [408 136]]
+Accuracy: 0.5431357839459865
+Precision: 0.4035608308605341
+Recall: 0.25
+F1-score: 0.30874006810442683
+AUC: 0.4976235741444866
 
 
 Cross-valiation parameter results:
 Confusion matrix:
-[[626 186]
- [380 141]]
-Accuracy: 0.5753938484621155
-Precision: 0.43119266055045874
-Recall: 0.2706333973128599
-F1-score: 0.33254716981132076
-AUC: 0.5207846789519964
+[[618 171]
+ [427 117]]
+Accuracy: 0.5513878469617405
+Precision: 0.40625
+Recall: 0.21507352941176472
+F1-score: 0.28125
+AUC: 0.49917174569447553
 
 
 More aggressive pruning results:
 Confusion matrix:
-[[752  60]
- [473  48]]
-Accuracy: 0.6001500375093773
-Precision: 0.4444444444444444
-Recall: 0.09213051823416507
-F1-score: 0.15262321144674085
-AUC: 0.5091194463092007</code></pre>
+[[756  33]
+ [505  39]]
+Accuracy: 0.5963990997749438
+Precision: 0.5416666666666666
+Recall: 0.07169117647058823
+F1-score: 0.1266233766233766
+AUC: 0.514933040706777</code></pre>
 </div>
 </div>
 </section>
@@ -2243,7 +2253,7 @@ https://scikit-learn.org/stable/modules/tree.html#
 <span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a>scores <span class="op">=</span> cross_val_score(DecisionTreeClassifier(), X, y, cv<span class="op">=</span><span class="dv">5</span>)</span>
 <span id="cb60-4"><a href="#cb60-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Accuracy Score for Bagging Classifier: "</span> <span class="op">+</span> <span class="bu">str</span>(scores.mean())) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Accuracy Score for Bagging Classifier: 0.78</code></pre>
+<pre><code>Accuracy Score for Bagging Classifier: 0.781</code></pre>
 </div>
 </div>
 </section>
@@ -2387,6 +2397,370 @@ https://scikit-learn.org/stable/modules/tree.html#
 <p><a href="https://www.section.io/engineering-education/implementing-bagging-algorithms-in-python/#how-bagging-works">Bagging algorithms in Python</a></p>
 <p><a href="https://www.section.io/engineering-education/boosting-algorithms-python/#bagging-vs-boosting">Boosting Algorithms in Python</a></p>
 <p><a href="https://www.geeksforgeeks.org/bagging-vs-boosting-in-machine-learning/">GeeksforGeeks</a></p>
+<!-- ## Naive Bayes -->
+</section>
+</section>
+<section id="naive-bayes" class="level2" data-number="10.7">
+<h2 data-number="10.7" class="anchored" data-anchor-id="naive-bayes"><span class="header-section-number">10.7</span> Naive Bayes</h2>
+<section id="introduction-4" class="level3" data-number="10.7.1">
+<h3 data-number="10.7.1" class="anchored" data-anchor-id="introduction-4"><span class="header-section-number">10.7.1</span> Introduction</h3>
+<p>Naive Bayes classifiers are based on Bayesian classification methods that are derived from Bayes’s theorem. This theorem is an equation that describes the relationship between the conditional probabilities of statistical quantities. In Bayesian classification, the objective is to find the probability of a label given a set of observed features. Bayes’s theorem enables us to express this in terms of more computationally feasible quantities.</p>
+<p><span class="math display">\[P(y|x_1, x_2, ..., x_n) = \frac{P(y) \times P(x_1|y) \times P(x_2|y) \times ... \times P(x_n|y)}{P(x_1, x_2, ..., x_n)}\]</span></p>
+<p>The “naive” part of Naive Bayes comes from the assumption of independence between features, which is a simplifying assumption that allows for efficient computation and makes the algorithm particularly well-suited for high-dimensional data. However, this assumption may not hold true in all cases, and there are variants of Naive Bayes that relax this assumption. These classifiers are most commonly used in fields such as natural language processing, image recognition, and spam filtering.</p>
+<section id="installation" class="level5" data-number="10.7.1.0.1">
+<h5 data-number="10.7.1.0.1" class="anchored" data-anchor-id="installation"><span class="header-section-number">10.7.1.0.1</span> Installation</h5>
+<p>Naive Bayes classifiers are found in <code>scikit-learn</code></p>
+<pre><code>pip install scikit-learn</code></pre>
+</section>
+<section id="types-of-naive-bayes-classifiers" class="level5" data-number="10.7.1.0.2">
+<h5 data-number="10.7.1.0.2" class="anchored" data-anchor-id="types-of-naive-bayes-classifiers"><span class="header-section-number">10.7.1.0.2</span> Types of Naive Bayes classifiers</h5>
+<p>There are three main types of Naive Bayes classifiers:</p>
+<ol type="1">
+<li>Gaussian Naive Bayes - used for continuous input variables that are normally distributed</li>
+<li>Multinomial Naive Bayes - used for discrete input variables such as text</li>
+<li>Bernoulli Naive Bayes - used for binary input variables such as spam detection</li>
+</ol>
+</section>
+</section>
+<section id="gaussian-naive-bayes" class="level3" data-number="10.7.2">
+<h3 data-number="10.7.2" class="anchored" data-anchor-id="gaussian-naive-bayes"><span class="header-section-number">10.7.2</span> Gaussian Naive Bayes</h3>
+<p>Gaussian Naive Bayes is possibly the simplest of the three, with the assumption being that data from each label is drawn from a simple Gaussian distribution. In doing this, all the model needs for prediction is the mean and standard deviation of each target’s distribution.</p>
+<p>Before getting into anything, we need to load all the necessary packages, including those outside of <code>sklearn</code>.</p>
+<p><code>load_iris</code> is a dataset available from <code>sklearn</code> to use for classification testing.</p>
+<div class="cell" data-execution_count="50">
+<div class="sourceCode cell-code" id="cb69"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb69-2"><a href="#cb69-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb69-3"><a href="#cb69-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb69-4"><a href="#cb69-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb69-5"><a href="#cb69-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> load_iris</span>
+<span id="cb69-6"><a href="#cb69-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
+<span id="cb69-7"><a href="#cb69-7" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.naive_bayes <span class="im">import</span> GaussianNB</span>
+<span id="cb69-8"><a href="#cb69-8" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> accuracy_score, confusion_matrix</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>First, we load the iris dataset, transform it into a pandas dataframe, adjust labels and preview the data</p>
+<div class="cell" data-execution_count="51">
+<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a>iris <span class="op">=</span> load_iris()</span>
+<span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb70-3"><a href="#cb70-3" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.DataFrame(data<span class="op">=</span>iris.data, columns<span class="op">=</span>iris.feature_names)</span>
+<span id="cb70-4"><a href="#cb70-4" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"target"</span>] <span class="op">=</span> iris.target</span>
+<span id="cb70-5"><a href="#cb70-5" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"species"</span>] <span class="op">=</span> df[<span class="st">"target"</span>].replace(<span class="bu">dict</span>(<span class="bu">enumerate</span>(iris.target_names)))</span>
+<span id="cb70-6"><a href="#cb70-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb70-7"><a href="#cb70-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df.head())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   sepal length (cm)  sepal width (cm)  petal length (cm)  petal width (cm)  \
+0                5.1               3.5                1.4               0.2   
+1                4.9               3.0                1.4               0.2   
+2                4.7               3.2                1.3               0.2   
+3                4.6               3.1                1.5               0.2   
+4                5.0               3.6                1.4               0.2   
+
+   target species  
+0       0  setosa  
+1       0  setosa  
+2       0  setosa  
+3       0  setosa  
+4       0  setosa  </code></pre>
+</div>
+</div>
+<p>We plot the data using a pairplot to visualize the relationships between the features</p>
+<div class="cell" data-execution_count="52">
+<div class="sourceCode cell-code" id="cb72"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a>sns.pairplot(df, hue<span class="op">=</span><span class="st">"species"</span>)</span>
+<span id="cb72-2"><a href="#cb72-2" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="supervised_files/figure-html/cell-53-output-1.png" width="1306" height="1182"></p>
+</div>
+</div>
+<p>As we can see, certain variables graphed against one another show distinct clusters. <code>GaussianNB()</code> accounts for these, and utilizes these distinctions in classification.</p>
+<p>Split the data into training and testing sets before calling <code>GaussianNB()</code> and fitting the data.</p>
+<div class="cell" data-execution_count="53">
+<div class="sourceCode cell-code" id="cb73"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a>X_train, X_test, y_train, y_test <span class="op">=</span> train_test_split(</span>
+<span id="cb73-2"><a href="#cb73-2" aria-hidden="true" tabindex="-1"></a>    iris.data, iris.target, test_size<span class="op">=</span><span class="fl">0.2</span>, random_state<span class="op">=</span><span class="dv">42</span>)</span>
+<span id="cb73-3"><a href="#cb73-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-4"><a href="#cb73-4" aria-hidden="true" tabindex="-1"></a>gnb <span class="op">=</span> GaussianNB()</span>
+<span id="cb73-5"><a href="#cb73-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-6"><a href="#cb73-6" aria-hidden="true" tabindex="-1"></a>gnb.fit(X_train, y_train)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="53">
+<style>#sk-container-id-1 {color: black;background-color: white;}#sk-container-id-1 pre{padding: 0;}#sk-container-id-1 div.sk-toggleable {background-color: white;}#sk-container-id-1 label.sk-toggleable__label {cursor: pointer;display: block;width: 100%;margin-bottom: 0;padding: 0.3em;box-sizing: border-box;text-align: center;}#sk-container-id-1 label.sk-toggleable__label-arrow:before {content: "▸";float: left;margin-right: 0.25em;color: #696969;}#sk-container-id-1 label.sk-toggleable__label-arrow:hover:before {color: black;}#sk-container-id-1 div.sk-estimator:hover label.sk-toggleable__label-arrow:before {color: black;}#sk-container-id-1 div.sk-toggleable__content {max-height: 0;max-width: 0;overflow: hidden;text-align: left;background-color: #f0f8ff;}#sk-container-id-1 div.sk-toggleable__content pre {margin: 0.2em;color: black;border-radius: 0.25em;background-color: #f0f8ff;}#sk-container-id-1 input.sk-toggleable__control:checked~div.sk-toggleable__content {max-height: 200px;max-width: 100%;overflow: auto;}#sk-container-id-1 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {content: "▾";}#sk-container-id-1 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-1 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-1 input.sk-hidden--visually {border: 0;clip: rect(1px 1px 1px 1px);clip: rect(1px, 1px, 1px, 1px);height: 1px;margin: -1px;overflow: hidden;padding: 0;position: absolute;width: 1px;}#sk-container-id-1 div.sk-estimator {font-family: monospace;background-color: #f0f8ff;border: 1px dotted black;border-radius: 0.25em;box-sizing: border-box;margin-bottom: 0.5em;}#sk-container-id-1 div.sk-estimator:hover {background-color: #d4ebff;}#sk-container-id-1 div.sk-parallel-item::after {content: "";width: 100%;border-bottom: 1px solid gray;flex-grow: 1;}#sk-container-id-1 div.sk-label:hover label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-1 div.sk-serial::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: 0;}#sk-container-id-1 div.sk-serial {display: flex;flex-direction: column;align-items: center;background-color: white;padding-right: 0.2em;padding-left: 0.2em;position: relative;}#sk-container-id-1 div.sk-item {position: relative;z-index: 1;}#sk-container-id-1 div.sk-parallel {display: flex;align-items: stretch;justify-content: center;background-color: white;position: relative;}#sk-container-id-1 div.sk-item::before, #sk-container-id-1 div.sk-parallel-item::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: -1;}#sk-container-id-1 div.sk-parallel-item {display: flex;flex-direction: column;z-index: 1;position: relative;background-color: white;}#sk-container-id-1 div.sk-parallel-item:first-child::after {align-self: flex-end;width: 50%;}#sk-container-id-1 div.sk-parallel-item:last-child::after {align-self: flex-start;width: 50%;}#sk-container-id-1 div.sk-parallel-item:only-child::after {width: 0;}#sk-container-id-1 div.sk-dashed-wrapped {border: 1px dashed gray;margin: 0 0.4em 0.5em 0.4em;box-sizing: border-box;padding-bottom: 0.4em;background-color: white;}#sk-container-id-1 div.sk-label label {font-family: monospace;font-weight: bold;display: inline-block;line-height: 1.2em;}#sk-container-id-1 div.sk-label-container {text-align: center;}#sk-container-id-1 div.sk-container {/* jupyter's `normalize.less` sets `[hidden] { display: none; }` but bootstrap.min.css set `[hidden] { display: none !important; }` so we also need the `!important` here to be able to override the default hidden behavior on the sphinx rendered scikit-learn.org. See: https://github.com/scikit-learn/scikit-learn/issues/21755 */display: inline-block !important;position: relative;}#sk-container-id-1 div.sk-text-repr-fallback {display: none;}</style><div id="sk-container-id-1" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>GaussianNB()</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br>On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden=""><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-1" type="checkbox" checked=""><label for="sk-estimator-id-1" class="sk-toggleable__label sk-toggleable__label-arrow">GaussianNB</label><div class="sk-toggleable__content"><pre>GaussianNB()</pre></div></div></div></div></div>
+</div>
+</div>
+<p>We then create <code>y_pred</code>, evaluate the accuracy of the model, and view the confusion matrix.</p>
+<div class="cell" data-execution_count="54">
+<div class="sourceCode cell-code" id="cb74"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a>y_pred <span class="op">=</span> gnb.predict(X_test)</span>
+<span id="cb74-2"><a href="#cb74-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-3"><a href="#cb74-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-4"><a href="#cb74-4" aria-hidden="true" tabindex="-1"></a>accuracy <span class="op">=</span> accuracy_score(y_test, y_pred)</span>
+<span id="cb74-5"><a href="#cb74-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Accuracy: </span><span class="sc">{</span>accuracy<span class="sc">:.2f}</span><span class="ss">"</span>)</span>
+<span id="cb74-6"><a href="#cb74-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-7"><a href="#cb74-7" aria-hidden="true" tabindex="-1"></a>cm <span class="op">=</span> confusion_matrix(y_test, y_pred)</span>
+<span id="cb74-8"><a href="#cb74-8" aria-hidden="true" tabindex="-1"></a>sns.heatmap(cm, annot<span class="op">=</span><span class="va">True</span>, fmt<span class="op">=</span><span class="st">"d"</span>, cmap<span class="op">=</span><span class="st">"Blues"</span>)</span>
+<span id="cb74-9"><a href="#cb74-9" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Predicted Label"</span>)</span>
+<span id="cb74-10"><a href="#cb74-10" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"True Label"</span>)</span>
+<span id="cb74-11"><a href="#cb74-11" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Accuracy: 1.00</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="supervised_files/figure-html/cell-55-output-2.png" width="547" height="429"></p>
+</div>
+</div>
+<p>This data is meant for displaying classification methods, so it is no surprise that our model is perfect. In general, however, dealing with data that has plenty of targets/labels can be perfect for Gaussian Naive Bayes, as in these instances, the assumptions of independence become less detrimental.</p>
+</section>
+<section id="multinomial-naive-bayes-classifiers" class="level3" data-number="10.7.3">
+<h3 data-number="10.7.3" class="anchored" data-anchor-id="multinomial-naive-bayes-classifiers"><span class="header-section-number">10.7.3</span> Multinomial Naive Bayes Classifiers</h3>
+<p>Along with Gaussian Naive Bayes, Multinomial Naive Bayes operates off of the assumption that the features are generated from a simple multinomial distribution.</p>
+<p>Multinomial Naive Bayes is well-suited for features that represent counts or count rates since the multinomial distribution models the probability of observing counts across multiple categories.</p>
+<section id="text-classification" class="level5" data-number="10.7.3.0.1">
+<h5 data-number="10.7.3.0.1" class="anchored" data-anchor-id="text-classification"><span class="header-section-number">10.7.3.0.1</span> Text Classification</h5>
+<p>One of the best uses for this is in text classification, as it deals with counts/frequencies of words.</p>
+<p>To start this example, we load a dataset from <code>sklearn</code>, along with <code>MultinomialNB</code>. <code>CountVectorizer</code> is also loaded, as we are no longer dealing with numerical data.</p>
+<div class="cell" data-execution_count="55">
+<div class="sourceCode cell-code" id="cb76"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> fetch_20newsgroups</span>
+<span id="cb76-2"><a href="#cb76-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.feature_extraction.text <span class="im">import</span> CountVectorizer</span>
+<span id="cb76-3"><a href="#cb76-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.naive_bayes <span class="im">import</span> MultinomialNB</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>This example will use the <code>fetch_20newsgroups</code> dataset, which is a collection of newsgroup posts on various topics. Now we split it into a training set and a test set.</p>
+<p>We can also preview the data, and see the target names, data, and targets</p>
+<div class="cell" data-execution_count="56">
+<div class="sourceCode cell-code" id="cb77"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a>newsgroups_train <span class="op">=</span> fetch_20newsgroups(subset<span class="op">=</span><span class="st">'train'</span>)</span>
+<span id="cb77-2"><a href="#cb77-2" aria-hidden="true" tabindex="-1"></a>newsgroups_test <span class="op">=</span> fetch_20newsgroups(subset<span class="op">=</span><span class="st">'test'</span>)</span>
+<span id="cb77-3"><a href="#cb77-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-4"><a href="#cb77-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(newsgroups_train.target_names)</span>
+<span id="cb77-5"><a href="#cb77-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(newsgroups_train.data[<span class="dv">0</span>])</span>
+<span id="cb77-6"><a href="#cb77-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(newsgroups_train.target[<span class="dv">0</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>['alt.atheism', 'comp.graphics', 'comp.os.ms-windows.misc', 'comp.sys.ibm.pc.hardware', 'comp.sys.mac.hardware', 'comp.windows.x', 'misc.forsale', 'rec.autos', 'rec.motorcycles', 'rec.sport.baseball', 'rec.sport.hockey', 'sci.crypt', 'sci.electronics', 'sci.med', 'sci.space', 'soc.religion.christian', 'talk.politics.guns', 'talk.politics.mideast', 'talk.politics.misc', 'talk.religion.misc']
+From: lerxst@wam.umd.edu (where's my thing)
+Subject: WHAT car is this!?
+Nntp-Posting-Host: rac3.wam.umd.edu
+Organization: University of Maryland, College Park
+Lines: 15
+
+ I was wondering if anyone out there could enlighten me on this car I saw
+the other day. It was a 2-door sports car, looked to be from the late 60s/
+early 70s. It was called a Bricklin. The doors were really small. In addition,
+the front bumper was separate from the rest of the body. This is 
+all I know. If anyone can tellme a model name, engine specs, years
+of production, where this car is made, history, or whatever info you
+have on this funky looking car, please e-mail.
+
+Thanks,
+- IL
+   ---- brought to you by your neighborhood Lerxst ----
+
+
+
+
+
+7</code></pre>
+</div>
+</div>
+<p>Here we get an idea of our targets, as well as one data example and the target it belongs to.</p>
+<p>We then preprocess the data, converting categorical data to numerical.</p>
+<div class="cell" data-execution_count="57">
+<div class="sourceCode cell-code" id="cb79"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a>vectorizer <span class="op">=</span> CountVectorizer()</span>
+<span id="cb79-2"><a href="#cb79-2" aria-hidden="true" tabindex="-1"></a>X_train <span class="op">=</span> vectorizer.fit_transform(newsgroups_train.data)</span>
+<span id="cb79-3"><a href="#cb79-3" aria-hidden="true" tabindex="-1"></a>X_test <span class="op">=</span> vectorizer.transform(newsgroups_test.data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We then train the classifier and make our precitions using <code>.predict()</code></p>
+<div class="cell" data-execution_count="58">
+<div class="sourceCode cell-code" id="cb80"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb80-1"><a href="#cb80-1" aria-hidden="true" tabindex="-1"></a>clf <span class="op">=</span> MultinomialNB()</span>
+<span id="cb80-2"><a href="#cb80-2" aria-hidden="true" tabindex="-1"></a>clf.fit(X_train, newsgroups_train.target)</span>
+<span id="cb80-3"><a href="#cb80-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb80-4"><a href="#cb80-4" aria-hidden="true" tabindex="-1"></a>y_pred1 <span class="op">=</span> clf.predict(X_test)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Finally, we evaluate the performance.</p>
+<div class="cell" data-execution_count="59">
+<div class="sourceCode cell-code" id="cb81"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb81-1"><a href="#cb81-1" aria-hidden="true" tabindex="-1"></a>accuracy1 <span class="op">=</span> accuracy_score(newsgroups_test.target, y_pred1)</span>
+<span id="cb81-2"><a href="#cb81-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Accuracy:'</span>, accuracy1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Accuracy: 0.7728359001593202</code></pre>
+</div>
+</div>
+<p>We can plot a heatmap of the confusion matrix with <code>seaborn</code> to better visualize the accuracy.</p>
+<div class="cell" data-execution_count="60">
+<div class="sourceCode cell-code" id="cb83"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb83-1"><a href="#cb83-1" aria-hidden="true" tabindex="-1"></a>conf_mat <span class="op">=</span> confusion_matrix(newsgroups_test.target, y_pred1)</span>
+<span id="cb83-2"><a href="#cb83-2" aria-hidden="true" tabindex="-1"></a>sns.heatmap(conf_mat, annot<span class="op">=</span><span class="va">True</span>, cmap<span class="op">=</span><span class="st">'Blues'</span>)</span>
+<span id="cb83-3"><a href="#cb83-3" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Predicted Labels'</span>)</span>
+<span id="cb83-4"><a href="#cb83-4" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'True Labels'</span>)</span>
+<span id="cb83-5"><a href="#cb83-5" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="supervised_files/figure-html/cell-61-output-1.png" width="556" height="429"></p>
+</div>
+</div>
+<p>The true labels are shown on the y-axis and the predicted labels are shown on the x-axis. The cells of the heatmap show the number of test instances that belong to a particular class (true label) and were classified as another class (predicted label).</p>
+</section>
+</section>
+<section id="complement-naive-bayes" class="level3" data-number="10.7.4">
+<h3 data-number="10.7.4" class="anchored" data-anchor-id="complement-naive-bayes"><span class="header-section-number">10.7.4</span> Complement Naive Bayes</h3>
+<p>Often in cases of imbalanced datasets where certain targets have more data, <code>ComplementNB</code> is used to provide balance to the targets with less data. First we should view our targets.</p>
+<div class="cell" data-execution_count="61">
+<div class="sourceCode cell-code" id="cb84"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb84-1"><a href="#cb84-1" aria-hidden="true" tabindex="-1"></a>unique, counts <span class="op">=</span> np.unique(newsgroups_test.target, return_counts<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb84-2"><a href="#cb84-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> target_name, count <span class="kw">in</span> <span class="bu">zip</span>(newsgroups_test.target_names, counts):</span>
+<span id="cb84-3"><a href="#cb84-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>target_name<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>count<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>alt.atheism: 319
+comp.graphics: 389
+comp.os.ms-windows.misc: 394
+comp.sys.ibm.pc.hardware: 392
+comp.sys.mac.hardware: 385
+comp.windows.x: 395
+misc.forsale: 390
+rec.autos: 396
+rec.motorcycles: 398
+rec.sport.baseball: 397
+rec.sport.hockey: 399
+sci.crypt: 396
+sci.electronics: 393
+sci.med: 396
+sci.space: 394
+soc.religion.christian: 398
+talk.politics.guns: 364
+talk.politics.mideast: 376
+talk.politics.misc: 310
+talk.religion.misc: 251</code></pre>
+</div>
+</div>
+<p>Our data is fairly balanced here, so <code>ComplementNB</code> may not be necessary.</p>
+<p>However, using the <code>nyc311</code> data from the midterm, we can see that the frequency of values by <code>Agency</code> is very imbalanced.</p>
+<div class="cell" data-execution_count="62">
+<div class="sourceCode cell-code" id="cb86"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb86-1"><a href="#cb86-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.naive_bayes <span class="im">import</span> ComplementNB</span>
+<span id="cb86-2"><a href="#cb86-2" aria-hidden="true" tabindex="-1"></a>nyc <span class="op">=</span> pd.read_csv(<span class="st">'data/nyc311_011523-012123_by022023.csv'</span>)</span>
+<span id="cb86-3"><a href="#cb86-3" aria-hidden="true" tabindex="-1"></a>nyc <span class="op">=</span> nyc[[<span class="st">'Descriptor'</span>, <span class="st">'Agency'</span>]]</span>
+<span id="cb86-4"><a href="#cb86-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb86-5"><a href="#cb86-5" aria-hidden="true" tabindex="-1"></a>sns.countplot(x<span class="op">=</span><span class="st">'Agency'</span>, data<span class="op">=</span>nyc)</span>
+<span id="cb86-6"><a href="#cb86-6" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="supervised_files/figure-html/cell-63-output-1.png" width="610" height="429"></p>
+</div>
+</div>
+<p>As we can see, the NYPD skews the data. We can try using this Naive Bayes classifier to predict what agency a call was made to based on the description.</p>
+<p>We once again convert the data to vectors, fit our model and evaluate the accuracy/ confusion matrix</p>
+<div class="cell" data-execution_count="63">
+<div class="sourceCode cell-code" id="cb87"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb87-1"><a href="#cb87-1" aria-hidden="true" tabindex="-1"></a>nyc <span class="op">=</span> nyc.dropna()</span>
+<span id="cb87-2"><a href="#cb87-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb87-3"><a href="#cb87-3" aria-hidden="true" tabindex="-1"></a>vectorizer <span class="op">=</span> CountVectorizer()</span>
+<span id="cb87-4"><a href="#cb87-4" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> vectorizer.fit_transform(nyc[<span class="st">'Descriptor'</span>])</span>
+<span id="cb87-5"><a href="#cb87-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb87-6"><a href="#cb87-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb87-7"><a href="#cb87-7" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> nyc[<span class="st">'Agency'</span>]</span>
+<span id="cb87-8"><a href="#cb87-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb87-9"><a href="#cb87-9" aria-hidden="true" tabindex="-1"></a>X_train, X_test, y_train, y_test <span class="op">=</span> train_test_split(X, y, test_size<span class="op">=</span><span class="fl">0.2</span>, random_state<span class="op">=</span><span class="dv">42</span>)</span>
+<span id="cb87-10"><a href="#cb87-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb87-11"><a href="#cb87-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb87-12"><a href="#cb87-12" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> ComplementNB()</span>
+<span id="cb87-13"><a href="#cb87-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb87-14"><a href="#cb87-14" aria-hidden="true" tabindex="-1"></a>model.fit(X_train, y_train)</span>
+<span id="cb87-15"><a href="#cb87-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb87-16"><a href="#cb87-16" aria-hidden="true" tabindex="-1"></a>y_pred <span class="op">=</span> model.predict(X_test)</span>
+<span id="cb87-17"><a href="#cb87-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb87-18"><a href="#cb87-18" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Accuracy:'</span>, accuracy_score(y_test, y_pred))</span>
+<span id="cb87-19"><a href="#cb87-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb87-20"><a href="#cb87-20" aria-hidden="true" tabindex="-1"></a>cm <span class="op">=</span> confusion_matrix(y_test, y_pred)</span>
+<span id="cb87-21"><a href="#cb87-21" aria-hidden="true" tabindex="-1"></a>sns.heatmap(cm, annot<span class="op">=</span><span class="va">True</span>, fmt<span class="op">=</span><span class="st">"d"</span>, cmap<span class="op">=</span><span class="st">"Reds"</span>, robust <span class="op">=</span> <span class="va">True</span>)</span>
+<span id="cb87-22"><a href="#cb87-22" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Predicted Label"</span>)</span>
+<span id="cb87-23"><a href="#cb87-23" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"True Label"</span>)</span>
+<span id="cb87-24"><a href="#cb87-24" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Accuracy: 0.9846039003452459</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="supervised_files/figure-html/cell-64-output-2.png" width="556" height="429"></p>
+</div>
+</div>
+<p>Our model is very accurate despite containing very different frequencies. Let’s compare to an ordinary Multinomial model.</p>
+<div class="cell" data-execution_count="64">
+<div class="sourceCode cell-code" id="cb89"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb89-1"><a href="#cb89-1" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> MultinomialNB()</span>
+<span id="cb89-2"><a href="#cb89-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb89-3"><a href="#cb89-3" aria-hidden="true" tabindex="-1"></a>model.fit(X_train, y_train)</span>
+<span id="cb89-4"><a href="#cb89-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb89-5"><a href="#cb89-5" aria-hidden="true" tabindex="-1"></a>y_pred <span class="op">=</span> model.predict(X_test)</span>
+<span id="cb89-6"><a href="#cb89-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb89-7"><a href="#cb89-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Accuracy:'</span>, accuracy_score(y_test, y_pred))</span>
+<span id="cb89-8"><a href="#cb89-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb89-9"><a href="#cb89-9" aria-hidden="true" tabindex="-1"></a>cm <span class="op">=</span> confusion_matrix(y_test, y_pred)</span>
+<span id="cb89-10"><a href="#cb89-10" aria-hidden="true" tabindex="-1"></a>sns.heatmap(cm, annot<span class="op">=</span><span class="va">True</span>, fmt<span class="op">=</span><span class="st">"d"</span>, cmap<span class="op">=</span><span class="st">"Reds"</span>, robust <span class="op">=</span> <span class="va">True</span>)</span>
+<span id="cb89-11"><a href="#cb89-11" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Predicted Label"</span>)</span>
+<span id="cb89-12"><a href="#cb89-12" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"True Label"</span>)</span>
+<span id="cb89-13"><a href="#cb89-13" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Accuracy: 0.985257068209387</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="supervised_files/figure-html/cell-65-output-2.png" width="556" height="429"></p>
+</div>
+</div>
+<p>It appears that the Multinomial model actually has a higher accuracy; however, if we look a bit closer, we can see that the <code>ComplementNB</code> model indeed does a better job of classifying targets with less data in some cases. For instance, labels 1 and 5 are more accurate. However, it is not true for all labels, and often is slightly less accurate in classification. The use of <code>ComplementNB</code> is a matter of personal judgement / trial and error.</p>
+</section>
+<section id="bernoulli-naive-bayes" class="level3" data-number="10.7.5">
+<h3 data-number="10.7.5" class="anchored" data-anchor-id="bernoulli-naive-bayes"><span class="header-section-number">10.7.5</span> Bernoulli Naive Bayes</h3>
+<p>Unlike the Multinomial Naive Bayes algorithm, which works with count-based features, Bernoulli Naive Bayes operates on binary features. This makes it particularly well-suited for modeling the presence or absence of certain words or phrases in a document, and makes is especially useful with spam detection. Each feature is assumed to be conditionally independent of all the other features given the class label.</p>
+<p><span class="math inline">\(P(x_i|y) = P{(x_i=1}|{y})x_i + (1 - P({x_1 = 1}|y))({1-x_i})\)</span></p>
+<p>In this example, we look at the NYC Crash data, and try to classify injuries based on the the number one contributing factor.</p>
+<div class="cell" data-execution_count="65">
+<div class="sourceCode cell-code" id="cb91"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb91-1"><a href="#cb91-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.naive_bayes <span class="im">import</span> BernoulliNB</span>
+<span id="cb91-2"><a href="#cb91-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb91-3"><a href="#cb91-3" aria-hidden="true" tabindex="-1"></a>crash <span class="op">=</span> pd.read_csv(<span class="st">'data/nyc_crashes_202301_cleaned.csv'</span>)</span>
+<span id="cb91-4"><a href="#cb91-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb91-5"><a href="#cb91-5" aria-hidden="true" tabindex="-1"></a>crash[<span class="st">"INJURY"</span>] <span class="op">=</span> crash[<span class="st">"NUMBER OF PERSONS INJURED"</span>].<span class="bu">apply</span>(<span class="kw">lambda</span> x: <span class="dv">1</span> <span class="cf">if</span> x <span class="op">&gt;=</span> <span class="dv">1</span> <span class="cf">else</span> <span class="dv">0</span>)</span>
+<span id="cb91-6"><a href="#cb91-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb91-7"><a href="#cb91-7" aria-hidden="true" tabindex="-1"></a>crash <span class="op">=</span> crash.dropna(subset<span class="op">=</span>[<span class="st">'INJURY'</span>, <span class="st">'CONTRIBUTING FACTOR VEHICLE 1'</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Once again, we split the data into training and testing sets and create a <code>CountVectorizer</code> to convert the text data into a binary matrix.</p>
+<div class="cell" data-execution_count="66">
+<div class="sourceCode cell-code" id="cb92"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb92-1"><a href="#cb92-1" aria-hidden="true" tabindex="-1"></a>X_train, X_test, y_train, y_test <span class="op">=</span> train_test_split(</span>
+<span id="cb92-2"><a href="#cb92-2" aria-hidden="true" tabindex="-1"></a>    crash[<span class="st">"CONTRIBUTING FACTOR VEHICLE 1"</span>], crash[<span class="st">"INJURY"</span>], test_size<span class="op">=</span><span class="fl">0.2</span>, random_state<span class="op">=</span><span class="dv">42</span>)</span>
+<span id="cb92-3"><a href="#cb92-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb92-4"><a href="#cb92-4" aria-hidden="true" tabindex="-1"></a>vectorizer <span class="op">=</span> CountVectorizer(binary<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb92-5"><a href="#cb92-5" aria-hidden="true" tabindex="-1"></a>X_train <span class="op">=</span> vectorizer.fit_transform(X_train)</span>
+<span id="cb92-6"><a href="#cb92-6" aria-hidden="true" tabindex="-1"></a>X_test <span class="op">=</span> vectorizer.transform(X_test)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Then, a <code>BernoulliNB</code> object is created and fit to the training data. We then make predictions on the testing data.</p>
+<div class="cell" data-execution_count="67">
+<div class="sourceCode cell-code" id="cb93"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb93-1"><a href="#cb93-1" aria-hidden="true" tabindex="-1"></a>bnb <span class="op">=</span> BernoulliNB()</span>
+<span id="cb93-2"><a href="#cb93-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb93-3"><a href="#cb93-3" aria-hidden="true" tabindex="-1"></a>bnb.fit(X_train, y_train)</span>
+<span id="cb93-4"><a href="#cb93-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb93-5"><a href="#cb93-5" aria-hidden="true" tabindex="-1"></a>y_pred4 <span class="op">=</span> bnb.predict(X_test)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Calculate the accuracy of the model.</p>
+<div class="cell" data-execution_count="68">
+<div class="sourceCode cell-code" id="cb94"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb94-1"><a href="#cb94-1" aria-hidden="true" tabindex="-1"></a>accuracy4 <span class="op">=</span> accuracy_score(y_test, y_pred4)</span>
+<span id="cb94-2"><a href="#cb94-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Accuracy: </span><span class="sc">{</span>accuracy4<span class="sc">:.2f}</span><span class="ss">"</span>)</span>
+<span id="cb94-3"><a href="#cb94-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb94-4"><a href="#cb94-4" aria-hidden="true" tabindex="-1"></a>cm <span class="op">=</span> confusion_matrix(y_test, y_pred4)</span>
+<span id="cb94-5"><a href="#cb94-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Confusion Matrix:"</span>)</span>
+<span id="cb94-6"><a href="#cb94-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(cm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Accuracy: 0.65
+Confusion Matrix:
+[[802  77]
+ [432 127]]</code></pre>
+</div>
+</div>
+<p>Obviously, our model has some shortcomings. Namely, the accuracy is not great, and it has a high quantity of false negatives. That can partially be attributed to the variable we used, as there is not a lot of distinctions that can be made within the text for factors of each crash. With that being said, for a baseline, it is not bad, and with some tuning and more diverse, larger data to work with, it could classify injuries much better.</p>
+</section>
+<section id="conclusion-3" class="level3" data-number="10.7.6">
+<h3 data-number="10.7.6" class="anchored" data-anchor-id="conclusion-3"><span class="header-section-number">10.7.6</span> Conclusion</h3>
+<p>In conclusion, using Naive Bayes as a means of classification does have its benefits and shortcomings.</p>
+<p>Pros:</p>
+<ul>
+<li><p>Efficiency</p></li>
+<li><p>Interpretability</p></li>
+<li><p>Few parameters</p></li>
+</ul>
+<p>Cons:</p>
+<ul>
+<li><p>Simplicity</p></li>
+<li><p>Data does not always match the assumptions</p></li>
+<li><p>Few parameters</p></li>
+</ul>
+<p>Overall, Naive Bayes classifiers are best used in finding a solid baseline to build off of.</p>
+</section>
+<section id="references-3" class="level3" data-number="10.7.7">
+<h3 data-number="10.7.7" class="anchored" data-anchor-id="references-3"><span class="header-section-number">10.7.7</span> References</h3>
+<p>“1.9. Naive Bayes.” Scikit, https://scikit-learn.org/stable/modules/naive_bayes.html.</p>
+<p>Learning, UCI Machine. “SMS Spam Collection Dataset.” Kaggle, 2 Dec.&nbsp;2016, https://www.kaggle.com/datasets/uciml/sms-spam-collection-dataset?resource=download.</p>
+<p>Vanderplas, Jake. Python Data Science Handbook: Essential Tools for Working with Data. O’REILLY MEDIA, 2023.</p>
 
 
 </section>
