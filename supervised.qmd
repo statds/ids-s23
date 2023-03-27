@@ -120,3 +120,7 @@ work flow in model selection with cross-validation is as follows.
 <!-- ## bagging versus boosting -->
 
 {{< include _baggingboosting.qmd >}}
+
+<!-- ## Naive Bayes -->
+
+{{< include _nb.qmd >}}
