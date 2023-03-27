@@ -1,0 +1,200 @@
+# Unsupervised Learning - Cluster Analysis
+
+## Introduction
+So far, we have been learning and implementing **supervised** machine learning methods. This requires having *labeled* data, meaning data that is already classified or tagged with the correct answer. For example, in classification methods, our training data already has labels. In **unsupervised** machine learning, our data is unlabeled. This means that for unsupervised learning, our data requires no upfront human intervention (a.k.a labeling our data before our analysis).
+
+## Cluster Analysis
+The unsupervised learning method we will focus on today is **clustering**. This method measures similarity within unstructured data and groups similar points together into clusters. Some practical applications of clustering are:
+
+*   Recommendation Engines
+*   Customer Segmentation
+*   Social Network Analysis
+
+## Types of Clustering
+There are 4 main types of clustering algorithms:
+
+1. Centroid-based clustering
+
+2. Density-based clustering
+
+3. Distribution-based clustering
+
+4. Hierarchial clustering
+
+Choosing the right clustering algorithm is really dependent on the distribution and type of data you are working with. For the purposes of this presentation, we will be focusing on **centroid-based clustering**. 
+
+## Centroid-Based Clustering
+
+### The Math
+In order to determine similarity between points, we measure the Euclidean Distance between points, specifically between a datapoint and a "centroid":
+$$\sum^{k}_{j=1}\sum^{n}_{i=1}||x_i^{(j)}-c_j||^2$$
+$k$ number of these centroids are chosen randomly in our dataset. We then essentially just calculate the sum of the distance from all points to the centroids.
+
+**How do we choose the amount of centroids and subsequent clusters for our data?**
+
+We can use the **Elbow Method**. This involves iterating through a range of values for $k$ (number of clusters) and choosing the one that results in the least amount of *cost*, which is our summed Euclidean Distance from point to cluster. This is also referred to as Within-Cluster Sum of Squares (WCSS).
+
+## The Algorithm
+
+To run our cluster analysis, we can use Scikit-Learn's **K-means** algorithm. To process the data, the K-means algorithm starts with a first group of our randomly selected centroids, which are used as the beginning points for every cluster, and then performs the iterative calculations to optimize the positions of the centroids.
+
+It halts creating and optimizing clusters when either:
+
+The centroids have stabilized — there is no change in their values because the clustering has been successful.
+
+The defined number of iterations has been achieved.
+
+## Centroid-Based Clustering Implementation
+Let's use Kaggle's Mall Customer Segmentation dataset to implement some cluster analysis.
+```{python}
+# Import packages
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+from matplotlib.path import Path
+from matplotlib.patches import PathPatch
+import seaborn as sns
+
+from sklearn.preprocessing import StandardScaler
+from sklearn.cluster import KMeans
+from sklearn.metrics import silhouette_score
+import warnings
+warnings.filterwarnings('ignore')
+```
+```{python}
+# Read in data
+data = pd.read_csv('Mall_Customers.csv')
+
+# Check out the data
+data.head(5)
+
+# Encoding gender variable
+data = pd.get_dummies(data, columns = ['Gender'])
+```
+```{python}
+data.describe()
+```
+We need to make sure that there are no null values for our model to work:
+```{python}
+data.isnull().sum()
+```
+Let's start with a basic example - suppose we want to extract a business insight involving only the variables **Annual Income** and **Spending Score**.
+```{python}
+# Select our features
+x = data[['Annual Income (k$)', 'Spending Score (1-100)']]
+
+wcss = []
+
+# Use the Elbow Method to find the number of clusters with the lowest cost
+for cluster in range(1,11):
+    kmeans = KMeans(n_clusters = cluster, init = 'k-means++', random_state = 42)
+    kmeans.fit(x)
+    wcss.append(kmeans.inertia_)
+
+# Plot out the elbow curve (now you see where it gets its name from)
+plt.plot(range(1,11), wcss, 'o--')
+plt.title('Elbow Method')
+plt.xlabel('No of Clusters')
+plt.ylabel('WCSS')
+
+plt.show()
+```
+Based on our elbow curve, our optimal number of clusters is 5. This is because there is not enough dropoff between 5 clusters and 6-10 clusters to warrant the extra computational expense and the more clusters we have, the less interpretable our results may become (not enough difference between clusters/redundancy).
+```{python}
+# Implement our algorithm
+model = KMeans(n_clusters = 5, init = 'random', n_init = 10, max_iter = 300, tol = 1e-4)
+# Fit our model
+results = model.fit_predict(x)
+# Look at our results
+results
+```
+Our model output is an array telling us each cluster that our datapoints fall into. We can visualize this now to better understand our clusters:
+```{python}
+data['First_cluster'] = model.labels_
+data
+```
+```{python}
+colors = ['blue', 'green', 'red', 'orange', 'magenta']
+
+# Plot the clusters and their centroids
+for i in range(len(colors)):
+    plt.scatter(data['Annual Income (k$)'][data['First_cluster'] == i],
+                data['Spending Score (1-100)'][data['First_cluster'] == i],
+                color=colors[i], label=f'Cluster {i}')
+plt.scatter(model.cluster_centers_[:, 0], model.cluster_centers_[:, 1], c = 'black', label = 'Centroids')
+plt.title('Clusters')
+plt.xlabel('Annual Income (k$)')
+plt.ylabel('Spending Score (1-100)')
+plt.legend()
+plt.show()
+```
+
+## Interpreting Results
+An important part of data science is being able to interpret your results. For example, we see that members of cluster 0 have both high annual income and spending score. This means that we should send them repeated promotions and updates regarding the mall. Cluster 4 members have high spending score but low income; this means that we could send them discounts/sales that are going on within the mall.
+
+## Re-clustering with Principal Component Analysis
+In our last example, we only used two features or 'dimensions' in our model (Average Income and Spending Score). Yet, most of the time we use more than just 2 dimensions. To be able to visualize our data in 2 dimensions, we can use **Principal Component Analysis** to reduce the dimensionality of our data. While it makes interpretation of our results more difficult, it allows us to cluster on as many features as we'd like.
+
+We will revisit our mall data but use all possible features. In our previous clustering, our dimensions were similar in scale. But because we are using gender and age data, we will need to standardize our features:
+```{python}
+from sklearn.preprocessing import StandardScaler
+scaler = StandardScaler()
+scaled_data = scaler.fit_transform(data)
+```
+Now we use PCA:
+```{python}
+from sklearn.decomposition import PCA
+pca = PCA()
+# Selecting all features except for Customer ID
+pca.fit(scaled_data[:, 1:])
+plt.plot(range(1, 7), pca.explained_variance_ratio_.cumsum(), marker = 'o', linestyle = '-')
+plt.title('Variance Explained by Components')
+plt.xlabel('# of Components')
+plt.ylabel('Variance')
+```
+Typically, we keep 80% of our variance, so we want to use 3 components. 
+```{python}
+pca = PCA(n_components = 3)
+pca_data = pca.fit_transform(scaled_data)
+
+pca_wcss = []
+
+# Use the Elbow Method to find the number of clusters with the lowest cost
+for cluster in range(1,11):
+    kmeans = KMeans(n_clusters = cluster, init = 'k-means++', random_state = 42)
+    kmeans.fit(pca_data)
+    pca_wcss.append(kmeans.inertia_)
+
+# Plot out the elbow curve (now you see where it gets its name from)
+plt.plot(range(1,11), pca_wcss, 'o--')
+plt.title('Elbow Method')
+plt.xlabel('No of Clusters')
+plt.ylabel('WCSS')
+
+plt.show()
+```
+
+This time, let's use 4 clusters as the elbow isn't as pronounced.
+
+```{python}
+pca_model = KMeans(n_clusters = 4, init = 'random', n_init = 10, max_iter = 300, tol = 1e-4)
+# Fit our model
+pca_results = pca_model.fit_predict(pca_data)
+# Look at our results
+pca_results
+```
+```{python}
+# Make an interactive 3D Plot to show our work
+import plotly.express as px
+data['PCA_cluster'] = pca_model.labels_
+fig = px.scatter_3d(x = pca_data[:, 0], y = pca_data[:, 1], z = pca_data[:, 2], color = pca_model.labels_)
+fig.show()
+```
+Interpreting these clusters is a little more difficult. Here are a few different methods to try and find insights into your clusters:
+
+1. Use ANOVA to compare features against clusters (e.g. Average Income ~ Cluster).
+
+2. Build a *supervised* learning model (something like K-nearest neighbor) which takes a new data point and assigns it to one of the clusters based on its features. In this instance, we use unsupervised learning to label our data for subsequent supervised learning methods.
+
+## Conclusion
+While a lot of the methods and practices I covered today don't have the strongest application to the dataset I used, I wanted to (1) use an easy to understand and easily interpretable dataset and (2) show off as many helpful tools when clustering on more complex datasets. Overall, cluster analysis and unsupervised learning are important skills to have if you would like to work with data science in the future.
