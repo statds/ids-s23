@@ -1,21 +1,17 @@
----
-jupyter: python3
----
-
-## Plot on Maps with gmplot
+## Plot on Maps with `gmplot` (by Luke Noel)
 
 ### Introduction
 
-`gmplot` is a library in python that allows us to plot data on Google Maps using geographical coordinates. `gmplot` has a matplotlib-like interface where we can save an HTML file of the map output in our local files.
+Python package `gmplot` allows plotting data on Google Maps using geographical coordinates. It has a `matplotlib`-like interface where we can save an HTML file of the map output in our local files.
 
 ### Installation
 
-Before we can use this library, we need to install it using our command line.
+Before we can use this package, we need to install it using our command line.
 ```{bash}
 pip install gmplot
 ```
 
-### Importing the library
+### Importing the Package
 
 We can now import `gmplot` and use it in our python code
 ```{python}
@@ -24,7 +20,7 @@ import gmplot
 
 ### API Key
 
-You can use the `gmplot` library without an API key, but your map output will be greyed out and have watermarks over it. To remove these you need to create your own Google Maps API key and call it in your python code. You can get started by using this link: <https://developers.google.com/maps/documentation/embed/get-api-key>.
+You can use the `gmplot` package without a Google API key, but your map output will be greyed out and have watermarks over it. To remove these you need to create your own Google Maps API key and call it in your python code. You can get started by using this link: <https://developers.google.com/maps/documentation/embed/get-api-key>.
 
 Here is an example of what a map looks like without using your API key:
 ```{python}
@@ -35,6 +31,18 @@ gmap = gmplot.GoogleMapPlotter(17.438139, 78.39583, 18)
 gmap.draw("map1grey.html")
 ```
 ![map1greyed.png](images/map1greyed.png)
+
+For the following code to work with an API key, you need to set the variable `apikey` with your own key.
+```{python}
+#| eval: false
+apikey =  'please put your key in this quote'
+```
+```{python}
+#| echo: false
+```{python}
+#| echo: false
+from myapikey import apikey
+```
 
 These Google Map outputs are stored as HTML files that you open and interact with in your browser. However, for the sake of this presentation, I have screenshotted some of these plots and saved them as png files to show some pictures in this notebook.
 
@@ -57,14 +65,10 @@ Optional Parameters:
 + tilt `int` – Tilt of the map upon zooming in.
 + scale_control `bool` – Whether or not to display the scale control. Defaults to False.
 + fit_bounds `dict` – Fit the map to contain the given bounds, as a dict of the form {'north':, 'south':, 'east':, 'west':}.
-```{python}
-#| echo: false
-apikey = 'AIzaSyCTikQz6fFW8A2vE0ZRdnMaMbVYzbR1Sr4'
-```
+
+
 ```{python}
 # Example: creating a base map centered around the coordinates of Manhattan
-
-# apikey = "XXXXXXXXXXXXX"
 gmap = gmplot.GoogleMapPlotter(40.7831, -73.9712, 13, apikey=apikey)
 ```
 
