@@ -1,0 +1,302 @@
+---
+jupyter: python3
+---
+
+## Plot on Maps with gmplot
+
+### Introduction
+
+`gmplot` is a library in python that allows us to plot data on Google Maps using geographical coordinates. `gmplot` has a matplotlib-like interface where we can save an HTML file of the map output in our local files.
+
+### Installation
+
+Before we can use this library, we need to install it using our command line.
+```{bash}
+pip install gmplot
+```
+
+### Importing the library
+
+We can now import `gmplot` and use it in our python code
+```{python}
+import gmplot
+```
+
+### API Key
+
+You can use the `gmplot` library without an API key, but your map output will be greyed out and have watermarks over it. To remove these you need to create your own Google Maps API key and call it in your python code. You can get started by using this link: <https://developers.google.com/maps/documentation/embed/get-api-key>.
+
+Here is an example of what a map looks like without using your API key:
+```{python}
+#| echo: false
+gmap = gmplot.GoogleMapPlotter(17.438139, 78.39583, 18)
+
+# Name and location where you want to save your file
+gmap.draw("map1grey.html")
+```
+![map1greyed.png](images/map1greyed.png)
+
+These Google Map outputs are stored as HTML files that you open and interact with in your browser. However, for the sake of this presentation, I have screenshotted some of these plots and saved them as png files to show some pictures in this notebook.
+
+### GoogleMapPlotter
+
+The main function in `gmplot` is `GoogleMapPlotter`, which, as it says in the name, is a plotter that draws on a Google Map. Use this function every time you want to make a map as it creates a base plot for you to draw on.
+
+Parameters:
+
++ lat `float` – Latitude of the center of the map.
++ lng `float` – Longitude of the center of the map.
++ zoom `int` – Zoom level, where 0 is fully zoomed out.
+
+Optional Parameters:
+
++ map_type `str` – Map type.
++ apikey `str` – Google Maps API key.
++ title `str` – Title of the HTML file (as it appears in the browser tab).
++ map_styles `[dict]` – Map styles. Requires Maps JavaScript API.
++ tilt `int` – Tilt of the map upon zooming in.
++ scale_control `bool` – Whether or not to display the scale control. Defaults to False.
++ fit_bounds `dict` – Fit the map to contain the given bounds, as a dict of the form {'north':, 'south':, 'east':, 'west':}.
+```{python}
+#| echo: false
+apikey = 'AIzaSyCTikQz6fFW8A2vE0ZRdnMaMbVYzbR1Sr4'
+```
+```{python}
+# Example: creating a base map centered around the coordinates of Manhattan
+
+# apikey = "XXXXXXXXXXXXX"
+gmap = gmplot.GoogleMapPlotter(40.7831, -73.9712, 13, apikey=apikey)
+```
+
+Now that you have created the base map called `gmap`, you need to display it using `.draw()`, which will save it as an HTML file.
+```{python}
+# Specify what directory and what name you want the HTML file of the map to be stored in/as
+gmap.draw('map2.html')
+```
+![map2.png](images/map2.png)
+After opening the HTML file in your browser, you can zoom, scroll, change the map to satellite, and mark a spot to see the street-view.
+
+### From_Geocode
+
+If you don't know the exact coordinates you want your map to be centered around you can use the name of the location instead. You do this by attaching the `.from_geocode()` function to `GoogleMapPlotter` and inputting a string of the location inside the parenthesis. **THIS REQUIRES AN API KEY**
+
+Parameters:
+
++ location `str` – Location or address of interest, as a human-readable string.
+
+Optional Parameters:
+
++ zoom `int` – Zoom level, where 0 is fully zoomed out. Defaults to 13.
+
+```{python}
+# Creating a map centered around the UConn campus
+gmap = gmplot.GoogleMapPlotter.from_geocode('UConn, Storrs', 16, apikey=apikey)
+gmap.draw('map3.html')
+```
+![map3.png](images/map3.png)
+
+### Geocode
+
+If you want to know the latitude and longitude coordinates of a certain location you can use the `.geocode()` function attached to `GoogleMapPlotter`. Input a string of said location inside the parenthesis. **THIS REQUIRES AN API KEY**
+```{python}
+# Printing the coordinates of some locations at UConn
+uconn = gmplot.GoogleMapPlotter.geocode('UConn, Storrs', apikey=apikey)
+garrigus = gmplot.GoogleMapPlotter.geocode('Garrigus Suites, Storrs', apikey=apikey)
+gentry = gmplot.GoogleMapPlotter.geocode('Gentry Building, Storrs', apikey=apikey)
+
+print(uconn)
+print(garrigus)
+print(gentry)
+```
+
+### Text on the Map
+
+You can display text labels on your maps using `.text()`
+
+Parameters:
+
++ lat `float` – Latitude of the text label.
++ lng `float` – Longitude of the text label.
++ text `str` – Text to display.
+
+Optional Parameters
+
++ color/c `str` – Text color. Can be hex (‘#00FFFF’), named (‘cyan’), or matplotlib-like (‘c’). Defaults to black.
+
+```{python}
+# Map centered around UConn with text labels for Garrigus Suites and the Gentry Building
+# Using the coordinates found above
+
+gmap = gmplot.GoogleMapPlotter(uconn[0], uconn[1], 17, apikey=apikey, map_type='hybrid')
+# Text labels:
+gmap.text(garrigus[0], garrigus[1], 'Garrigus Suites', color='red')
+gmap.text(gentry[0], gentry[1], 'Gentry Building', color='orange')
+
+gmap.draw('map4.html')
+```
+![map4.png](images/map4.png)
+
+### Directions
+
+You can display directions from one location to another on a map using `.directions()` **REQUIRES API KEY**
+
+Parameters:
+
++ origin `(float, float)` – Origin, in latitude/longitude.
++ destination `(float, float)` – Destination, in latitude/longitude.
+
+Optional Parameters:
+
++ travel_mode `str` – Travel mode. Defaults to ‘DRIVING’.
++ waypoints `[(float, float)]` – Waypoints to pass through.
+
+```{python}
+# Walking directions from Garrigus Suites to the Gentry Building
+gmap = gmplot.GoogleMapPlotter(uconn[0], uconn[1], 17, apikey=apikey, map_type='hybrid')
+
+# Origin: Garrigus Suites, Destination: Gentry Buldiing
+gmap.directions((garrigus[0], garrigus[1]),
+                (gentry[0], gentry[1]),
+                travel_mode='WALKING') # walking not driving
+
+gmap.draw('map5.html')
+```
+![map5.png](images/map5.png)
+
+### Markers
+
+You can also display markers on the map using `.marker()`. These markers can contain HTML content in a pop up window.
+
+Parameters:
+
++ lat `float` – Latitude of the marker.
++ lng `float` – Longitude of the marker.
+
+Optional Parameters:
+
++ color/c `str` – Marker color. Can be hex (‘#00FFFF’), named (‘cyan’), or matplotlib-like (‘c’). Defaults to red.
++ title `str` – Hover-over title of the marker.
++ precision `int`– Number of digits after the decimal to round to for lat/lng values. Defaults to 6.
++ label `str` – Label displayed on the marker.
++ info_window `str` – HTML content to be displayed in a pop-up info window.
++ draggable `bool` – Whether or not the marker is draggable.
+
+
+```{python}
+gmap = gmplot.GoogleMapPlotter(uconn[0], uconn[1], 17, apikey=apikey)
+
+gmap.marker(garrigus[0], garrigus[1], label='S', info_window=
+            "<a href='https://reslife.uconn.edu/housing-options/suites/garrigus-suites/'>Garrigus Suites</a") 
+            # Adding Website link to Garrigus Suites on its marker
+
+gmap.marker(gentry[0], gentry[1], color='green', title='Gentry Building') # Marker labeled Gentry Building
+
+gmap.enable_marker_dropping('orange', draggable=True) # Allows you to drop markers on the map by clicking
+
+gmap.draw('map6.html')
+```
+![map6.png](images/map6.png)
+
+### Scatter
+
+You can plot a collection of geographical points on a map using `.scatter()`.
+
+Parameters:
+
++ lats `[float]` – Latitudes.
++ lngs `[float]` – Longitudes.
+
+Optional Parameters:
+
++ color/c/edge_color/ec `str`  – Color of each point. Can be hex (‘#00FFFF’), named (‘cyan’), or matplotlib-like (‘c’). Defaults to black.
++ size/s `int`  – Size of each point, in meters (symbols only). Defaults to 40.
++ marker `bool` – True to plot points as markers, False to plot them as symbols. Defaults to True.
++ symbol `str` – Shape of each point, as ‘o’, ‘x’, or ‘+’ (symbols only). Defaults to ‘o’.
++ title `str` – Hover-over title of each point (markers only).
++ label `str` – Label displayed on each point (markers only).
++ precision `int` – Number of digits after the decimal to round to for lat/lng values. Defaults to 6.
++ alpha/face_alpha/fa `float` – Opacity of each point’s face, ranging from 0 to 1 (symbols only). Defaults to 0.3.
++ alpha/edge_alpha/ea `float` – Opacity of each point’s edge, ranging from 0 to 1 (symbols only). Defaults to 1.0.
++ edge_width/ew `int` – Width of each point’s edge, in pixels (symbols only). Defaults to 1.
+
+To illustrate this I will use the cleaned NYC Crash Data, and color each point corresponding to its borough:
+```{python}
+# Importing in the cleaned NYC crash data
+import pandas as pd
+
+crash = pd.read_csv('data/nyc_crashes_202301_cleaned.csv')
+```
+```{python}
+# Group the dataframe by the "BOROUGH" column
+borough_groups = crash.groupby('BOROUGH')
+
+# Creating a map centered around NYC with the location points scattered
+gmap = gmplot.GoogleMapPlotter.from_geocode('New York City', 10, apikey=apikey)
+
+# Loop through each group and plot the points with a different color for each borough
+colors = ['red', 'blue', 'green', 'brown', 'purple'] # define a list of colors for each borough
+for i, (borough, group) in enumerate(borough_groups):
+    gmap.scatter(group['LATITUDE'], group['LONGITUDE'], marker=False, size=75, color=colors[i])
+
+# Draw the map
+gmap.draw('map7.html')
+```
+![map7.png](images/map7.png)
+
+### Heatmap and Polygon
+
+You can plot a heatmap of geographical coordinates using `.heatmap()`.
+
+Parameters:
+
++ lats `[float]` – Latitudes.
++ lngs `[float]` – Longitudes.
+
+Optional Parameters:
+
++ radius `int` – Radius of influence for each data point, in pixels. Defaults to 10.
++ gradient `[(int, int, int, float)]` – Color gradient of the heatmap, as a list of RGBA colors. The color order defines the gradient moving towards the center of a point.
++ opacity `float` – Opacity of the heatmap, ranging from 0 to 1. Defaults to 0.6.
++ max_intensity `int` – Maximum intensity of the heatmap. Defaults to 1.
++ dissipating `bool` – True to dissipate the heatmap on zooming, False to disable dissipation.
++ precision `int` – Number of digits after the decimal to round to for lat/lng values. Defaults to 6.
++ weights `[float]` – List of weights corresponding to each data point. Each point has a weight of 1 by default. Specifying a weight of N is equivalent to plotting the same point N times.
+
+You can also plot a polygon that you can color on a map using `.polygon()`, using latitude and logitude values of the points of the polygon shape.
+
+Example using same data points as the scatter map above except changing to heatmap. Also plotting a polygon of Central Park:
+```{python}
+
+# You need to drop all na's for heatmap to work
+crash_c = crash.dropna(subset=['LATITUDE', 'LONGITUDE'])
+
+# Creating map centered around Manhattan
+gmap = gmplot.GoogleMapPlotter.from_geocode("Manhattan, NY", apikey=apikey)
+
+# Coordinates of boundaries of Central Park
+centralp = zip(*[
+    (40.796961, -73.949441),
+    (40.764684, -73.972968),
+    (40.767997, -73.981977),
+    (40.800585, -73.958036)
+])
+
+# Heatmap using Crash data coordinates
+gmap.heatmap(crash_c['LATITUDE'], crash_c['LONGITUDE'], radius=15, opacity=0.6)
+
+# Blue polygon (rectangle) of Central Park
+gmap.polygon(*centralp, face_color='pink', edge_color='cornflowerblue', edge_width=5)
+
+gmap.draw('map8.html')
+```
+![map8.png](images/map8.png)
+
+### References
+
+Github of gmplot:
+
++ <https://github.com/gmplot/gmplot/wiki/GoogleMapPlotter>
+
+Another tutorial website:
+
++ <https://www.tutorialspoint.com/plotting-google-map-using-gmplot-package-in-python>
