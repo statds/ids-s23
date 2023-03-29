@@ -1,5 +1,4 @@
-## Bagging vs. Boosting
-**By Nathan Nhan**
+## Bagging vs. Boosting (by Nathan Nhan)
 
 
 ### Introduction

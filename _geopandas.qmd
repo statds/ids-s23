@@ -1,7 +1,4 @@
-## "Handling Spatial Data with `GeoPandas`"
-
-**Kaitlyn Bedard**
-
+## Handling Spatial Data with `GeoPandas` (by Kaitlyn Bedard)
 
 `GeoPandas` is a python library created as an extension of pandas to offer support for geographic data. 
 Like pandas, GeoPandas has a series type and a dataframe type: `GeoSeries` and `GeoDataFrame`. It 

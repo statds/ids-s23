@@ -3,3 +3,5 @@
 {{< include _geopandas.qmd >}}
 
 
+{{< include _gmplot.qmd >}}
+

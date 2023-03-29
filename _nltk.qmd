@@ -1,4 +1,4 @@
-## Text Analysis with `nltk`
+## Text Analysis with `nltk` (by Shivaram Karandikar)
 
 ### Introduction
 

@@ -5,6 +5,3 @@
 
 {{< include _plotnine.qmd >}}
 
-
-{{< include _gmplot.qmd >}}
-

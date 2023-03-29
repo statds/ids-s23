@@ -1,6 +1,8 @@
 # Data Manipulation with Pandas
 
 
+This chapter was prepared by Garrick Ho and Ginamarie Mastrorilli.
+
 {{< include _pandas1.qmd >}}
 
 {{< include _pandas2.qmd >}}

@@ -1,6 +1,4 @@
-## Statistical Functions from `scypy.stat`
-
-Colin Sullivan
+## Statistical Functions from `scypy.stat` (by Colin Sullivan)
 
 The `scipy.stats` module is a `SciPy` sub-package used for probabilistic distributions and general
 statistical operations. `SciPy`, the parent module, is one of the largest and most well known

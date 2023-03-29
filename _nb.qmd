@@ -1,6 +1,4 @@
-
-## Naive Bayes
-
+## Naive Bayes (by Kian Parchekani)
 
 ### Introduction
 
