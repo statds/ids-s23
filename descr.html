@@ -298,6 +298,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </header>
 
+<p>This chapter was prepared by Courtney Jones.</p>
 <p>In basic terms, descriptive statistics are how we describe the data. Descriptive Statistics is extremely important to exploratory data analysis, as it allows us to <em>describe</em> and <em>summarize</em> the data to put it into <em>context</em> and <em>visualize</em> it. If we just were looking at a bunch of raw data, what use is that to us? We use terms to describe center, spread, correlation, counts, and more to to give us context to the raw data we have.</p>
 <section id="different-python-methods-and-which-to-use" class="level2" data-number="7.1">
 <h2 data-number="7.1" class="anchored" data-anchor-id="different-python-methods-and-which-to-use"><span class="header-section-number">7.1</span> Different Python methods and which to use</h2>
@@ -2330,7 +2331,7 @@ dtype: float64</code></pre>
 <div class="sourceCode cell-code" id="cb49"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="co"># adding sum to the dataframe</span></span>
 <span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>cjan23.describe().append(pd.Series(cjan23.<span class="bu">sum</span>(), name <span class="op">=</span> <span class="st">'sum'</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>/var/folders/cq/5ysgnwfn7c3g0h46xyzvpj800000gn/T/ipykernel_25286/3080308836.py:2: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+<pre><code>/var/folders/cq/5ysgnwfn7c3g0h46xyzvpj800000gn/T/ipykernel_34745/3080308836.py:2: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
   cjan23.describe().append(pd.Series(cjan23.sum(), name = 'sum'))</code></pre>
 </div>
 <div class="cell-output cell-output-display" data-execution_count="32">
@@ -2440,7 +2441,7 @@ dtype: float64</code></pre>
 <div class="sourceCode cell-code" id="cb51"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="co"># adding a row counting nan's</span></span>
 <span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>cjan23.describe().append(pd.Series(cjan23.isna().<span class="bu">sum</span>(), name <span class="op">=</span> <span class="st">'nans'</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>/var/folders/cq/5ysgnwfn7c3g0h46xyzvpj800000gn/T/ipykernel_25286/4231082202.py:2: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+<pre><code>/var/folders/cq/5ysgnwfn7c3g0h46xyzvpj800000gn/T/ipykernel_34745/4231082202.py:2: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
   cjan23.describe().append(pd.Series(cjan23.isna().sum(), name = 'nans'))</code></pre>
 </div>
 <div class="cell-output cell-output-display" data-execution_count="33">
