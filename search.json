@@ -354,7 +354,35 @@
     "href": "unsupervised.html#principal-component-analysis",
     "title": "11  Unsupervised Learning",
     "section": "11.1 Principal Component Analysis",
-    "text": "11.1 Principal Component Analysis\nPrincipal component analysis (PCA) originated as a dimensionality reduction algorithm which transforms a large set of variables into a smaller one that still contains most of the information in the large set. It can also be useful as a tool for visualization, for noise filtering, for feature extraction and engineering, and much more.\n\n11.1.1 Introduction\nPCA can be thought of as fitting an ellipsoid to the data, where each axis of the ellipsoid represents a principal component. If some axis of the ellipsoid is small, then the variance along that axis is also small. More formally, PCA is defined as an orthogonal linear transformation that transforms the data to a new coordinate system such that the greatest variance by some scalar projection of the data comes to lie on the first coordinate, called the first principal component (PC), the second greatest variance on the second coordinate, and so on.\nSee further notes from VanderPlas (2016).\n\n\n\n\nVanderPlas, Jake. 2016. Python Data Science Handbook: Essential Tools for Working with Data. O’Reilly Media, Inc."
+    "text": "11.1 Principal Component Analysis\nPrincipal component analysis (PCA) originated as a dimensionality reduction algorithm which transforms a large set of variables into a smaller one that still contains most of the information in the large set. It can also be useful as a tool for visualization, for noise filtering, for feature extraction and engineering, and much more.\n\n11.1.1 Introduction\nPCA can be thought of as fitting an ellipsoid to the data, where each axis of the ellipsoid represents a principal component. If some axis of the ellipsoid is small, then the variance along that axis is also small. More formally, PCA is defined as an orthogonal linear transformation that transforms the data to a new coordinate system such that the greatest variance by some scalar projection of the data comes to lie on the first coordinate, called the first principal component (PC), the second greatest variance on the second coordinate, and so on.\nSee further notes from VanderPlas (2016)."
+  },
+  {
+    "objectID": "unsupervised.html#manifold-learning",
+    "href": "unsupervised.html#manifold-learning",
+    "title": "11  Unsupervised Learning",
+    "section": "11.2 Manifold Learning",
+    "text": "11.2 Manifold Learning\nManifold learning is a class of unsupervised estimators that seeks to describe datasets as low-dimensional manifolds embedded in high-dimensional spaces. It refers to various related techniques that aim to project high-dimensional data onto lower-dimensional latent manifolds, with the goal of either visualizing the data in the low-dimensional space, or learning the mapping. It can be viewed as a nonlinear generalization of dimension reduction."
+  },
+  {
+    "objectID": "unsupervised.html#multidimensional-scaling",
+    "href": "unsupervised.html#multidimensional-scaling",
+    "title": "11  Unsupervised Learning",
+    "section": "11.3 Multidimensional Scaling",
+    "text": "11.3 Multidimensional Scaling\n\nFails at nonlinear embeddings"
+  },
+  {
+    "objectID": "unsupervised.html#loal-linear-manifold",
+    "href": "unsupervised.html#loal-linear-manifold",
+    "title": "11  Unsupervised Learning",
+    "section": "11.4 Loal linear manifold",
+    "text": "11.4 Loal linear manifold"
+  },
+  {
+    "objectID": "unsupervised.html#isometric-mapping",
+    "href": "unsupervised.html#isometric-mapping",
+    "title": "11  Unsupervised Learning",
+    "section": "11.5 Isometric mapping",
+    "text": "11.5 Isometric mapping\nUse the Labeled Faces in the Wild dataset.\n\n%matplotlib inline\nimport matplotlib.pyplot as plt\nimport seaborn as sns; sns.set()\nimport numpy as np\nimport pandas as pd\n\n\nfrom sklearn.datasets import fetch_openml\nmnist = fetch_openml('mnist_784')\nmnist.data.shape\n\n/usr/local/lib/python3.11/site-packages/sklearn/datasets/_openml.py:932: FutureWarning: The default value of `parser` will change from `'liac-arff'` to `'auto'` in 1.4. You can set `parser='auto'` to silence this warning. Therefore, an `ImportError` will be raised from 1.4 if the dataset is dense and pandas is not installed. Note that the pandas parser may return different data types. See the Notes Section in fetch_openml's API doc for details.\n  warn(\n\n\n(70000, 784)\n\n\nPlot 48 of them.\n\nmnist_data = np.array(mnist.data) # convert from dataframe to array\n\nfig, ax = plt.subplots(6, 8, subplot_kw=dict(xticks=[], yticks=[]))\nfor i, axi in enumerate(ax.flat):\n    axi.imshow(mnist_data[1250 * i].reshape(28, 28), cmap='gray_r')\n\n\n\n\nLet’s take a subset (1/30) of the data, which is about ~2000 points, for a quick exploration.\n\nfrom sklearn.manifold import Isomap\n\n# use only 1/30 of the data: full dataset takes a long time!\ndata = mnist.data[::30]\ntarget = pd.to_numeric(mnist.target[::30])\n\nmodel = Isomap(n_components=2)\nproj = model.fit_transform(data)\nplt.scatter(proj[:, 0], proj[:, 1], c=target, cmap=plt.cm.get_cmap('jet', 10))\nplt.colorbar(ticks=range(10))\nplt.clim(-0.5, 9.5);\n\n\n\n\nDefine the plot_components function.\n\nfrom matplotlib import offsetbox\n\ndef plot_components(data, model, images=None, ax=None,\n                    thumb_frac=0.05, cmap='gray'):\n    ax = ax or plt.gca()\n    \n    proj = model.fit_transform(data)\n    ax.plot(proj[:, 0], proj[:, 1], '.k')\n    \n    if images is not None:\n        min_dist_2 = (thumb_frac * max(proj.max(0) - proj.min(0))) ** 2\n        shown_images = np.array([2 * proj.max(0)])\n        for i in range(data.shape[0]):\n            dist = np.sum((proj[i] - shown_images) ** 2, 1)\n            if np.min(dist) < min_dist_2:\n                # don't show points that are too close\n                continue\n            shown_images = np.vstack([shown_images, proj[i]])\n            imagebox = offsetbox.AnnotationBbox(\n                offsetbox.OffsetImage(images[i], cmap=cmap),\n                                      proj[i])\n            ax.add_artist(imagebox)\n\nJust look at one of the digits:\n\n# Choose 1/4 of the \"1\" digits to project\ndata = np.array(mnist.data[mnist.target == \"1\"][::4])\n\nfig, ax = plt.subplots(figsize=(10, 10))\nmodel = Isomap(n_neighbors=5, n_components=2, eigen_solver='dense')\nplot_components(data, model, images=data.reshape((-1, 28, 28)),\n                ax=ax, thumb_frac=0.05, cmap='gray_r')\n\n\n\n\n\n\n\n\nVanderPlas, Jake. 2016. Python Data Science Handbook: Essential Tools for Working with Data. O’Reilly Media, Inc."
   },
   {
     "objectID": "advanced.html#text-analysis-with-nltk",
