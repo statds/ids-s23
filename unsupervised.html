@@ -142,7 +142,11 @@ div.csl-indent {
     "search-submit-button-title": "Submit"
   }
 }</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 </head>
 
@@ -272,6 +276,15 @@ div.csl-indent {
   <li><a href="#multidimensional-scaling" id="toc-multidimensional-scaling" class="nav-link" data-scroll-target="#multidimensional-scaling"><span class="toc-section-number">11.3</span>  Multidimensional Scaling</a></li>
   <li><a href="#loal-linear-manifold" id="toc-loal-linear-manifold" class="nav-link" data-scroll-target="#loal-linear-manifold"><span class="toc-section-number">11.4</span>  Loal linear manifold</a></li>
   <li><a href="#isometric-mapping" id="toc-isometric-mapping" class="nav-link" data-scroll-target="#isometric-mapping"><span class="toc-section-number">11.5</span>  Isometric mapping</a></li>
+  <li><a href="#gaussian-mixture-models" id="toc-gaussian-mixture-models" class="nav-link" data-scroll-target="#gaussian-mixture-models"><span class="toc-section-number">11.6</span>  Gaussian Mixture Models</a>
+  <ul class="collapse">
+  <li><a href="#mathematics" id="toc-mathematics" class="nav-link" data-scroll-target="#mathematics"><span class="toc-section-number">11.6.1</span>  Mathematics</a></li>
+  <li><a href="#expectation---maximization-algorithm-em" id="toc-expectation---maximization-algorithm-em" class="nav-link" data-scroll-target="#expectation---maximization-algorithm-em"><span class="toc-section-number">11.6.2</span>  Expectation - Maximization Algorithm (EM)</a></li>
+  <li><a href="#implementation" id="toc-implementation" class="nav-link" data-scroll-target="#implementation"><span class="toc-section-number">11.6.3</span>  Implementation</a></li>
+  <li><a href="#iris-data" id="toc-iris-data" class="nav-link" data-scroll-target="#iris-data"><span class="toc-section-number">11.6.4</span>  Iris data</a></li>
+  <li><a href="#prediction" id="toc-prediction" class="nav-link" data-scroll-target="#prediction"><span class="toc-section-number">11.6.5</span>  Prediction</a></li>
+  </ul></li>
+  <li><a href="#comparison-to-k-means" id="toc-comparison-to-k-means" class="nav-link" data-scroll-target="#comparison-to-k-means"><span class="toc-section-number">11.7</span>  Comparison to K-means</a></li>
   </ul>
 </nav>
     </div>
@@ -406,6 +419,190 @@ div.csl-indent {
 <p><img src="unsupervised_files/figure-html/cell-7-output-1.png" width="820" height="785"></p>
 </div>
 </div>
+</section>
+<section id="gaussian-mixture-models" class="level2" data-number="11.6">
+<h2 data-number="11.6" class="anchored" data-anchor-id="gaussian-mixture-models"><span class="header-section-number">11.6</span> Gaussian Mixture Models</h2>
+<p>The Gaussian Mixture Models (GMM) can be viewed as an extension of K-means. Instead of using a hard clustering method to assign each data point to one and only one cluster, the Gaussian Mixture Models estimates the probability of a data point coming from each cluster.</p>
+<section id="mathematics" class="level3" data-number="11.6.1">
+<h3 data-number="11.6.1" class="anchored" data-anchor-id="mathematics"><span class="header-section-number">11.6.1</span> Mathematics</h3>
+<p>Suppose that we have <span class="math inline">\(N\)</span> observations with <span class="math inline">\(D\)</span> dimensions. The model is a mixture of <span class="math inline">\(K\)</span> different Gaussian distributions, each with its own mean <span class="math inline">\(\boldsymbol{\mu}_k\)</span> and variance <span class="math inline">\(\boldsymbol{\Sigma}_k\)</span> such that within each cluster, the probability of observing <span class="math inline">\(\boldsymbol{x}_i\)</span> is</p>
+<p><span class="math display">\[\begin{equation*}
+N( \boldsymbol{x}_i|\boldsymbol{\mu}_k, \boldsymbol{\Sigma}_k)=
+\frac{1}{(2\pi)^{D/2}|\boldsymbol{\Sigma}_k|^{1/2}}
+\left(
+-\frac{1}{2}(\boldsymbol{x}_i-\boldsymbol{\mu}_k)^T(\boldsymbol{\Sigma}_k)^{-1}
+(\boldsymbol{x}_i-\boldsymbol{\mu}_k)
+\right).
+\end{equation*}\]</span></p>
+<p>We define a latent variable <span class="math inline">\(\boldsymbol{z}=(z_{1},z_{2},\dots z_{K})\)</span>, where <span class="math inline">\(z_{k}\)</span> is 1 if a data point of interest comes from Gaussian <span class="math inline">\(k\)</span>, and 0 otherwise. Now the overall probability of observing a point that comes from Gaussian <span class="math inline">\(k\)</span> is</p>
+<p><span class="math display">\[\begin{equation*}
+P(z_{k}=1) = \pi_k.
+\end{equation*}\]</span></p>
+<p>Thus, each Gaussian in the model will have the following parameters: <span class="math inline">\(\pi_k\)</span>, <span class="math inline">\(\boldsymbol{\mu}_k\)</span>, <span class="math inline">\(\boldsymbol{\Sigma}_k\)</span>.</p>
+</section>
+<section id="expectation---maximization-algorithm-em" class="level3" data-number="11.6.2">
+<h3 data-number="11.6.2" class="anchored" data-anchor-id="expectation---maximization-algorithm-em"><span class="header-section-number">11.6.2</span> Expectation - Maximization Algorithm (EM)</h3>
+<ol type="1">
+<li>Initialize <span class="math inline">\(\theta=(\pi_k, \boldsymbol{\mu}_k, \boldsymbol{\Sigma}_k)\)</span> randomly</li>
+<li>Alternate:
+<ul>
+<li>E-step: based on <span class="math inline">\(\theta\)</span>, calculate the expectation of log-likelihood and estimate <span class="math inline">\(\gamma(z_{ik})\)</span>, the poterior probability that observation <span class="math inline">\(\boldsymbol{x}_i\)</span> comes from Gaussian <span class="math inline">\(k\)</span></li>
+<li>M-step: update <span class="math inline">\(\theta\)</span> by maximizing the expectation of log-likelihood based on <span class="math inline">\(\gamma(z_{ik})\)</span></li>
+</ul></li>
+<li>When the algorithm converges or when <code>iter = max_iter</code>, terminate.</li>
+</ol>
+<p>For more details about mathematics and the EM algorithm: <a href="https://towardsdatascience.com/gaussian-mixture-models-explained-6986aaf5a95" class="uri">https://towardsdatascience.com/gaussian-mixture-models-explained-6986aaf5a95</a>, <a href="https://towardsdatascience.com/gaussian-mixture-models-vs-k-means-which-one-to-choose-62f2736025f0" class="uri">https://towardsdatascience.com/gaussian-mixture-models-vs-k-means-which-one-to-choose-62f2736025f0</a>.</p>
+</section>
+<section id="implementation" class="level3" data-number="11.6.3">
+<h3 data-number="11.6.3" class="anchored" data-anchor-id="implementation"><span class="header-section-number">11.6.3</span> Implementation</h3>
+<p>GMM can also be implemented by importing the <code>scikit-learn</code> package.</p>
+</section>
+<section id="iris-data" class="level3" data-number="11.6.4">
+<h3 data-number="11.6.4" class="anchored" data-anchor-id="iris-data"><span class="header-section-number">11.6.4</span> Iris data</h3>
+<div class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn <span class="im">import</span> datasets</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>iris_data <span class="op">=</span> datasets.load_iris()</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>iris <span class="op">=</span> pd.DataFrame(iris_data.data,columns<span class="op">=</span>[<span class="st">"sepal_length"</span>,<span class="st">"sepal_width"</span>,<span class="st">"petal_length"</span>,<span class="st">"petal_width"</span>])</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>iris[<span class="st">'species'</span>] <span class="op">=</span> pd.Series(iris_data.target)</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>iris.info()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&lt;class 'pandas.core.frame.DataFrame'&gt;
+RangeIndex: 150 entries, 0 to 149
+Data columns (total 5 columns):
+ #   Column        Non-Null Count  Dtype  
+---  ------        --------------  -----  
+ 0   sepal_length  150 non-null    float64
+ 1   sepal_width   150 non-null    float64
+ 2   petal_length  150 non-null    float64
+ 3   petal_width   150 non-null    float64
+ 4   species       150 non-null    int64  
+dtypes: float64(4), int64(1)
+memory usage: 6.0 KB</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>sns.FacetGrid(iris,hue<span class="op">=</span><span class="st">"species"</span>, height<span class="op">=</span><span class="dv">3</span>).<span class="bu">map</span>(sns.histplot,<span class="st">"petal_length"</span>).add_legend()</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>sns.FacetGrid(iris,hue<span class="op">=</span><span class="st">"species"</span>, height<span class="op">=</span><span class="dv">3</span>).<span class="bu">map</span>(sns.histplot,<span class="st">"petal_width"</span>).add_legend()</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>sns.FacetGrid(iris,hue<span class="op">=</span><span class="st">"species"</span>, height<span class="op">=</span><span class="dv">3</span>).<span class="bu">map</span>(sns.histplot,<span class="st">"sepal_length"</span>).add_legend()</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="unsupervised_files/figure-html/cell-10-output-1.png" width="330" height="272"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="unsupervised_files/figure-html/cell-10-output-2.png" width="333" height="272"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="unsupervised_files/figure-html/cell-10-output-3.png" width="330" height="272"></p>
+</div>
+</div>
+<p>For a more concise visualization later, we just select <code>sepal_length</code> and <code>sepal_width</code> as the input variables.</p>
+<div class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> iris.iloc[:, [<span class="dv">0</span>, <span class="dv">1</span>]].values</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> iris.iloc[:, <span class="dv">4</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Train the GMM:</p>
+<div class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.mixture <span class="im">import</span> GaussianMixture</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>GMM <span class="op">=</span> GaussianMixture(n_components <span class="op">=</span> <span class="dv">3</span>)</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>GMM.fit(X)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="11">
+<style>#sk-container-id-1 {color: black;background-color: white;}#sk-container-id-1 pre{padding: 0;}#sk-container-id-1 div.sk-toggleable {background-color: white;}#sk-container-id-1 label.sk-toggleable__label {cursor: pointer;display: block;width: 100%;margin-bottom: 0;padding: 0.3em;box-sizing: border-box;text-align: center;}#sk-container-id-1 label.sk-toggleable__label-arrow:before {content: "▸";float: left;margin-right: 0.25em;color: #696969;}#sk-container-id-1 label.sk-toggleable__label-arrow:hover:before {color: black;}#sk-container-id-1 div.sk-estimator:hover label.sk-toggleable__label-arrow:before {color: black;}#sk-container-id-1 div.sk-toggleable__content {max-height: 0;max-width: 0;overflow: hidden;text-align: left;background-color: #f0f8ff;}#sk-container-id-1 div.sk-toggleable__content pre {margin: 0.2em;color: black;border-radius: 0.25em;background-color: #f0f8ff;}#sk-container-id-1 input.sk-toggleable__control:checked~div.sk-toggleable__content {max-height: 200px;max-width: 100%;overflow: auto;}#sk-container-id-1 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {content: "▾";}#sk-container-id-1 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-1 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-1 input.sk-hidden--visually {border: 0;clip: rect(1px 1px 1px 1px);clip: rect(1px, 1px, 1px, 1px);height: 1px;margin: -1px;overflow: hidden;padding: 0;position: absolute;width: 1px;}#sk-container-id-1 div.sk-estimator {font-family: monospace;background-color: #f0f8ff;border: 1px dotted black;border-radius: 0.25em;box-sizing: border-box;margin-bottom: 0.5em;}#sk-container-id-1 div.sk-estimator:hover {background-color: #d4ebff;}#sk-container-id-1 div.sk-parallel-item::after {content: "";width: 100%;border-bottom: 1px solid gray;flex-grow: 1;}#sk-container-id-1 div.sk-label:hover label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-1 div.sk-serial::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: 0;}#sk-container-id-1 div.sk-serial {display: flex;flex-direction: column;align-items: center;background-color: white;padding-right: 0.2em;padding-left: 0.2em;position: relative;}#sk-container-id-1 div.sk-item {position: relative;z-index: 1;}#sk-container-id-1 div.sk-parallel {display: flex;align-items: stretch;justify-content: center;background-color: white;position: relative;}#sk-container-id-1 div.sk-item::before, #sk-container-id-1 div.sk-parallel-item::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: -1;}#sk-container-id-1 div.sk-parallel-item {display: flex;flex-direction: column;z-index: 1;position: relative;background-color: white;}#sk-container-id-1 div.sk-parallel-item:first-child::after {align-self: flex-end;width: 50%;}#sk-container-id-1 div.sk-parallel-item:last-child::after {align-self: flex-start;width: 50%;}#sk-container-id-1 div.sk-parallel-item:only-child::after {width: 0;}#sk-container-id-1 div.sk-dashed-wrapped {border: 1px dashed gray;margin: 0 0.4em 0.5em 0.4em;box-sizing: border-box;padding-bottom: 0.4em;background-color: white;}#sk-container-id-1 div.sk-label label {font-family: monospace;font-weight: bold;display: inline-block;line-height: 1.2em;}#sk-container-id-1 div.sk-label-container {text-align: center;}#sk-container-id-1 div.sk-container {/* jupyter's `normalize.less` sets `[hidden] { display: none; }` but bootstrap.min.css set `[hidden] { display: none !important; }` so we also need the `!important` here to be able to override the default hidden behavior on the sphinx rendered scikit-learn.org. See: https://github.com/scikit-learn/scikit-learn/issues/21755 */display: inline-block !important;position: relative;}#sk-container-id-1 div.sk-text-repr-fallback {display: none;}</style><div id="sk-container-id-1" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>GaussianMixture(n_components=3)</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br>On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden=""><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-1" type="checkbox" checked=""><label for="sk-estimator-id-1" class="sk-toggleable__label sk-toggleable__label-arrow">GaussianMixture</label><div class="sk-toggleable__content"><pre>GaussianMixture(n_components=3)</pre></div></div></div></div></div>
+</div>
+</div>
+<p>We can plot the Gaussians by using a <code>plot_gmm</code> function defined on <a href="https://jakevdp.github.io/PythonDataScienceHandbook/05.12-gaussian-mixtures.html" class="uri">https://jakevdp.github.io/PythonDataScienceHandbook/05.12-gaussian-mixtures.html</a>.</p>
+<div class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib.patches <span class="im">import</span> Ellipse</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> draw_ellipse(position, covariance, ax<span class="op">=</span><span class="va">None</span>, <span class="op">**</span>kwargs):</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Draw an ellipse with a given position and covariance"""</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>    ax <span class="op">=</span> ax <span class="kw">or</span> plt.gca()</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Convert covariance to principal axes</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> covariance.shape <span class="op">==</span> (<span class="dv">2</span>, <span class="dv">2</span>):</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>        U, s, Vt <span class="op">=</span> np.linalg.svd(covariance)</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>        angle <span class="op">=</span> np.degrees(np.arctan2(U[<span class="dv">1</span>, <span class="dv">0</span>], U[<span class="dv">0</span>, <span class="dv">0</span>]))</span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>        width, height <span class="op">=</span> <span class="dv">2</span> <span class="op">*</span> np.sqrt(s)</span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>        angle <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>        width, height <span class="op">=</span> <span class="dv">2</span> <span class="op">*</span> np.sqrt(covariance)</span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Draw the Ellipse</span></span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> nsig <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">4</span>):</span>
+<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a>        ax.add_patch(Ellipse(position, nsig <span class="op">*</span> width, nsig <span class="op">*</span> height,</span>
+<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a>                             angle, <span class="op">**</span>kwargs))</span>
+<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb15-21"><a href="#cb15-21" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> plot_gmm(gmm, X, label<span class="op">=</span><span class="va">True</span>, ax<span class="op">=</span><span class="va">None</span>):</span>
+<span id="cb15-22"><a href="#cb15-22" aria-hidden="true" tabindex="-1"></a>    ax <span class="op">=</span> ax <span class="kw">or</span> plt.gca()</span>
+<span id="cb15-23"><a href="#cb15-23" aria-hidden="true" tabindex="-1"></a>    labels <span class="op">=</span> gmm.predict(X)</span>
+<span id="cb15-24"><a href="#cb15-24" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> label:</span>
+<span id="cb15-25"><a href="#cb15-25" aria-hidden="true" tabindex="-1"></a>        ax.scatter(X[:, <span class="dv">0</span>], X[:, <span class="dv">1</span>], c<span class="op">=</span>labels, s<span class="op">=</span><span class="dv">40</span>, cmap<span class="op">=</span><span class="st">'viridis'</span>, zorder<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb15-26"><a href="#cb15-26" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb15-27"><a href="#cb15-27" aria-hidden="true" tabindex="-1"></a>        ax.scatter(X[:, <span class="dv">0</span>], X[:, <span class="dv">1</span>], s<span class="op">=</span><span class="dv">40</span>, zorder<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb15-28"><a href="#cb15-28" aria-hidden="true" tabindex="-1"></a>    ax.axis(<span class="st">'equal'</span>)</span>
+<span id="cb15-29"><a href="#cb15-29" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb15-30"><a href="#cb15-30" aria-hidden="true" tabindex="-1"></a>    w_factor <span class="op">=</span> <span class="fl">0.2</span> <span class="op">/</span> gmm.weights_.<span class="bu">max</span>()</span>
+<span id="cb15-31"><a href="#cb15-31" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> pos, covar, w <span class="kw">in</span> <span class="bu">zip</span>(gmm.means_, gmm.covariances_, gmm.weights_):</span>
+<span id="cb15-32"><a href="#cb15-32" aria-hidden="true" tabindex="-1"></a>        draw_ellipse(pos, covar, alpha<span class="op">=</span>w <span class="op">*</span> w_factor)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>plot_gmm(GMM, X)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>/var/folders/cq/5ysgnwfn7c3g0h46xyzvpj800000gn/T/ipykernel_85866/4103141564.py:18: MatplotlibDeprecationWarning: Passing the angle parameter of __init__() positionally is deprecated since Matplotlib 3.6; the parameter will become keyword-only two minor releases later.
+  ax.add_patch(Ellipse(position, nsig * width, nsig * height,</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="unsupervised_files/figure-html/cell-14-output-2.png" width="573" height="415"></p>
+</div>
+</div>
+<div class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># print the converged log-likelihood value</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(GMM.lower_bound_)</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="co"># print the number of iterations needed</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="co"># for the log-likelihood value to converge</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(GMM.n_iter_)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>-1.4985672470486968
+8</code></pre>
+</div>
+</div>
+</section>
+<section id="prediction" class="level3" data-number="11.6.5">
+<h3 data-number="11.6.5" class="anchored" data-anchor-id="prediction"><span class="header-section-number">11.6.5</span> Prediction</h3>
+<p>If we have some new data, we can use <code>GMM.predict</code> to predict which Gaussian they belong to.</p>
+<div class="cell" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> numpy.random <span class="im">import</span> choice</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> numpy.random <span class="im">import</span> multivariate_normal</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="co"># first choose the clusters for 4 new data points</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>draw <span class="op">=</span> choice(<span class="bu">range</span>(<span class="dv">3</span>), <span class="dv">4</span>, p<span class="op">=</span>GMM.weights_)</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a><span class="co"># sample the new data points within their chosen cluster</span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>sample_test<span class="op">=</span>[]</span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(draw)): </span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>    n <span class="op">=</span> draw[i]</span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>    sample_test.append(</span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>        multivariate_normal(GMM.means_[n],GMM.covariances_[n]))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="16">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>GMM.predict(sample_test)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="16">
+<pre><code>array([0, 2, 0, 2])</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="comparison-to-k-means" class="level2" data-number="11.7">
+<h2 data-number="11.7" class="anchored" data-anchor-id="comparison-to-k-means"><span class="header-section-number">11.7</span> Comparison to K-means</h2>
+<p>Both GMM and K-means are unsupervised clustering models, but GMM seems to be more robust as it introduces probabilities. However, GMM is generally slower than K-Means because it takes more iterations to converge. GMM can also quickly converge to a local minimum, not the optimal solution.</p>
+<p>In practice, GMM can be initialized by K-Means centroids to speed up the convergence.</p>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography" style="display: none">
