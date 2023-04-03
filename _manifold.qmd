@@ -1,0 +1,97 @@
+## Manifold Learning
+
+Manifold learning is a class of unsupervised estimators that seeks to describe
+datasets as low-dimensional manifolds embedded in high-dimensional spaces. It
+refers to various related techniques that aim to project high-dimensional data
+onto lower-dimensional latent manifolds, with the goal of either visualizing the
+data in the low-dimensional space, or learning the mapping. It can be viewed as
+a nonlinear generalization of dimension reduction.
+
+
+## Multidimensional Scaling
+
++ Fails at nonlinear embeddings
+
+## Loal linear manifold
+
+## Isometric mapping
+
+Use the Labeled Faces in the Wild dataset.
+
+```{python}
+%matplotlib inline
+import matplotlib.pyplot as plt
+import seaborn as sns; sns.set()
+import numpy as np
+import pandas as pd
+```
+
+
+```{python}
+from sklearn.datasets import fetch_openml
+mnist = fetch_openml('mnist_784')
+mnist.data.shape
+```
+
+
+Plot 48 of them.
+```{python}
+mnist_data = np.array(mnist.data) # convert from dataframe to array
+
+fig, ax = plt.subplots(6, 8, subplot_kw=dict(xticks=[], yticks=[]))
+for i, axi in enumerate(ax.flat):
+    axi.imshow(mnist_data[1250 * i].reshape(28, 28), cmap='gray_r')
+```
+
+Let's take a subset (1/30) of the data, which is about ~2000 points, for a quick
+exploration. 
+```{python}
+from sklearn.manifold import Isomap
+
+# use only 1/30 of the data: full dataset takes a long time!
+data = mnist.data[::30]
+target = pd.to_numeric(mnist.target[::30])
+
+model = Isomap(n_components=2)
+proj = model.fit_transform(data)
+plt.scatter(proj[:, 0], proj[:, 1], c=target, cmap=plt.cm.get_cmap('jet', 10))
+plt.colorbar(ticks=range(10))
+plt.clim(-0.5, 9.5);
+```
+
+Define the `plot_components` function.
+```{python}
+from matplotlib import offsetbox
+
+def plot_components(data, model, images=None, ax=None,
+                    thumb_frac=0.05, cmap='gray'):
+    ax = ax or plt.gca()
+    
+    proj = model.fit_transform(data)
+    ax.plot(proj[:, 0], proj[:, 1], '.k')
+    
+    if images is not None:
+        min_dist_2 = (thumb_frac * max(proj.max(0) - proj.min(0))) ** 2
+        shown_images = np.array([2 * proj.max(0)])
+        for i in range(data.shape[0]):
+            dist = np.sum((proj[i] - shown_images) ** 2, 1)
+            if np.min(dist) < min_dist_2:
+                # don't show points that are too close
+                continue
+            shown_images = np.vstack([shown_images, proj[i]])
+            imagebox = offsetbox.AnnotationBbox(
+                offsetbox.OffsetImage(images[i], cmap=cmap),
+                                      proj[i])
+            ax.add_artist(imagebox)
+```
+
+Just look at one of the digits:
+```{python}
+# Choose 1/4 of the "1" digits to project
+data = np.array(mnist.data[mnist.target == "1"][::4])
+
+fig, ax = plt.subplots(figsize=(10, 10))
+model = Isomap(n_neighbors=5, n_components=2, eigen_solver='dense')
+plot_components(data, model, images=data.reshape((-1, 28, 28)),
+                ax=ax, thumb_frac=0.05, cmap='gray_r')
+```

@@ -5,6 +5,7 @@ Unsupervised learning methods are for problems where there is no known labels
 (outcome variable). 
 
 
-
 {{< include _pca.qmd >}}
+
+{{< include _manifold.qmd >}}
 
