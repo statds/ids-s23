@@ -1,0 +1,457 @@
+## Autoencoder Examples (by William Whitney)
+
+### Introduction
+
+An autoencoder is actually an Artificial Neural Network that is used to decompress and compress the input data provided in an unsupervised manner. However, decompression and compression operations are generally too data-specific and lossy.
+
+Data specific operations mean that the autoencoder will only be able to actually compress the data on which it has been trained. For example, if you train an autoencoder with images of apples, then it will give a bad performance for images of oranges. The autoencoder plans to learn the representation data, which is known as encoding for a whole set of data. This can result in the reduction of the dimensionality by the training network. The reconstruction part is also learned with this.
+
+Lossy operations mean that the reconstructed image is often not an as sharp or high resolution in quality as the original one and the difference is greater for reconstructions with a greater loss.
+
+The idea of auto encoders is to allow a neural network to figure out how to best encode and decode certain data. The uses for autoencoders are really anything that you can think of where encoding could be useful. Some examples are in the form of compressing the number of input features and noise reduction. An autoenncoder requires an encoding method, loss function, and a decoding method. An encoder compresses the images into a 64 dimensional latent vector, and a decoder reconstructs the original image from the latent space. The end goal is to perfectly replicate the input with minimum loss.
+
+The Input will be passed through a layer of encoders which are actually a fully connected neural network that also makes the code decoder and hence use the same code for encoding and decoding like an ANN.
+
+Encoder network: Accepts high-dimensional input data and translates it to latent low-dimensional data. The input size to an Encoder network is larger than its output size.
+
+Decoder network: The Decoder network receives the input from the Encoder coder’s output. Decoder’s objective is to reconstruct the input data. The output size of a Decoder network is larger than its input size.
+
+### Uses of Autoencoders
+
+Dimensionality Reduction: The Encoder encodes the input into the hidden layer to reduce the dimensionality of linear and nonlinear data; hence it is more powerful than PCA.
+
+Anomaly Detection: Autoencoders tries to minimize the reconstruction error as part of its training. Anomalies are detected by checking the magnitude of the reconstruction loss.
+
+Denoising Images: An image that is corrupted can be restored to its original version.
+
+Image recognition: Stacked autoencoder are used for image recognition by learning the different features of an image.
+
+Image generation: Variational Autoencoder(VAE), a type of autoencoders, is used to generate images.
+
+### Outline
+
+I am going to discuss 4 examples of autoencoders:
+
+1) Simple autoencoder
+
+2) Denoising autoencoder
+
+3) Picture autoencoder
+
+4) Anomaly Detection
+
+For the implementation part of the autoencoder, I will use the popular MNIST dataset of digits.
+
+### Example 1) Simple Autoencoder
+
+Importing our necessary libraries and the Keras API
+```{python}
+from keras.layers import Dense,Conv2D,MaxPooling2D,UpSampling2D
+from keras import Input, Model
+from keras.datasets import mnist
+import numpy as np
+import matplotlib.pyplot as plt
+```
+
+
+Building our model and providing the number of dimensions. More dimensions mean less compression, less dimensions cause more compression of the data
+```{python}
+encoding_dim = 15 
+input_img = Input(shape=(784,))
+# encoded representation of input
+encoded = Dense(encoding_dim, activation='relu')(input_img)
+# decoded representation of code 
+decoded = Dense(784, activation='sigmoid')(encoded)
+# Model which take input image and shows decoded images
+autoencoder = Model(input_img, decoded)
+```
+
+Next, we build the encoder and decoder model separetely. This is so the output and input are easy to tell apart
+
+```{python}
+# This model shows encoded images
+encoder = Model(input_img, encoded)
+# Creating a decoder model
+encoded_input = Input(shape=(encoding_dim,))
+# last layer of the autoencoder model
+decoder_layer = autoencoder.layers[-1]
+# decoder model
+decoder = Model(encoded_input, decoder_layer(encoded_input))
+```
+
+This next line of code compiles the model with our optimizer and loss function. The ADAM optimzer is an extended version of stochastic gradient descent and the binary cross entropy compares the predicted probabilities to actual output that can be 0 or 1.
+```{python}
+autoencoder.compile(optimizer='adam', loss='binary_crossentropy')
+```
+
+Loading the data into training and test and printing the shape of each.
+
+```{python}
+(x_train, y_train), (x_test, y_test) = mnist.load_data()
+x_train = x_train.astype('float32') / 255.
+x_test = x_test.astype('float32') / 255.
+x_train = x_train.reshape((len(x_train), np.prod(x_train.shape[1:])))
+x_test = x_test.reshape((len(x_test), np.prod(x_test.shape[1:])))
+print(x_train.shape)
+print(x_test.shape)
+(60000, 784)
+(10000, 784)
+```
+This code shows the image of whatever data point you would like from the train set and shapes it.
+
+```{python}
+plt.imshow(x_train[2].reshape(28,28))
+```
+
+Training our model, the number of epochs typically depends on the size of the dataset.
+
+```{python}
+autoencoder.fit(x_train, x_train,
+                epochs=15,
+                batch_size=256,
+                validation_data=(x_test, x_test))
+```
+Finally, we can plot the original and reconstructed images after training and providing the input.
+
+```{python}
+encoded_img = encoder.predict(x_test)
+decoded_img = decoder.predict(encoded_img)
+plt.figure(figsize=(20, 4))
+for i in range(5):
+    # Display original
+    ax = plt.subplot(2, 5, i + 1)
+    plt.imshow(x_test[i].reshape(28, 28))
+    plt.gray()
+    ax.get_xaxis().set_visible(False)
+    ax.get_yaxis().set_visible(False)
+plt.show()
+```
+
+Reconstructed Image
+
+```{python}
+encoded_img = encoder.predict(x_test)
+decoded_img = decoder.predict(encoded_img)
+plt.figure(figsize=(20, 4))
+for i in range(5):   
+    # Display reconstruction
+    ax = plt.subplot(2, 5, i + 1 + 5)
+    plt.imshow(decoded_img[i].reshape(28, 28))
+    plt.gray()
+    ax.get_xaxis().set_visible(False)
+    ax.get_yaxis().set_visible(False)
+plt.show()  
+```
+
+### Example 2) Denoising Autoencoder
+
+Creating the noise factor and the training and test set to use
+
+```{python}
+noise_factor = .7
+x_train_noisy = x_train + noise_factor * np.random.normal(loc=0.0, scale=1.0, size=x_train.shape) 
+x_test_noisy = x_test + noise_factor * np.random.normal(loc=0.0, scale=1.0, size=x_test.shape) 
+x_train_noisy = np.clip(x_train_noisy, 0., 1.)
+x_test_noisy = np.clip(x_test_noisy, 0., 1.)
+```
+
+What the images look like currently
+```{python}
+plt.figure(figsize=(20, 2))
+for i in range(1, 5 + 1):
+    ax = plt.subplot(1, 5, i)
+    plt.imshow(x_test_noisy[i].reshape(28, 28))
+    plt.gray()
+    ax.get_xaxis().set_visible(False)
+    ax.get_yaxis().set_visible(False)
+plt.show()
+```
+
+As you can see, the images are barely identifiable so we must modify the model so that it performs better, and then fit it so we can better see the images.
+
+The encoder will be made up of a stack of Conv2D and max-pooling layer and the decoder will have a stack of Conv2D and Upsampling Layer.
+
+Since the input here is images, it does make more sense to use a Convolutional Neural network or CNN.
+
+```{python}
+pip install Sequential
+from keras.models import Sequential
+Looking in indexes: https://pypi.org/simple, https://us-python.pkg.dev/colab-wheels/public/simple/
+Requirement already satisfied: Sequential in /usr/local/lib/python3.9/dist-packages (1.0.0)
+```
+
+Now the images are barely identifiable and to increase the extent of the autoencoder, we will modify the layers of the defined model which increases the filter so that the model performs better
+
+```{python}
+model = Sequential()
+# encoder network
+model.add(Conv2D(35, 3, activation= 'relu', padding='same', input_shape = (28,28,1)))
+model.add(MaxPooling2D(2, padding= 'same'))
+model.add(Conv2D(25, 3, activation= 'relu', padding='same'))
+model.add(MaxPooling2D(2, padding= 'same'))
+#decoder network
+model.add(Conv2D(25, 3, activation= 'relu', padding='same'))
+model.add(UpSampling2D(2))
+model.add(Conv2D(35, 3, activation= 'relu', padding='same'))
+model.add(UpSampling2D(2))
+model.add(Conv2D(1,3,activation='sigmoid', padding= 'same')) # output layer
+model.compile(optimizer= 'adam', loss = 'binary_crossentropy')
+model.summary()
+model.fit(x_train_noisy, x_train,
+                epochs=15,
+                batch_size=128,
+                validation_data=(x_test_noisy, x_test))
+```
+
+```{python}
+pred = model.predict(x_test_noisy)
+plt.figure(figsize=(20, 4))
+for i in range(5):
+    # Display original
+    ax = plt.subplot(2, 5, i + 1)
+    plt.imshow(x_test_noisy[i].reshape(28, 28))
+    plt.gray()
+    ax.get_xaxis().set_visible(False)
+    ax.get_yaxis().set_visible(False)
+    # Display reconstruction
+    ax = plt.subplot(2, 5, i + 1 + 5)
+    plt.imshow(pred[i].reshape(28, 28))
+    plt.gray()
+    ax.get_xaxis().set_visible(False)
+    ax.get_yaxis().set_visible(False)
+plt.show()
+```
+
+
+### Example 3: Autoencoder with pictures
+
+In this example we will be autoencoding using pictures instead of a dataset of numbers
+
+```{python}
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+import tensorflow as tf
+
+from sklearn.metrics import accuracy_score, precision_score, recall_score
+from sklearn.model_selection import train_test_split
+from tensorflow.keras import layers, losses
+from tensorflow.keras.datasets import fashion_mnist
+from tensorflow.keras.models import Model
+```
+
+Training the dataset using the fashion MNIST dataset and creating each image in a 28x28 pixel
+
+```{python}
+(x_train, _), (x_test, _) = fashion_mnist.load_data()
+
+x_train = x_train.astype('float32') / 255.
+x_test = x_test.astype('float32') / 255.
+
+print (x_train.shape)
+print (x_test.shape)
+```
+
+A different technique from above, but this is defining our model with an encoder and a decoder usng Keras Subclassing API
+
+```{python}
+latent_dim = 64 
+
+class Autoencoder(Model):
+  def __init__(self, latent_dim):
+    super(Autoencoder, self).__init__()
+    self.latent_dim = latent_dim   
+    self.encoder = tf.keras.Sequential([
+      layers.Flatten(),
+      layers.Dense(latent_dim, activation='relu'),
+    ])
+    self.decoder = tf.keras.Sequential([
+      layers.Dense(784, activation='sigmoid'),
+      layers.Reshape((28, 28))
+    ])
+
+  def call(self, x):
+    encoded = self.encoder(x)
+    decoded = self.decoder(encoded)
+    return decoded
+
+autoencoder = Autoencoder(latent_dim)
+```
+
+```{python}
+autoencoder.compile(optimizer='adam', loss=losses.MeanSquaredError())
+```
+Train the model using x_train as both the input and the target. The encoder will learn to compress the dataset from 784 dimensions to the latent space, and the decoder will learn to reconstruct the original images. .
+
+```{python}
+autoencoder.fit(x_train, x_train,
+                epochs=10,
+                shuffle=True,
+                validation_data=(x_test, x_test))
+```
+
+```{python}
+encoded_imgs = autoencoder.encoder(x_test).numpy()
+decoded_imgs = autoencoder.decoder(encoded_imgs).numpy()
+```
+
+Printing our Original and our reconstructed fashion images
+
+```{python}
+n = 10
+plt.figure(figsize=(20, 4))
+for i in range(n):
+  # display original
+  ax = plt.subplot(2, n, i + 1)
+  plt.imshow(x_test[i])
+  plt.title("original")
+  plt.gray()
+  ax.get_xaxis().set_visible(False)
+  ax.get_yaxis().set_visible(False)
+```
+
+### Example 4: Anomaly Detection
+
+```{python}
+dataframe = pd.read_csv('/content/ecg.csv', header=None)
+raw_data = dataframe.values
+dataframe.head()
+```
+
+Defining our data
+
+```{python}
+# The last element contains the labels
+labels = raw_data[:, -1]
+
+# The other data points are the electrocadriogram data
+data = raw_data[:, 0:-1]
+
+train_data, test_data, train_labels, test_labels = train_test_split(
+    data, labels, test_size=0.2, random_state=21
+)
+```
+
+Normalizing data
+
+```{python}
+min_val = tf.reduce_min(train_data)
+max_val = tf.reduce_max(train_data)
+
+train_data = (train_data - min_val) / (max_val - min_val)
+test_data = (test_data - min_val) / (max_val - min_val)
+
+train_data = tf.cast(train_data, tf.float32)
+test_data = tf.cast(test_data, tf.float32)
+```
+
+Separating abnormal from normal rhythms
+
+```{python}
+train_labels = train_labels.astype(bool)
+test_labels = test_labels.astype(bool)
+
+normal_train_data = train_data[train_labels]
+normal_test_data = test_data[test_labels]
+
+anomalous_train_data = train_data[~train_labels]
+anomalous_test_data = test_data[~test_labels]
+```
+
+Plotting the original
+
+```{python}
+plt.grid()
+plt.plot(np.arange(140), normal_train_data[0])
+plt.title("A Normal ECG")
+plt.show()
+```
+
+Plotting Anomalous ECG
+
+```{python}
+plt.grid()
+plt.plot(np.arange(140), anomalous_train_data[0])
+plt.title("An Anomalous ECG")
+plt.show()
+```
+
+Building the model for encoding
+
+```{python}
+class AnomalyDetector(Model):
+  def __init__(self):
+    super(AnomalyDetector, self).__init__()
+    self.encoder = tf.keras.Sequential([
+      layers.Dense(32, activation="relu"),
+      layers.Dense(16, activation="relu"),
+      layers.Dense(8, activation="relu")])
+
+    self.decoder = tf.keras.Sequential([
+      layers.Dense(16, activation="relu"),
+      layers.Dense(32, activation="relu"),
+      layers.Dense(140, activation="sigmoid")])
+
+  def call(self, x):
+    encoded = self.encoder(x)
+    decoded = self.decoder(encoded)
+    return decoded
+
+autoencoder = AnomalyDetector()
+autoencoder.compile(optimizer='adam', loss='mae')
+```
+
+Evaluating with test data
+
+```{python}
+history = autoencoder.fit(normal_train_data, normal_train_data, 
+          epochs=10, 
+          batch_size=512,
+          validation_data=(test_data, test_data),
+          shuffle=True)
+```
+
+Plot of a normal ECG from the training set, the reconstruction after it's encoded and decoded by the autoencoder, and the reconstruction error.
+```{python}
+encoded_data = autoencoder.encoder(normal_test_data).numpy()
+decoded_data = autoencoder.decoder(encoded_data).numpy()
+
+plt.plot(normal_test_data[0], 'b')
+plt.plot(decoded_data[0], 'r')
+plt.fill_between(np.arange(140), decoded_data[0], normal_test_data[0], color='lightcoral')
+plt.legend(labels=["Input", "Reconstruction", "Error"])
+plt.show()
+```
+
+Detect anomalies by calculating whether the reconstruction loss is greater than a fixed threshold
+
+```{python}
+reconstructions = autoencoder.predict(normal_train_data)
+train_loss = tf.keras.losses.mae(reconstructions, normal_train_data)
+
+threshold = np.mean(train_loss) + np.std(train_loss)
+print("Threshold: ", threshold)
+
+def predict(model, data, threshold):
+  reconstructions = model(data)
+  loss = tf.keras.losses.mae(reconstructions, data)
+  return tf.math.less(loss, threshold)
+
+def print_stats(predictions, labels):
+  print("Accuracy = {}".format(accuracy_score(labels, predictions)))
+  print("Precision = {}".format(precision_score(labels, predictions)))
+  print("Recall = {}".format(recall_score(labels, predictions)))
+
+preds = predict(autoencoder, test_data, threshold)
+print_stats(preds, test_labels)
+```
+
+### Conclusion
+Autoencoders provide a useful way to greatly reduce the noise of input data, making the creation of deep learning models much more efficient. They can be used to detect anomalies, tackle unsupervised learning problems, and eliminate complexity within datasets
+
+### References
+https://www.tensorflow.org/datasets/catalog/mnist - For MNIST and MNIST fashion data
+
+http://storage.googleapis.com/download.tensorflow.org/data/ecg.csv - For ECG dataset
+
+
