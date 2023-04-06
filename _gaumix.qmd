@@ -166,7 +166,7 @@ for i in range(len(draw)):
 GMM.predict(sample_test)
 ```
 
-## Comparison to K-means
+### Comparison to K-means
 
 Both GMM and K-means are unsupervised clustering models, but GMM seems to be more robust 
 as it introduces probabilities. However, GMM is generally slower than K-Means because 

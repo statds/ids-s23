@@ -8,13 +8,13 @@ data in the low-dimensional space, or learning the mapping. It can be viewed as
 a nonlinear generalization of dimension reduction.
 
 
-## Multidimensional Scaling
+### Multidimensional Scaling
 
 + Fails at nonlinear embeddings
 
-## Loal linear manifold
+### Loal linear manifold
 
-## Isometric mapping
+### Isometric mapping
 
 Use the Labeled Faces in the Wild dataset.
 
