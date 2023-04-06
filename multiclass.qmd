@@ -1,0 +1,198 @@
+---
+title: "Multiclass Classification with Softmax Regression"
+format:
+  html:
+    code-fold: true
+    embed-resources: true
+  pdf: 
+    geometry: 
+      - top=30mm
+      - left=20mm
+jupyter: python3
+---
+## 1. What is a multiclass classification problem?
+
+A multiclass classification problem is a type of supervised learning problem in machine learning, where the goal is to predict the class or category of an input observation, based on a set of known classes. In a multiclass classification problem, there are more than two possible classes, and the algorithm must determine which of the possible classes the input observation belongs to.
+
+For example, if we want to classify images of animals into different categories, such as dogs, cats, and horses, we have a multiclass classification problem. In this case, the algorithm must learn to distinguish between the different features of each animal to correctly identify its class.
+
+Multiclass classification problems can be solved using various algorithms, such as logistic regression, decision trees, support vector machines, and neural networks. The performance of these algorithms is typically evaluated using metrics such as accuracy, precision, recall, and F1 score.
+
+## 2. What is softmax regression?
+
+Softmax regression is a type of logistic regression that is often used for multiclass classification problems. In a multiclass classification problem, the goal is to predict the class of an input observation from a set of possible classes. Softmax regression provides a way to model the probabilities of the input observation belonging to each of the possible classes.
+
+In softmax regression, the model's output is a vector of probabilities that represent the likelihood of the input observation belonging to each of the possible classes. The softmax function is used to map the output of the linear regression model to a probability distribution over the classes, ensuring that the probabilities of all classes sum to one.
+
+The goal of softmax regression is to predict the probability of an input observation belonging to each of the possible classes. To achieve this, we compute the weighted sum of the input features $\vec{x}$ with a weight vector $\vec{w}_j$ for each class $j$, and add a bias term $b_j$. This gives us a scalar value $z_j$ for each class $j$. We then apply the softmax function to the $z$ values to obtain a probability distribution over the possible classes.
+
+More specifically, for a given input observation, we compute the scalar values $z_j$ for all $N$ classes as follows:
+
+$$
+z_j = \vec{w}_j \cdot \vec{x} + b_j,\ \forall j \in {1, 2, \ldots, N}
+$$
+
+Or, in our example:
+$$
+z_1 = \vec{w}_1 \cdot \vec{x} + b_1
+$$
+$$
+z_2 = \vec{w}_2 \cdot \vec{x} + b_2
+$$
+$$
+z_3 = \vec{w}_3 \cdot \vec{x} + b_3
+$$
+
+The equations provided describe how the model computes a set of scores for each class, which are used to compute the probability distribution over the classes.
+
+Each of the equations describes a linear regression model that computes a score, $z_i$, for class $i$ based on the input vector $\vec{x}$ and a set of weights, $\vec{w}_i$, and bias, $b_i$.
+
+Scores refer to the scalar values $z_j$ computed for each class $j$. These scores represent the model's confidence in the input observation belonging to each of the possible classes, and are used to compute the final probability distribution over the classes.
+
+For example, if we have three classes (1, 2, and 3), and the model computes scores of 0.7, 0.2, and 0.1 for each class respectively, this would indicate that the model is most confident that the input observation belongs to class 1, but has lower confidence that it belongs to classes 2 and 3. The probabilities computed from these scores would reflect this relative confidence as well.
+
+Let's break down the first equation in the example:
+
+$$z_1 = \vec{w}_1 \cdot \vec{x} + b_1$$
+
+Here, $\vec{w}_1$ is a vector of weights that corresponds to the input features. Each weight represents the importance of a feature in determining the score for class 1. The dot product of the weight vector and input vector, $\vec{w}_1 \cdot \vec{x}$, is a weighted sum of the input features that determines the contribution of each feature to the score. The bias term, $b_1$, represents a constant offset that can be used to shift the scores for class 1 up or down.
+
+The scores for classes 2 and 3 are computed using similar equations, but with different weight vectors and biases. The scores can be positive or negative, depending on the input features and the weight values. The sign and magnitude of the scores determine which classes are more likely to be predicted by the model.
+
+To convert the scores to a probability distribution over the classes, the model uses the softmax function, which takes the exponent of each score and normalizes them to sum up to 1. The softmax function outputs a vector of probabilities, where each element represents the probability of the input belonging to a specific class.
+$$
+a_j = \frac{e^{z_j}}{\sum\limits_{k=1}^N e^{z_k}} = P(y=j \mid \vec{x})
+$$
+
+Or again, in our example:
+$$
+a_1 = \frac{e^{z_1}}{e^{z_1} + e^{z_2} + e^{z_3}} = P(y = 1| \vec{x})
+$$
+$$
+a_2 = \frac{e^{z_2}}{e^{z_1} + e^{z_2} + e^{z_3}} = P(y = 2| \vec{x})
+$$
+$$
+a_3 = \frac{e^{z_3}}{e^{z_1} + e^{z_2} + e^{z_3}} = P(y = 3| \vec{x})
+$$
+
+
+## 3. Estimation
+
+In softmax regression, the cost function is used to measure how well the model predicts the probability of an input belonging to each of the possible classes. The goal is to find the set of weights and biases that minimize the cost function, which measures the difference between the predicted probabilities and the true labels.
+
+The cross-entropy loss is a commonly used cost function for softmax regression. The cross-entropy loss is a measure of the dissimilarity between the predicted probability distribution and the true probability distribution. The cross-entropy loss is given by the following two identical formulas:
+
+$$
+J(\vec{w},b) = -\frac{1}{N}\sum_{i=1}^{N}\sum_{j=1}^{k}y_{ij}\log(\hat{y}_{ij})
+$$
+where $\hat{y}_{ij}$ is the predicted probability of example $i$ belonging to class $j$
+$$
+\text{loss}(a_1, a_2, \dots, a_n, y) =
+\begin{cases}
+-\log(a_1) & \text{if } y = 1 \\
+-\log(a_2) & \text{if } y = 2 \\
+\vdots & \vdots \\
+-\log(a_n) & \text{if } y = n
+\end{cases}
+$$
+
+Using our example:
+$$
+\text{loss}(a_1, a_2, a_3, y) = \begin{cases}
+-\log(a_1) & \text{if } y = 1 \\
+-\log(a_2) & \text{if } y = 2 \\
+-\log(a_3) & \text{if } y = 3
+\end{cases}
+$$
+
+where $n$ is the number of training examples, $k$ is the number of possible classes, $y_{ij}$ is the true label for example $i$ and class $j$, and $\hat{y}_{ij}$ is the predicted probability for example $i$ and class $j$.
+
+The cross-entropy loss can be interpreted as the average number of bits needed to represent the true distribution of the classes given the predicted distribution. A lower cross-entropy loss indicates that the predicted probabilities are closer to the true probabilities.
+
+During training, the model adjusts the weights and biases to minimize the cross-entropy loss. This is typically done using an optimization algorithm such as gradient descent. The gradient of the cost function with respect to the weights and biases is computed, and the weights and biases are updated in the direction of the negative gradient to reduce the cost.
+
+In summary, the cost function in softmax regression measures the difference between the predicted probability distribution and the true label distribution, and is used to train the model to make better predictions by adjusting the weights and biases to minimize the cost.
+
+```{python}
+import matplotlib.pyplot as plt
+import numpy as np
+
+# Define the range of values for the predicted probability
+y_hat = np.arange(0.001, 1.0, 0.01)
+
+# Define the true label as 1 for this example
+y_true = 1
+
+# Compute the cross-entropy loss for each value of y_hat
+loss = - y_true * np.log(y_hat) - (1 - y_true) * np.log(1 - y_hat)
+
+# Plot the loss function
+plt.plot(y_hat, loss)
+plt.xlabel('Predicted probability')
+plt.ylabel('Cross-entropy loss')
+plt.show()
+```
+
+In this example, we define a range of values for the predicted probability, y_hat, and set the true label to 1 for simplicity. We then compute the cross-entropy loss for each value of y_hat using the formula for the cross-entropy loss. Finally, we plot the loss function as a function of the predicted probability.
+
+The resulting plot should show a U-shaped curve, with the minimum value of the loss occurring at a predicted probability of 1.0 for the true class and 0.0 for the other class.
+
+The U-shaped curve of the cross-entropy loss function is a reflection of the way the loss function penalizes incorrect predictions. The intuition behind this shape is as follows:
+
+If the model correctly predicts the probability of the true class to be 1.0 (i.e., the predicted probability distribution perfectly matches the true label distribution), then the loss function evaluates to 0.0. This is the minimum possible value of the loss function, and corresponds to the best possible prediction.
+
+As the predicted probability of the true class decreases from 1.0, the loss function begins to increase. This reflects the increasing penalty for incorrectly predicting the probability of the true class.
+
+As the predicted probability of the true class approaches 0.0, the loss function increases very rapidly. This reflects the fact that the model is very confident in an incorrect prediction, and the penalty for this kind of error is very high.
+
+Similarly, as the predicted probability of the true class approaches 1.0 from below, the loss function increases very rapidly again. This reflects the fact that the model is not confident enough in the correct prediction, and the penalty for this kind of error is also very high.
+
+Finally, as the predicted probability of the true class approaches 1.0 from above, the loss function begins to increase more slowly again. This reflects the fact that the model is becoming more confident in the correct prediction, and the penalty for being slightly off is lower than for being very wrong.
+
+Overall, the U-shaped curve of the cross-entropy loss function reflects the way that the model is penalized for incorrect predictions. The loss function is high when the model is very confident in an incorrect prediction, or not confident enough in a correct prediction, and is low when the model makes a perfect prediction.
+
+## 4. Visualization
+
+```{python}
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Generate random data
+# np.random.seed(0)
+X = np.random.randn(300, 2)
+y = np.random.choice([0, 1, 2], 300)
+
+# Add bias term
+X = np.hstack([np.ones((X.shape[0], 1)), X])
+
+# Define softmax function
+def softmax(X):
+    expX = np.exp(X)
+    return expX / np.sum(expX, axis=1, keepdims=True)
+
+# Initialize weights
+W = np.random.randn(X.shape[1], 3)
+
+# Train softmax regression
+learning_rate = 0.01
+num_iterations = 1000
+for i in range(num_iterations):
+    P = softmax(X.dot(W))
+    gradient = X.T.dot(P - np.eye(3)[y])
+    W -= learning_rate * gradient
+
+# Compute predicted classes
+y_pred = np.argmax(X.dot(W), axis=1)
+
+# Plot data and decision boundaries
+plt.scatter(X[:, 1], X[:, 2], c=y, cmap='viridis')
+x_min, x_max = plt.xlim()
+y_min, y_max = plt.ylim()
+xx, yy = np.meshgrid(np.linspace(x_min, x_max, 100), np.linspace(y_min, y_max, 100))
+Z = np.argmax(np.hstack([np.ones((xx.size, 1)), xx.ravel()[:, np.newaxis], yy.ravel()[:, np.newaxis]]).dot(W), axis=1)
+Z = Z.reshape(xx.shape)
+plt.contourf(xx, yy, Z, alpha=0.3, levels=3, cmap='viridis')
+plt.show()
+```
+
+This code generates a scatter plot of the data points, with each class represented by a different color. It then plots the decision boundaries of the classifier, which are represented by the colored regions. The regions are created by classifying a large grid of points that spans the plot, and then plotting the regions of the grid that correspond to each class.
