@@ -124,3 +124,5 @@ work flow in model selection with cross-validation is as follows.
 <!-- ## Naive Bayes -->
 
 {{< include _nb.qmd >}}
+
+{{< include _smote.qmd >}}

@@ -1,0 +1,168 @@
+## Synthetic Minority Oversampling Technique
+
+Sythetic Minority Oversampling TEchnique (SMOTE) is an approach for
+classification with imbalanced datasets [@chawla2002smote].
+A dataset is imbalanced if the
+classification categories are not approximately equally represented. For
+example, in rare disease diagnosis or fraud detection, the diseased or fraud
+cases are much less frequent than the "normal" cases. Further, the cost of
+misclassifying an abnormal (interesting) case as a normal case is often much
+higher than the cost of the reverse error. Under-sampling of the majority
+(normal) class has been proposed as a good means of increasing the sensitivity
+of a classifier to the minority class. In a similar way, over-sampling the
+minority (abnormal) class helps improve the classifier performance too. A
+combination of over-sampling the minority and under-sampling the majority
+(normal) class can achieve even better classifier performance.
+
+
+### Introduction
+
+The problem with imbalanced data is that, again, accuracy is not a good metric
+for performance evaluation. A silly approach that classifies all cases as normal
+would have high accuracy but is useless.
+
+
+Undersampling means that you discard a number of data points of the class that
+is present too often. The disadvantage of undersampling is loss of valuable
+data (information). It coul dbe effective when there is a lot of data, and the
+class imbalance is not so large. For extremely imbalanced data, undersampling
+could result in almost no data.
+
+
+Oversampling makes duplicates of the data that is the least present in the data.
+But, wait a minute. We would be creating data that is not real and introducing
+false information into modeling. 
+
+
+At the end, we need to assess the predictive performance of our model on a
+non-oversampled data set. After all, out-of-sample predictions will be done on
+non-oversampled data and therefore this is how we should measure models'
+performance.
+
+### SMOTE Algorithm
+
+SMOTE is a data augumentation approach that creates synthetic data points based
+on the original data points. It could be viewed as an advanced version of
+oversampling, except that instead of making exact duplicates of observations in
+the less present class, we add small perturbations to the copied data points.
+Therefore, we are not generating duplicates, but rather creating synthetic data
+points that are slightly different from the original data points.
+
+
+How exactly synthetic data point is formed?
+After a random case is drawn from the minority class, take one of its
+$k$~nearest neighbors, and move the current case slightly in the direction of
+this neighbor. As a result, the synthetic data point is not an exact copy of an
+existing data point while being too different from the known observations in the
+minority class.
+
+
+The data augumentation influences both precision and recall. Just to refresh,
+precision measures how many identified items are relevant, while recall measures
+how many relevant items are identified.
+SMOTE generally leads to an increase in recall, at the cost of lower precision. 
+That is, it will add more predictions of the minority class: some of them
+correct (increasing recall), but some of them wrong (decreasing precision). 
+The overall model accuracy may also decrease, but this is not a problem because,
+again, accuracy is not a good in case of imbalanced data.
+
+
+### Example
+
+Consider the example of [Joos Korstanje](https://towardsdatascience.com/smote-fdce2f605729).
+```{python}
+# Import the data
+import pandas as pd
+data = pd.read_csv('https://raw.githubusercontent.com/JoosKorstanje/datasets/main/sales_data.csv')
+data.head()
+```
+
+Check the distribution of buyers vs non-buyers.
+```{python}
+# Showing the class imbalance between buyers and non-buyers
+data.pivot_table(index='buy', aggfunc='size').plot(kind='bar')
+```
+
+Use stratefied sampling to split the data into training (70%) and testing sets
+(30%) to avoid ending up with overly few buyers in the testing set.
+```{python}
+from sklearn.model_selection import train_test_split
+train, test = train_test_split(data, test_size = 0.3, stratify=data.buy)
+test.pivot_table(index='buy', aggfunc='size').plot(kind='bar', title='Verify that class distributuion in test is same as input data')
+```
+
+
+Build a logistic regression as benchmark to assess the benefit of SMOTE.
+```{python}
+from sklearn.linear_model import LogisticRegression
+
+# Instantiate the Logistic Regression with only default settings
+my_log_reg = LogisticRegression()
+
+# Fit the logistic regression on the independent variables of the train data with buy as dependent variable
+my_log_reg.fit(train[['time_on_page', 'pages_viewed', 'interest_ski', 'interest_climb']], train['buy'])
+
+# Make a prediction using our model on the test set
+preds = my_log_reg.predict(test[['time_on_page', 'pages_viewed', 'interest_ski', 'interest_climb']])
+```
+
+Obtain the confusion matrix of the benchmark model.
+```{python}
+from sklearn.metrics import confusion_matrix
+tn, fp, fn, tp = confusion_matrix(test['buy'], preds).ravel()
+print('True negatives: ', tn, '\nFalse positives: ', fp, '\nFalse negatives: ', fn, '\nTrue Positives: ', tp)
+```
+
+Get the classification report.
+```{python}
+from sklearn.metrics import classification_report
+print(classification_report(test['buy'], preds))
+```
+
+
+Now let's use SMOTE to build a model.
+```{python}
+from imblearn.over_sampling import SMOTE
+X_resampled, y_resampled = SMOTE().fit_resample(train[['time_on_page',	'pages_viewed',	'interest_ski',	'interest_climb']],	train['buy'])
+```
+
+Check the distribution of the buyers and non-buyers
+```{python}
+pd.Series(y_resampled).value_counts().plot(kind='bar', title='Class distribution after appying SMOTE', xlabel='buy')
+```
+
+Train the logistic model with SMOTE augmented data.
+```{python}
+# Instantiate the new Logistic Regression
+log_reg_2 = LogisticRegression()
+
+# Fit the model with the data that has been resampled with SMOTE
+log_reg_2.fit(X_resampled, y_resampled)
+
+# Predict on the test set (not resampled to obtain honest evaluation)
+preds2 = log_reg_2.predict(test[['time_on_page', 'pages_viewed',	'interest_ski',	'interest_climb']])
+```
+
+The confusion matrix of the second model.
+```{python}
+tn, fp, fn, tp = confusion_matrix(test['buy'], preds2).ravel()
+print('True negatives: ', tn, '\nFalse positives: ', fp, '\nFalse negatives: ', fn, '\nTrue positives: ', tp)
+```
+
+The classification report.
+```{python}
+print(classification_report(test['buy'], preds2))
+```
+
+What the the changes from the first to the second model?
++ Recall of nonbuyers went down from 1.00 to 0.90: there are more nonbuyers that
+  we did not succeed to find
++ Recall of buyers went up from 0.47 to 0.87: we succeeded to identify many more
+  buyers
++ The precision of buyers went down from 0.88 to 0.32: the cost of correctly
+  identifying more buyers is that we now also incorrectly identify more buyers
+  (identifying visitors as buyers while they are actually nonbuyers)!
+
+We are now better able to find buyers, at the cost of also wrongly classifying
+more nonbuyers as buyers.
+
