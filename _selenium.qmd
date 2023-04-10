@@ -1,0 +1,267 @@
+---
+jupyter: python3
+---
+
+# Web Scraping with Selenium
+
+## What is Selenium?
+
+Selenium is a free, open-source automation testing suite for web applications across different browsers and platforms. Selenium focuses on automating web-based applications.
+
+## Selenium vs BeautifulSoup?
+
+Selenium is a web browser automation tool that can interact with web pages like a human user, whereas BeautifulSoup is a library for parsing HTML and XML documents. This means Selenium has more functionality since it can automate browser actions such as clicking buttons, filling out forms and navigating between pages.
+
+However, Selenium is not as fast as BeautifulSoup. Thus, if your web scraping problem can be solved with BeautifulSoup, use that.
+
+An example of a website that can't be scraped by BeautifulSoup is a website that doesn't fully load unless prompted to: `https://www.inaturalist.org/taxa/52083-Toxicodendron-pubescens/browse_photos?layout=grid`.
+
+* Go to the link and inspect the first photo
+* Collapse the 'TaxonPhoto undefined' div container and scroll to the last 'TaxonPhoto undefined'
+* Go back to the web page and scroll down to load new images
+
+See those 'TaxonPhoto undefined' elements that are popping up on the right side of the screen as we scroll? Those are more photos that are being rendered as we directly interact with the web page. BeautifulSoup can only scrape HTML elements from what's already loaded on the web page. It cannot dynamically interact with the page to load more HTML elements. Luckily, Selenium can do that!
+
+## Plant Images Scraper Example
+
+I will demonstrate the functionalities of Selenium by building a program to scrape plant images from a website. Hopefully, this example will be enough for anybody listening to get started with Selenium.
+
+### Components of a Website
+
+Websites are developed using 3 main languages: `javascript`, `html`, and `css`.
+
+We don't need to get too much into what each of these languages do, but just know that `html` tells a browser how to display the content of a website; and that is what we will interact with to extract data from the website.
+
+#### HTML
+
+In HTML, the contents of a website are organized into containers called `div`.
+
+These `div` containers are given identifiers using `class` and `id`
+
+```
+<div class="widget"></div>
+```
+
+In this example, the `div` container is given the `class` name "widget".
+
+```
+<div id="widget"></div>
+```
+
+In this example, the `div` container is given the `id` name "widget".
+
+We can use the `find_elements` method in Selenium to retrieve the containers that we want by using their XPATH, which is the address to the containers specified in the HTML file.
+
+Say we want to retrieve all the "widget" containers on a web page. Then, we can use the `find_elements` method. The method can locate containers based on many techniques, but we want to specify `By.XPATH` here. Then we want to locate the containers whose ids have the name "widget"; we can do this with classes as well by replacing `@id` with `@class`.
+
+```
+find_elements(By.XPATH, "//*[starts-with(@id, 'widget')]")
+```
+
+### Additional Selenium Functionalities
+
+Selenium is very powerful and contains many useful features for interacting with browsers. We will not be using most of them in this project, but they're still good to know.
+
+As we mentioned earlier, `find_elements` will retrieve all specified elements on the page. But there is also `find_element`, note that element is singular, which will only return one element of the specified type; the first one that it comes across.
+
+Besides `XPATH`, there are other techniques for locating `div` containers. For instance, we can also use:
+
+```
+# Find the element with name "my-element"
+element = driver.find_element(By.NAME, 'my-element')
+
+# Find the element with ID "my-element"
+element = driver.find_element(By.ID, 'my-element')
+
+# Find the element with class name "my-element"
+element = driver.find_element(By.CLASS_NAME, 'my-element')
+
+# Find the element with CSS selector "#my-element .my-class"
+element = driver.find_element(By.CSS_SELECTOR, '#my-element .my-class')
+```
+
+==========================================================================================
+
+You can also interact with text fields in browsers via Selenium.
+
+Say you are automating a scraper that needs to login to a website. Well we know how to find the elements using the `find_element` method:
+
+```
+# Find the username and password fields
+username_field = driver.find_element(By.NAME, 'username')
+password_field = driver.find_element(By.NAME, 'password')
+```
+
+Now those two variables are pointing to the corresponding text fields on the page. So, we can enter in our username and password by using the `send_keys` method:
+
+```
+username_field.send_keys('myusername')
+password_field.send_keys('mypassword')
+```
+
+To complete the login, we need to click on the login button. We can do this by using the `click` method:
+
+```
+# Find the login button and click it
+login_button = driver.find_element(By.XPATH, '//button[@type="submit"]')
+login_button.click()
+```
+
+==========================================================================================
+
+
+Sometimes you may need to wait for an element to appear on the page before you can interact with it. 
+You can do this using the WebDriverWait class provided by Selenium. For example:
+
+```
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.by import By
+
+search_results = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'search')))
+```
+
+Selenium will wait for a maximum of 10 seconds for the element with the `id` "search" to appear on the page. If 10 seconds pass and the element doesn't appear, then an error will be returned. Otherwise, the driver will retrieve the element and store it in the variable `search_results`.
+
+### Now that we have an understanding of how to interact with HTML elements using Selenium. Let's get started with building the program!
+
+### Step 1: Import Libraries
+
+```{python}
+import time # will be used to allow sufficient time for web pages to load
+
+import requests # will be used to send requests to web pages to download images
+
+# selenium functions
+from selenium import webdriver # how selenium uses the browser on your laptop
+from selenium.webdriver.chrome.service import Service # tells selenium what browser to use
+from webdriver_manager.chrome import ChromeDriverManager # a package to manage chrome driver dependencies so you don't have to
+from selenium.webdriver.common.by import By # method for using XPATHS to locate div elements
+```
+
+### Step 2: Scrape Image Links
+
+Let's make a plan for how we are gonna scrape these images:
+
+1. Go to this link: `https://www.inaturalist.org/taxa/52083-Toxicodendron-pubescens/browse_photos?layout=grid`
+
+2. Scroll down; notice how the page takes some time to load more images (this is where the 'time' library will come into play)
+
+3. Right click on a picture and Inspect
+
+4. Navigate to the div container with id that starts with 'cover-image...'
+
+5. Notice that the images are stored in a AWS S3 data lake with the link to the image encapsulated by url(...)
+
+6. Copy and paste the link into browser to open the image
+
+7. But another important point, the image url is mixed in with a bunch of other text; starts with "width: 100%..." (so we need to remove all the text surrounding the link)
+
+Let's define a function called `image_links_scraper`. It's job will be to extract the image links for each image on the website. It will take in 2 parameters: `link` = link to the website that we wanna scrape and `max_images` = total number of images we wanna scrape
+
+```{python}
+def image_links_scraper(link, max_images):
+    driver = webdriver.Chrome(service=Service(ChromeDriverManager().install())) 
+    # 1. downloads the latest google chrome driver (executable that selenium uses to launch google chrome)
+    # 2. service is responsible for starting the webdriver, an interface for interacting with browsers, using the chrome driver
+    # 3. once the webdriver is started, we can use it to interact with chrome
+
+    # whenever we want to interact with the browser we call a method from driver
+
+    driver.get(link) 
+    # get method opens the browser to the specified link
+
+    image_links = []
+    # we will store the scraped image links in this list
+
+    ### ISSUE (step 2) ###
+    
+    current_height = driver.execute_script("return document.body.scrollHeight") 
+    # executes a javascript command to get the current height of the page (which is the length of the page from the top to the bottom before it loads new images)
+
+    while True: # keep scrolling down on the browser to load new images until we reach the end of the page
+        driver.execute_script(f"window.scrollTo({current_height}, document.body.scrollHeight);") 
+        # run javascript command to scroll to the bottom of the page
+
+        elements = driver.find_elements(By.XPATH, "//*[starts-with(@id, 'cover')]") 
+        # find all elements where the 'id' tag starts with the string 'cover' because these div containers have the image links
+
+        if len(elements) >= max_images: # check to see if we have scraped enough image links, as specified by the max_images parameter
+            break # if so, stop scolling
+
+        time.sleep(5)
+        # wait for page to load; dependent on internet speed
+
+        new_height = driver.execute_script("return document.body.scrollHeight") 
+        # get new page height after scrolling
+
+        if current_height == new_height: # check to see if the page height has stopped changing
+            break # if so, we've reached the end of the page and need to stop scrolling
+        else:
+            current_height = new_height # otherwise, we need to keep scrolling
+
+    # at this point, we have not scraped any images
+    # we only have the div container elements that contain the image links we want to extract
+    
+    # now we go through each element and extract the links
+    for element in elements:
+        # ### ISSUE (step 7) ###
+
+        s = element.get_attribute('style') 
+        # returns the text in the 'style' attribute
+
+        start = 'width: 100%; min-height: 183px; background-size: cover; background-position: center center; background-repeat: no-repeat; background-image: url("'
+        # the useless text before the link
+
+        end = '");' 
+        # the useless text after the link
+
+        link = s[len(start):-len(end)] 
+        # perform string splicing to get only the URL from the entire string
+
+        image_links.append(link) 
+        # add the image link to the list
+
+        print(link) 
+        # print the links as we extract them to visualize function in real-time
+
+    driver.quit()
+    # once we're done automating the browser, we should close it using the quit() method of the driver object
+
+    return image_links
+```
+
+### Step 3: Download the Images
+
+Now, we take the image links extracted from the previous step and download the images located at each link.
+
+Let's define a method called `download_images` that takes in 2 parameters: `image_links` = whatever image_links_scraper returns and `folder_name` = name of the folder to save the scraped images to
+
+```{python}
+def download_images(image_links, folder_name):
+    i = 1 # keep track of the image number to give each image an identifier
+    
+    for link in image_links: # iterate through all the image links
+        r = requests.get(link).content # retrieve the image content from URL by sending a request to the website
+        file_name = f'{folder_name}/{i}.jpg' # generate image file name (image number) and directory
+
+        with open(file_name, 'wb') as f:
+            f.write(r) # save the image
+        
+        i += 1 # update the image number for the next iteration
+```
+
+### Step 4: Run Everything All Together
+
+The result is a dataset of plant images saved in a folder called `_selenium_images`.
+
+```{python}
+if __name__ == '__main__':
+    link = 'https://www.inaturalist.org/taxa/52083-Toxicodendron-pubescens/browse_photos?layout=grid' # website to scrape images from
+    max_images = 20 # number of images to scrape
+    folder_name = '_selenium_images' # name of folder to save images to
+    image_links = image_links_scraper(link, max_images)
+    download_images(image_links, folder_name)
+```
+
+
