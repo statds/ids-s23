@@ -124,6 +124,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   }
 }</script>
 
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 </head>
 
@@ -245,7 +246,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#text-analysis-with-nltk" id="toc-text-analysis-with-nltk" class="nav-link active" data-scroll-target="#text-analysis-with-nltk"><span class="toc-section-number">12.1</span>  Text Analysis with <code>nltk</code></a>
+  <li><a href="#text-analysis-with-nltk-by-shivaram-karandikar" id="toc-text-analysis-with-nltk-by-shivaram-karandikar" class="nav-link active" data-scroll-target="#text-analysis-with-nltk-by-shivaram-karandikar"><span class="toc-section-number">12.1</span>  Text Analysis with <code>nltk</code> (by Shivaram Karandikar)</a>
   <ul class="collapse">
   <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction"><span class="toc-section-number">12.1.1</span>  Introduction</a></li>
   <li><a href="#getting-started" id="toc-getting-started" class="nav-link" data-scroll-target="#getting-started"><span class="toc-section-number">12.1.2</span>  Getting Started</a></li>
@@ -259,6 +260,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li><a href="#analyzing-corpora" id="toc-analyzing-corpora" class="nav-link" data-scroll-target="#analyzing-corpora"><span class="toc-section-number">12.1.10</span>  Analyzing Corpora</a></li>
   <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion"><span class="toc-section-number">12.1.11</span>  Conclusion</a></li>
   <li><a href="#resources" id="toc-resources" class="nav-link" data-scroll-target="#resources"><span class="toc-section-number">12.1.12</span>  Resources</a></li>
+  </ul></li>
+  <li><a href="#neural-networks-with-tensorflow-by-giovanni-lunetta" id="toc-neural-networks-with-tensorflow-by-giovanni-lunetta" class="nav-link" data-scroll-target="#neural-networks-with-tensorflow-by-giovanni-lunetta"><span class="toc-section-number">12.2</span>  Neural Networks with Tensorflow (by Giovanni Lunetta)</a>
+  <ul class="collapse">
+  <li><a href="#neural-network-architecture" id="toc-neural-network-architecture" class="nav-link" data-scroll-target="#neural-network-architecture"><span class="toc-section-number">12.2.1</span>  Neural Network Architecture</a></li>
+  <li><a href="#relu-activation-function" id="toc-relu-activation-function" class="nav-link" data-scroll-target="#relu-activation-function"><span class="toc-section-number">12.2.2</span>  ReLu Activation Function</a></li>
+  <li><a href="#demonstration" id="toc-demonstration" class="nav-link" data-scroll-target="#demonstration"><span class="toc-section-number">12.2.3</span>  Demonstration</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references"><span class="toc-section-number">12.2.4</span>  References</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -283,8 +291,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </header>
 
-<section id="text-analysis-with-nltk" class="level2" data-number="12.1">
-<h2 data-number="12.1" class="anchored" data-anchor-id="text-analysis-with-nltk"><span class="header-section-number">12.1</span> Text Analysis with <code>nltk</code></h2>
+<section id="text-analysis-with-nltk-by-shivaram-karandikar" class="level2" data-number="12.1">
+<h2 data-number="12.1" class="anchored" data-anchor-id="text-analysis-with-nltk-by-shivaram-karandikar"><span class="header-section-number">12.1</span> Text Analysis with <code>nltk</code> (by Shivaram Karandikar)</h2>
 <section id="introduction" class="level3" data-number="12.1.1">
 <h3 data-number="12.1.1" class="anchored" data-anchor-id="introduction"><span class="header-section-number">12.1.1</span> Introduction</h3>
 <p><code>nltk</code>, or Natural Language Toolkit, is a Python package which provides a set of tools for text analysis. <code>nltk</code> is used in Natural Language Processing (NLP), a field of computer science which focuses on the interaction between computers and human languages. <code>nltk</code> is a very powerful tool for text analysis, and is used by many researchers and data scientists. In this tutorial, we will learn how to use <code>nltk</code> to analyze text.</p>
@@ -310,19 +318,97 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h4 data-number="12.1.3.1" class="anchored" data-anchor-id="sentence-tokenization"><span class="header-section-number">12.1.3.1</span> Sentence Tokenization</h4>
 <div class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> nltk <span class="im">import</span> sent_tokenize, word_tokenize</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co"># nltk.download("popular") # only needs to download once</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>nltk.download(<span class="st">"popular"</span>) <span class="co"># only needs to download once</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>fd_sent <span class="op">=</span> sent_tokenize(fd_string)</span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(fd_sent)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>[nltk_data] Downloading collection 'popular'
+[nltk_data]    | 
+[nltk_data]    | Downloading package cmudict to
+[nltk_data]    |     /Users/junyan/nltk_data...
+[nltk_data]    |   Package cmudict is already up-to-date!
+[nltk_data]    | Downloading package gazetteers to
+[nltk_data]    |     /Users/junyan/nltk_data...
+[nltk_data]    |   Package gazetteers is already up-to-date!
+[nltk_data]    | Downloading package genesis to
+[nltk_data]    |     /Users/junyan/nltk_data...
+[nltk_data]    |   Package genesis is already up-to-date!
+[nltk_data]    | Downloading package gutenberg to
+[nltk_data]    |     /Users/junyan/nltk_data...
+[nltk_data]    |   Package gutenberg is already up-to-date!
+[nltk_data]    | Downloading package inaugural to
+[nltk_data]    |     /Users/junyan/nltk_data...
+[nltk_data]    |   Package inaugural is already up-to-date!
+[nltk_data]    | Downloading package movie_reviews to
+[nltk_data]    |     /Users/junyan/nltk_data...
+[nltk_data]    |   Package movie_reviews is already up-to-date!
+[nltk_data]    | Downloading package names to
+[nltk_data]    |     /Users/junyan/nltk_data...
+[nltk_data]    |   Package names is already up-to-date!
+[nltk_data]    | Downloading package shakespeare to
+[nltk_data]    |     /Users/junyan/nltk_data...
+[nltk_data]    |   Package shakespeare is already up-to-date!
+[nltk_data]    | Downloading package stopwords to
+[nltk_data]    |     /Users/junyan/nltk_data...
+[nltk_data]    |   Package stopwords is already up-to-date!
+[nltk_data]    | Downloading package treebank to
+[nltk_data]    |     /Users/junyan/nltk_data...
+[nltk_data]    |   Package treebank is already up-to-date!
+[nltk_data]    | Downloading package twitter_samples to
+[nltk_data]    |     /Users/junyan/nltk_data...</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>[nltk_data]    |   Package twitter_samples is already up-to-date!
+[nltk_data]    | Downloading package omw to /Users/junyan/nltk_data...
+[nltk_data]    |   Package omw is already up-to-date!
+[nltk_data]    | Downloading package omw-1.4 to
+[nltk_data]    |     /Users/junyan/nltk_data...
+[nltk_data]    |   Package omw-1.4 is already up-to-date!
+[nltk_data]    | Downloading package wordnet to
+[nltk_data]    |     /Users/junyan/nltk_data...
+[nltk_data]    |   Package wordnet is already up-to-date!
+[nltk_data]    | Downloading package wordnet2021 to
+[nltk_data]    |     /Users/junyan/nltk_data...
+[nltk_data]    |   Package wordnet2021 is already up-to-date!
+[nltk_data]    | Downloading package wordnet31 to
+[nltk_data]    |     /Users/junyan/nltk_data...</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>[nltk_data]    |   Package wordnet31 is already up-to-date!
+[nltk_data]    | Downloading package wordnet_ic to
+[nltk_data]    |     /Users/junyan/nltk_data...
+[nltk_data]    |   Package wordnet_ic is already up-to-date!
+[nltk_data]    | Downloading package words to
+[nltk_data]    |     /Users/junyan/nltk_data...
+[nltk_data]    |   Package words is already up-to-date!
+[nltk_data]    | Downloading package maxent_ne_chunker to
+[nltk_data]    |     /Users/junyan/nltk_data...
+[nltk_data]    |   Package maxent_ne_chunker is already up-to-date!
+[nltk_data]    | Downloading package punkt to
+[nltk_data]    |     /Users/junyan/nltk_data...
+[nltk_data]    |   Package punkt is already up-to-date!
+[nltk_data]    | Downloading package snowball_data to
+[nltk_data]    |     /Users/junyan/nltk_data...</code></pre>
+</div>
 <div class="cell-output cell-output-stdout">
 <pre><code>['The sum of human knowing is beyond any one man; any thousand men.', 'With the destruction of our social fabric, science will be broken into a million pieces.', 'Individuals will know much of exceedingly tiny facets of what there is to know.', 'They will be helpless and useless by themselves.', 'The bits of lore, meaningless, will not be passed on.', 'They will be lost through the generations.', 'But, if we now prepare a giant summary of all knowledge, it will never be lost.', 'Coming generations will build on it, and will not have to rediscover it for themselves.', 'One millennium will do the work of thirty thousand.']</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>[nltk_data]    |   Package snowball_data is already up-to-date!
+[nltk_data]    | Downloading package averaged_perceptron_tagger to
+[nltk_data]    |     /Users/junyan/nltk_data...
+[nltk_data]    |   Package averaged_perceptron_tagger is already up-
+[nltk_data]    |       to-date!
+[nltk_data]    | 
+[nltk_data]  Done downloading collection popular</code></pre>
 </div>
 </div>
 </section>
 <section id="word-tokenization" class="level4" data-number="12.1.3.2">
 <h4 data-number="12.1.3.2" class="anchored" data-anchor-id="word-tokenization"><span class="header-section-number">12.1.3.2</span> Word Tokenization</h4>
 <div class="cell" data-execution_count="4">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>fd_word <span class="op">=</span> word_tokenize(fd_string)</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(fd_word)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>fd_word <span class="op">=</span> word_tokenize(fd_string)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(fd_word)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>['The', 'sum', 'of', 'human', 'knowing', 'is', 'beyond', 'any', 'one', 'man', ';', 'any', 'thousand', 'men', '.', 'With', 'the', 'destruction', 'of', 'our', 'social', 'fabric', ',', 'science', 'will', 'be', 'broken', 'into', 'a', 'million', 'pieces', '.', 'Individuals', 'will', 'know', 'much', 'of', 'exceedingly', 'tiny', 'facets', 'of', 'what', 'there', 'is', 'to', 'know', '.', 'They', 'will', 'be', 'helpless', 'and', 'useless', 'by', 'themselves', '.', 'The', 'bits', 'of', 'lore', ',', 'meaningless', ',', 'will', 'not', 'be', 'passed', 'on', '.', 'They', 'will', 'be', 'lost', 'through', 'the', 'generations', '.', 'But', ',', 'if', 'we', 'now', 'prepare', 'a', 'giant', 'summary', 'of', 'all', 'knowledge', ',', 'it', 'will', 'never', 'be', 'lost', '.', 'Coming', 'generations', 'will', 'build', 'on', 'it', ',', 'and', 'will', 'not', 'have', 'to', 'rediscover', 'it', 'for', 'themselves', '.', 'One', 'millennium', 'will', 'do', 'the', 'work', 'of', 'thirty', 'thousand', '.']</code></pre>
 </div>
@@ -334,16 +420,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3 data-number="12.1.4" class="anchored" data-anchor-id="removing-stopwords"><span class="header-section-number">12.1.4</span> Removing Stopwords</h3>
 <p>The output of the word tokenization gave us a list of words. However, some of these words are not useful for our analysis. These words are called stopwords. <code>nltk</code> provides a list of stopwords for several languages. We can use this list to remove stopwords from our text.</p>
 <div class="cell" data-execution_count="5">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> nltk.corpus <span class="im">import</span> stopwords</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>stop_words <span class="op">=</span> <span class="bu">set</span>(stopwords.words(<span class="st">"english"</span>))</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(stop_words)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> nltk.corpus <span class="im">import</span> stopwords</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>stop_words <span class="op">=</span> <span class="bu">set</span>(stopwords.words(<span class="st">"english"</span>))</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(stop_words)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>{'doing', 'both', 'didn', 'few', 'were', 'under', 'in', 'aren', 'up', "mustn't", 'off', 'at', 'o', 'isn', 'below', 'own', 'very', 'nor', 'and', 'between', 'yourself', 'being', 'no', 'should', 'are', "you'd", 'she', 'but', 'of', "mightn't", 'each', 'such', 'further', 'ourselves', 'do', "aren't", 'hers', 'have', 'is', 'himself', 'am', 'the', 'having', 'after', 'don', 'was', 'more', 'it', 'can', 'an', 'wouldn', "weren't", 'on', 'y', 'once', 'only', 'why', 'its', 'now', 'those', 'a', 'because', "don't", 'weren', 'above', 'yours', 'his', 've', 'you', "it's", "won't", 'whom', 'be', "wouldn't", 'them', 'how', 'just', "you'll", "that'll", 'when', 'themselves', 'shouldn', 'wasn', 'same', 'ma', 'won', 'again', 're', "doesn't", 'itself', 'he', 'other', 'll', 'to', 'mustn', 'their', 'what', 'hadn', 'then', 'haven', 'doesn', 't', 'for', 'ain', "she's", 'your', 'any', 'most', 'so', 'theirs', 'hasn', 'some', "haven't", 'too', 's', "hasn't", 'mightn', 'has', "shan't", 'while', 'will', 'our', 'd', 'her', 'couldn', 'until', 'where', 'there', 'herself', 'did', 'through', 'against', "needn't", 'or', 'had', 'which', 'yourselves', 'that', 'down', 'with', 'm', "you've", 'about', 'than', 'shan', 'these', "didn't", 'needn', "you're", 'here', 'before', 'my', 'this', 'into', 'all', 'ours', 'from', 'not', 'if', 'him', 'myself', 'me', "wasn't", 'who', "should've", "couldn't", 'i', 'during', "isn't", "shouldn't", 'over', 'they', 'does', 'by', 'as', 'been', "hadn't", 'we', 'out'}</code></pre>
+<pre><code>{'while', 'yours', 'were', "mustn't", 'theirs', 't', 'once', 'other', 'itself', "needn't", 'which', 'do', 'about', 'very', 'her', 'again', 'ma', 'own', 'these', 'don', 'll', 'an', "should've", 'of', "you'll", 'same', 'than', 'now', 'aren', "she's", 'further', 'him', 'any', 'ain', 'few', 'me', 'those', 'against', 'through', 'so', 'but', 'couldn', 'above', 'off', 'it', 'up', 'only', 'he', 'some', 'down', 'doesn', 'that', 'at', 'out', 'am', 'wasn', 'how', 'mightn', 'wouldn', 'be', 'ourselves', 'd', 'myself', 'didn', "hasn't", 'needn', 'hadn', 'then', 'themselves', 'she', 'to', 'their', 'if', 'for', 'most', 'ours', 'the', 'our', 'does', "weren't", 'who', 'such', 'having', "haven't", 'himself', 'shouldn', "shouldn't", 'there', 'not', 'haven', 'his', 'or', "won't", 'until', "hadn't", 'all', 'on', "that'll", 'isn', 'with', 'its', 'here', 'from', "couldn't", 'whom', 'by', 'below', 'under', 'just', 'weren', 'no', 'did', 'should', "it's", 'hasn', 'each', 'has', 'herself', 'before', "you'd", "you've", 'what', 'a', 've', 'we', "don't", 'into', 'are', 'both', 'can', "doesn't", 'during', 'won', 'is', 'had', 'i', 'between', 'where', 'more', 'shan', 'this', "mightn't", 'too', 'them', 're', 's', 'being', "wouldn't", 'hers', "wasn't", 'o', 'nor', "didn't", 'mustn', 'because', 'when', 'doing', 'was', 'your', 'they', 'in', "isn't", "aren't", 'y', 'as', 'you', 'and', 'yourselves', "you're", 'my', 'yourself', 'why', 'been', 'will', 'm', "shan't", 'after', 'over', 'have'}</code></pre>
 </div>
 </div>
 <div class="cell" data-execution_count="6">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>fd_filtered <span class="op">=</span> [w <span class="cf">for</span> w <span class="kw">in</span> fd_word <span class="cf">if</span> w.casefold() <span class="kw">not</span> <span class="kw">in</span> stop_words]</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(fd_filtered)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>fd_filtered <span class="op">=</span> [w <span class="cf">for</span> w <span class="kw">in</span> fd_word <span class="cf">if</span> w.casefold() <span class="kw">not</span> <span class="kw">in</span> stop_words]</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(fd_filtered)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>['sum', 'human', 'knowing', 'beyond', 'one', 'man', ';', 'thousand', 'men', '.', 'destruction', 'social', 'fabric', ',', 'science', 'broken', 'million', 'pieces', '.', 'Individuals', 'know', 'much', 'exceedingly', 'tiny', 'facets', 'know', '.', 'helpless', 'useless', '.', 'bits', 'lore', ',', 'meaningless', ',', 'passed', '.', 'lost', 'generations', '.', ',', 'prepare', 'giant', 'summary', 'knowledge', ',', 'never', 'lost', '.', 'Coming', 'generations', 'build', ',', 'rediscover', '.', 'One', 'millennium', 'work', 'thirty', 'thousand', '.']</code></pre>
 </div>
@@ -354,10 +440,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3 data-number="12.1.5" class="anchored" data-anchor-id="stemming"><span class="header-section-number">12.1.5</span> Stemming</h3>
 <p>Stemming is a method which allows us to reduce the number of variants of a word. For example, the words <em>connecting</em>, <em>connected</em>, and <em>connection</em> are all variants of the same word <em>connect</em>. <code>nltk</code> includes a few different stemmers based on different algorithms. We will use the Snowball stemmer, an improved version of the 1979 Porter stemmer.</p>
 <div class="cell" data-execution_count="7">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> nltk.stem.snowball <span class="im">import</span> SnowballStemmer</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>snow_stem <span class="op">=</span> SnowballStemmer(language<span class="op">=</span><span class="st">'english'</span>)</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>fd_stem <span class="op">=</span> [snow_stem.stem(w) <span class="cf">for</span> w <span class="kw">in</span> fd_word]</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(fd_stem)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> nltk.stem.snowball <span class="im">import</span> SnowballStemmer</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>snow_stem <span class="op">=</span> SnowballStemmer(language<span class="op">=</span><span class="st">'english'</span>)</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>fd_stem <span class="op">=</span> [snow_stem.stem(w) <span class="cf">for</span> w <span class="kw">in</span> fd_word]</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(fd_stem)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>['the', 'sum', 'of', 'human', 'know', 'is', 'beyond', 'ani', 'one', 'man', ';', 'ani', 'thousand', 'men', '.', 'with', 'the', 'destruct', 'of', 'our', 'social', 'fabric', ',', 'scienc', 'will', 'be', 'broken', 'into', 'a', 'million', 'piec', '.', 'individu', 'will', 'know', 'much', 'of', 'exceed', 'tini', 'facet', 'of', 'what', 'there', 'is', 'to', 'know', '.', 'they', 'will', 'be', 'helpless', 'and', 'useless', 'by', 'themselv', '.', 'the', 'bit', 'of', 'lore', ',', 'meaningless', ',', 'will', 'not', 'be', 'pass', 'on', '.', 'they', 'will', 'be', 'lost', 'through', 'the', 'generat', '.', 'but', ',', 'if', 'we', 'now', 'prepar', 'a', 'giant', 'summari', 'of', 'all', 'knowledg', ',', 'it', 'will', 'never', 'be', 'lost', '.', 'come', 'generat', 'will', 'build', 'on', 'it', ',', 'and', 'will', 'not', 'have', 'to', 'rediscov', 'it', 'for', 'themselv', '.', 'one', 'millennium', 'will', 'do', 'the', 'work', 'of', 'thirti', 'thousand', '.']</code></pre>
 </div>
@@ -368,7 +454,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3 data-number="12.1.6" class="anchored" data-anchor-id="pos-tagging"><span class="header-section-number">12.1.6</span> POS Tagging</h3>
 <p><code>nltk</code> also enables us to label the parts of speech of each word in a text. This is known as part-of-speech (POS) tagging. <code>nltk</code> uses the Penn Treebank tagset, which is a set of tags that are used to label words in a text. The tags are as follows:</p>
 <div class="cell" data-execution_count="8">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>nltk.<span class="bu">help</span>.upenn_tagset()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>nltk.<span class="bu">help</span>.upenn_tagset()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>$: dollar
     $ -$ --$ A$ C$ HK$ M$ NZ$ S$ U.S.$ US$
@@ -512,8 +598,8 @@ WRB: Wh-adverb
 </div>
 <p>We can use the function <code>nltk.pos_tag()</code> on our list of tokenized words. This will return a list of tuples, where each tuple contains a word and its corresponding tag.</p>
 <div class="cell" data-execution_count="9">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>fd_tag <span class="op">=</span> nltk.pos_tag(fd_word)</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(fd_tag)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>fd_tag <span class="op">=</span> nltk.pos_tag(fd_word)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(fd_tag)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[('The', 'DT'), ('sum', 'NN'), ('of', 'IN'), ('human', 'JJ'), ('knowing', 'NN'), ('is', 'VBZ'), ('beyond', 'IN'), ('any', 'DT'), ('one', 'CD'), ('man', 'NN'), (';', ':'), ('any', 'DT'), ('thousand', 'CD'), ('men', 'NNS'), ('.', '.'), ('With', 'IN'), ('the', 'DT'), ('destruction', 'NN'), ('of', 'IN'), ('our', 'PRP$'), ('social', 'JJ'), ('fabric', 'NN'), (',', ','), ('science', 'NN'), ('will', 'MD'), ('be', 'VB'), ('broken', 'VBN'), ('into', 'IN'), ('a', 'DT'), ('million', 'CD'), ('pieces', 'NNS'), ('.', '.'), ('Individuals', 'NNS'), ('will', 'MD'), ('know', 'VB'), ('much', 'RB'), ('of', 'IN'), ('exceedingly', 'RB'), ('tiny', 'JJ'), ('facets', 'NNS'), ('of', 'IN'), ('what', 'WP'), ('there', 'EX'), ('is', 'VBZ'), ('to', 'TO'), ('know', 'VB'), ('.', '.'), ('They', 'PRP'), ('will', 'MD'), ('be', 'VB'), ('helpless', 'JJ'), ('and', 'CC'), ('useless', 'JJ'), ('by', 'IN'), ('themselves', 'PRP'), ('.', '.'), ('The', 'DT'), ('bits', 'NNS'), ('of', 'IN'), ('lore', 'NN'), (',', ','), ('meaningless', 'NN'), (',', ','), ('will', 'MD'), ('not', 'RB'), ('be', 'VB'), ('passed', 'VBN'), ('on', 'IN'), ('.', '.'), ('They', 'PRP'), ('will', 'MD'), ('be', 'VB'), ('lost', 'VBN'), ('through', 'IN'), ('the', 'DT'), ('generations', 'NNS'), ('.', '.'), ('But', 'CC'), (',', ','), ('if', 'IN'), ('we', 'PRP'), ('now', 'RB'), ('prepare', 'VBP'), ('a', 'DT'), ('giant', 'JJ'), ('summary', 'NN'), ('of', 'IN'), ('all', 'DT'), ('knowledge', 'NN'), (',', ','), ('it', 'PRP'), ('will', 'MD'), ('never', 'RB'), ('be', 'VB'), ('lost', 'VBN'), ('.', '.'), ('Coming', 'VBG'), ('generations', 'NNS'), ('will', 'MD'), ('build', 'VB'), ('on', 'IN'), ('it', 'PRP'), (',', ','), ('and', 'CC'), ('will', 'MD'), ('not', 'RB'), ('have', 'VB'), ('to', 'TO'), ('rediscover', 'VB'), ('it', 'PRP'), ('for', 'IN'), ('themselves', 'PRP'), ('.', '.'), ('One', 'CD'), ('millennium', 'NN'), ('will', 'MD'), ('do', 'VB'), ('the', 'DT'), ('work', 'NN'), ('of', 'IN'), ('thirty', 'JJ'), ('thousand', 'NN'), ('.', '.')]</code></pre>
 </div>
@@ -527,12 +613,12 @@ WRB: Wh-adverb
 <h3 data-number="12.1.7" class="anchored" data-anchor-id="lemmatizing"><span class="header-section-number">12.1.7</span> Lemmatizing</h3>
 <p>Lemmatizing is similar to stemming, but it is more accurate. Lemmatizing is a process which reduces words to their lemma, which is the base form of a word.<code>nltk</code> includes a lemmatizer based on the WordNet database. We can demonstrate this using a quote from the 1868 novel <em>Little Women</em> by Louisa May Alcott.</p>
 <div class="cell" data-execution_count="10">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> nltk.stem <span class="im">import</span> WordNetLemmatizer</span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>lemmatizer <span class="op">=</span> WordNetLemmatizer()</span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>quote <span class="op">=</span> <span class="st">"The dim, dusty room, with the busts staring down from the tall book-cases, the cosy chairs, the globes, and, best of all, the wilderness of books, in which she could wander where she liked, made the library a region of bliss to her."</span></span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>quote_token <span class="op">=</span> word_tokenize(quote)</span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>quote_lemma <span class="op">=</span> [lemmatizer.lemmatize(w) <span class="cf">for</span> w <span class="kw">in</span> quote_token]</span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(quote_lemma)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> nltk.stem <span class="im">import</span> WordNetLemmatizer</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>lemmatizer <span class="op">=</span> WordNetLemmatizer()</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>quote <span class="op">=</span> <span class="st">"The dim, dusty room, with the busts staring down from the tall book-cases, the cosy chairs, the globes, and, best of all, the wilderness of books, in which she could wander where she liked, made the library a region of bliss to her."</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>quote_token <span class="op">=</span> word_tokenize(quote)</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>quote_lemma <span class="op">=</span> [lemmatizer.lemmatize(w) <span class="cf">for</span> w <span class="kw">in</span> quote_token]</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(quote_lemma)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>['The', 'dim', ',', 'dusty', 'room', ',', 'with', 'the', 'bust', 'staring', 'down', 'from', 'the', 'tall', 'book-cases', ',', 'the', 'cosy', 'chair', ',', 'the', 'globe', ',', 'and', ',', 'best', 'of', 'all', ',', 'the', 'wilderness', 'of', 'book', ',', 'in', 'which', 'she', 'could', 'wander', 'where', 'she', 'liked', ',', 'made', 'the', 'library', 'a', 'region', 'of', 'bliss', 'to', 'her', '.']</code></pre>
 </div>
@@ -542,8 +628,8 @@ WRB: Wh-adverb
 <h3 data-number="12.1.8" class="anchored" data-anchor-id="chunkingchinking"><span class="header-section-number">12.1.8</span> Chunking/Chinking</h3>
 <p>While tokenizing allows us to distinguish individual words and sentences within a larger body of text, <strong>Chunking</strong> allows us to identify phrases based on grammar we specify.</p>
 <div class="cell" data-execution_count="11">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co">#nltk.download("averaged_perceptron_tagger")</span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>quote_tag <span class="op">=</span> nltk.pos_tag(quote_token)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co">#nltk.download("averaged_perceptron_tagger")</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>quote_tag <span class="op">=</span> nltk.pos_tag(quote_token)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>We can then name grammar rules to apply to the text. These use regular expressions, which are listed below:</p>
 <table class="table">
@@ -615,21 +701,21 @@ WRB: Wh-adverb
 </tbody>
 </table>
 <div class="cell" data-execution_count="12">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> re</span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> regex</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> re</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> regex</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell" data-execution_count="13">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>grammar <span class="op">=</span> <span class="vs">r"""</span></span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="vs">  NP: {&lt;DT|JJ|NN.*&gt;+}          # Chunk sequences of DT, JJ, NN</span></span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="vs">  PP: {&lt;IN&gt;&lt;NP&gt;}               # Chunk prepositions followed by NP</span></span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="vs">  VP: {&lt;VB.*&gt;&lt;NP|PP|CLAUSE&gt;+$} # Chunk verbs and their arguments</span></span>
-<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="vs">  CLAUSE: {&lt;NP&gt;&lt;VP&gt;}           # Chunk NP, VP</span></span>
-<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a><span class="vs">  """</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>grammar <span class="op">=</span> <span class="vs">r"""</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="vs">  NP: {&lt;DT|JJ|NN.*&gt;+}          # Chunk sequences of DT, JJ, NN</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="vs">  PP: {&lt;IN&gt;&lt;NP&gt;}               # Chunk prepositions followed by NP</span></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="vs">  VP: {&lt;VB.*&gt;&lt;NP|PP|CLAUSE&gt;+$} # Chunk verbs and their arguments</span></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="vs">  CLAUSE: {&lt;NP&gt;&lt;VP&gt;}           # Chunk NP, VP</span></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a><span class="vs">  """</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell" data-execution_count="14">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>chunk_parser <span class="op">=</span> nltk.RegexpParser(grammar)</span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>tree <span class="op">=</span> chunk_parser.parse(quote_tag)</span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>tree.pretty_print(unicodelines<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>chunk_parser <span class="op">=</span> nltk.RegexpParser(grammar)</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>tree <span class="op">=</span> chunk_parser.parse(quote_tag)</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>tree.pretty_print(unicodelines<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>                                                                                                                                                                                        S                                                                                                                                                                                                                                                                 
  ┌───┬───────┬─────────┬─────┬───┬───┬────┬─────┬─────┬──────┬───┬────┬───────┬────────┬───────┬─────────┬─────────┬────────┬────────┬──────┬─────┬───────┬──────┬──────┬──────────┬────┴──────────────┬────────────────────┬──────────────────────────────────┬───────────────────────────────────┬───────────────────────┬────────────────────┬─────────────────┬───────────────────────┬───────────────────────┬────────────────────────────┐           
@@ -647,15 +733,15 @@ WRB: Wh-adverb
 <h3 data-number="12.1.9" class="anchored" data-anchor-id="named-entity-recognition"><span class="header-section-number">12.1.9</span> Named Entity Recognition</h3>
 <p>Previous methods have been able to identify the parts of speech of each word in a text. However, we may want to identify specific entities within the text. For example, we may want to identify the names of people, places, and organizations. <code>nltk</code> includes a named entity recognizer which can identify these entities. We can demonstrate this using a quote from <em>The Iliad</em> by Homer.</p>
 <div class="cell" data-execution_count="15">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>homer <span class="op">=</span> <span class="st">"In the war of Troy, the Greeks having sacked some of the neighbouring towns, and taken from thence two beautiful captives, Chryseïs and Briseïs, allotted the first to Agamemnon, and the last to Achilles."</span></span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>homer_token <span class="op">=</span> word_tokenize(homer)</span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>homer_tag <span class="op">=</span> nltk.pos_tag(homer_token)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>homer <span class="op">=</span> <span class="st">"In the war of Troy, the Greeks having sacked some of the neighbouring towns, and taken from thence two beautiful captives, Chryseïs and Briseïs, allotted the first to Agamemnon, and the last to Achilles."</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>homer_token <span class="op">=</span> word_tokenize(homer)</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>homer_tag <span class="op">=</span> nltk.pos_tag(homer_token)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell" data-execution_count="16">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co">#nltk.download("maxent_ne_chunker")</span></span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="co">#nltk.download("words")</span></span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>tree2 <span class="op">=</span> nltk.ne_chunk(homer_tag)</span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>tree2.pretty_print(unicodelines<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co">#nltk.download("maxent_ne_chunker")</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="co">#nltk.download("words")</span></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>tree2 <span class="op">=</span> nltk.ne_chunk(homer_tag)</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>tree2.pretty_print(unicodelines<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>                                                                                                                                                             S                                                                                                                                                                                 
   ┌─────┬──────┬──────┬────┬────┬────────┬──────────┬─────────┬──────┬─────┬───────────┬────────────┬──────┬────┬────────┬────────┬────────┬───────┬─────────┼────────────┬────────┬────┬─────┬───────┬─────────┬───────┬───────┬────┬────┬──────┬───────┬──────┬────┬─────┬─────────┬───────────┬────────────┬────────────┬────────────┐       
@@ -667,8 +753,8 @@ In/IN the/DT war/NN of/IN ,/, the/DT having/VBG sacked/VBN some/DT of/IN the/DT 
 </div>
 <p>In the tree, some of the words that should be tagged as <code>PERSON</code> are tagged as <code>GPE</code>, or Geo-Political Entity. In these cases, we can also generate a tree which does not specify the type of named entity.</p>
 <div class="cell" data-execution_count="17">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>tree3 <span class="op">=</span> nltk.ne_chunk(homer_tag, binary<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>tree3.pretty_print(unicodelines<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>tree3 <span class="op">=</span> nltk.ne_chunk(homer_tag, binary<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>tree3.pretty_print(unicodelines<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>                                                                                                                                                             S                                                                                                                                                                                 
   ┌─────┬──────┬──────┬────┬────┬────────┬──────────┬─────────┬──────┬─────┬───────────┬────────────┬──────┬────┬────────┬────────┬────────┬───────┬─────────┼────────────┬────────┬────┬─────┬───────┬─────────┬───────┬───────┬────┬────┬──────┬───────┬──────┬────┬─────┬─────────┬───────────┬────────────┬────────────┬────────────┐       
@@ -683,7 +769,7 @@ In/IN the/DT war/NN of/IN ,/, the/DT having/VBG sacked/VBN some/DT of/IN the/DT 
 <h3 data-number="12.1.10" class="anchored" data-anchor-id="analyzing-corpora"><span class="header-section-number">12.1.10</span> Analyzing Corpora</h3>
 <p><code>nltk</code> includes a number of corpora, which are large bodies of text. We will try out some methods on the 1851 novel <em>Moby Dick</em> by Herman Melville.</p>
 <div class="cell" data-execution_count="18">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> nltk.book <span class="im">import</span> <span class="op">*</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> nltk.book <span class="im">import</span> <span class="op">*</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>*** Introductory Examples for the NLTK Book ***
 Loading text1, ..., text9 and sent1, ..., sent9
@@ -714,7 +800,7 @@ text9: The Man Who Was Thursday by G . K . Chesterton 1908</code></pre>
 <h4 data-number="12.1.10.1" class="anchored" data-anchor-id="concordance"><span class="header-section-number">12.1.10.1</span> Concordance</h4>
 <p><code>concordance</code> allows us to find all instances of a word in a text. We can use this to find all instances of the word “whale” in <em>Moby Dick</em>.</p>
 <div class="cell" data-execution_count="19">
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>text1.concordance(<span class="st">"whale"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>text1.concordance(<span class="st">"whale"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Displaying 25 of 1226 matches:
 s , and to teach them by what name a whale - fish is to be called in our tongue
@@ -749,7 +835,7 @@ contemptible in the comparison . The whale is doubtless the largest animal in c<
 <h4 data-number="12.1.10.2" class="anchored" data-anchor-id="dispersion-plot"><span class="header-section-number">12.1.10.2</span> Dispersion Plot</h4>
 <p><code>dispersion_plot</code> allows us to see how a word is used throughout a text. We can use this to see the representation of characters throughout <em>Moby Dick</em>.</p>
 <div class="cell" data-execution_count="20">
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>text1.dispersion_plot([<span class="st">"Ahab"</span>, <span class="st">"Ishmael"</span>, <span class="st">"Starbuck"</span>, <span class="st">"Queequeg"</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>text1.dispersion_plot([<span class="st">"Ahab"</span>, <span class="st">"Ishmael"</span>, <span class="st">"Starbuck"</span>, <span class="st">"Queequeg"</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>/usr/local/lib/python3.11/site-packages/nltk/draw/__init__.py:15: UserWarning: nltk.draw package not loaded (please install Tkinter library).
   warnings.warn("nltk.draw package not loaded (please install Tkinter library).")</code></pre>
@@ -763,18 +849,18 @@ contemptible in the comparison . The whale is doubtless the largest animal in c<
 <h4 data-number="12.1.10.3" class="anchored" data-anchor-id="frequency-distribution"><span class="header-section-number">12.1.10.3</span> Frequency Distribution</h4>
 <p><code>FreqDist</code> allows us to see the frequency of each word in a text. We can use this to see the most common words in <em>Moby Dick</em>.</p>
 <div class="cell" data-execution_count="21">
-<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> nltk <span class="im">import</span> FreqDist</span>
-<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>fdist1 <span class="op">=</span> FreqDist(text1)</span>
-<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(fdist1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> nltk <span class="im">import</span> FreqDist</span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>fdist1 <span class="op">=</span> FreqDist(text1)</span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(fdist1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>&lt;FreqDist with 19317 samples and 260819 outcomes&gt;</code></pre>
 </div>
 </div>
 <p>We can use the list of stop words generated previously to help us focus on meaningful words.</p>
 <div class="cell" data-execution_count="22">
-<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>text1_imp <span class="op">=</span> [w <span class="cf">for</span> w <span class="kw">in</span> text1 <span class="cf">if</span> w <span class="kw">not</span> <span class="kw">in</span> stop_words <span class="kw">and</span> w.isalpha()]</span>
-<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>fdist2 <span class="op">=</span> FreqDist(text1_imp)</span>
-<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>fdist2.most_common(<span class="dv">20</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>text1_imp <span class="op">=</span> [w <span class="cf">for</span> w <span class="kw">in</span> text1 <span class="cf">if</span> w <span class="kw">not</span> <span class="kw">in</span> stop_words <span class="kw">and</span> w.isalpha()]</span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>fdist2 <span class="op">=</span> FreqDist(text1_imp)</span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>fdist2.most_common(<span class="dv">20</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="22">
 <pre><code>[('I', 2124),
  ('whale', 906),
@@ -800,7 +886,7 @@ contemptible in the comparison . The whale is doubtless the largest animal in c<
 </div>
 <p>We can visualize the frequency distribution using <code>plot</code>.</p>
 <div class="cell" data-execution_count="23">
-<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>fdist2.plot(<span class="dv">20</span>, cumulative<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>fdist2.plot(<span class="dv">20</span>, cumulative<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <p><img src="advanced_files/figure-html/cell-24-output-1.png" width="610" height="463"></p>
 </div>
@@ -813,7 +899,7 @@ contemptible in the comparison . The whale is doubtless the largest animal in c<
 <h4 data-number="12.1.10.4" class="anchored" data-anchor-id="collocations"><span class="header-section-number">12.1.10.4</span> Collocations</h4>
 <p><code>collocations</code> allows us to find words that commonly appear together. We can use this to find the most common collocations in <em>Moby Dick</em>.</p>
 <div class="cell" data-execution_count="24">
-<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>text1.collocations()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>text1.collocations()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Sperm Whale; Moby Dick; White Whale; old man; Captain Ahab; sperm
 whale; Right Whale; Captain Peleg; New Bedford; Cape Horn; cried Ahab;
@@ -833,6 +919,1738 @@ mate; white whale; ivory leg; one hand</code></pre>
 <li><a href="https://www.nltk.org/">NLTK Documentation</a></li>
 <li><a href="https://www.nltk.org/book/">NLTK Book</a></li>
 </ul>
+</section>
+</section>
+<section id="neural-networks-with-tensorflow-by-giovanni-lunetta" class="level2" data-number="12.2">
+<h2 data-number="12.2" class="anchored" data-anchor-id="neural-networks-with-tensorflow-by-giovanni-lunetta"><span class="header-section-number">12.2</span> Neural Networks with Tensorflow (by Giovanni Lunetta)</h2>
+<p>A neural network is a type of machine learning algorithm that is inspired by the structure and function of the human brain. It consists of layers of interconnected nodes, or neurons, that can learn to recognize patterns in data and make predictions or decisions based on that input.</p>
+<p>Neural networks are used in a wide variety of applications, including image and speech recognition, natural language processing, predictive analytics, robotics, and more. They have been especially effective in tasks that require pattern recognition, such as identifying objects in images, translating between languages, and predicting future trends in data.</p>
+<section id="neural-network-architecture" class="level3" data-number="12.2.1">
+<h3 data-number="12.2.1" class="anchored" data-anchor-id="neural-network-architecture"><span class="header-section-number">12.2.1</span> Neural Network Architecture</h3>
+<p>A neural network consists of one or more layers of neurons, each of which takes input from the previous layer and produces output for the next layer. The input layer receives raw data, while the output layer produces predictions or decisions based on that input. The hidden layers in between contain neurons that can learn to recognize patterns in the data and extract features that are useful for making predictions.</p>
+<p>Each neuron in a neural network has a set of weights and biases that determine how it responds to input. These values are adjusted during training to improve the accuracy of the network’s predictions. The activation function of a neuron determines how it responds to input, such as by applying a threshold or sigmoid function.</p>
+<div class="cell" data-execution_count="25">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> IPython.display <span class="im">import</span> Image</span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Image(filename='ai-artificial-neural-network-alex-castrounis.png')</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>The input layer: The three blue nodes on the left side of the diagram represent the input layer. This layer receives input data, such as pixel values from an image or numerical features from a dataset.</p>
+<p>The hidden layer: The four white nodes in the middle of the diagram represent the hidden layer. This layer performs computations on the input data and generates output values that are passed to the output layer.</p>
+<p>The output layer: The orange node on the right side of the diagram represents the output layer. This layer generates the final output of the neural network, which can be a binary classification (0 or 1) or a continuous value.</p>
+<p>The arrows: The arrows in the diagram represent the connections between nodes in adjacent layers. Each arrow has an associated weight, which is a parameter learned during the training process. The weights determine the strength of the connections between the nodes and are used to compute the output values of each node.</p>
+</section>
+<section id="relu-activation-function" class="level3" data-number="12.2.2">
+<h3 data-number="12.2.2" class="anchored" data-anchor-id="relu-activation-function"><span class="header-section-number">12.2.2</span> ReLu Activation Function</h3>
+<p>The ReLU (Rectified Linear Unit) activation function is used in neural networks to introduce non-linearity into the model. Non-linearity allows neural networks to learn more complex relationships between inputs and outputs.</p>
+<p>ReLU is a simple function that returns the input if it is positive, and 0 otherwise. This means that ReLU “activates” (returns a non-zero output) only if the input is positive, which can be thought of as a way for the neuron to “turn on” when the input is significant enough. In contrast, a linear function would simply scale the input by a constant factor, which would not introduce any non-linearity into the model.</p>
+<p>In simple terms, ReLU allows the neural network to selectively activate certain neurons based on the importance of the input, which helps it learn more complex patterns in the data.</p>
+<div class="cell" data-execution_count="26">
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> linear(x):</span>
+<span id="cb54-5"><a href="#cb54-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x</span>
+<span id="cb54-6"><a href="#cb54-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-7"><a href="#cb54-7" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> relu(x):</span>
+<span id="cb54-8"><a href="#cb54-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.maximum(<span class="dv">0</span>, x)</span>
+<span id="cb54-9"><a href="#cb54-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-10"><a href="#cb54-10" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> np.linspace(<span class="op">-</span><span class="dv">10</span>, <span class="dv">10</span>, <span class="dv">100</span>)</span>
+<span id="cb54-11"><a href="#cb54-11" aria-hidden="true" tabindex="-1"></a>y_linear <span class="op">=</span> linear(x)</span>
+<span id="cb54-12"><a href="#cb54-12" aria-hidden="true" tabindex="-1"></a>y_relu <span class="op">=</span> relu(x)</span>
+<span id="cb54-13"><a href="#cb54-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-14"><a href="#cb54-14" aria-hidden="true" tabindex="-1"></a>plt.plot(x, y_linear, label<span class="op">=</span><span class="st">'Linear'</span>)</span>
+<span id="cb54-15"><a href="#cb54-15" aria-hidden="true" tabindex="-1"></a>plt.plot(x, y_relu, label<span class="op">=</span><span class="st">'ReLU'</span>)</span>
+<span id="cb54-16"><a href="#cb54-16" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
+<span id="cb54-17"><a href="#cb54-17" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Input'</span>)</span>
+<span id="cb54-18"><a href="#cb54-18" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Output'</span>)</span>
+<span id="cb54-19"><a href="#cb54-19" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="advanced_files/figure-html/cell-27-output-1.png" width="608" height="429"></p>
+</div>
+</div>
+</section>
+<section id="demonstration" class="level3" data-number="12.2.3">
+<h3 data-number="12.2.3" class="anchored" data-anchor-id="demonstration"><span class="header-section-number">12.2.3</span> Demonstration</h3>
+<p>TensorFlow is an open-source software library developed by Google that is widely used for building and training machine learning models, including neural networks. TensorFlow provides a range of tools and abstractions that make it easier to build and optimize complex models, as well as tools for deploying models in production.</p>
+<p>Here’s an example of how to use TensorFlow to build a neural network for a softmax regression model:</p>
+<p>First we start by importing the proper packages:</p>
+<div class="cell" data-execution_count="27">
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> tensorflow <span class="im">as</span> tf</span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> tensorflow.keras.models <span class="im">import</span> Sequential</span>
+<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> tensorflow.keras.layers <span class="im">import</span> Dense</span>
+<span id="cb55-4"><a href="#cb55-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> tensorflow.keras.utils <span class="im">import</span> plot_model</span>
+<span id="cb55-5"><a href="#cb55-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> tensorflow.keras.losses <span class="im">import</span> SparseCategoricalCrossentropy</span>
+<span id="cb55-6"><a href="#cb55-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-7"><a href="#cb55-7" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb55-8"><a href="#cb55-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-9"><a href="#cb55-9" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> make_blobs</span>
+<span id="cb55-10"><a href="#cb55-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-11"><a href="#cb55-11" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>2023-04-10 13:31:04.811994: I tensorflow/core/platform/cpu_feature_guard.cc:182] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.</code></pre>
+</div>
+</div>
+<p>TensorFlow and Keras are closely related, as Keras is a high-level API that is built on top of TensorFlow. Keras provides a user-friendly interface for building neural networks, making it easy to create, train, and evaluate models without needing to know the details of TensorFlow’s low-level API.</p>
+<p>Keras was initially developed as a standalone library, but since version 2.0, it has been integrated into TensorFlow as its official high-level API. This means that Keras can now be used as a part of TensorFlow, providing a unified and comprehensive platform for deep learning.</p>
+<p>In other words, Keras is essentially a wrapper around TensorFlow that provides a simpler and more intuitive interface for building neural networks. While TensorFlow provides a lower-level API that offers more control and flexibility, Keras makes it easier to get started with building deep learning models, especially for beginners.</p>
+<div class="cell" data-execution_count="28">
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="co"># make dataset for example</span></span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>centers <span class="op">=</span> [[<span class="op">-</span><span class="dv">5</span>, <span class="dv">2</span>], [<span class="op">-</span><span class="dv">2</span>, <span class="op">-</span><span class="dv">2</span>], [<span class="dv">1</span>, <span class="dv">2</span>], [<span class="dv">5</span>, <span class="op">-</span><span class="dv">2</span>]]</span>
+<span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a>X_train, y_train <span class="op">=</span> make_blobs(n_samples<span class="op">=</span><span class="dv">2000</span>, centers<span class="op">=</span>centers, cluster_std<span class="op">=</span><span class="fl">2.0</span>,random_state<span class="op">=</span><span class="dv">75</span>)</span>
+<span id="cb57-4"><a href="#cb57-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-5"><a href="#cb57-5" aria-hidden="true" tabindex="-1"></a><span class="co"># plot the example dataset</span></span>
+<span id="cb57-6"><a href="#cb57-6" aria-hidden="true" tabindex="-1"></a>plt.scatter(X_train[:, <span class="dv">0</span>], X_train[:, <span class="dv">1</span>], c<span class="op">=</span>y_train)</span>
+<span id="cb57-7"><a href="#cb57-7" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Example Dataset'</span>)</span>
+<span id="cb57-8"><a href="#cb57-8" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Feature 1'</span>)</span>
+<span id="cb57-9"><a href="#cb57-9" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Feature 2'</span>)</span>
+<span id="cb57-10"><a href="#cb57-10" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="advanced_files/figure-html/cell-29-output-1.png" width="600" height="449"></p>
+</div>
+</div>
+<p>We will talk about three ways to implement a softmax regression machine learning model. The first using Stochastic Gradient Descent as the loss function. Next, using a potentially more efficient algoritm called the Adam Algoritm. Finally, using the Adam Algoritm again, but more efficiently.</p>
+<section id="stochastic-gradient-descent" class="level4" data-number="12.2.3.1">
+<h4 data-number="12.2.3.1" class="anchored" data-anchor-id="stochastic-gradient-descent"><span class="header-section-number">12.2.3.1</span> Stochastic Gradient Descent</h4>
+<div class="cell" data-execution_count="29">
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>sgd_model <span class="op">=</span> tf.keras.Sequential([</span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>        Dense(<span class="dv">10</span>, activation <span class="op">=</span> <span class="st">'relu'</span>),</span>
+<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a>        Dense(<span class="dv">5</span>, activation <span class="op">=</span> <span class="st">'relu'</span>),</span>
+<span id="cb58-4"><a href="#cb58-4" aria-hidden="true" tabindex="-1"></a>        Dense(<span class="dv">4</span>, activation <span class="op">=</span> <span class="st">'softmax'</span>)    <span class="co"># &lt;-- softmax activation here</span></span>
+<span id="cb58-5"><a href="#cb58-5" aria-hidden="true" tabindex="-1"></a>    ]</span>
+<span id="cb58-6"><a href="#cb58-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb58-7"><a href="#cb58-7" aria-hidden="true" tabindex="-1"></a>sgd_model.<span class="bu">compile</span>(</span>
+<span id="cb58-8"><a href="#cb58-8" aria-hidden="true" tabindex="-1"></a>    loss<span class="op">=</span>tf.keras.losses.SparseCategoricalCrossentropy(),  <span class="co"># &lt;-- Note</span></span>
+<span id="cb58-9"><a href="#cb58-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb58-10"><a href="#cb58-10" aria-hidden="true" tabindex="-1"></a>sgd_history <span class="op">=</span> sgd_model.fit(</span>
+<span id="cb58-11"><a href="#cb58-11" aria-hidden="true" tabindex="-1"></a>                    X_train,y_train,</span>
+<span id="cb58-12"><a href="#cb58-12" aria-hidden="true" tabindex="-1"></a>                    epochs<span class="op">=</span><span class="dv">30</span></span>
+<span id="cb58-13"><a href="#cb58-13" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 1/30</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code> 1/63 [..............................] - ETA: 50s - loss: 2.0652</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>30/63 [=============&gt;................] - ETA: 0s - loss: 2.0594 </code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>42/63 [===================&gt;..........] - ETA: 0s - loss: 1.9821</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>53/63 [========================&gt;.....] - ETA: 0s - loss: 1.9051</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>62/63 [============================&gt;.] - ETA: 0s - loss: 1.8566</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>63/63 [==============================] - 1s 4ms/step - loss: 1.8536</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 2/30</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code> 1/63 [..............................] - ETA: 0s - loss: 1.5199</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>18/63 [=======&gt;......................] - ETA: 0s - loss: 1.4142</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>34/63 [===============&gt;..............] - ETA: 0s - loss: 1.3443</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>44/63 [===================&gt;..........] - ETA: 0s - loss: 1.3074</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>63/63 [==============================] - 0s 3ms/step - loss: 1.2554</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 3/30</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code> 1/63 [..............................] - ETA: 0s - loss: 1.0393</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>24/63 [==========&gt;...................] - ETA: 0s - loss: 1.0164</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>53/63 [========================&gt;.....] - ETA: 0s - loss: 0.9497</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>63/63 [==============================] - 0s 2ms/step - loss: 0.9318</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 4/30</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code> 1/63 [..............................] - ETA: 0s - loss: 0.7798</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>23/63 [=========&gt;....................] - ETA: 0s - loss: 0.8113</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>46/63 [====================&gt;.........] - ETA: 0s - loss: 0.7838</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>63/63 [==============================] - 0s 2ms/step - loss: 0.7641</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 5/30</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code> 1/63 [..............................] - ETA: 0s - loss: 0.8327</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>28/63 [============&gt;.................] - ETA: 0s - loss: 0.6845</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>54/63 [========================&gt;.....] - ETA: 0s - loss: 0.6634</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>63/63 [==============================] - 0s 2ms/step - loss: 0.6557</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 6/30</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code> 1/63 [..............................] - ETA: 0s - loss: 0.5136</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>25/63 [==========&gt;...................] - ETA: 0s - loss: 0.5913</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>55/63 [=========================&gt;....] - ETA: 0s - loss: 0.5755</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>63/63 [==============================] - 0s 2ms/step - loss: 0.5797</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 7/30</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code> 1/63 [..............................] - ETA: 0s - loss: 0.5063</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>38/63 [=================&gt;............] - ETA: 0s - loss: 0.5406</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>63/63 [==============================] - 0s 1ms/step - loss: 0.5268</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 8/30</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code> 1/63 [..............................] - ETA: 0s - loss: 0.4524</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>42/63 [===================&gt;..........] - ETA: 0s - loss: 0.5009</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>63/63 [==============================] - 0s 1ms/step - loss: 0.4921</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 9/30</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code> 1/63 [..............................] - ETA: 0s - loss: 0.4968</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>38/63 [=================&gt;............] - ETA: 0s - loss: 0.4747</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>63/63 [==============================] - 0s 1ms/step - loss: 0.4702</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 10/30</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code> 1/63 [..............................] - ETA: 0s - loss: 0.4344</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>42/63 [===================&gt;..........] - ETA: 0s - loss: 0.4715</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>63/63 [==============================] - 0s 1ms/step - loss: 0.4558</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 11/30</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code> 1/63 [..............................] - ETA: 0s - loss: 0.4153</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>43/63 [===================&gt;..........] - ETA: 0s - loss: 0.4552</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>63/63 [==============================] - 0s 1ms/step - loss: 0.4462</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 12/30</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code> 1/63 [..............................] - ETA: 0s - loss: 0.7022</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>43/63 [===================&gt;..........] - ETA: 0s - loss: 0.4286</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>63/63 [==============================] - 0s 1ms/step - loss: 0.4386</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 13/30</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code> 1/63 [..............................] - ETA: 0s - loss: 0.2258</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>43/63 [===================&gt;..........] - ETA: 0s - loss: 0.4226</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>63/63 [==============================] - 0s 1ms/step - loss: 0.4332</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 14/30</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code> 1/63 [..............................] - ETA: 0s - loss: 0.2718</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>43/63 [===================&gt;..........] - ETA: 0s - loss: 0.4289</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>63/63 [==============================] - 0s 1ms/step - loss: 0.4281</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 15/30</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code> 1/63 [..............................] - ETA: 0s - loss: 0.2684</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>42/63 [===================&gt;..........] - ETA: 0s - loss: 0.4299</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>63/63 [==============================] - 0s 1ms/step - loss: 0.4241</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 16/30</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code> 1/63 [..............................] - ETA: 0s - loss: 0.2300</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>41/63 [==================&gt;...........] - ETA: 0s - loss: 0.4250</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>63/63 [==============================] - 0s 1ms/step - loss: 0.4203</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 17/30</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code> 1/63 [..............................] - ETA: 0s - loss: 0.3637</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>41/63 [==================&gt;...........] - ETA: 0s - loss: 0.4176</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>63/63 [==============================] - 0s 1ms/step - loss: 0.4179</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 18/30</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code> 1/63 [..............................] - ETA: 0s - loss: 0.2675</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>29/63 [============&gt;.................] - ETA: 0s - loss: 0.4306</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>58/63 [==========================&gt;...] - ETA: 0s - loss: 0.4201</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>63/63 [==============================] - 0s 2ms/step - loss: 0.4149</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 19/30</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code> 1/63 [..............................] - ETA: 0s - loss: 0.2852</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>19/63 [========&gt;.....................] - ETA: 0s - loss: 0.3901</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>20/63 [========&gt;.....................] - ETA: 0s - loss: 0.3939</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>21/63 [=========&gt;....................] - ETA: 0s - loss: 0.4227</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>38/63 [=================&gt;............] - ETA: 0s - loss: 0.4139</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>63/63 [==============================] - 0s 4ms/step - loss: 0.4130</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 20/30</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code> 1/63 [..............................] - ETA: 0s - loss: 0.3638</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>20/63 [========&gt;.....................] - ETA: 0s - loss: 0.4110</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>33/63 [==============&gt;...............] - ETA: 0s - loss: 0.4086</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>57/63 [==========================&gt;...] - ETA: 0s - loss: 0.4221</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>63/63 [==============================] - 0s 3ms/step - loss: 0.4107</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 21/30</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code> 1/63 [..............................] - ETA: 0s - loss: 0.1899</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>26/63 [===========&gt;..................] - ETA: 0s - loss: 0.4112</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>56/63 [=========================&gt;....] - ETA: 0s - loss: 0.4075</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>63/63 [==============================] - 0s 2ms/step - loss: 0.4097</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 22/30</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code> 1/63 [..............................] - ETA: 0s - loss: 0.3342</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>39/63 [=================&gt;............] - ETA: 0s - loss: 0.4147</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>63/63 [==============================] - 0s 1ms/step - loss: 0.4084</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 23/30</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code> 1/63 [..............................] - ETA: 0s - loss: 0.3395</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>31/63 [=============&gt;................] - ETA: 0s - loss: 0.4127</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>50/63 [======================&gt;.......] - ETA: 0s - loss: 0.4116</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>63/63 [==============================] - 0s 2ms/step - loss: 0.4066</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 24/30</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code> 1/63 [..............................] - ETA: 0s - loss: 0.4724</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>35/63 [===============&gt;..............] - ETA: 0s - loss: 0.3996</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>63/63 [==============================] - 0s 2ms/step - loss: 0.4060</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 25/30</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code> 1/63 [..............................] - ETA: 0s - loss: 0.3407</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>30/63 [=============&gt;................] - ETA: 0s - loss: 0.3920</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>40/63 [==================&gt;...........] - ETA: 0s - loss: 0.3913</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>53/63 [========================&gt;.....] - ETA: 0s - loss: 0.4070</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>62/63 [============================&gt;.] - ETA: 0s - loss: 0.4045</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>63/63 [==============================] - 0s 4ms/step - loss: 0.4052</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 26/30</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code> 1/63 [..............................] - ETA: 0s - loss: 0.4480</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>15/63 [======&gt;.......................] - ETA: 0s - loss: 0.3708</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>36/63 [================&gt;.............] - ETA: 0s - loss: 0.4168</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>62/63 [============================&gt;.] - ETA: 0s - loss: 0.4032</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>63/63 [==============================] - 0s 3ms/step - loss: 0.4042</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 27/30</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code> 1/63 [..............................] - ETA: 0s - loss: 0.6677</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>20/63 [========&gt;.....................] - ETA: 0s - loss: 0.4200</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>45/63 [====================&gt;.........] - ETA: 0s - loss: 0.3945</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>63/63 [==============================] - 0s 2ms/step - loss: 0.4039</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 28/30</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code> 1/63 [..............................] - ETA: 0s - loss: 0.1897</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>23/63 [=========&gt;....................] - ETA: 0s - loss: 0.4047</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>51/63 [=======================&gt;......] - ETA: 0s - loss: 0.4113</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>63/63 [==============================] - 0s 2ms/step - loss: 0.4027</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 29/30</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code> 1/63 [..............................] - ETA: 0s - loss: 0.2796</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>28/63 [============&gt;.................] - ETA: 0s - loss: 0.3973</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>58/63 [==========================&gt;...] - ETA: 0s - loss: 0.4003</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>63/63 [==============================] - 0s 2ms/step - loss: 0.4026</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 30/30</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code> 1/63 [..............................] - ETA: 0s - loss: 0.2039</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>18/63 [=======&gt;......................] - ETA: 0s - loss: 0.3807</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>31/63 [=============&gt;................] - ETA: 0s - loss: 0.3719</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>52/63 [=======================&gt;......] - ETA: 0s - loss: 0.3967</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>63/63 [==============================] - 0s 3ms/step - loss: 0.4014</code></pre>
+</div>
+</div>
+<p>Here is a step-by-step explanation of the code:</p>
+<ol type="1">
+<li><p>First, we create a sequential model using the <code>tf.keras.Sequential()</code> function. This is a linear stack of layers where we can add layers using the <code>.add()</code> method.</p></li>
+<li><p>Then we add three dense layers to the model using the <code>.add()</code> method. The first two layers have the relu activation function and the last layer has the softmax activation function.</p></li>
+<li><p>We import <code>SparseCategoricalCrossentropy</code> from <code>tensorflow.keras.losses</code>. This is our loss function, which will be used to evaluate the model during training.</p></li>
+<li><p>We compile the model using <code>model.compile()</code>, specifying the <code>SparseCategoricalCrossentropy()</code> as our loss function.</p></li>
+<li><p>We fit the model to the training data using <code>model.fit()</code>, specifying the training data (X_train and y_train) and the number of epochs* (10).</p></li>
+</ol>
+<p>In summary, the code creates a sequential model with three dense layers, using the relu activation function in the first two layers and the softmax activation function in the output layer. The model is then compiled using the <code>SparseCategoricalCrossentropy()</code> loss function, and finally, the model is trained for 10 epochs using the <code>model.fit()</code> method.</p>
+<p>*In machine learning, the term “epochs” refers to the number of times the entire training dataset is used to train the model. During each epoch, the model processes the entire dataset, updates its parameters based on the computed errors, and moves on to the next epoch until the desired level of accuracy is achieved. Increasing the number of epochs may improve the model accuracy, but it also increases the risk of overfitting on the training data. Therefore, the number of epochs is a hyperparameter that must be tuned to achieve the best possible results.</p>
+<div class="cell" data-execution_count="30">
+<div class="sourceCode cell-code" id="cb206"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb206-1"><a href="#cb206-1" aria-hidden="true" tabindex="-1"></a>sgd_model.summary()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Model: "sequential"</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>_________________________________________________________________</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code> Layer (type)                Output Shape              Param #   </code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>=================================================================</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code> dense (Dense)               (None, 10)                30        </code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                                                                 </code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code> dense_1 (Dense)             (None, 5)                 55        </code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                                                                 </code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code> dense_2 (Dense)             (None, 4)                 24        </code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                                                                 </code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>=================================================================</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Total params: 109</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Trainable params: 109</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Non-trainable params: 0</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>_________________________________________________________________</code></pre>
+</div>
+</div>
+<p>In this example, the first hidden layer has 10 neurons, so there are 10 * 3 = 30 parameters (3 input features). The second hidden layer has 5 neurons, so there are 5 * 10 + 5 = 55 parameters (10 inputs from the previous layer, plus 5 bias terms). The output layer has 4 neurons, so there are 5 * 4 + 4 = 24 parameters (5 inputs from the previous layer, plus 4 bias terms).</p>
+<p>The output None for the total number of trainable parameters means that none of the layers have been marked as non-trainable.</p>
+<p>The None values in the output shape column represent the variable batch size that is inputted during the training process.</p>
+<div class="cell" data-execution_count="31">
+<div class="sourceCode cell-code" id="cb222"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb222-1"><a href="#cb222-1" aria-hidden="true" tabindex="-1"></a>p_nonpreferred <span class="op">=</span> sgd_model.predict(X_train)</span>
+<span id="cb222-2"><a href="#cb222-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(p_nonpreferred [:<span class="dv">2</span>])</span>
+<span id="cb222-3"><a href="#cb222-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"largest value"</span>, np.<span class="bu">max</span>(p_nonpreferred), <span class="st">"smallest value"</span>, np.<span class="bu">min</span>(p_nonpreferred))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> 1/63 [..............................] - ETA: 6s</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>42/63 [===================&gt;..........] - ETA: 0s</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>63/63 [==============================] - 0s 1ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[[9.9686207e-03 9.6037227e-01 1.4029160e-02 1.5630135e-02]
+ [1.9495047e-07 1.5884613e-03 7.8975148e-02 9.1943622e-01]]
+largest value 0.9999878 smallest value 2.897178e-14</code></pre>
+</div>
+</div>
+<p><code>p_nonpreferred = model.predict(X_train)</code>: This line uses the predict method of the model object to make predictions on the input data X_train. The resulting predictions are stored in the p_nonpreferred variable.</p>
+<p><code>print(p_nonpreferred [:2])</code>: This line prints the first two rows of p_nonpreferred. Each row represents the predicted probabilities for a single observation in the training set. The four columns represent the predicted probabilities for each of the four classes in the dataset.</p>
+<p><code>print("largest value", np.max(p_nonpreferred), "smallest value", np.min(p_nonpreferred))</code>: This line prints out the largest and smallest values from p_nonpreferred, which can give an idea of the range of the predictions. The np.max and np.min functions from NumPy are used to find the maximum and minimum values in p_nonpreferred.</p>
+<p>The output is a matrix with two rows (because we have two input examples) and four columns (because the output layer has four neurons). Each element of the matrix is the probability that the input example belongs to the corresponding class. For example, the probability that the first input example belongs to class 3 (which has the highest probability) is 0.99254191.</p>
+</section>
+<section id="adam-algoritm" class="level4" data-number="12.2.3.2">
+<h4 data-number="12.2.3.2" class="anchored" data-anchor-id="adam-algoritm"><span class="header-section-number">12.2.3.2</span> ADAM Algoritm</h4>
+<div class="cell" data-execution_count="32">
+<div class="sourceCode cell-code" id="cb227"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb227-1"><a href="#cb227-1" aria-hidden="true" tabindex="-1"></a>adam_model <span class="op">=</span> Sequential(</span>
+<span id="cb227-2"><a href="#cb227-2" aria-hidden="true" tabindex="-1"></a>    [ </span>
+<span id="cb227-3"><a href="#cb227-3" aria-hidden="true" tabindex="-1"></a>        Dense(<span class="dv">25</span>, activation <span class="op">=</span> <span class="st">'relu'</span>),</span>
+<span id="cb227-4"><a href="#cb227-4" aria-hidden="true" tabindex="-1"></a>        Dense(<span class="dv">15</span>, activation <span class="op">=</span> <span class="st">'relu'</span>),</span>
+<span id="cb227-5"><a href="#cb227-5" aria-hidden="true" tabindex="-1"></a>        Dense(<span class="dv">4</span>, activation <span class="op">=</span> <span class="st">'softmax'</span>)    <span class="co"># &lt; softmax activation here</span></span>
+<span id="cb227-6"><a href="#cb227-6" aria-hidden="true" tabindex="-1"></a>    ]</span>
+<span id="cb227-7"><a href="#cb227-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb227-8"><a href="#cb227-8" aria-hidden="true" tabindex="-1"></a>adam_model.<span class="bu">compile</span>(</span>
+<span id="cb227-9"><a href="#cb227-9" aria-hidden="true" tabindex="-1"></a>    loss<span class="op">=</span>tf.keras.losses.SparseCategoricalCrossentropy(),</span>
+<span id="cb227-10"><a href="#cb227-10" aria-hidden="true" tabindex="-1"></a>    optimizer<span class="op">=</span>tf.keras.optimizers.Adam(<span class="fl">0.001</span>), <span class="co"># &lt; change to 0.01 and rerun</span></span>
+<span id="cb227-11"><a href="#cb227-11" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb227-12"><a href="#cb227-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb227-13"><a href="#cb227-13" aria-hidden="true" tabindex="-1"></a>adam_history <span class="op">=</span> adam_model.fit(</span>
+<span id="cb227-14"><a href="#cb227-14" aria-hidden="true" tabindex="-1"></a>                    X_train,y_train,</span>
+<span id="cb227-15"><a href="#cb227-15" aria-hidden="true" tabindex="-1"></a>                    epochs<span class="op">=</span><span class="dv">30</span></span>
+<span id="cb227-16"><a href="#cb227-16" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 1/30</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code> 1/63 [..............................] - ETA: 1:02 - loss: 1.8950</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>24/63 [==========&gt;...................] - ETA: 0s - loss: 1.6399  </code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>47/63 [=====================&gt;........] - ETA: 0s - loss: 1.4195</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>55/63 [=========================&gt;....] - ETA: 0s - loss: 1.3449</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>63/63 [==============================] - 1s 3ms/step - loss: 1.2850</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 2/30</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code> 1/63 [..............................] - ETA: 0s - loss: 0.7821</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>22/63 [=========&gt;....................] - ETA: 0s - loss: 0.7860</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>38/63 [=================&gt;............] - ETA: 0s - loss: 0.7284</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>58/63 [==========================&gt;...] - ETA: 0s - loss: 0.6702</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>63/63 [==============================] - 0s 3ms/step - loss: 0.6644</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 3/30</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code> 1/63 [..............................] - ETA: 0s - loss: 0.5552</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code> 6/63 [=&gt;............................] - ETA: 0s - loss: 0.5918</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>23/63 [=========&gt;....................] - ETA: 0s - loss: 0.5183</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>41/63 [==================&gt;...........] - ETA: 0s - loss: 0.5040</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>61/63 [============================&gt;.] - ETA: 0s - loss: 0.4986</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>63/63 [==============================] - 0s 4ms/step - loss: 0.4972</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 4/30</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code> 1/63 [..............................] - ETA: 0s - loss: 0.4126</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>17/63 [=======&gt;......................] - ETA: 0s - loss: 0.4613</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>31/63 [=============&gt;................] - ETA: 0s - loss: 0.4752</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>48/63 [=====================&gt;........] - ETA: 0s - loss: 0.4672</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>63/63 [==============================] - 0s 3ms/step - loss: 0.4619</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 5/30</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code> 1/63 [..............................] - ETA: 0s - loss: 0.4671</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>28/63 [============&gt;.................] - ETA: 0s - loss: 0.4492</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>60/63 [===========================&gt;..] - ETA: 0s - loss: 0.4451</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>63/63 [==============================] - 0s 2ms/step - loss: 0.4458</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 6/30</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code> 1/63 [..............................] - ETA: 0s - loss: 0.3841</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>30/63 [=============&gt;................] - ETA: 0s - loss: 0.4192</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>63/63 [==============================] - 0s 2ms/step - loss: 0.4338</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 7/30</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code> 1/63 [..............................] - ETA: 0s - loss: 0.4570</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>35/63 [===============&gt;..............] - ETA: 0s - loss: 0.4436</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>63/63 [==============================] - 0s 2ms/step - loss: 0.4261</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 8/30</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code> 1/63 [..............................] - ETA: 0s - loss: 0.4776</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>25/63 [==========&gt;...................] - ETA: 0s - loss: 0.4596</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>53/63 [========================&gt;.....] - ETA: 0s - loss: 0.4304</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>63/63 [==============================] - 0s 2ms/step - loss: 0.4194</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 9/30</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code> 1/63 [..............................] - ETA: 0s - loss: 0.3496</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>38/63 [=================&gt;............] - ETA: 0s - loss: 0.3733</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>63/63 [==============================] - 0s 1ms/step - loss: 0.4154</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 10/30</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code> 1/63 [..............................] - ETA: 0s - loss: 0.3359</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>41/63 [==================&gt;...........] - ETA: 0s - loss: 0.4293</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>63/63 [==============================] - 0s 1ms/step - loss: 0.4107</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 11/30</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code> 1/63 [..............................] - ETA: 0s - loss: 0.4686</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>40/63 [==================&gt;...........] - ETA: 0s - loss: 0.4223</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>63/63 [==============================] - 0s 1ms/step - loss: 0.4085</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 12/30</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code> 1/63 [..............................] - ETA: 0s - loss: 0.3504</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>31/63 [=============&gt;................] - ETA: 0s - loss: 0.3971</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>54/63 [========================&gt;.....] - ETA: 0s - loss: 0.4026</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>63/63 [==============================] - 0s 2ms/step - loss: 0.4050</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 13/30</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code> 1/63 [..............................] - ETA: 0s - loss: 0.4005</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>32/63 [==============&gt;...............] - ETA: 0s - loss: 0.4234</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>63/63 [==============================] - 0s 2ms/step - loss: 0.4023</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 14/30</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code> 1/63 [..............................] - ETA: 0s - loss: 0.3839</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>35/63 [===============&gt;..............] - ETA: 0s - loss: 0.3739</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>63/63 [==============================] - 0s 1ms/step - loss: 0.4015</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 15/30</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code> 1/63 [..............................] - ETA: 0s - loss: 0.4503</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>36/63 [================&gt;.............] - ETA: 0s - loss: 0.4025</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>63/63 [==============================] - 0s 2ms/step - loss: 0.4007</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 16/30</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code> 1/63 [..............................] - ETA: 0s - loss: 0.4659</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>28/63 [============&gt;.................] - ETA: 0s - loss: 0.3846</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>55/63 [=========================&gt;....] - ETA: 0s - loss: 0.4014</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>63/63 [==============================] - 0s 2ms/step - loss: 0.3978</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 17/30</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code> 1/63 [..............................] - ETA: 0s - loss: 0.4275</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>37/63 [================&gt;.............] - ETA: 0s - loss: 0.3990</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>63/63 [==============================] - 0s 1ms/step - loss: 0.3971</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 18/30</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code> 1/63 [..............................] - ETA: 0s - loss: 0.4424</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>40/63 [==================&gt;...........] - ETA: 0s - loss: 0.3970</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>63/63 [==============================] - 0s 1ms/step - loss: 0.3974</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 19/30</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code> 1/63 [..............................] - ETA: 0s - loss: 0.7659</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>43/63 [===================&gt;..........] - ETA: 0s - loss: 0.3770</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>63/63 [==============================] - 0s 1ms/step - loss: 0.3969</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 20/30</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code> 1/63 [..............................] - ETA: 0s - loss: 0.3258</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>41/63 [==================&gt;...........] - ETA: 0s - loss: 0.4011</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>63/63 [==============================] - 0s 1ms/step - loss: 0.3967</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 21/30</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code> 1/63 [..............................] - ETA: 0s - loss: 0.2876</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>42/63 [===================&gt;..........] - ETA: 0s - loss: 0.3962</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>63/63 [==============================] - 0s 1ms/step - loss: 0.3952</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 22/30</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code> 1/63 [..............................] - ETA: 0s - loss: 0.5725</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>38/63 [=================&gt;............] - ETA: 0s - loss: 0.4012</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>57/63 [==========================&gt;...] - ETA: 0s - loss: 0.3940</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>63/63 [==============================] - 0s 2ms/step - loss: 0.3970</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 23/30</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code> 1/63 [..............................] - ETA: 0s - loss: 0.5291</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>30/63 [=============&gt;................] - ETA: 0s - loss: 0.3969</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>52/63 [=======================&gt;......] - ETA: 0s - loss: 0.3905</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>63/63 [==============================] - 0s 3ms/step - loss: 0.3948</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 24/30</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code> 1/63 [..............................] - ETA: 0s - loss: 0.2405</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>30/63 [=============&gt;................] - ETA: 0s - loss: 0.4012</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>54/63 [========================&gt;.....] - ETA: 0s - loss: 0.3845</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>63/63 [==============================] - 0s 2ms/step - loss: 0.3965</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 25/30</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code> 1/63 [..............................] - ETA: 0s - loss: 0.5217</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>26/63 [===========&gt;..................] - ETA: 0s - loss: 0.3841</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>48/63 [=====================&gt;........] - ETA: 0s - loss: 0.3741</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>63/63 [==============================] - 0s 2ms/step - loss: 0.3928</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 26/30</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code> 1/63 [..............................] - ETA: 0s - loss: 0.4345</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>32/63 [==============&gt;...............] - ETA: 0s - loss: 0.3800</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>63/63 [==============================] - ETA: 0s - loss: 0.3912</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>63/63 [==============================] - 0s 2ms/step - loss: 0.3912</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 27/30</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code> 1/63 [..............................] - ETA: 0s - loss: 0.3797</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>18/63 [=======&gt;......................] - ETA: 0s - loss: 0.4038</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>36/63 [================&gt;.............] - ETA: 0s - loss: 0.3861</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>63/63 [==============================] - 0s 2ms/step - loss: 0.3926</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 28/30</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code> 1/63 [..............................] - ETA: 0s - loss: 0.4848</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>38/63 [=================&gt;............] - ETA: 0s - loss: 0.3774</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>63/63 [==============================] - 0s 2ms/step - loss: 0.3909</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 29/30</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code> 1/63 [..............................] - ETA: 0s - loss: 0.1891</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>21/63 [=========&gt;....................] - ETA: 0s - loss: 0.3500</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>36/63 [================&gt;.............] - ETA: 0s - loss: 0.3902</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>47/63 [=====================&gt;........] - ETA: 0s - loss: 0.3915</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>63/63 [==============================] - 0s 3ms/step - loss: 0.3915</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 30/30</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code> 1/63 [..............................] - ETA: 0s - loss: 0.2050</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>29/63 [============&gt;.................] - ETA: 0s - loss: 0.3916</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>60/63 [===========================&gt;..] - ETA: 0s - loss: 0.3939</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>63/63 [==============================] - 0s 2ms/step - loss: 0.3903</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="33">
+<div class="sourceCode cell-code" id="cb370"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb370-1"><a href="#cb370-1" aria-hidden="true" tabindex="-1"></a>adam_model.summary()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Model: "sequential_1"</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>_________________________________________________________________</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code> Layer (type)                Output Shape              Param #   </code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>=================================================================</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code> dense_3 (Dense)             (None, 25)                75        </code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                                                                 </code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code> dense_4 (Dense)             (None, 15)                390       </code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                                                                 </code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code> dense_5 (Dense)             (None, 4)                 64        </code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                                                                 </code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>=================================================================</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Total params: 529</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Trainable params: 529</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Non-trainable params: 0</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>_________________________________________________________________</code></pre>
+</div>
+</div>
+<p>The None values in the output shape column represent the variable batch size that is inputted during the training process. The number of parameters in each layer depends on the number of inputs and the number of neurons in the layer, along with any additional bias terms.</p>
+<p>In this example, the first hidden layer has 25 neurons, so there are 25 * 3 = 75 parameters (3 input features). The second hidden layer has 15 neurons, so there are 15 * 25 + 15 = 390 parameters (25 inputs from the previous layer, plus 15 bias terms). The output layer has 4 neurons, so there are 15 * 4 + 4 = 64 parameters (15 inputs from the previous layer, plus 4 bias terms).</p>
+<p>The output None for the total number of trainable parameters means that none of the layers have been marked as non-trainable.</p>
+<div class="cell" data-execution_count="34">
+<div class="sourceCode cell-code" id="cb386"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb386-1"><a href="#cb386-1" aria-hidden="true" tabindex="-1"></a>p_nonpreferred <span class="op">=</span> adam_model.predict(X_train)</span>
+<span id="cb386-2"><a href="#cb386-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(p_nonpreferred [:<span class="dv">2</span>])</span>
+<span id="cb386-3"><a href="#cb386-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"largest value"</span>, np.<span class="bu">max</span>(p_nonpreferred), <span class="st">"smallest value"</span>, np.<span class="bu">min</span>(p_nonpreferred))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> 1/63 [..............................] - ETA: 3s</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>30/63 [=============&gt;................] - ETA: 0s</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>55/63 [=========================&gt;....] - ETA: 0s</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>63/63 [==============================] - 0s 2ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[[1.9644266e-03 9.6950090e-01 1.2915982e-02 1.5618720e-02]
+ [3.3564760e-05 3.0632247e-03 8.1390925e-02 9.1551220e-01]]
+largest value 0.99998087 smallest value 2.4895353e-12</code></pre>
+</div>
+</div>
+<p>Here, the only difference between the these two machine learning models is the optimizer. That line of code, optimizer=tf.keras.optimizers.Adam(0.001), specifies the optimizer to be used during training. In this case, it uses the Adam optimizer with a learning rate of 0.001. The Adam optimizer is an adaptive optimization algorithm that is commonly used in deep learning for its ability to dynamically adjust the learning rate during training, which can help prevent the model from getting stuck in local minima.</p>
+<div class="cell" data-execution_count="35">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb392"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb392-1"><a href="#cb392-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb392-2"><a href="#cb392-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb392-3"><a href="#cb392-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb392-4"><a href="#cb392-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the objective function (quadratic)</span></span>
+<span id="cb392-5"><a href="#cb392-5" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> objective(x, y):</span>
+<span id="cb392-6"><a href="#cb392-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> y<span class="op">**</span><span class="dv">2</span></span>
+<span id="cb392-7"><a href="#cb392-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb392-8"><a href="#cb392-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the Adam update rule</span></span>
+<span id="cb392-9"><a href="#cb392-9" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> adam_update(x, y, m, v, t, alpha<span class="op">=</span><span class="fl">0.1</span>, beta1<span class="op">=</span><span class="fl">0.9</span>, beta2<span class="op">=</span><span class="fl">0.999</span>, eps<span class="op">=</span><span class="fl">1e-8</span>):</span>
+<span id="cb392-10"><a href="#cb392-10" aria-hidden="true" tabindex="-1"></a>    g <span class="op">=</span> np.array([<span class="dv">2</span><span class="op">*</span>x, <span class="dv">2</span><span class="op">*</span>y])</span>
+<span id="cb392-11"><a href="#cb392-11" aria-hidden="true" tabindex="-1"></a>    m <span class="op">=</span> beta1 <span class="op">*</span> m <span class="op">+</span> (<span class="dv">1</span> <span class="op">-</span> beta1) <span class="op">*</span> g</span>
+<span id="cb392-12"><a href="#cb392-12" aria-hidden="true" tabindex="-1"></a>    v <span class="op">=</span> beta2 <span class="op">*</span> v <span class="op">+</span> (<span class="dv">1</span> <span class="op">-</span> beta2) <span class="op">*</span> g<span class="op">**</span><span class="dv">2</span></span>
+<span id="cb392-13"><a href="#cb392-13" aria-hidden="true" tabindex="-1"></a>    m_hat <span class="op">=</span> m <span class="op">/</span> (<span class="dv">1</span> <span class="op">-</span> beta1<span class="op">**</span>t)</span>
+<span id="cb392-14"><a href="#cb392-14" aria-hidden="true" tabindex="-1"></a>    v_hat <span class="op">=</span> v <span class="op">/</span> (<span class="dv">1</span> <span class="op">-</span> beta2<span class="op">**</span>t)</span>
+<span id="cb392-15"><a href="#cb392-15" aria-hidden="true" tabindex="-1"></a>    dx <span class="op">=</span> <span class="op">-</span> alpha <span class="op">*</span> m_hat[<span class="dv">0</span>] <span class="op">/</span> (np.sqrt(v_hat[<span class="dv">0</span>]) <span class="op">+</span> eps)</span>
+<span id="cb392-16"><a href="#cb392-16" aria-hidden="true" tabindex="-1"></a>    dy <span class="op">=</span> <span class="op">-</span> alpha <span class="op">*</span> m_hat[<span class="dv">1</span>] <span class="op">/</span> (np.sqrt(v_hat[<span class="dv">1</span>]) <span class="op">+</span> eps)</span>
+<span id="cb392-17"><a href="#cb392-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> dx, dy, m, v</span>
+<span id="cb392-18"><a href="#cb392-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb392-19"><a href="#cb392-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the parameters for the optimization</span></span>
+<span id="cb392-20"><a href="#cb392-20" aria-hidden="true" tabindex="-1"></a>theta <span class="op">=</span> np.array([<span class="fl">2.0</span>, <span class="fl">2.0</span>])</span>
+<span id="cb392-21"><a href="#cb392-21" aria-hidden="true" tabindex="-1"></a>m <span class="op">=</span> np.zeros(<span class="dv">2</span>)</span>
+<span id="cb392-22"><a href="#cb392-22" aria-hidden="true" tabindex="-1"></a>v <span class="op">=</span> np.zeros(<span class="dv">2</span>)</span>
+<span id="cb392-23"><a href="#cb392-23" aria-hidden="true" tabindex="-1"></a>t <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb392-24"><a href="#cb392-24" aria-hidden="true" tabindex="-1"></a>alpha <span class="op">=</span> <span class="fl">0.1</span></span>
+<span id="cb392-25"><a href="#cb392-25" aria-hidden="true" tabindex="-1"></a>beta1 <span class="op">=</span> <span class="fl">0.9</span></span>
+<span id="cb392-26"><a href="#cb392-26" aria-hidden="true" tabindex="-1"></a>beta2 <span class="op">=</span> <span class="fl">0.999</span></span>
+<span id="cb392-27"><a href="#cb392-27" aria-hidden="true" tabindex="-1"></a>eps <span class="op">=</span> <span class="fl">1e-8</span></span>
+<span id="cb392-28"><a href="#cb392-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb392-29"><a href="#cb392-29" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate the parameter space grid</span></span>
+<span id="cb392-30"><a href="#cb392-30" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> np.linspace(<span class="op">-</span><span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">100</span>)</span>
+<span id="cb392-31"><a href="#cb392-31" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> np.linspace(<span class="op">-</span><span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">100</span>)</span>
+<span id="cb392-32"><a href="#cb392-32" aria-hidden="true" tabindex="-1"></a>X, Y <span class="op">=</span> np.meshgrid(x, y)</span>
+<span id="cb392-33"><a href="#cb392-33" aria-hidden="true" tabindex="-1"></a>Z <span class="op">=</span> objective(X, Y)</span>
+<span id="cb392-34"><a href="#cb392-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb392-35"><a href="#cb392-35" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate the parameter space plot</span></span>
+<span id="cb392-36"><a href="#cb392-36" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
+<span id="cb392-37"><a href="#cb392-37" aria-hidden="true" tabindex="-1"></a>ax.contour(X, Y, Z, levels<span class="op">=</span><span class="dv">30</span>, cmap<span class="op">=</span><span class="st">'jet'</span>)</span>
+<span id="cb392-38"><a href="#cb392-38" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="st">'x'</span>)</span>
+<span id="cb392-39"><a href="#cb392-39" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">'y'</span>)</span>
+<span id="cb392-40"><a href="#cb392-40" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="st">'Parameter Space of Adam'</span>)</span>
+<span id="cb392-41"><a href="#cb392-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb392-42"><a href="#cb392-42" aria-hidden="true" tabindex="-1"></a><span class="co"># Perform several iterations of Adam and plot the updates</span></span>
+<span id="cb392-43"><a href="#cb392-43" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">20</span>):</span>
+<span id="cb392-44"><a href="#cb392-44" aria-hidden="true" tabindex="-1"></a>    t <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb392-45"><a href="#cb392-45" aria-hidden="true" tabindex="-1"></a>    dx, dy, m, v <span class="op">=</span> adam_update(theta[<span class="dv">0</span>], theta[<span class="dv">1</span>], m, v, t, alpha, beta1, beta2, eps)</span>
+<span id="cb392-46"><a href="#cb392-46" aria-hidden="true" tabindex="-1"></a>    theta <span class="op">+=</span> np.array([dx, dy])</span>
+<span id="cb392-47"><a href="#cb392-47" aria-hidden="true" tabindex="-1"></a>    ax.arrow(theta[<span class="dv">0</span>]<span class="op">-</span>dx, theta[<span class="dv">1</span>]<span class="op">-</span>dy, dx, dy, head_width<span class="op">=</span><span class="fl">0.1</span>, head_length<span class="op">=</span><span class="fl">0.1</span>, fc<span class="op">=</span><span class="st">'b'</span>, ec<span class="op">=</span><span class="st">'b'</span>)</span>
+<span id="cb392-48"><a href="#cb392-48" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<p><img src="advanced_files/figure-html/cell-36-output-1.png" width="592" height="449"></p>
+</div>
+</div>
+<div class="cell" data-execution_count="36">
+<div class="sourceCode cell-code" id="cb393"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb393-1"><a href="#cb393-1" aria-hidden="true" tabindex="-1"></a>plt.plot(sgd_history.history[<span class="st">'loss'</span>], label<span class="op">=</span><span class="st">'SGD'</span>)</span>
+<span id="cb393-2"><a href="#cb393-2" aria-hidden="true" tabindex="-1"></a>plt.plot(adam_history.history[<span class="st">'loss'</span>], label<span class="op">=</span><span class="st">'Adam'</span>)</span>
+<span id="cb393-3"><a href="#cb393-3" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
+<span id="cb393-4"><a href="#cb393-4" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Epoch'</span>)</span>
+<span id="cb393-5"><a href="#cb393-5" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Loss'</span>)</span>
+<span id="cb393-6"><a href="#cb393-6" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="advanced_files/figure-html/cell-37-output-1.png" width="590" height="429"></p>
+</div>
+</div>
+</section>
+<section id="preferred-adam-algorithm" class="level4" data-number="12.2.3.3">
+<h4 data-number="12.2.3.3" class="anchored" data-anchor-id="preferred-adam-algorithm"><span class="header-section-number">12.2.3.3</span> Preferred ADAM Algorithm</h4>
+<p>As we have talked about in class before, numerical roundoff errors happen when coding in python due to memory overflow.</p>
+<div class="cell" data-execution_count="37">
+<div class="sourceCode cell-code" id="cb394"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb394-1"><a href="#cb394-1" aria-hidden="true" tabindex="-1"></a>x1 <span class="op">=</span> <span class="fl">2.0</span> <span class="op">/</span> <span class="dv">10000</span></span>
+<span id="cb394-2"><a href="#cb394-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>x1<span class="sc">:.18f}</span><span class="ss">"</span>) <span class="co"># print 18 digits to the right of the decimal point</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>0.000200000000000000</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="38">
+<div class="sourceCode cell-code" id="cb396"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb396-1"><a href="#cb396-1" aria-hidden="true" tabindex="-1"></a>x2 <span class="op">=</span> <span class="dv">1</span> <span class="op">+</span> (<span class="dv">1</span><span class="op">/</span><span class="dv">10000</span>) <span class="op">-</span> (<span class="dv">1</span> <span class="op">-</span> <span class="dv">1</span><span class="op">/</span><span class="dv">10000</span>)</span>
+<span id="cb396-2"><a href="#cb396-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>x2<span class="sc">:.18f}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>0.000199999999999978</code></pre>
+</div>
+</div>
+<p>It turns out that while the implementation of the loss function for softmax was correct, there is a different and better way of reducing numerical roundoff errors which leads to more accurate computations.</p>
+<p>If we go back to how a loss function for softmax regression is implemented we see that the loss function is expressed in the following formula: <span class="math display">\[
+\text{loss}(a_1, a_2, \dots, a_n, y) =
+\begin{cases}
+-\log(a_1) &amp; \text{if } y = 1 \\
+-\log(a_2) &amp; \text{if } y = 2 \\
+\vdots &amp; \vdots \\
+-\log(a_n) &amp; \text{if } y = n
+\end{cases}
+\]</span></p>
+<p>where <span class="math inline">\(a_j\)</span> is computed from: <span class="math display">\[
+a_j = \frac{e^{z_j}}{\sum\limits_{k=1}^n e^{z_k}} = P(y=j \mid \vec{x})
+\]</span></p>
+<p>This can lead to numerical roundoff errors in tensorflow as the loss function is not directly computing <span class="math inline">\(a_j\)</span>.</p>
+<p>In terms of code, that is exactly what <code>loss=SparseCategoricalCrossentropy()</code> is doing. Therefore, it would be more accurate if we could implement the loss function as follows: <span class="math display">\[
+\text{loss}(a_1, a_2, \dots, a_n, y) =
+\begin{cases}
+-\log(\frac{e^{z_1}}{e^{z_1} + e^{z_2} + ... + e^{z_n}}) &amp; \text{if } y = 1 \\
+-\log(\frac{e^{z_2}}{e^{z_1} + e^{z_2} + ... + e^{z_n}}) &amp; \text{if } y = 2 \\
+\vdots &amp; \vdots \\
+-\log(\frac{e^{z_j}}{\sum\limits_{k=1}^n e^{z_k}}) &amp; \text{if } y = n
+\end{cases}
+\]</span></p>
+<p>We achieve this in two steps. The first is making the output layer a linear activation, and additionally adding a <code>from_logits=True</code> parameter to the <code>loss=tf.keras.losses.SparseCategoricalCrossentropy</code> line of code. By using a linear activation function instead of softmax, the model will output a vector of real numbers rather than probabilities.</p>
+<div class="cell" data-execution_count="39">
+<div class="sourceCode cell-code" id="cb398"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb398-1"><a href="#cb398-1" aria-hidden="true" tabindex="-1"></a>preferred_model <span class="op">=</span> Sequential(</span>
+<span id="cb398-2"><a href="#cb398-2" aria-hidden="true" tabindex="-1"></a>    [ </span>
+<span id="cb398-3"><a href="#cb398-3" aria-hidden="true" tabindex="-1"></a>        Dense(<span class="dv">25</span>, activation <span class="op">=</span> <span class="st">'relu'</span>),</span>
+<span id="cb398-4"><a href="#cb398-4" aria-hidden="true" tabindex="-1"></a>        Dense(<span class="dv">15</span>, activation <span class="op">=</span> <span class="st">'relu'</span>),</span>
+<span id="cb398-5"><a href="#cb398-5" aria-hidden="true" tabindex="-1"></a>        Dense(<span class="dv">4</span>, activation <span class="op">=</span> <span class="st">'linear'</span>)   <span class="co">#&lt;-- Note</span></span>
+<span id="cb398-6"><a href="#cb398-6" aria-hidden="true" tabindex="-1"></a>    ]</span>
+<span id="cb398-7"><a href="#cb398-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb398-8"><a href="#cb398-8" aria-hidden="true" tabindex="-1"></a>preferred_model.<span class="bu">compile</span>(</span>
+<span id="cb398-9"><a href="#cb398-9" aria-hidden="true" tabindex="-1"></a>    loss<span class="op">=</span>tf.keras.losses.SparseCategoricalCrossentropy(from_logits<span class="op">=</span><span class="va">True</span>),  <span class="co">#&lt;-- Note</span></span>
+<span id="cb398-10"><a href="#cb398-10" aria-hidden="true" tabindex="-1"></a>    optimizer<span class="op">=</span>tf.keras.optimizers.Adam(<span class="fl">0.001</span>),</span>
+<span id="cb398-11"><a href="#cb398-11" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb398-12"><a href="#cb398-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb398-13"><a href="#cb398-13" aria-hidden="true" tabindex="-1"></a>preferred_history <span class="op">=</span> preferred_model.fit(</span>
+<span id="cb398-14"><a href="#cb398-14" aria-hidden="true" tabindex="-1"></a>                    X_train,y_train,</span>
+<span id="cb398-15"><a href="#cb398-15" aria-hidden="true" tabindex="-1"></a>                    epochs<span class="op">=</span><span class="dv">30</span></span>
+<span id="cb398-16"><a href="#cb398-16" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 1/30</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code> 1/63 [..............................] - ETA: 1:20 - loss: 1.4773</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>27/63 [===========&gt;..................] - ETA: 0s - loss: 1.2375  </code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>49/63 [======================&gt;.......] - ETA: 0s - loss: 1.1139</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>63/63 [==============================] - 1s 2ms/step - loss: 1.0601</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 2/30</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code> 1/63 [..............................] - ETA: 0s - loss: 0.7563</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>13/63 [=====&gt;........................] - ETA: 0s - loss: 0.7692</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>35/63 [===============&gt;..............] - ETA: 0s - loss: 0.7701</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>61/63 [============================&gt;.] - ETA: 0s - loss: 0.7340</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>63/63 [==============================] - 0s 3ms/step - loss: 0.7331</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 3/30</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code> 1/63 [..............................] - ETA: 0s - loss: 0.4369</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>26/63 [===========&gt;..................] - ETA: 0s - loss: 0.5789</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>57/63 [==========================&gt;...] - ETA: 0s - loss: 0.5720</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>63/63 [==============================] - 0s 2ms/step - loss: 0.5719</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 4/30</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code> 1/63 [..............................] - ETA: 0s - loss: 0.4827</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>37/63 [================&gt;.............] - ETA: 0s - loss: 0.4987</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>63/63 [==============================] - 0s 1ms/step - loss: 0.4920</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 5/30</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code> 1/63 [..............................] - ETA: 0s - loss: 0.3387</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>41/63 [==================&gt;...........] - ETA: 0s - loss: 0.4725</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>63/63 [==============================] - 0s 1ms/step - loss: 0.4617</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 6/30</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code> 1/63 [..............................] - ETA: 0s - loss: 0.2835</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>40/63 [==================&gt;...........] - ETA: 0s - loss: 0.4399</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>63/63 [==============================] - 0s 1ms/step - loss: 0.4487</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 7/30</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code> 1/63 [..............................] - ETA: 0s - loss: 0.4513</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>32/63 [==============&gt;...............] - ETA: 0s - loss: 0.4352</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>63/63 [==============================] - ETA: 0s - loss: 0.4382</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>63/63 [==============================] - 0s 2ms/step - loss: 0.4382</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 8/30</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code> 1/63 [..............................] - ETA: 0s - loss: 0.3725</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>39/63 [=================&gt;............] - ETA: 0s - loss: 0.4207</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>63/63 [==============================] - 0s 1ms/step - loss: 0.4298</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 9/30</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code> 1/63 [..............................] - ETA: 0s - loss: 0.3321</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>40/63 [==================&gt;...........] - ETA: 0s - loss: 0.4108</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>63/63 [==============================] - 0s 1ms/step - loss: 0.4216</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 10/30</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code> 1/63 [..............................] - ETA: 0s - loss: 0.3762</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>39/63 [=================&gt;............] - ETA: 0s - loss: 0.4330</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>63/63 [==============================] - 0s 1ms/step - loss: 0.4169</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 11/30</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code> 1/63 [..............................] - ETA: 0s - loss: 0.2680</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>40/63 [==================&gt;...........] - ETA: 0s - loss: 0.4141</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>63/63 [==============================] - 0s 1ms/step - loss: 0.4116</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 12/30</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code> 1/63 [..............................] - ETA: 0s - loss: 0.5102</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>35/63 [===============&gt;..............] - ETA: 0s - loss: 0.4027</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>63/63 [==============================] - 0s 1ms/step - loss: 0.4090</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 13/30</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code> 1/63 [..............................] - ETA: 0s - loss: 0.6343</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>39/63 [=================&gt;............] - ETA: 0s - loss: 0.4249</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>63/63 [==============================] - 0s 1ms/step - loss: 0.4051</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 14/30</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code> 1/63 [..............................] - ETA: 0s - loss: 0.4000</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>43/63 [===================&gt;..........] - ETA: 0s - loss: 0.4096</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>63/63 [==============================] - 0s 1ms/step - loss: 0.4017</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 15/30</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code> 1/63 [..............................] - ETA: 0s - loss: 0.5982</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>41/63 [==================&gt;...........] - ETA: 0s - loss: 0.3994</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>63/63 [==============================] - 0s 1ms/step - loss: 0.4011</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 16/30</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code> 1/63 [..............................] - ETA: 0s - loss: 0.5447</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>42/63 [===================&gt;..........] - ETA: 0s - loss: 0.3906</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>63/63 [==============================] - 0s 1ms/step - loss: 0.3996</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 17/30</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code> 1/63 [..............................] - ETA: 0s - loss: 0.2058</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>41/63 [==================&gt;...........] - ETA: 0s - loss: 0.3940</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>63/63 [==============================] - 0s 1ms/step - loss: 0.3992</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 18/30</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code> 1/63 [..............................] - ETA: 0s - loss: 0.3252</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>42/63 [===================&gt;..........] - ETA: 0s - loss: 0.4171</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>63/63 [==============================] - 0s 1ms/step - loss: 0.3963</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 19/30</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code> 1/63 [..............................] - ETA: 0s - loss: 0.5326</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>42/63 [===================&gt;..........] - ETA: 0s - loss: 0.3972</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>63/63 [==============================] - 0s 1ms/step - loss: 0.3966</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 20/30</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code> 1/63 [..............................] - ETA: 0s - loss: 0.4254</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>41/63 [==================&gt;...........] - ETA: 0s - loss: 0.3827</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>63/63 [==============================] - 0s 1ms/step - loss: 0.3944</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 21/30</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code> 1/63 [..............................] - ETA: 0s - loss: 0.3305</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>42/63 [===================&gt;..........] - ETA: 0s - loss: 0.3820</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>63/63 [==============================] - 0s 1ms/step - loss: 0.3944</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 22/30</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code> 1/63 [..............................] - ETA: 0s - loss: 0.2901</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>41/63 [==================&gt;...........] - ETA: 0s - loss: 0.3902</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>63/63 [==============================] - 0s 1ms/step - loss: 0.3943</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 23/30</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code> 1/63 [..............................] - ETA: 0s - loss: 0.3061</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>40/63 [==================&gt;...........] - ETA: 0s - loss: 0.3884</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>63/63 [==============================] - 0s 1ms/step - loss: 0.3932</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 24/30</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code> 1/63 [..............................] - ETA: 0s - loss: 0.5712</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>36/63 [================&gt;.............] - ETA: 0s - loss: 0.4062</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>58/63 [==========================&gt;...] - ETA: 0s - loss: 0.3960</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>63/63 [==============================] - 0s 2ms/step - loss: 0.3928</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 25/30</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code> 1/63 [..............................] - ETA: 0s - loss: 0.4656</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>35/63 [===============&gt;..............] - ETA: 0s - loss: 0.4117</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>63/63 [==============================] - 0s 2ms/step - loss: 0.3915</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 26/30</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code> 1/63 [..............................] - ETA: 1s - loss: 0.2997</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code> 6/63 [=&gt;............................] - ETA: 0s - loss: 0.4784</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>31/63 [=============&gt;................] - ETA: 0s - loss: 0.4183</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>56/63 [=========================&gt;....] - ETA: 0s - loss: 0.3929</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>63/63 [==============================] - 0s 3ms/step - loss: 0.3921</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 27/30</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code> 1/63 [..............................] - ETA: 0s - loss: 0.4888</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>29/63 [============&gt;.................] - ETA: 0s - loss: 0.3826</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>56/63 [=========================&gt;....] - ETA: 0s - loss: 0.3971</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>63/63 [==============================] - 0s 2ms/step - loss: 0.3928</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 28/30</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code> 1/63 [..............................] - ETA: 0s - loss: 0.6631</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>33/63 [==============&gt;...............] - ETA: 0s - loss: 0.4050</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>63/63 [==============================] - 0s 2ms/step - loss: 0.3928</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 29/30</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code> 1/63 [..............................] - ETA: 1s - loss: 0.3132</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>20/63 [========&gt;.....................] - ETA: 0s - loss: 0.4103</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>47/63 [=====================&gt;........] - ETA: 0s - loss: 0.3883</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>63/63 [==============================] - 0s 2ms/step - loss: 0.3924</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 30/30</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code> 1/63 [..............................] - ETA: 0s - loss: 0.4687</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>36/63 [================&gt;.............] - ETA: 0s - loss: 0.4030</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>63/63 [==============================] - 0s 2ms/step - loss: 0.3901</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="40">
+<div class="sourceCode cell-code" id="cb529"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb529-1"><a href="#cb529-1" aria-hidden="true" tabindex="-1"></a>p_preferred <span class="op">=</span> preferred_model.predict(X_train)</span>
+<span id="cb529-2"><a href="#cb529-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"two example output vectors:</span><span class="ch">\n</span><span class="ss"> </span><span class="sc">{</span>p_preferred[:<span class="dv">2</span>]<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb529-3"><a href="#cb529-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"largest value"</span>, np.<span class="bu">max</span>(p_preferred), <span class="st">"smallest value"</span>, np.<span class="bu">min</span>(p_preferred))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> 1/63 [..............................] - ETA: 3s</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>53/63 [========================&gt;.....] - ETA: 0s</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>63/63 [==============================] - 0s 983us/step</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>two example output vectors:
+ [[-1.9728587   4.033127   -0.6380172  -0.24513298]
+ [-6.7005167  -0.53969264  2.5961823   5.149421  ]]
+largest value 14.692474 smallest value -18.674252</code></pre>
+</div>
+</div>
+<p>Notice that in the preferred model, the outputs are not probabilities, but can range from large negative numbers to large positive numbers. The output must be sent through a softmax when performing a prediction that expects a probability.</p>
+<p>If the desired output are probabilities, the output should be be processed by a <a href="https://www.tensorflow.org/api_docs/python/tf/nn/softmax">softmax</a>.</p>
+<div class="cell" data-execution_count="41">
+<div class="sourceCode cell-code" id="cb534"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb534-1"><a href="#cb534-1" aria-hidden="true" tabindex="-1"></a>sm_preferred <span class="op">=</span> tf.nn.softmax(p_preferred).numpy()</span>
+<span id="cb534-2"><a href="#cb534-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"two example output vectors:</span><span class="ch">\n</span><span class="ss"> </span><span class="sc">{</span>sm_preferred[:<span class="dv">2</span>]<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb534-3"><a href="#cb534-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"largest value"</span>, np.<span class="bu">max</span>(sm_preferred), <span class="st">"smallest value"</span>, np.<span class="bu">min</span>(sm_preferred))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>two example output vectors:
+ [[2.4022416e-03 9.7495127e-01 9.1270590e-03 1.3519428e-02]
+ [6.6027360e-06 3.1284967e-03 7.1982816e-02 9.2488205e-01]]
+largest value 0.999999 smallest value 3.2286027e-15</code></pre>
+</div>
+</div>
+<p>This code applies the softmax activation function to the output of a neural network model p_preferred, and then converts the resulting tensor to a numpy array using the <code>.numpy()</code> method. The resulting array sm_preferred contains the probabilities for each of the possible output classes for the input data.</p>
+<p>The second line of code then prints the first two rows of sm_preferred, which correspond to the probabilities for the first two input examples in the dataset.</p>
+<p>Lets check the loss functions one final time:</p>
+<div class="cell" data-execution_count="42">
+<div class="sourceCode cell-code" id="cb536"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb536-1"><a href="#cb536-1" aria-hidden="true" tabindex="-1"></a>plt.plot(adam_history.history[<span class="st">'loss'</span>], label<span class="op">=</span><span class="st">'ADAM'</span>)</span>
+<span id="cb536-2"><a href="#cb536-2" aria-hidden="true" tabindex="-1"></a>plt.plot(preferred_history.history[<span class="st">'loss'</span>], label<span class="op">=</span><span class="st">'Pref_ADAM'</span>)</span>
+<span id="cb536-3"><a href="#cb536-3" aria-hidden="true" tabindex="-1"></a>plt.plot(sgd_history.history[<span class="st">'loss'</span>], label<span class="op">=</span><span class="st">'SGD'</span>)</span>
+<span id="cb536-4"><a href="#cb536-4" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
+<span id="cb536-5"><a href="#cb536-5" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Epoch'</span>)</span>
+<span id="cb536-6"><a href="#cb536-6" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Loss'</span>)</span>
+<span id="cb536-7"><a href="#cb536-7" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="advanced_files/figure-html/cell-43-output-1.png" width="590" height="429"></p>
+</div>
+</div>
+</section>
+</section>
+<section id="references" class="level3" data-number="12.2.4">
+<h3 data-number="12.2.4" class="anchored" data-anchor-id="references"><span class="header-section-number">12.2.4</span> References</h3>
+<ol type="1">
+<li>https://www.tensorflow.org/api_docs/python/tf/nn/softmax</li>
+<li>https://www.tensorflow.org/</li>
+<li>https://www.whyofai.com/blog/ai-explained</li>
+<li>https://www.coursera.org/specializations/machine-learning-introduction</li>
+</ol>
+<!-- {{< include _autoencoder >}} -->
 
 
 </section>

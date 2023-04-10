@@ -83,6 +83,25 @@ code span.st { color: #4070a0; } /* String */
 code span.va { color: #19177c; } /* Variable */
 code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
 </style>
 
 
@@ -256,7 +275,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li><a href="#classification-metrics" id="toc-classification-metrics" class="nav-link" data-scroll-target="#classification-metrics"><span class="toc-section-number">10.2.2</span>  Classification metrics</a></li>
   <li><a href="#cross-validation" id="toc-cross-validation" class="nav-link" data-scroll-target="#cross-validation"><span class="toc-section-number">10.2.3</span>  Cross-validation</a></li>
   </ul></li>
-  <li><a href="#support-vector-machines" id="toc-support-vector-machines" class="nav-link" data-scroll-target="#support-vector-machines"><span class="toc-section-number">10.3</span>  Support Vector Machines</a>
+  <li><a href="#support-vector-machines-by-yang-kang-chua" id="toc-support-vector-machines-by-yang-kang-chua" class="nav-link" data-scroll-target="#support-vector-machines-by-yang-kang-chua"><span class="toc-section-number">10.3</span>  Support Vector Machines (by Yang Kang Chua)</a>
   <ul class="collapse">
   <li><a href="#introduction-1" id="toc-introduction-1" class="nav-link" data-scroll-target="#introduction-1"><span class="toc-section-number">10.3.1</span>  Introduction</a></li>
   <li><a href="#package-that-need-to-install" id="toc-package-that-need-to-install" class="nav-link" data-scroll-target="#package-that-need-to-install"><span class="toc-section-number">10.3.2</span>  Package that need to install</a></li>
@@ -264,7 +283,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion"><span class="toc-section-number">10.3.4</span>  Conclusion</a></li>
   <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references"><span class="toc-section-number">10.3.5</span>  References</a></li>
   </ul></li>
-  <li><a href="#decision-trees" id="toc-decision-trees" class="nav-link" data-scroll-target="#decision-trees"><span class="toc-section-number">10.4</span>  Decision Trees</a>
+  <li><a href="#decision-trees-by-tong-shen" id="toc-decision-trees-by-tong-shen" class="nav-link" data-scroll-target="#decision-trees-by-tong-shen"><span class="toc-section-number">10.4</span>  Decision Trees (by Tong Shen)</a>
   <ul class="collapse">
   <li><a href="#introduction-2" id="toc-introduction-2" class="nav-link" data-scroll-target="#introduction-2"><span class="toc-section-number">10.4.1</span>  Introduction</a></li>
   <li><a href="#tree-algorithms" id="toc-tree-algorithms" class="nav-link" data-scroll-target="#tree-algorithms"><span class="toc-section-number">10.4.2</span>  Tree algorithms</a></li>
@@ -276,7 +295,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <ul class="collapse">
   <li><a href="#algorithm" id="toc-algorithm" class="nav-link" data-scroll-target="#algorithm"><span class="toc-section-number">10.5.1</span>  Algorithm</a></li>
   </ul></li>
-  <li><a href="#bagging-vs.-boosting" id="toc-bagging-vs.-boosting" class="nav-link" data-scroll-target="#bagging-vs.-boosting"><span class="toc-section-number">10.6</span>  Bagging vs.&nbsp;Boosting</a>
+  <li><a href="#bagging-vs.-boosting-by-nathan-nhan" id="toc-bagging-vs.-boosting-by-nathan-nhan" class="nav-link" data-scroll-target="#bagging-vs.-boosting-by-nathan-nhan"><span class="toc-section-number">10.6</span>  Bagging vs.&nbsp;Boosting (by Nathan Nhan)</a>
   <ul class="collapse">
   <li><a href="#introduction-3" id="toc-introduction-3" class="nav-link" data-scroll-target="#introduction-3"><span class="toc-section-number">10.6.1</span>  Introduction</a></li>
   <li><a href="#bagging" id="toc-bagging" class="nav-link" data-scroll-target="#bagging"><span class="toc-section-number">10.6.2</span>  Bagging</a></li>
@@ -284,7 +303,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li><a href="#comparison" id="toc-comparison" class="nav-link" data-scroll-target="#comparison"><span class="toc-section-number">10.6.4</span>  Comparison</a></li>
   <li><a href="#references-2" id="toc-references-2" class="nav-link" data-scroll-target="#references-2"><span class="toc-section-number">10.6.5</span>  References</a></li>
   </ul></li>
-  <li><a href="#naive-bayes" id="toc-naive-bayes" class="nav-link" data-scroll-target="#naive-bayes"><span class="toc-section-number">10.7</span>  Naive Bayes</a>
+  <li><a href="#naive-bayes-by-kian-parchekani" id="toc-naive-bayes-by-kian-parchekani" class="nav-link" data-scroll-target="#naive-bayes-by-kian-parchekani"><span class="toc-section-number">10.7</span>  Naive Bayes (by Kian Parchekani)</a>
   <ul class="collapse">
   <li><a href="#introduction-4" id="toc-introduction-4" class="nav-link" data-scroll-target="#introduction-4"><span class="toc-section-number">10.7.1</span>  Introduction</a></li>
   <li><a href="#gaussian-naive-bayes" id="toc-gaussian-naive-bayes" class="nav-link" data-scroll-target="#gaussian-naive-bayes"><span class="toc-section-number">10.7.2</span>  Gaussian Naive Bayes</a></li>
@@ -293,6 +312,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li><a href="#bernoulli-naive-bayes" id="toc-bernoulli-naive-bayes" class="nav-link" data-scroll-target="#bernoulli-naive-bayes"><span class="toc-section-number">10.7.5</span>  Bernoulli Naive Bayes</a></li>
   <li><a href="#conclusion-3" id="toc-conclusion-3" class="nav-link" data-scroll-target="#conclusion-3"><span class="toc-section-number">10.7.6</span>  Conclusion</a></li>
   <li><a href="#references-3" id="toc-references-3" class="nav-link" data-scroll-target="#references-3"><span class="toc-section-number">10.7.7</span>  References</a></li>
+  </ul></li>
+  <li><a href="#synthetic-minority-oversampling-technique" id="toc-synthetic-minority-oversampling-technique" class="nav-link" data-scroll-target="#synthetic-minority-oversampling-technique"><span class="toc-section-number">10.8</span>  Synthetic Minority Oversampling Technique</a>
+  <ul class="collapse">
+  <li><a href="#introduction-5" id="toc-introduction-5" class="nav-link" data-scroll-target="#introduction-5"><span class="toc-section-number">10.8.1</span>  Introduction</a></li>
+  <li><a href="#smote-algorithm" id="toc-smote-algorithm" class="nav-link" data-scroll-target="#smote-algorithm"><span class="toc-section-number">10.8.2</span>  SMOTE Algorithm</a></li>
+  <li><a href="#example" id="toc-example" class="nav-link" data-scroll-target="#example"><span class="toc-section-number">10.8.3</span>  Example</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -406,8 +431,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <!-- ## Support Vector Machine -->
 </section>
 </section>
-<section id="support-vector-machines" class="level2" data-number="10.3">
-<h2 data-number="10.3" class="anchored" data-anchor-id="support-vector-machines"><span class="header-section-number">10.3</span> Support Vector Machines</h2>
+<section id="support-vector-machines-by-yang-kang-chua" class="level2" data-number="10.3">
+<h2 data-number="10.3" class="anchored" data-anchor-id="support-vector-machines-by-yang-kang-chua"><span class="header-section-number">10.3</span> Support Vector Machines (by Yang Kang Chua)</h2>
 <section id="introduction-1" class="level3" data-number="10.3.1">
 <h3 data-number="10.3.1" class="anchored" data-anchor-id="introduction-1"><span class="header-section-number">10.3.1</span> Introduction</h3>
 <p>Support Vector Machine (SVM) is a type of suppervised learning models that can be used to analyze classification and regression. In this section will develop the intuition behind support vector machines and provide some examples.</p>
@@ -1146,7 +1171,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>accuracy</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="21">
-<pre><code>0.625</code></pre>
+<pre><code>0.68</code></pre>
 </div>
 </div>
 </section>
@@ -1176,8 +1201,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <!-- ## Decision Tree -->
 </section>
 </section>
-<section id="decision-trees" class="level2" data-number="10.4">
-<h2 data-number="10.4" class="anchored" data-anchor-id="decision-trees"><span class="header-section-number">10.4</span> Decision Trees</h2>
+<section id="decision-trees-by-tong-shen" class="level2" data-number="10.4">
+<h2 data-number="10.4" class="anchored" data-anchor-id="decision-trees-by-tong-shen"><span class="header-section-number">10.4</span> Decision Trees (by Tong Shen)</h2>
 <section id="introduction-2" class="level3" data-number="10.4.1">
 <h3 data-number="10.4.1" class="anchored" data-anchor-id="introduction-2"><span class="header-section-number">10.4.1</span> Introduction</h3>
 <p>Decision Trees (DTs) are a non-parametric supervised learning method used for classification and regression. The goal is to create a model that predicts the value of a target variable by learning simple decision rules inferred from the data features. A tree can be seen as a piecewise constant approximation.</p>
@@ -1723,7 +1748,7 @@ H(Q_m)=-\sum_{k}p_{mk}log(p_{mk})
 <div class="cell" data-execution_count="32">
 <div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>injury_clf.tree_.node_count</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="32">
-<pre><code>3579</code></pre>
+<pre><code>3641</code></pre>
 </div>
 </div>
 <p>Arguments related to stopping criteria: * max_depth * min_samples_split * min_samples_leaf * min_weight_fraction_leaf * max_features * max_leaf_nodes * min_impurity_decrease</p>
@@ -1747,7 +1772,7 @@ H(Q_m)=-\sum_{k}p_{mk}log(p_{mk})
 <span id="cb39-16"><a href="#cb39-16" aria-hidden="true" tabindex="-1"></a><span class="co"># print the best hyperparameters found</span></span>
 <span id="cb39-17"><a href="#cb39-17" aria-hidden="true" tabindex="-1"></a>grid_search.best_params_</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="33">
-<pre><code>{'ccp_alpha': 0.0001,
+<pre><code>{'ccp_alpha': 1e-05,
  'criterion': 'gini',
  'max_depth': 20,
  'min_impurity_decrease': 0.0001}</code></pre>
@@ -1763,7 +1788,7 @@ H(Q_m)=-\sum_{k}p_{mk}log(p_{mk})
 <span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a>injury_clf2 <span class="op">=</span> injury_clf2.fit(X_train, y_train)</span>
 <span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a>injury_clf2.tree_.node_count</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="34">
-<pre><code>937</code></pre>
+<pre><code>855</code></pre>
 </div>
 </div>
 <div class="cell" data-execution_count="35">
@@ -1776,7 +1801,7 @@ H(Q_m)=-\sum_{k}p_{mk}log(p_{mk})
 <span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a>injury_clf3 <span class="op">=</span> injury_clf3.fit(X_train, y_train)</span>
 <span id="cb43-8"><a href="#cb43-8" aria-hidden="true" tabindex="-1"></a>injury_clf3.tree_.node_count</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="35">
-<pre><code>9</code></pre>
+<pre><code>19</code></pre>
 </div>
 </div>
 <div class="cell" data-execution_count="36">
@@ -1861,35 +1886,35 @@ H(Q_m)=-\sum_{k}p_{mk}log(p_{mk})
 <div class="cell-output cell-output-stdout">
 <pre><code>Default parameter results:
 Confusion matrix:
-[[588 201]
- [408 136]]
-Accuracy: 0.5431357839459865
-Precision: 0.4035608308605341
-Recall: 0.25
-F1-score: 0.30874006810442683
-AUC: 0.4976235741444866
+[[580 211]
+ [386 156]]
+Accuracy: 0.5521380345086272
+Precision: 0.4250681198910082
+Recall: 0.2878228782287823
+F1-score: 0.3432343234323433
+AUC: 0.5105359650309526
 
 
 Cross-valiation parameter results:
 Confusion matrix:
-[[618 171]
- [427 117]]
-Accuracy: 0.5513878469617405
-Precision: 0.40625
-Recall: 0.21507352941176472
-F1-score: 0.28125
-AUC: 0.49917174569447553
+[[638 153]
+ [405 137]]
+Accuracy: 0.5813953488372093
+Precision: 0.4724137931034483
+Recall: 0.25276752767527677
+F1-score: 0.32932692307692313
+AUC: 0.5296707423458558
 
 
 More aggressive pruning results:
 Confusion matrix:
-[[756  33]
- [505  39]]
-Accuracy: 0.5963990997749438
-Precision: 0.5416666666666666
-Recall: 0.07169117647058823
-F1-score: 0.1266233766233766
-AUC: 0.514933040706777</code></pre>
+[[730  61]
+ [483  59]]
+Accuracy: 0.5918979744936234
+Precision: 0.49166666666666664
+Recall: 0.1088560885608856
+F1-score: 0.1782477341389728
+AUC: 0.5158692579340458</code></pre>
 </div>
 </div>
 </section>
@@ -1950,9 +1975,8 @@ https://scikit-learn.org/stable/modules/tree.html#
 <!-- ## bagging versus boosting -->
 </section>
 </section>
-<section id="bagging-vs.-boosting" class="level2" data-number="10.6">
-<h2 data-number="10.6" class="anchored" data-anchor-id="bagging-vs.-boosting"><span class="header-section-number">10.6</span> Bagging vs.&nbsp;Boosting</h2>
-<p><strong>By Nathan Nhan</strong></p>
+<section id="bagging-vs.-boosting-by-nathan-nhan" class="level2" data-number="10.6">
+<h2 data-number="10.6" class="anchored" data-anchor-id="bagging-vs.-boosting-by-nathan-nhan"><span class="header-section-number">10.6</span> Bagging vs.&nbsp;Boosting (by Nathan Nhan)</h2>
 <section id="introduction-3" class="level3" data-number="10.6.1">
 <h3 data-number="10.6.1" class="anchored" data-anchor-id="introduction-3"><span class="header-section-number">10.6.1</span> Introduction</h3>
 <p>Before we talk about Bagging and Boosting we first must talk about ensemble learning. Ensemble learning is a technique used in machine-learning where we have multiple models (often times called “weak learners”) that are trained to solve the same problem and then combined to obtain better results that they could individually. With this, we can obtain more accurate and more robust models for our data using this technique.</p>
@@ -2253,7 +2277,7 @@ https://scikit-learn.org/stable/modules/tree.html#
 <span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a>scores <span class="op">=</span> cross_val_score(DecisionTreeClassifier(), X, y, cv<span class="op">=</span><span class="dv">5</span>)</span>
 <span id="cb60-4"><a href="#cb60-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Accuracy Score for Bagging Classifier: "</span> <span class="op">+</span> <span class="bu">str</span>(scores.mean())) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Accuracy Score for Bagging Classifier: 0.781</code></pre>
+<pre><code>Accuracy Score for Bagging Classifier: 0.783</code></pre>
 </div>
 </div>
 </section>
@@ -2400,8 +2424,8 @@ https://scikit-learn.org/stable/modules/tree.html#
 <!-- ## Naive Bayes -->
 </section>
 </section>
-<section id="naive-bayes" class="level2" data-number="10.7">
-<h2 data-number="10.7" class="anchored" data-anchor-id="naive-bayes"><span class="header-section-number">10.7</span> Naive Bayes</h2>
+<section id="naive-bayes-by-kian-parchekani" class="level2" data-number="10.7">
+<h2 data-number="10.7" class="anchored" data-anchor-id="naive-bayes-by-kian-parchekani"><span class="header-section-number">10.7</span> Naive Bayes (by Kian Parchekani)</h2>
 <section id="introduction-4" class="level3" data-number="10.7.1">
 <h3 data-number="10.7.1" class="anchored" data-anchor-id="introduction-4"><span class="header-section-number">10.7.1</span> Introduction</h3>
 <p>Naive Bayes classifiers are based on Bayesian classification methods that are derived from Bayes’s theorem. This theorem is an equation that describes the relationship between the conditional probabilities of statistical quantities. In Bayesian classification, the objective is to find the probability of a label given a set of observed features. Bayes’s theorem enables us to express this in terms of more computationally feasible quantities.</p>
@@ -2761,8 +2785,218 @@ Confusion Matrix:
 <p>“1.9. Naive Bayes.” Scikit, https://scikit-learn.org/stable/modules/naive_bayes.html.</p>
 <p>Learning, UCI Machine. “SMS Spam Collection Dataset.” Kaggle, 2 Dec.&nbsp;2016, https://www.kaggle.com/datasets/uciml/sms-spam-collection-dataset?resource=download.</p>
 <p>Vanderplas, Jake. Python Data Science Handbook: Essential Tools for Working with Data. O’REILLY MEDIA, 2023.</p>
+</section>
+</section>
+<section id="synthetic-minority-oversampling-technique" class="level2" data-number="10.8">
+<h2 data-number="10.8" class="anchored" data-anchor-id="synthetic-minority-oversampling-technique"><span class="header-section-number">10.8</span> Synthetic Minority Oversampling Technique</h2>
+<p>Sythetic Minority Oversampling TEchnique (SMOTE) is an approach for classification with imbalanced datasets <span class="citation" data-cites="chawla2002smote">(<a href="references.html#ref-chawla2002smote" role="doc-biblioref">Chawla et al. 2002</a>)</span>. A dataset is imbalanced if the classification categories are not approximately equally represented. For example, in rare disease diagnosis or fraud detection, the diseased or fraud cases are much less frequent than the “normal” cases. Further, the cost of misclassifying an abnormal (interesting) case as a normal case is often much higher than the cost of the reverse error. Under-sampling of the majority (normal) class has been proposed as a good means of increasing the sensitivity of a classifier to the minority class. In a similar way, over-sampling the minority (abnormal) class helps improve the classifier performance too. A combination of over-sampling the minority and under-sampling the majority (normal) class can achieve even better classifier performance.</p>
+<section id="introduction-5" class="level3" data-number="10.8.1">
+<h3 data-number="10.8.1" class="anchored" data-anchor-id="introduction-5"><span class="header-section-number">10.8.1</span> Introduction</h3>
+<p>The problem with imbalanced data is that, again, accuracy is not a good metric for performance evaluation. A silly approach that classifies all cases as normal would have high accuracy but is useless.</p>
+<p>Undersampling means that you discard a number of data points of the class that is present too often. The disadvantage of undersampling is loss of valuable data (information). It coul dbe effective when there is a lot of data, and the class imbalance is not so large. For extremely imbalanced data, undersampling could result in almost no data.</p>
+<p>Oversampling makes duplicates of the data that is the least present in the data. But, wait a minute. We would be creating data that is not real and introducing false information into modeling.</p>
+<p>At the end, we need to assess the predictive performance of our model on a non-oversampled data set. After all, out-of-sample predictions will be done on non-oversampled data and therefore this is how we should measure models’ performance.</p>
+</section>
+<section id="smote-algorithm" class="level3" data-number="10.8.2">
+<h3 data-number="10.8.2" class="anchored" data-anchor-id="smote-algorithm"><span class="header-section-number">10.8.2</span> SMOTE Algorithm</h3>
+<p>SMOTE is a data augumentation approach that creates synthetic data points based on the original data points. It could be viewed as an advanced version of oversampling, except that instead of making exact duplicates of observations in the less present class, we add small perturbations to the copied data points. Therefore, we are not generating duplicates, but rather creating synthetic data points that are slightly different from the original data points.</p>
+<p>How exactly synthetic data point is formed? After a random case is drawn from the minority class, take one of its <span class="math inline">\(k\)</span>~nearest neighbors, and move the current case slightly in the direction of this neighbor. As a result, the synthetic data point is not an exact copy of an existing data point while being too different from the known observations in the minority class.</p>
+<p>The data augumentation influences both precision and recall. Just to refresh, precision measures how many identified items are relevant, while recall measures how many relevant items are identified. SMOTE generally leads to an increase in recall, at the cost of lower precision. That is, it will add more predictions of the minority class: some of them correct (increasing recall), but some of them wrong (decreasing precision). The overall model accuracy may also decrease, but this is not a problem because, again, accuracy is not a good in case of imbalanced data.</p>
+</section>
+<section id="example" class="level3" data-number="10.8.3">
+<h3 data-number="10.8.3" class="anchored" data-anchor-id="example"><span class="header-section-number">10.8.3</span> Example</h3>
+<p>Consider the example of <a href="https://towardsdatascience.com/smote-fdce2f605729">Joos Korstanje</a>.</p>
+<div class="cell" data-execution_count="69">
+<div class="sourceCode cell-code" id="cb96"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb96-1"><a href="#cb96-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import the data</span></span>
+<span id="cb96-2"><a href="#cb96-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb96-3"><a href="#cb96-3" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> pd.read_csv(<span class="st">'https://raw.githubusercontent.com/JoosKorstanje/datasets/main/sales_data.csv'</span>)</span>
+<span id="cb96-4"><a href="#cb96-4" aria-hidden="true" tabindex="-1"></a>data.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="69">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>time_on_page</th>
+      <th>pages_viewed</th>
+      <th>interest_ski</th>
+      <th>interest_climb</th>
+      <th>buy</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>282.0</td>
+      <td>3.0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>223.0</td>
+      <td>3.0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>285.0</td>
+      <td>3.0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>250.0</td>
+      <td>3.0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>271.0</td>
+      <td>2.0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+<p>Check the distribution of buyers vs non-buyers.</p>
+<div class="cell" data-execution_count="70">
+<div class="sourceCode cell-code" id="cb97"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb97-1"><a href="#cb97-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Showing the class imbalance between buyers and non-buyers</span></span>
+<span id="cb97-2"><a href="#cb97-2" aria-hidden="true" tabindex="-1"></a>data.pivot_table(index<span class="op">=</span><span class="st">'buy'</span>, aggfunc<span class="op">=</span><span class="st">'size'</span>).plot(kind<span class="op">=</span><span class="st">'bar'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="70">
+<pre><code>&lt;AxesSubplot: xlabel='buy'&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="supervised_files/figure-html/cell-71-output-2.png" width="575" height="425"></p>
+</div>
+</div>
+<p>Use stratefied sampling to split the data into training (70%) and testing sets (30%) to avoid ending up with overly few buyers in the testing set.</p>
+<div class="cell" data-execution_count="71">
+<div class="sourceCode cell-code" id="cb99"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb99-1"><a href="#cb99-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
+<span id="cb99-2"><a href="#cb99-2" aria-hidden="true" tabindex="-1"></a>train, test <span class="op">=</span> train_test_split(data, test_size <span class="op">=</span> <span class="fl">0.3</span>, stratify<span class="op">=</span>data.buy)</span>
+<span id="cb99-3"><a href="#cb99-3" aria-hidden="true" tabindex="-1"></a>test.pivot_table(index<span class="op">=</span><span class="st">'buy'</span>, aggfunc<span class="op">=</span><span class="st">'size'</span>).plot(kind<span class="op">=</span><span class="st">'bar'</span>, title<span class="op">=</span><span class="st">'Verify that class distributuion in test is same as input data'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="71">
+<pre><code>&lt;AxesSubplot: title={'center': 'Verify that class distributuion in test is same as input data'}, xlabel='buy'&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="supervised_files/figure-html/cell-72-output-2.png" width="575" height="445"></p>
+</div>
+</div>
+<p>Build a logistic regression as benchmark to assess the benefit of SMOTE.</p>
+<div class="cell" data-execution_count="72">
+<div class="sourceCode cell-code" id="cb101"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb101-1"><a href="#cb101-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LogisticRegression</span>
+<span id="cb101-2"><a href="#cb101-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb101-3"><a href="#cb101-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Instantiate the Logistic Regression with only default settings</span></span>
+<span id="cb101-4"><a href="#cb101-4" aria-hidden="true" tabindex="-1"></a>my_log_reg <span class="op">=</span> LogisticRegression()</span>
+<span id="cb101-5"><a href="#cb101-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb101-6"><a href="#cb101-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit the logistic regression on the independent variables of the train data with buy as dependent variable</span></span>
+<span id="cb101-7"><a href="#cb101-7" aria-hidden="true" tabindex="-1"></a>my_log_reg.fit(train[[<span class="st">'time_on_page'</span>, <span class="st">'pages_viewed'</span>, <span class="st">'interest_ski'</span>, <span class="st">'interest_climb'</span>]], train[<span class="st">'buy'</span>])</span>
+<span id="cb101-8"><a href="#cb101-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb101-9"><a href="#cb101-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Make a prediction using our model on the test set</span></span>
+<span id="cb101-10"><a href="#cb101-10" aria-hidden="true" tabindex="-1"></a>preds <span class="op">=</span> my_log_reg.predict(test[[<span class="st">'time_on_page'</span>, <span class="st">'pages_viewed'</span>, <span class="st">'interest_ski'</span>, <span class="st">'interest_climb'</span>]])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Obtain the confusion matrix of the benchmark model.</p>
+<div class="cell" data-execution_count="73">
+<div class="sourceCode cell-code" id="cb102"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb102-1"><a href="#cb102-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> confusion_matrix</span>
+<span id="cb102-2"><a href="#cb102-2" aria-hidden="true" tabindex="-1"></a>tn, fp, fn, tp <span class="op">=</span> confusion_matrix(test[<span class="st">'buy'</span>], preds).ravel()</span>
+<span id="cb102-3"><a href="#cb102-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'True negatives: '</span>, tn, <span class="st">'</span><span class="ch">\n</span><span class="st">False positives: '</span>, fp, <span class="st">'</span><span class="ch">\n</span><span class="st">False negatives: '</span>, fn, <span class="st">'</span><span class="ch">\n</span><span class="st">True Positives: '</span>, tp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>True negatives:  282 
+False positives:  3 
+False negatives:  8 
+True Positives:  7</code></pre>
+</div>
+</div>
+<p>Get the classification report.</p>
+<div class="cell" data-execution_count="74">
+<div class="sourceCode cell-code" id="cb104"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb104-1"><a href="#cb104-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> classification_report</span>
+<span id="cb104-2"><a href="#cb104-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(classification_report(test[<span class="st">'buy'</span>], preds))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>              precision    recall  f1-score   support
+
+           0       0.97      0.99      0.98       285
+           1       0.70      0.47      0.56        15
+
+    accuracy                           0.96       300
+   macro avg       0.84      0.73      0.77       300
+weighted avg       0.96      0.96      0.96       300
+</code></pre>
+</div>
+</div>
+<p>Now let’s use SMOTE to build a model.</p>
+<div class="cell" data-execution_count="75">
+<div class="sourceCode cell-code" id="cb106"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb106-1"><a href="#cb106-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> imblearn.over_sampling <span class="im">import</span> SMOTE</span>
+<span id="cb106-2"><a href="#cb106-2" aria-hidden="true" tabindex="-1"></a>X_resampled, y_resampled <span class="op">=</span> SMOTE().fit_resample(train[[<span class="st">'time_on_page'</span>,  <span class="st">'pages_viewed'</span>, <span class="st">'interest_ski'</span>, <span class="st">'interest_climb'</span>]], train[<span class="st">'buy'</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Check the distribution of the buyers and non-buyers</p>
+<div class="cell" data-execution_count="76">
+<div class="sourceCode cell-code" id="cb107"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb107-1"><a href="#cb107-1" aria-hidden="true" tabindex="-1"></a>pd.Series(y_resampled).value_counts().plot(kind<span class="op">=</span><span class="st">'bar'</span>, title<span class="op">=</span><span class="st">'Class distribution after appying SMOTE'</span>, xlabel<span class="op">=</span><span class="st">'buy'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="76">
+<pre><code>&lt;AxesSubplot: title={'center': 'Class distribution after appying SMOTE'}, xlabel='buy'&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="supervised_files/figure-html/cell-77-output-2.png" width="575" height="445"></p>
+</div>
+</div>
+<p>Train the logistic model with SMOTE augmented data.</p>
+<div class="cell" data-execution_count="77">
+<div class="sourceCode cell-code" id="cb109"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb109-1"><a href="#cb109-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Instantiate the new Logistic Regression</span></span>
+<span id="cb109-2"><a href="#cb109-2" aria-hidden="true" tabindex="-1"></a>log_reg_2 <span class="op">=</span> LogisticRegression()</span>
+<span id="cb109-3"><a href="#cb109-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb109-4"><a href="#cb109-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit the model with the data that has been resampled with SMOTE</span></span>
+<span id="cb109-5"><a href="#cb109-5" aria-hidden="true" tabindex="-1"></a>log_reg_2.fit(X_resampled, y_resampled)</span>
+<span id="cb109-6"><a href="#cb109-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb109-7"><a href="#cb109-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Predict on the test set (not resampled to obtain honest evaluation)</span></span>
+<span id="cb109-8"><a href="#cb109-8" aria-hidden="true" tabindex="-1"></a>preds2 <span class="op">=</span> log_reg_2.predict(test[[<span class="st">'time_on_page'</span>, <span class="st">'pages_viewed'</span>,    <span class="st">'interest_ski'</span>, <span class="st">'interest_climb'</span>]])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The confusion matrix of the second model.</p>
+<div class="cell" data-execution_count="78">
+<div class="sourceCode cell-code" id="cb110"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb110-1"><a href="#cb110-1" aria-hidden="true" tabindex="-1"></a>tn, fp, fn, tp <span class="op">=</span> confusion_matrix(test[<span class="st">'buy'</span>], preds2).ravel()</span>
+<span id="cb110-2"><a href="#cb110-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'True negatives: '</span>, tn, <span class="st">'</span><span class="ch">\n</span><span class="st">False positives: '</span>, fp, <span class="st">'</span><span class="ch">\n</span><span class="st">False negatives: '</span>, fn, <span class="st">'</span><span class="ch">\n</span><span class="st">True positives: '</span>, tp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>True negatives:  260 
+False positives:  25 
+False negatives:  5 
+True positives:  10</code></pre>
+</div>
+</div>
+<p>The classification report.</p>
+<div class="cell" data-execution_count="79">
+<div class="sourceCode cell-code" id="cb112"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb112-1"><a href="#cb112-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(classification_report(test[<span class="st">'buy'</span>], preds2))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>              precision    recall  f1-score   support
+
+           0       0.98      0.91      0.95       285
+           1       0.29      0.67      0.40        15
+
+    accuracy                           0.90       300
+   macro avg       0.63      0.79      0.67       300
+weighted avg       0.95      0.90      0.92       300
+</code></pre>
+</div>
+</div>
+<p>What the the changes from the first to the second model? + Recall of nonbuyers went down from 1.00 to 0.90: there are more nonbuyers that we did not succeed to find + Recall of buyers went up from 0.47 to 0.87: we succeeded to identify many more buyers + The precision of buyers went down from 0.88 to 0.32: the cost of correctly identifying more buyers is that we now also incorrectly identify more buyers (identifying visitors as buyers while they are actually nonbuyers)!</p>
+<p>We are now better able to find buyers, at the cost of also wrongly classifying more nonbuyers as buyers.</p>
 
 
+<div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography" style="display: none">
+<div id="ref-chawla2002smote" class="csl-entry" role="doc-biblioentry">
+Chawla, Nitesh V, Kevin W Bowyer, Lawrence O Hall, and W Philip Kegelmeyer. 2002. <span>“<span>SMOTE</span>: <span>S</span>ynthetic Minority over-Sampling Technique.”</span> <em>Journal of Artificial Intelligence Research</em> 16: 321–57.
+</div>
+</div>
 </section>
 </section>
 
