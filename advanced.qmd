@@ -2,4 +2,6 @@
 
 {{< include _nltk.qmd >}}
 
+{{< include _nnet.qmd >}}
+
 <!-- {{< include _autoencoder >}} -->

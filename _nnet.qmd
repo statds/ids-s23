@@ -1,22 +1,10 @@
----
-title: "Neural Networks with Tensorflow"
-format:
-  html:
-#    code-fold: true
-    embed-resources: true
-  pdf: 
-    geometry: 
-      - top=30mm
-      - left=20mm
-jupyter: python3
----
-## 1. Introduction
+## Neural Networks with Tensorflow (by Giovanni Lunetta)
 
 A neural network is a type of machine learning algorithm that is inspired by the structure and function of the human brain. It consists of layers of interconnected nodes, or neurons, that can learn to recognize patterns in data and make predictions or decisions based on that input.
 
 Neural networks are used in a wide variety of applications, including image and speech recognition, natural language processing, predictive analytics, robotics, and more. They have been especially effective in tasks that require pattern recognition, such as identifying objects in images, translating between languages, and predicting future trends in data.
 
-## 2. Neural Network Architecture
+### Neural Network Architecture
 
 A neural network consists of one or more layers of neurons, each of which takes input from the previous layer and produces output for the next layer. The input layer receives raw data, while the output layer produces predictions or decisions based on that input. The hidden layers in between contain neurons that can learn to recognize patterns in the data and extract features that are useful for making predictions.
 
@@ -25,7 +13,7 @@ Each neuron in a neural network has a set of weights and biases that determine h
 ```{python}
 #| code-fold: true
 from IPython.display import Image
-Image(filename='ai-artificial-neural-network-alex-castrounis.png')
+# Image(filename='ai-artificial-neural-network-alex-castrounis.png')
 ```
 
 The input layer: The three blue nodes on the left side of the diagram represent the input layer. This layer receives input data, such as pixel values from an image or numerical features from a dataset.
@@ -36,7 +24,7 @@ The output layer: The orange node on the right side of the diagram represents th
 
 The arrows: The arrows in the diagram represent the connections between nodes in adjacent layers. Each arrow has an associated weight, which is a parameter learned during the training process. The weights determine the strength of the connections between the nodes and are used to compute the output values of each node.
 
-## 3. QUICK LESSION: ReLu Activation Function
+### ReLu Activation Function
 
 The ReLU (Rectified Linear Unit) activation function is used in neural networks to introduce non-linearity into the model. Non-linearity allows neural networks to learn more complex relationships between inputs and outputs.
 
@@ -66,7 +54,7 @@ plt.ylabel('Output')
 plt.show()
 ```
 
-## 4. Code Implementation
+### Demonstration
 
 TensorFlow is an open-source software library developed by Google that is widely used for building and training machine learning models, including neural networks. TensorFlow provides a range of tools and abstractions that make it easier to build and optimize complex models, as well as tools for deploying models in production.
 
@@ -112,7 +100,7 @@ The first using Stochastic Gradient Descent as the loss function.
 Next, using a potentially more efficient algoritm called the Adam Algoritm.
 Finally, using the Adam Algoritm again, but more efficiently.
 
-## 5. Stochastic Gradient Descent
+#### Stochastic Gradient Descent
 ```{python}
 sgd_model = tf.keras.Sequential([
         Dense(10, activation = 'relu'),
@@ -169,7 +157,7 @@ print("largest value", np.max(p_nonpreferred), "smallest value", np.min(p_nonpre
 
 The output is a matrix with two rows (because we have two input examples) and four columns (because the output layer has four neurons). Each element of the matrix is the probability that the input example belongs to the corresponding class. For example, the probability that the first input example belongs to class 3 (which has the highest probability) is 0.99254191.
 
-## 6. ADAM Algoritm
+#### ADAM Algoritm
 ```{python}
 adam_model = Sequential(
     [ 
@@ -269,7 +257,7 @@ plt.ylabel('Loss')
 plt.show()
 ```
 
-## 7. Preferred ADAM Algorithm
+#### Preferred ADAM Algorithm
 
 As we have talked about in class before, numerical roundoff errors happen when coding in python due to memory overflow.
 
@@ -367,7 +355,8 @@ plt.ylabel('Loss')
 plt.show()
 ```
 
-Citations:
+### References
+
 1. https://www.tensorflow.org/api_docs/python/tf/nn/softmax
 2. https://www.tensorflow.org/
 3. https://www.whyofai.com/blog/ai-explained
