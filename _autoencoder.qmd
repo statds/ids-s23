@@ -1,4 +1,4 @@
-## Autoencoder Examples (by William Whitney)
+## Autoencoder (by William Whitney)
 
 ### Introduction
 
@@ -15,6 +15,8 @@ The Input will be passed through a layer of encoders which are actually a fully 
 Encoder network: Accepts high-dimensional input data and translates it to latent low-dimensional data. The input size to an Encoder network is larger than its output size.
 
 Decoder network: The Decoder network receives the input from the Encoder coder’s output. Decoder’s objective is to reconstruct the input data. The output size of a Decoder network is larger than its input size.
+
+Python packages `keras`, `Sequential`, `tensorflow` are needed for the examples.
 
 ### Uses of Autoencoders
 
@@ -94,8 +96,6 @@ x_train = x_train.reshape((len(x_train), np.prod(x_train.shape[1:])))
 x_test = x_test.reshape((len(x_test), np.prod(x_test.shape[1:])))
 print(x_train.shape)
 print(x_test.shape)
-(60000, 784)
-(10000, 784)
 ```
 This code shows the image of whatever data point you would like from the train set and shapes it.
 
@@ -174,10 +174,7 @@ The encoder will be made up of a stack of Conv2D and max-pooling layer and the d
 Since the input here is images, it does make more sense to use a Convolutional Neural network or CNN.
 
 ```{python}
-pip install Sequential
 from keras.models import Sequential
-Looking in indexes: https://pypi.org/simple, https://us-python.pkg.dev/colab-wheels/public/simple/
-Requirement already satisfied: Sequential in /usr/local/lib/python3.9/dist-packages (1.0.0)
 ```
 
 Now the images are barely identifiable and to increase the extent of the autoencoder, we will modify the layers of the defined model which increases the filter so that the model performs better
@@ -189,18 +186,19 @@ model.add(Conv2D(35, 3, activation= 'relu', padding='same', input_shape = (28,28
 model.add(MaxPooling2D(2, padding= 'same'))
 model.add(Conv2D(25, 3, activation= 'relu', padding='same'))
 model.add(MaxPooling2D(2, padding= 'same'))
-#decoder network
+# decoder network
 model.add(Conv2D(25, 3, activation= 'relu', padding='same'))
 model.add(UpSampling2D(2))
 model.add(Conv2D(35, 3, activation= 'relu', padding='same'))
 model.add(UpSampling2D(2))
 model.add(Conv2D(1,3,activation='sigmoid', padding= 'same')) # output layer
+
 model.compile(optimizer= 'adam', loss = 'binary_crossentropy')
 model.summary()
 model.fit(x_train_noisy, x_train,
-                epochs=15,
-                batch_size=128,
-                validation_data=(x_test_noisy, x_test))
+          epochs=15,
+          batch_size=128,
+          validation_data=(x_test_noisy, x_test))
 ```
 
 ```{python}
@@ -405,10 +403,10 @@ Evaluating with test data
 
 ```{python}
 history = autoencoder.fit(normal_train_data, normal_train_data, 
-          epochs=10, 
-          batch_size=512,
-          validation_data=(test_data, test_data),
-          shuffle=True)
+						  epochs=10, 
+						  batch_size=512,
+						  validation_data=(test_data, test_data),
+						  shuffle=True)
 ```
 
 Plot of a normal ECG from the training set, the reconstruction after it's encoded and decoded by the autoencoder, and the reconstruction error.
