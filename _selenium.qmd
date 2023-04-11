@@ -1,14 +1,8 @@
----
-jupyter: python3
----
-
-# Web Scraping with Selenium
-
-## What is Selenium?
+## Web Scraping with Selenium (by Michael Zheng)
 
 Selenium is a free, open-source automation testing suite for web applications across different browsers and platforms. Selenium focuses on automating web-based applications.
 
-## Selenium vs BeautifulSoup?
+### Selenium vs BeautifulSoup?
 
 Selenium is a web browser automation tool that can interact with web pages like a human user, whereas BeautifulSoup is a library for parsing HTML and XML documents. This means Selenium has more functionality since it can automate browser actions such as clicking buttons, filling out forms and navigating between pages.
 
@@ -22,11 +16,11 @@ An example of a website that can't be scraped by BeautifulSoup is a website that
 
 See those 'TaxonPhoto undefined' elements that are popping up on the right side of the screen as we scroll? Those are more photos that are being rendered as we directly interact with the web page. BeautifulSoup can only scrape HTML elements from what's already loaded on the web page. It cannot dynamically interact with the page to load more HTML elements. Luckily, Selenium can do that!
 
-## Plant Images Scraper Example
+### Example: Plant Images Scraper
 
 I will demonstrate the functionalities of Selenium by building a program to scrape plant images from a website. Hopefully, this example will be enough for anybody listening to get started with Selenium.
 
-### Components of a Website
+#### Components of a Website
 
 Websites are developed using 3 main languages: `javascript`, `html`, and `css`.
 
@@ -58,7 +52,7 @@ Say we want to retrieve all the "widget" containers on a web page. Then, we can 
 find_elements(By.XPATH, "//*[starts-with(@id, 'widget')]")
 ```
 
-### Additional Selenium Functionalities
+#### Additional Selenium Functionalities
 
 Selenium is very powerful and contains many useful features for interacting with browsers. We will not be using most of them in this project, but they're still good to know.
 
@@ -123,9 +117,10 @@ search_results = WebDriverWait(driver, 10).until(EC.presence_of_element_located(
 
 Selenium will wait for a maximum of 10 seconds for the element with the `id` "search" to appear on the page. If 10 seconds pass and the element doesn't appear, then an error will be returned. Otherwise, the driver will retrieve the element and store it in the variable `search_results`.
 
-### Now that we have an understanding of how to interact with HTML elements using Selenium. Let's get started with building the program!
 
-### Step 1: Import Libraries
+Now that we have an understanding of how to interact with HTML elements using Selenium. Let's get started with building the program!
+
++ Step 1: Import Libraries
 
 ```{python}
 import time # will be used to allow sufficient time for web pages to load
@@ -139,7 +134,7 @@ from webdriver_manager.chrome import ChromeDriverManager # a package to manage c
 from selenium.webdriver.common.by import By # method for using XPATHS to locate div elements
 ```
 
-### Step 2: Scrape Image Links
++ Step 2: Scrape Image Links
 
 Let's make a plan for how we are gonna scrape these images:
 
@@ -231,7 +226,7 @@ def image_links_scraper(link, max_images):
     return image_links
 ```
 
-### Step 3: Download the Images
++ Step 3: Download the Images
 
 Now, we take the image links extracted from the previous step and download the images located at each link.
 
@@ -251,17 +246,17 @@ def download_images(image_links, folder_name):
         i += 1 # update the image number for the next iteration
 ```
 
-### Step 4: Run Everything All Together
++ Step 4: Run Everything All Together
 
-The result is a dataset of plant images saved in a folder called `_selenium_images`.
+The result is a dataset of plant images saved in a folder called `_selenium_download`.
 
 ```{python}
-if __name__ == '__main__':
-    link = 'https://www.inaturalist.org/taxa/52083-Toxicodendron-pubescens/browse_photos?layout=grid' # website to scrape images from
-    max_images = 20 # number of images to scrape
-    folder_name = '_selenium_images' # name of folder to save images to
-    image_links = image_links_scraper(link, max_images)
-    download_images(image_links, folder_name)
+# if __name__ == '__main__':
+link = 'https://www.inaturalist.org/taxa/52083-Toxicodendron-pubescens/browse_photos?layout=grid' # website to scrape images from
+max_images = 20 # number of images to scrape
+folder_name = '_selenium_download' # name of folder to save images to
+image_links = image_links_scraper(link, max_images)
+download_images(image_links, folder_name)
 ```
 
 

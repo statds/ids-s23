@@ -5,3 +5,5 @@
 {{< include _nnet.qmd >}}
 
 <!-- {{< include _autoencoder >}} -->
+
+{{< include _selenium.qmd >}}
