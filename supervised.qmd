@@ -125,4 +125,6 @@ work flow in model selection with cross-validation is as follows.
 
 {{< include _nb.qmd >}}
 
+{{< include _multiclass.qmd >}}
+
 {{< include _smote.qmd >}}

@@ -1,16 +1,4 @@
----
-title: "Multiclass Classification with Softmax Regression"
-format:
-  html:
-    code-fold: true
-    embed-resources: true
-  pdf: 
-    geometry: 
-      - top=30mm
-      - left=20mm
-jupyter: python3
----
-## 1. What is a multiclass classification problem?
+## Multiclass Classification with Softmax Regression (by Giovanni Lunetta)
 
 A multiclass classification problem is a type of supervised learning problem in machine learning, where the goal is to predict the class or category of an input observation, based on a set of known classes. In a multiclass classification problem, there are more than two possible classes, and the algorithm must determine which of the possible classes the input observation belongs to.
 
@@ -18,7 +6,7 @@ For example, if we want to classify images of animals into different categories,
 
 Multiclass classification problems can be solved using various algorithms, such as logistic regression, decision trees, support vector machines, and neural networks. The performance of these algorithms is typically evaluated using metrics such as accuracy, precision, recall, and F1 score.
 
-## 2. What is softmax regression?
+### Softmax Regression?
 
 Softmax regression is a type of logistic regression that is often used for multiclass classification problems. In a multiclass classification problem, the goal is to predict the class of an input observation from a set of possible classes. Softmax regression provides a way to model the probabilities of the input observation belonging to each of the possible classes.
 
@@ -27,11 +15,9 @@ In softmax regression, the model's output is a vector of probabilities that repr
 The goal of softmax regression is to predict the probability of an input observation belonging to each of the possible classes. To achieve this, we compute the weighted sum of the input features $\vec{x}$ with a weight vector $\vec{w}_j$ for each class $j$, and add a bias term $b_j$. This gives us a scalar value $z_j$ for each class $j$. We then apply the softmax function to the $z$ values to obtain a probability distribution over the possible classes.
 
 More specifically, for a given input observation, we compute the scalar values $z_j$ for all $N$ classes as follows:
-
 $$
 z_j = \vec{w}_j \cdot \vec{x} + b_j,\ \forall j \in {1, 2, \ldots, N}
 $$
-
 Or, in our example:
 $$
 z_1 = \vec{w}_1 \cdot \vec{x} + b_1
@@ -76,12 +62,11 @@ a_3 = \frac{e^{z_3}}{e^{z_1} + e^{z_2} + e^{z_3}} = P(y = 3| \vec{x})
 $$
 
 
-## 3. Estimation
+### Estimation
 
 In softmax regression, the cost function is used to measure how well the model predicts the probability of an input belonging to each of the possible classes. The goal is to find the set of weights and biases that minimize the cost function, which measures the difference between the predicted probabilities and the true labels.
 
 The cross-entropy loss is a commonly used cost function for softmax regression. The cross-entropy loss is a measure of the dissimilarity between the predicted probability distribution and the true probability distribution. The cross-entropy loss is given by the following two identical formulas:
-
 $$
 J(\vec{w},b) = -\frac{1}{N}\sum_{i=1}^{N}\sum_{j=1}^{k}y_{ij}\log(\hat{y}_{ij})
 $$
@@ -104,7 +89,6 @@ $$
 -\log(a_3) & \text{if } y = 3
 \end{cases}
 $$
-
 where $n$ is the number of training examples, $k$ is the number of possible classes, $y_{ij}$ is the true label for example $i$ and class $j$, and $\hat{y}_{ij}$ is the predicted probability for example $i$ and class $j$.
 
 The cross-entropy loss can be interpreted as the average number of bits needed to represent the true distribution of the classes given the predicted distribution. A lower cross-entropy loss indicates that the predicted probabilities are closer to the true probabilities.
@@ -151,7 +135,7 @@ Finally, as the predicted probability of the true class approaches 1.0 from abov
 
 Overall, the U-shaped curve of the cross-entropy loss function reflects the way that the model is penalized for incorrect predictions. The loss function is high when the model is very confident in an incorrect prediction, or not confident enough in a correct prediction, and is low when the model makes a perfect prediction.
 
-## 4. Visualization
+### Visualization
 
 ```{python}
 import numpy as np
