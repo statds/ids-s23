@@ -313,11 +313,17 @@ div.csl-indent {
   <li><a href="#conclusion-3" id="toc-conclusion-3" class="nav-link" data-scroll-target="#conclusion-3"><span class="toc-section-number">10.7.6</span>  Conclusion</a></li>
   <li><a href="#references-3" id="toc-references-3" class="nav-link" data-scroll-target="#references-3"><span class="toc-section-number">10.7.7</span>  References</a></li>
   </ul></li>
-  <li><a href="#synthetic-minority-oversampling-technique" id="toc-synthetic-minority-oversampling-technique" class="nav-link" data-scroll-target="#synthetic-minority-oversampling-technique"><span class="toc-section-number">10.8</span>  Synthetic Minority Oversampling Technique</a>
+  <li><a href="#multiclass-classification-with-softmax-regression-by-giovanni-lunetta" id="toc-multiclass-classification-with-softmax-regression-by-giovanni-lunetta" class="nav-link" data-scroll-target="#multiclass-classification-with-softmax-regression-by-giovanni-lunetta"><span class="toc-section-number">10.8</span>  Multiclass Classification with Softmax Regression (by Giovanni Lunetta)</a>
   <ul class="collapse">
-  <li><a href="#introduction-5" id="toc-introduction-5" class="nav-link" data-scroll-target="#introduction-5"><span class="toc-section-number">10.8.1</span>  Introduction</a></li>
-  <li><a href="#smote-algorithm" id="toc-smote-algorithm" class="nav-link" data-scroll-target="#smote-algorithm"><span class="toc-section-number">10.8.2</span>  SMOTE Algorithm</a></li>
-  <li><a href="#example" id="toc-example" class="nav-link" data-scroll-target="#example"><span class="toc-section-number">10.8.3</span>  Example</a></li>
+  <li><a href="#softmax-regression" id="toc-softmax-regression" class="nav-link" data-scroll-target="#softmax-regression"><span class="toc-section-number">10.8.1</span>  Softmax Regression?</a></li>
+  <li><a href="#estimation" id="toc-estimation" class="nav-link" data-scroll-target="#estimation"><span class="toc-section-number">10.8.2</span>  Estimation</a></li>
+  <li><a href="#visualization" id="toc-visualization" class="nav-link" data-scroll-target="#visualization"><span class="toc-section-number">10.8.3</span>  Visualization</a></li>
+  </ul></li>
+  <li><a href="#synthetic-minority-oversampling-technique" id="toc-synthetic-minority-oversampling-technique" class="nav-link" data-scroll-target="#synthetic-minority-oversampling-technique"><span class="toc-section-number">10.9</span>  Synthetic Minority Oversampling Technique</a>
+  <ul class="collapse">
+  <li><a href="#introduction-5" id="toc-introduction-5" class="nav-link" data-scroll-target="#introduction-5"><span class="toc-section-number">10.9.1</span>  Introduction</a></li>
+  <li><a href="#smote-algorithm" id="toc-smote-algorithm" class="nav-link" data-scroll-target="#smote-algorithm"><span class="toc-section-number">10.9.2</span>  SMOTE Algorithm</a></li>
+  <li><a href="#example" id="toc-example" class="nav-link" data-scroll-target="#example"><span class="toc-section-number">10.9.3</span>  Example</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -1171,7 +1177,7 @@ div.csl-indent {
 <span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>accuracy</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="21">
-<pre><code>0.68</code></pre>
+<pre><code>0.655</code></pre>
 </div>
 </div>
 </section>
@@ -1748,7 +1754,7 @@ H(Q_m)=-\sum_{k}p_{mk}log(p_{mk})
 <div class="cell" data-execution_count="32">
 <div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>injury_clf.tree_.node_count</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="32">
-<pre><code>3641</code></pre>
+<pre><code>3537</code></pre>
 </div>
 </div>
 <p>Arguments related to stopping criteria: * max_depth * min_samples_split * min_samples_leaf * min_weight_fraction_leaf * max_features * max_leaf_nodes * min_impurity_decrease</p>
@@ -1772,7 +1778,7 @@ H(Q_m)=-\sum_{k}p_{mk}log(p_{mk})
 <span id="cb39-16"><a href="#cb39-16" aria-hidden="true" tabindex="-1"></a><span class="co"># print the best hyperparameters found</span></span>
 <span id="cb39-17"><a href="#cb39-17" aria-hidden="true" tabindex="-1"></a>grid_search.best_params_</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="33">
-<pre><code>{'ccp_alpha': 1e-05,
+<pre><code>{'ccp_alpha': 0.0001,
  'criterion': 'gini',
  'max_depth': 20,
  'min_impurity_decrease': 0.0001}</code></pre>
@@ -1788,7 +1794,7 @@ H(Q_m)=-\sum_{k}p_{mk}log(p_{mk})
 <span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a>injury_clf2 <span class="op">=</span> injury_clf2.fit(X_train, y_train)</span>
 <span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a>injury_clf2.tree_.node_count</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="34">
-<pre><code>855</code></pre>
+<pre><code>817</code></pre>
 </div>
 </div>
 <div class="cell" data-execution_count="35">
@@ -1801,7 +1807,7 @@ H(Q_m)=-\sum_{k}p_{mk}log(p_{mk})
 <span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a>injury_clf3 <span class="op">=</span> injury_clf3.fit(X_train, y_train)</span>
 <span id="cb43-8"><a href="#cb43-8" aria-hidden="true" tabindex="-1"></a>injury_clf3.tree_.node_count</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="35">
-<pre><code>19</code></pre>
+<pre><code>15</code></pre>
 </div>
 </div>
 <div class="cell" data-execution_count="36">
@@ -1886,35 +1892,35 @@ H(Q_m)=-\sum_{k}p_{mk}log(p_{mk})
 <div class="cell-output cell-output-stdout">
 <pre><code>Default parameter results:
 Confusion matrix:
-[[580 211]
- [386 156]]
-Accuracy: 0.5521380345086272
-Precision: 0.4250681198910082
-Recall: 0.2878228782287823
-F1-score: 0.3432343234323433
-AUC: 0.5105359650309526
+[[572 236]
+ [370 155]]
+Accuracy: 0.5453863465866466
+Precision: 0.39641943734015345
+Recall: 0.29523809523809524
+F1-score: 0.3384279475982533
+AUC: 0.5015794436586516
 
 
 Cross-valiation parameter results:
 Confusion matrix:
-[[638 153]
- [405 137]]
-Accuracy: 0.5813953488372093
-Precision: 0.4724137931034483
-Recall: 0.25276752767527677
-F1-score: 0.32932692307692313
-AUC: 0.5296707423458558
+[[644 164]
+ [418 107]]
+Accuracy: 0.5633908477119279
+Precision: 0.3948339483394834
+Recall: 0.2038095238095238
+F1-score: 0.26884422110552764
+AUC: 0.5004196133899105
 
 
 More aggressive pruning results:
 Confusion matrix:
-[[730  61]
- [483  59]]
-Accuracy: 0.5918979744936234
-Precision: 0.49166666666666664
-Recall: 0.1088560885608856
-F1-score: 0.1782477341389728
-AUC: 0.5158692579340458</code></pre>
+[[756  52]
+ [478  47]]
+Accuracy: 0.6024006001500375
+Precision: 0.47474747474747475
+Recall: 0.08952380952380952
+F1-score: 0.15064102564102563
+AUC: 0.5125836869401226</code></pre>
 </div>
 </div>
 </section>
@@ -2277,7 +2283,7 @@ https://scikit-learn.org/stable/modules/tree.html#
 <span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a>scores <span class="op">=</span> cross_val_score(DecisionTreeClassifier(), X, y, cv<span class="op">=</span><span class="dv">5</span>)</span>
 <span id="cb60-4"><a href="#cb60-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Accuracy Score for Bagging Classifier: "</span> <span class="op">+</span> <span class="bu">str</span>(scores.mean())) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Accuracy Score for Bagging Classifier: 0.783</code></pre>
+<pre><code>Accuracy Score for Bagging Classifier: 0.785</code></pre>
 </div>
 </div>
 </section>
@@ -2787,31 +2793,174 @@ Confusion Matrix:
 <p>Vanderplas, Jake. Python Data Science Handbook: Essential Tools for Working with Data. O’REILLY MEDIA, 2023.</p>
 </section>
 </section>
-<section id="synthetic-minority-oversampling-technique" class="level2" data-number="10.8">
-<h2 data-number="10.8" class="anchored" data-anchor-id="synthetic-minority-oversampling-technique"><span class="header-section-number">10.8</span> Synthetic Minority Oversampling Technique</h2>
+<section id="multiclass-classification-with-softmax-regression-by-giovanni-lunetta" class="level2" data-number="10.8">
+<h2 data-number="10.8" class="anchored" data-anchor-id="multiclass-classification-with-softmax-regression-by-giovanni-lunetta"><span class="header-section-number">10.8</span> Multiclass Classification with Softmax Regression (by Giovanni Lunetta)</h2>
+<p>A multiclass classification problem is a type of supervised learning problem in machine learning, where the goal is to predict the class or category of an input observation, based on a set of known classes. In a multiclass classification problem, there are more than two possible classes, and the algorithm must determine which of the possible classes the input observation belongs to.</p>
+<p>For example, if we want to classify images of animals into different categories, such as dogs, cats, and horses, we have a multiclass classification problem. In this case, the algorithm must learn to distinguish between the different features of each animal to correctly identify its class.</p>
+<p>Multiclass classification problems can be solved using various algorithms, such as logistic regression, decision trees, support vector machines, and neural networks. The performance of these algorithms is typically evaluated using metrics such as accuracy, precision, recall, and F1 score.</p>
+<section id="softmax-regression" class="level3" data-number="10.8.1">
+<h3 data-number="10.8.1" class="anchored" data-anchor-id="softmax-regression"><span class="header-section-number">10.8.1</span> Softmax Regression?</h3>
+<p>Softmax regression is a type of logistic regression that is often used for multiclass classification problems. In a multiclass classification problem, the goal is to predict the class of an input observation from a set of possible classes. Softmax regression provides a way to model the probabilities of the input observation belonging to each of the possible classes.</p>
+<p>In softmax regression, the model’s output is a vector of probabilities that represent the likelihood of the input observation belonging to each of the possible classes. The softmax function is used to map the output of the linear regression model to a probability distribution over the classes, ensuring that the probabilities of all classes sum to one.</p>
+<p>The goal of softmax regression is to predict the probability of an input observation belonging to each of the possible classes. To achieve this, we compute the weighted sum of the input features <span class="math inline">\(\vec{x}\)</span> with a weight vector <span class="math inline">\(\vec{w}_j\)</span> for each class <span class="math inline">\(j\)</span>, and add a bias term <span class="math inline">\(b_j\)</span>. This gives us a scalar value <span class="math inline">\(z_j\)</span> for each class <span class="math inline">\(j\)</span>. We then apply the softmax function to the <span class="math inline">\(z\)</span> values to obtain a probability distribution over the possible classes.</p>
+<p>More specifically, for a given input observation, we compute the scalar values <span class="math inline">\(z_j\)</span> for all <span class="math inline">\(N\)</span> classes as follows: <span class="math display">\[
+z_j = \vec{w}_j \cdot \vec{x} + b_j,\ \forall j \in {1, 2, \ldots, N}
+\]</span> Or, in our example: <span class="math display">\[
+z_1 = \vec{w}_1 \cdot \vec{x} + b_1
+\]</span> <span class="math display">\[
+z_2 = \vec{w}_2 \cdot \vec{x} + b_2
+\]</span> <span class="math display">\[
+z_3 = \vec{w}_3 \cdot \vec{x} + b_3
+\]</span></p>
+<p>The equations provided describe how the model computes a set of scores for each class, which are used to compute the probability distribution over the classes.</p>
+<p>Each of the equations describes a linear regression model that computes a score, <span class="math inline">\(z_i\)</span>, for class <span class="math inline">\(i\)</span> based on the input vector <span class="math inline">\(\vec{x}\)</span> and a set of weights, <span class="math inline">\(\vec{w}_i\)</span>, and bias, <span class="math inline">\(b_i\)</span>.</p>
+<p>Scores refer to the scalar values <span class="math inline">\(z_j\)</span> computed for each class <span class="math inline">\(j\)</span>. These scores represent the model’s confidence in the input observation belonging to each of the possible classes, and are used to compute the final probability distribution over the classes.</p>
+<p>For example, if we have three classes (1, 2, and 3), and the model computes scores of 0.7, 0.2, and 0.1 for each class respectively, this would indicate that the model is most confident that the input observation belongs to class 1, but has lower confidence that it belongs to classes 2 and 3. The probabilities computed from these scores would reflect this relative confidence as well.</p>
+<p>Let’s break down the first equation in the example:</p>
+<p><span class="math display">\[z_1 = \vec{w}_1 \cdot \vec{x} + b_1\]</span></p>
+<p>Here, <span class="math inline">\(\vec{w}_1\)</span> is a vector of weights that corresponds to the input features. Each weight represents the importance of a feature in determining the score for class 1. The dot product of the weight vector and input vector, <span class="math inline">\(\vec{w}_1 \cdot \vec{x}\)</span>, is a weighted sum of the input features that determines the contribution of each feature to the score. The bias term, <span class="math inline">\(b_1\)</span>, represents a constant offset that can be used to shift the scores for class 1 up or down.</p>
+<p>The scores for classes 2 and 3 are computed using similar equations, but with different weight vectors and biases. The scores can be positive or negative, depending on the input features and the weight values. The sign and magnitude of the scores determine which classes are more likely to be predicted by the model.</p>
+<p>To convert the scores to a probability distribution over the classes, the model uses the softmax function, which takes the exponent of each score and normalizes them to sum up to 1. The softmax function outputs a vector of probabilities, where each element represents the probability of the input belonging to a specific class. <span class="math display">\[
+a_j = \frac{e^{z_j}}{\sum\limits_{k=1}^N e^{z_k}} = P(y=j \mid \vec{x})
+\]</span></p>
+<p>Or again, in our example: <span class="math display">\[
+a_1 = \frac{e^{z_1}}{e^{z_1} + e^{z_2} + e^{z_3}} = P(y = 1| \vec{x})
+\]</span> <span class="math display">\[
+a_2 = \frac{e^{z_2}}{e^{z_1} + e^{z_2} + e^{z_3}} = P(y = 2| \vec{x})
+\]</span> <span class="math display">\[
+a_3 = \frac{e^{z_3}}{e^{z_1} + e^{z_2} + e^{z_3}} = P(y = 3| \vec{x})
+\]</span></p>
+</section>
+<section id="estimation" class="level3" data-number="10.8.2">
+<h3 data-number="10.8.2" class="anchored" data-anchor-id="estimation"><span class="header-section-number">10.8.2</span> Estimation</h3>
+<p>In softmax regression, the cost function is used to measure how well the model predicts the probability of an input belonging to each of the possible classes. The goal is to find the set of weights and biases that minimize the cost function, which measures the difference between the predicted probabilities and the true labels.</p>
+<p>The cross-entropy loss is a commonly used cost function for softmax regression. The cross-entropy loss is a measure of the dissimilarity between the predicted probability distribution and the true probability distribution. The cross-entropy loss is given by the following two identical formulas: <span class="math display">\[
+J(\vec{w},b) = -\frac{1}{N}\sum_{i=1}^{N}\sum_{j=1}^{k}y_{ij}\log(\hat{y}_{ij})
+\]</span> where <span class="math inline">\(\hat{y}_{ij}\)</span> is the predicted probability of example <span class="math inline">\(i\)</span> belonging to class <span class="math inline">\(j\)</span> <span class="math display">\[
+\text{loss}(a_1, a_2, \dots, a_n, y) =
+\begin{cases}
+-\log(a_1) &amp; \text{if } y = 1 \\
+-\log(a_2) &amp; \text{if } y = 2 \\
+\vdots &amp; \vdots \\
+-\log(a_n) &amp; \text{if } y = n
+\end{cases}
+\]</span></p>
+<p>Using our example: <span class="math display">\[
+\text{loss}(a_1, a_2, a_3, y) = \begin{cases}
+-\log(a_1) &amp; \text{if } y = 1 \\
+-\log(a_2) &amp; \text{if } y = 2 \\
+-\log(a_3) &amp; \text{if } y = 3
+\end{cases}
+\]</span> where <span class="math inline">\(n\)</span> is the number of training examples, <span class="math inline">\(k\)</span> is the number of possible classes, <span class="math inline">\(y_{ij}\)</span> is the true label for example <span class="math inline">\(i\)</span> and class <span class="math inline">\(j\)</span>, and <span class="math inline">\(\hat{y}_{ij}\)</span> is the predicted probability for example <span class="math inline">\(i\)</span> and class <span class="math inline">\(j\)</span>.</p>
+<p>The cross-entropy loss can be interpreted as the average number of bits needed to represent the true distribution of the classes given the predicted distribution. A lower cross-entropy loss indicates that the predicted probabilities are closer to the true probabilities.</p>
+<p>During training, the model adjusts the weights and biases to minimize the cross-entropy loss. This is typically done using an optimization algorithm such as gradient descent. The gradient of the cost function with respect to the weights and biases is computed, and the weights and biases are updated in the direction of the negative gradient to reduce the cost.</p>
+<p>In summary, the cost function in softmax regression measures the difference between the predicted probability distribution and the true label distribution, and is used to train the model to make better predictions by adjusting the weights and biases to minimize the cost.</p>
+<div class="cell" data-execution_count="69">
+<div class="sourceCode cell-code" id="cb96"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb96-1"><a href="#cb96-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb96-2"><a href="#cb96-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb96-3"><a href="#cb96-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb96-4"><a href="#cb96-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the range of values for the predicted probability</span></span>
+<span id="cb96-5"><a href="#cb96-5" aria-hidden="true" tabindex="-1"></a>y_hat <span class="op">=</span> np.arange(<span class="fl">0.001</span>, <span class="fl">1.0</span>, <span class="fl">0.01</span>)</span>
+<span id="cb96-6"><a href="#cb96-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb96-7"><a href="#cb96-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the true label as 1 for this example</span></span>
+<span id="cb96-8"><a href="#cb96-8" aria-hidden="true" tabindex="-1"></a>y_true <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb96-9"><a href="#cb96-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb96-10"><a href="#cb96-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute the cross-entropy loss for each value of y_hat</span></span>
+<span id="cb96-11"><a href="#cb96-11" aria-hidden="true" tabindex="-1"></a>loss <span class="op">=</span> <span class="op">-</span> y_true <span class="op">*</span> np.log(y_hat) <span class="op">-</span> (<span class="dv">1</span> <span class="op">-</span> y_true) <span class="op">*</span> np.log(<span class="dv">1</span> <span class="op">-</span> y_hat)</span>
+<span id="cb96-12"><a href="#cb96-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb96-13"><a href="#cb96-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the loss function</span></span>
+<span id="cb96-14"><a href="#cb96-14" aria-hidden="true" tabindex="-1"></a>plt.plot(y_hat, loss)</span>
+<span id="cb96-15"><a href="#cb96-15" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Predicted probability'</span>)</span>
+<span id="cb96-16"><a href="#cb96-16" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Cross-entropy loss'</span>)</span>
+<span id="cb96-17"><a href="#cb96-17" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="supervised_files/figure-html/cell-70-output-1.png" width="576" height="429"></p>
+</div>
+</div>
+<p>In this example, we define a range of values for the predicted probability, y_hat, and set the true label to 1 for simplicity. We then compute the cross-entropy loss for each value of y_hat using the formula for the cross-entropy loss. Finally, we plot the loss function as a function of the predicted probability.</p>
+<p>The resulting plot should show a U-shaped curve, with the minimum value of the loss occurring at a predicted probability of 1.0 for the true class and 0.0 for the other class.</p>
+<p>The U-shaped curve of the cross-entropy loss function is a reflection of the way the loss function penalizes incorrect predictions. The intuition behind this shape is as follows:</p>
+<p>If the model correctly predicts the probability of the true class to be 1.0 (i.e., the predicted probability distribution perfectly matches the true label distribution), then the loss function evaluates to 0.0. This is the minimum possible value of the loss function, and corresponds to the best possible prediction.</p>
+<p>As the predicted probability of the true class decreases from 1.0, the loss function begins to increase. This reflects the increasing penalty for incorrectly predicting the probability of the true class.</p>
+<p>As the predicted probability of the true class approaches 0.0, the loss function increases very rapidly. This reflects the fact that the model is very confident in an incorrect prediction, and the penalty for this kind of error is very high.</p>
+<p>Similarly, as the predicted probability of the true class approaches 1.0 from below, the loss function increases very rapidly again. This reflects the fact that the model is not confident enough in the correct prediction, and the penalty for this kind of error is also very high.</p>
+<p>Finally, as the predicted probability of the true class approaches 1.0 from above, the loss function begins to increase more slowly again. This reflects the fact that the model is becoming more confident in the correct prediction, and the penalty for being slightly off is lower than for being very wrong.</p>
+<p>Overall, the U-shaped curve of the cross-entropy loss function reflects the way that the model is penalized for incorrect predictions. The loss function is high when the model is very confident in an incorrect prediction, or not confident enough in a correct prediction, and is low when the model makes a perfect prediction.</p>
+</section>
+<section id="visualization" class="level3" data-number="10.8.3">
+<h3 data-number="10.8.3" class="anchored" data-anchor-id="visualization"><span class="header-section-number">10.8.3</span> Visualization</h3>
+<div class="cell" data-execution_count="70">
+<div class="sourceCode cell-code" id="cb97"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb97-1"><a href="#cb97-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb97-2"><a href="#cb97-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb97-3"><a href="#cb97-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb97-4"><a href="#cb97-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate random data</span></span>
+<span id="cb97-5"><a href="#cb97-5" aria-hidden="true" tabindex="-1"></a><span class="co"># np.random.seed(0)</span></span>
+<span id="cb97-6"><a href="#cb97-6" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> np.random.randn(<span class="dv">300</span>, <span class="dv">2</span>)</span>
+<span id="cb97-7"><a href="#cb97-7" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> np.random.choice([<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>], <span class="dv">300</span>)</span>
+<span id="cb97-8"><a href="#cb97-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb97-9"><a href="#cb97-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Add bias term</span></span>
+<span id="cb97-10"><a href="#cb97-10" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> np.hstack([np.ones((X.shape[<span class="dv">0</span>], <span class="dv">1</span>)), X])</span>
+<span id="cb97-11"><a href="#cb97-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb97-12"><a href="#cb97-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Define softmax function</span></span>
+<span id="cb97-13"><a href="#cb97-13" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> softmax(X):</span>
+<span id="cb97-14"><a href="#cb97-14" aria-hidden="true" tabindex="-1"></a>    expX <span class="op">=</span> np.exp(X)</span>
+<span id="cb97-15"><a href="#cb97-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> expX <span class="op">/</span> np.<span class="bu">sum</span>(expX, axis<span class="op">=</span><span class="dv">1</span>, keepdims<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb97-16"><a href="#cb97-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb97-17"><a href="#cb97-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Initialize weights</span></span>
+<span id="cb97-18"><a href="#cb97-18" aria-hidden="true" tabindex="-1"></a>W <span class="op">=</span> np.random.randn(X.shape[<span class="dv">1</span>], <span class="dv">3</span>)</span>
+<span id="cb97-19"><a href="#cb97-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb97-20"><a href="#cb97-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Train softmax regression</span></span>
+<span id="cb97-21"><a href="#cb97-21" aria-hidden="true" tabindex="-1"></a>learning_rate <span class="op">=</span> <span class="fl">0.01</span></span>
+<span id="cb97-22"><a href="#cb97-22" aria-hidden="true" tabindex="-1"></a>num_iterations <span class="op">=</span> <span class="dv">1000</span></span>
+<span id="cb97-23"><a href="#cb97-23" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(num_iterations):</span>
+<span id="cb97-24"><a href="#cb97-24" aria-hidden="true" tabindex="-1"></a>    P <span class="op">=</span> softmax(X.dot(W))</span>
+<span id="cb97-25"><a href="#cb97-25" aria-hidden="true" tabindex="-1"></a>    gradient <span class="op">=</span> X.T.dot(P <span class="op">-</span> np.eye(<span class="dv">3</span>)[y])</span>
+<span id="cb97-26"><a href="#cb97-26" aria-hidden="true" tabindex="-1"></a>    W <span class="op">-=</span> learning_rate <span class="op">*</span> gradient</span>
+<span id="cb97-27"><a href="#cb97-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb97-28"><a href="#cb97-28" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute predicted classes</span></span>
+<span id="cb97-29"><a href="#cb97-29" aria-hidden="true" tabindex="-1"></a>y_pred <span class="op">=</span> np.argmax(X.dot(W), axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb97-30"><a href="#cb97-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb97-31"><a href="#cb97-31" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot data and decision boundaries</span></span>
+<span id="cb97-32"><a href="#cb97-32" aria-hidden="true" tabindex="-1"></a>plt.scatter(X[:, <span class="dv">1</span>], X[:, <span class="dv">2</span>], c<span class="op">=</span>y, cmap<span class="op">=</span><span class="st">'viridis'</span>)</span>
+<span id="cb97-33"><a href="#cb97-33" aria-hidden="true" tabindex="-1"></a>x_min, x_max <span class="op">=</span> plt.xlim()</span>
+<span id="cb97-34"><a href="#cb97-34" aria-hidden="true" tabindex="-1"></a>y_min, y_max <span class="op">=</span> plt.ylim()</span>
+<span id="cb97-35"><a href="#cb97-35" aria-hidden="true" tabindex="-1"></a>xx, yy <span class="op">=</span> np.meshgrid(np.linspace(x_min, x_max, <span class="dv">100</span>), np.linspace(y_min, y_max, <span class="dv">100</span>))</span>
+<span id="cb97-36"><a href="#cb97-36" aria-hidden="true" tabindex="-1"></a>Z <span class="op">=</span> np.argmax(np.hstack([np.ones((xx.size, <span class="dv">1</span>)), xx.ravel()[:, np.newaxis], yy.ravel()[:, np.newaxis]]).dot(W), axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb97-37"><a href="#cb97-37" aria-hidden="true" tabindex="-1"></a>Z <span class="op">=</span> Z.reshape(xx.shape)</span>
+<span id="cb97-38"><a href="#cb97-38" aria-hidden="true" tabindex="-1"></a>plt.contourf(xx, yy, Z, alpha<span class="op">=</span><span class="fl">0.3</span>, levels<span class="op">=</span><span class="dv">3</span>, cmap<span class="op">=</span><span class="st">'viridis'</span>)</span>
+<span id="cb97-39"><a href="#cb97-39" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="supervised_files/figure-html/cell-71-output-1.png" width="569" height="411"></p>
+</div>
+</div>
+<p>This code generates a scatter plot of the data points, with each class represented by a different color. It then plots the decision boundaries of the classifier, which are represented by the colored regions. The regions are created by classifying a large grid of points that spans the plot, and then plotting the regions of the grid that correspond to each class.</p>
+</section>
+</section>
+<section id="synthetic-minority-oversampling-technique" class="level2" data-number="10.9">
+<h2 data-number="10.9" class="anchored" data-anchor-id="synthetic-minority-oversampling-technique"><span class="header-section-number">10.9</span> Synthetic Minority Oversampling Technique</h2>
 <p>Sythetic Minority Oversampling TEchnique (SMOTE) is an approach for classification with imbalanced datasets <span class="citation" data-cites="chawla2002smote">(<a href="references.html#ref-chawla2002smote" role="doc-biblioref">Chawla et al. 2002</a>)</span>. A dataset is imbalanced if the classification categories are not approximately equally represented. For example, in rare disease diagnosis or fraud detection, the diseased or fraud cases are much less frequent than the “normal” cases. Further, the cost of misclassifying an abnormal (interesting) case as a normal case is often much higher than the cost of the reverse error. Under-sampling of the majority (normal) class has been proposed as a good means of increasing the sensitivity of a classifier to the minority class. In a similar way, over-sampling the minority (abnormal) class helps improve the classifier performance too. A combination of over-sampling the minority and under-sampling the majority (normal) class can achieve even better classifier performance.</p>
-<section id="introduction-5" class="level3" data-number="10.8.1">
-<h3 data-number="10.8.1" class="anchored" data-anchor-id="introduction-5"><span class="header-section-number">10.8.1</span> Introduction</h3>
+<section id="introduction-5" class="level3" data-number="10.9.1">
+<h3 data-number="10.9.1" class="anchored" data-anchor-id="introduction-5"><span class="header-section-number">10.9.1</span> Introduction</h3>
 <p>The problem with imbalanced data is that, again, accuracy is not a good metric for performance evaluation. A silly approach that classifies all cases as normal would have high accuracy but is useless.</p>
 <p>Undersampling means that you discard a number of data points of the class that is present too often. The disadvantage of undersampling is loss of valuable data (information). It coul dbe effective when there is a lot of data, and the class imbalance is not so large. For extremely imbalanced data, undersampling could result in almost no data.</p>
 <p>Oversampling makes duplicates of the data that is the least present in the data. But, wait a minute. We would be creating data that is not real and introducing false information into modeling.</p>
 <p>At the end, we need to assess the predictive performance of our model on a non-oversampled data set. After all, out-of-sample predictions will be done on non-oversampled data and therefore this is how we should measure models’ performance.</p>
 </section>
-<section id="smote-algorithm" class="level3" data-number="10.8.2">
-<h3 data-number="10.8.2" class="anchored" data-anchor-id="smote-algorithm"><span class="header-section-number">10.8.2</span> SMOTE Algorithm</h3>
+<section id="smote-algorithm" class="level3" data-number="10.9.2">
+<h3 data-number="10.9.2" class="anchored" data-anchor-id="smote-algorithm"><span class="header-section-number">10.9.2</span> SMOTE Algorithm</h3>
 <p>SMOTE is a data augumentation approach that creates synthetic data points based on the original data points. It could be viewed as an advanced version of oversampling, except that instead of making exact duplicates of observations in the less present class, we add small perturbations to the copied data points. Therefore, we are not generating duplicates, but rather creating synthetic data points that are slightly different from the original data points.</p>
 <p>How exactly synthetic data point is formed? After a random case is drawn from the minority class, take one of its <span class="math inline">\(k\)</span>~nearest neighbors, and move the current case slightly in the direction of this neighbor. As a result, the synthetic data point is not an exact copy of an existing data point while being too different from the known observations in the minority class.</p>
 <p>The data augumentation influences both precision and recall. Just to refresh, precision measures how many identified items are relevant, while recall measures how many relevant items are identified. SMOTE generally leads to an increase in recall, at the cost of lower precision. That is, it will add more predictions of the minority class: some of them correct (increasing recall), but some of them wrong (decreasing precision). The overall model accuracy may also decrease, but this is not a problem because, again, accuracy is not a good in case of imbalanced data.</p>
 </section>
-<section id="example" class="level3" data-number="10.8.3">
-<h3 data-number="10.8.3" class="anchored" data-anchor-id="example"><span class="header-section-number">10.8.3</span> Example</h3>
+<section id="example" class="level3" data-number="10.9.3">
+<h3 data-number="10.9.3" class="anchored" data-anchor-id="example"><span class="header-section-number">10.9.3</span> Example</h3>
 <p>Consider the example of <a href="https://towardsdatascience.com/smote-fdce2f605729">Joos Korstanje</a>.</p>
-<div class="cell" data-execution_count="69">
-<div class="sourceCode cell-code" id="cb96"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb96-1"><a href="#cb96-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import the data</span></span>
-<span id="cb96-2"><a href="#cb96-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb96-3"><a href="#cb96-3" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> pd.read_csv(<span class="st">'https://raw.githubusercontent.com/JoosKorstanje/datasets/main/sales_data.csv'</span>)</span>
-<span id="cb96-4"><a href="#cb96-4" aria-hidden="true" tabindex="-1"></a>data.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="69">
+<div class="cell" data-execution_count="71">
+<div class="sourceCode cell-code" id="cb98"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb98-1"><a href="#cb98-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import the data</span></span>
+<span id="cb98-2"><a href="#cb98-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb98-3"><a href="#cb98-3" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> pd.read_csv(<span class="st">'https://raw.githubusercontent.com/JoosKorstanje/datasets/main/sales_data.csv'</span>)</span>
+<span id="cb98-4"><a href="#cb98-4" aria-hidden="true" tabindex="-1"></a>data.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="71">
 
 <div>
 
@@ -2873,118 +3022,118 @@ Confusion Matrix:
 </div>
 </div>
 <p>Check the distribution of buyers vs non-buyers.</p>
-<div class="cell" data-execution_count="70">
-<div class="sourceCode cell-code" id="cb97"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb97-1"><a href="#cb97-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Showing the class imbalance between buyers and non-buyers</span></span>
-<span id="cb97-2"><a href="#cb97-2" aria-hidden="true" tabindex="-1"></a>data.pivot_table(index<span class="op">=</span><span class="st">'buy'</span>, aggfunc<span class="op">=</span><span class="st">'size'</span>).plot(kind<span class="op">=</span><span class="st">'bar'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="70">
+<div class="cell" data-execution_count="72">
+<div class="sourceCode cell-code" id="cb99"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb99-1"><a href="#cb99-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Showing the class imbalance between buyers and non-buyers</span></span>
+<span id="cb99-2"><a href="#cb99-2" aria-hidden="true" tabindex="-1"></a>data.pivot_table(index<span class="op">=</span><span class="st">'buy'</span>, aggfunc<span class="op">=</span><span class="st">'size'</span>).plot(kind<span class="op">=</span><span class="st">'bar'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="72">
 <pre><code>&lt;AxesSubplot: xlabel='buy'&gt;</code></pre>
 </div>
 <div class="cell-output cell-output-display">
-<p><img src="supervised_files/figure-html/cell-71-output-2.png" width="575" height="425"></p>
+<p><img src="supervised_files/figure-html/cell-73-output-2.png" width="575" height="425"></p>
 </div>
 </div>
 <p>Use stratefied sampling to split the data into training (70%) and testing sets (30%) to avoid ending up with overly few buyers in the testing set.</p>
-<div class="cell" data-execution_count="71">
-<div class="sourceCode cell-code" id="cb99"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb99-1"><a href="#cb99-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
-<span id="cb99-2"><a href="#cb99-2" aria-hidden="true" tabindex="-1"></a>train, test <span class="op">=</span> train_test_split(data, test_size <span class="op">=</span> <span class="fl">0.3</span>, stratify<span class="op">=</span>data.buy)</span>
-<span id="cb99-3"><a href="#cb99-3" aria-hidden="true" tabindex="-1"></a>test.pivot_table(index<span class="op">=</span><span class="st">'buy'</span>, aggfunc<span class="op">=</span><span class="st">'size'</span>).plot(kind<span class="op">=</span><span class="st">'bar'</span>, title<span class="op">=</span><span class="st">'Verify that class distributuion in test is same as input data'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="71">
+<div class="cell" data-execution_count="73">
+<div class="sourceCode cell-code" id="cb101"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb101-1"><a href="#cb101-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
+<span id="cb101-2"><a href="#cb101-2" aria-hidden="true" tabindex="-1"></a>train, test <span class="op">=</span> train_test_split(data, test_size <span class="op">=</span> <span class="fl">0.3</span>, stratify<span class="op">=</span>data.buy)</span>
+<span id="cb101-3"><a href="#cb101-3" aria-hidden="true" tabindex="-1"></a>test.pivot_table(index<span class="op">=</span><span class="st">'buy'</span>, aggfunc<span class="op">=</span><span class="st">'size'</span>).plot(kind<span class="op">=</span><span class="st">'bar'</span>, title<span class="op">=</span><span class="st">'Verify that class distributuion in test is same as input data'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="73">
 <pre><code>&lt;AxesSubplot: title={'center': 'Verify that class distributuion in test is same as input data'}, xlabel='buy'&gt;</code></pre>
 </div>
 <div class="cell-output cell-output-display">
-<p><img src="supervised_files/figure-html/cell-72-output-2.png" width="575" height="445"></p>
+<p><img src="supervised_files/figure-html/cell-74-output-2.png" width="575" height="445"></p>
 </div>
 </div>
 <p>Build a logistic regression as benchmark to assess the benefit of SMOTE.</p>
-<div class="cell" data-execution_count="72">
-<div class="sourceCode cell-code" id="cb101"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb101-1"><a href="#cb101-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LogisticRegression</span>
-<span id="cb101-2"><a href="#cb101-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb101-3"><a href="#cb101-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Instantiate the Logistic Regression with only default settings</span></span>
-<span id="cb101-4"><a href="#cb101-4" aria-hidden="true" tabindex="-1"></a>my_log_reg <span class="op">=</span> LogisticRegression()</span>
-<span id="cb101-5"><a href="#cb101-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb101-6"><a href="#cb101-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit the logistic regression on the independent variables of the train data with buy as dependent variable</span></span>
-<span id="cb101-7"><a href="#cb101-7" aria-hidden="true" tabindex="-1"></a>my_log_reg.fit(train[[<span class="st">'time_on_page'</span>, <span class="st">'pages_viewed'</span>, <span class="st">'interest_ski'</span>, <span class="st">'interest_climb'</span>]], train[<span class="st">'buy'</span>])</span>
-<span id="cb101-8"><a href="#cb101-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb101-9"><a href="#cb101-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Make a prediction using our model on the test set</span></span>
-<span id="cb101-10"><a href="#cb101-10" aria-hidden="true" tabindex="-1"></a>preds <span class="op">=</span> my_log_reg.predict(test[[<span class="st">'time_on_page'</span>, <span class="st">'pages_viewed'</span>, <span class="st">'interest_ski'</span>, <span class="st">'interest_climb'</span>]])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="74">
+<div class="sourceCode cell-code" id="cb103"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb103-1"><a href="#cb103-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LogisticRegression</span>
+<span id="cb103-2"><a href="#cb103-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb103-3"><a href="#cb103-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Instantiate the Logistic Regression with only default settings</span></span>
+<span id="cb103-4"><a href="#cb103-4" aria-hidden="true" tabindex="-1"></a>my_log_reg <span class="op">=</span> LogisticRegression()</span>
+<span id="cb103-5"><a href="#cb103-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb103-6"><a href="#cb103-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit the logistic regression on the independent variables of the train data with buy as dependent variable</span></span>
+<span id="cb103-7"><a href="#cb103-7" aria-hidden="true" tabindex="-1"></a>my_log_reg.fit(train[[<span class="st">'time_on_page'</span>, <span class="st">'pages_viewed'</span>, <span class="st">'interest_ski'</span>, <span class="st">'interest_climb'</span>]], train[<span class="st">'buy'</span>])</span>
+<span id="cb103-8"><a href="#cb103-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb103-9"><a href="#cb103-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Make a prediction using our model on the test set</span></span>
+<span id="cb103-10"><a href="#cb103-10" aria-hidden="true" tabindex="-1"></a>preds <span class="op">=</span> my_log_reg.predict(test[[<span class="st">'time_on_page'</span>, <span class="st">'pages_viewed'</span>, <span class="st">'interest_ski'</span>, <span class="st">'interest_climb'</span>]])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Obtain the confusion matrix of the benchmark model.</p>
-<div class="cell" data-execution_count="73">
-<div class="sourceCode cell-code" id="cb102"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb102-1"><a href="#cb102-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> confusion_matrix</span>
-<span id="cb102-2"><a href="#cb102-2" aria-hidden="true" tabindex="-1"></a>tn, fp, fn, tp <span class="op">=</span> confusion_matrix(test[<span class="st">'buy'</span>], preds).ravel()</span>
-<span id="cb102-3"><a href="#cb102-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'True negatives: '</span>, tn, <span class="st">'</span><span class="ch">\n</span><span class="st">False positives: '</span>, fp, <span class="st">'</span><span class="ch">\n</span><span class="st">False negatives: '</span>, fn, <span class="st">'</span><span class="ch">\n</span><span class="st">True Positives: '</span>, tp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="75">
+<div class="sourceCode cell-code" id="cb104"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb104-1"><a href="#cb104-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> confusion_matrix</span>
+<span id="cb104-2"><a href="#cb104-2" aria-hidden="true" tabindex="-1"></a>tn, fp, fn, tp <span class="op">=</span> confusion_matrix(test[<span class="st">'buy'</span>], preds).ravel()</span>
+<span id="cb104-3"><a href="#cb104-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'True negatives: '</span>, tn, <span class="st">'</span><span class="ch">\n</span><span class="st">False positives: '</span>, fp, <span class="st">'</span><span class="ch">\n</span><span class="st">False negatives: '</span>, fn, <span class="st">'</span><span class="ch">\n</span><span class="st">True Positives: '</span>, tp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>True negatives:  282 
-False positives:  3 
-False negatives:  8 
-True Positives:  7</code></pre>
+<pre><code>True negatives:  284 
+False positives:  1 
+False negatives:  10 
+True Positives:  5</code></pre>
 </div>
 </div>
 <p>Get the classification report.</p>
-<div class="cell" data-execution_count="74">
-<div class="sourceCode cell-code" id="cb104"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb104-1"><a href="#cb104-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> classification_report</span>
-<span id="cb104-2"><a href="#cb104-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(classification_report(test[<span class="st">'buy'</span>], preds))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="76">
+<div class="sourceCode cell-code" id="cb106"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb106-1"><a href="#cb106-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> classification_report</span>
+<span id="cb106-2"><a href="#cb106-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(classification_report(test[<span class="st">'buy'</span>], preds))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>              precision    recall  f1-score   support
 
-           0       0.97      0.99      0.98       285
-           1       0.70      0.47      0.56        15
+           0       0.97      1.00      0.98       285
+           1       0.83      0.33      0.48        15
 
     accuracy                           0.96       300
-   macro avg       0.84      0.73      0.77       300
+   macro avg       0.90      0.66      0.73       300
 weighted avg       0.96      0.96      0.96       300
 </code></pre>
 </div>
 </div>
 <p>Now let’s use SMOTE to build a model.</p>
-<div class="cell" data-execution_count="75">
-<div class="sourceCode cell-code" id="cb106"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb106-1"><a href="#cb106-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> imblearn.over_sampling <span class="im">import</span> SMOTE</span>
-<span id="cb106-2"><a href="#cb106-2" aria-hidden="true" tabindex="-1"></a>X_resampled, y_resampled <span class="op">=</span> SMOTE().fit_resample(train[[<span class="st">'time_on_page'</span>,  <span class="st">'pages_viewed'</span>, <span class="st">'interest_ski'</span>, <span class="st">'interest_climb'</span>]], train[<span class="st">'buy'</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="77">
+<div class="sourceCode cell-code" id="cb108"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb108-1"><a href="#cb108-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> imblearn.over_sampling <span class="im">import</span> SMOTE</span>
+<span id="cb108-2"><a href="#cb108-2" aria-hidden="true" tabindex="-1"></a>X_resampled, y_resampled <span class="op">=</span> SMOTE().fit_resample(train[[<span class="st">'time_on_page'</span>,  <span class="st">'pages_viewed'</span>, <span class="st">'interest_ski'</span>, <span class="st">'interest_climb'</span>]], train[<span class="st">'buy'</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Check the distribution of the buyers and non-buyers</p>
-<div class="cell" data-execution_count="76">
-<div class="sourceCode cell-code" id="cb107"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb107-1"><a href="#cb107-1" aria-hidden="true" tabindex="-1"></a>pd.Series(y_resampled).value_counts().plot(kind<span class="op">=</span><span class="st">'bar'</span>, title<span class="op">=</span><span class="st">'Class distribution after appying SMOTE'</span>, xlabel<span class="op">=</span><span class="st">'buy'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="76">
+<div class="cell" data-execution_count="78">
+<div class="sourceCode cell-code" id="cb109"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb109-1"><a href="#cb109-1" aria-hidden="true" tabindex="-1"></a>pd.Series(y_resampled).value_counts().plot(kind<span class="op">=</span><span class="st">'bar'</span>, title<span class="op">=</span><span class="st">'Class distribution after appying SMOTE'</span>, xlabel<span class="op">=</span><span class="st">'buy'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="78">
 <pre><code>&lt;AxesSubplot: title={'center': 'Class distribution after appying SMOTE'}, xlabel='buy'&gt;</code></pre>
 </div>
 <div class="cell-output cell-output-display">
-<p><img src="supervised_files/figure-html/cell-77-output-2.png" width="575" height="445"></p>
+<p><img src="supervised_files/figure-html/cell-79-output-2.png" width="575" height="445"></p>
 </div>
 </div>
 <p>Train the logistic model with SMOTE augmented data.</p>
-<div class="cell" data-execution_count="77">
-<div class="sourceCode cell-code" id="cb109"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb109-1"><a href="#cb109-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Instantiate the new Logistic Regression</span></span>
-<span id="cb109-2"><a href="#cb109-2" aria-hidden="true" tabindex="-1"></a>log_reg_2 <span class="op">=</span> LogisticRegression()</span>
-<span id="cb109-3"><a href="#cb109-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb109-4"><a href="#cb109-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit the model with the data that has been resampled with SMOTE</span></span>
-<span id="cb109-5"><a href="#cb109-5" aria-hidden="true" tabindex="-1"></a>log_reg_2.fit(X_resampled, y_resampled)</span>
-<span id="cb109-6"><a href="#cb109-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb109-7"><a href="#cb109-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Predict on the test set (not resampled to obtain honest evaluation)</span></span>
-<span id="cb109-8"><a href="#cb109-8" aria-hidden="true" tabindex="-1"></a>preds2 <span class="op">=</span> log_reg_2.predict(test[[<span class="st">'time_on_page'</span>, <span class="st">'pages_viewed'</span>,    <span class="st">'interest_ski'</span>, <span class="st">'interest_climb'</span>]])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="79">
+<div class="sourceCode cell-code" id="cb111"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb111-1"><a href="#cb111-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Instantiate the new Logistic Regression</span></span>
+<span id="cb111-2"><a href="#cb111-2" aria-hidden="true" tabindex="-1"></a>log_reg_2 <span class="op">=</span> LogisticRegression()</span>
+<span id="cb111-3"><a href="#cb111-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb111-4"><a href="#cb111-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit the model with the data that has been resampled with SMOTE</span></span>
+<span id="cb111-5"><a href="#cb111-5" aria-hidden="true" tabindex="-1"></a>log_reg_2.fit(X_resampled, y_resampled)</span>
+<span id="cb111-6"><a href="#cb111-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb111-7"><a href="#cb111-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Predict on the test set (not resampled to obtain honest evaluation)</span></span>
+<span id="cb111-8"><a href="#cb111-8" aria-hidden="true" tabindex="-1"></a>preds2 <span class="op">=</span> log_reg_2.predict(test[[<span class="st">'time_on_page'</span>, <span class="st">'pages_viewed'</span>,    <span class="st">'interest_ski'</span>, <span class="st">'interest_climb'</span>]])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The confusion matrix of the second model.</p>
-<div class="cell" data-execution_count="78">
-<div class="sourceCode cell-code" id="cb110"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb110-1"><a href="#cb110-1" aria-hidden="true" tabindex="-1"></a>tn, fp, fn, tp <span class="op">=</span> confusion_matrix(test[<span class="st">'buy'</span>], preds2).ravel()</span>
-<span id="cb110-2"><a href="#cb110-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'True negatives: '</span>, tn, <span class="st">'</span><span class="ch">\n</span><span class="st">False positives: '</span>, fp, <span class="st">'</span><span class="ch">\n</span><span class="st">False negatives: '</span>, fn, <span class="st">'</span><span class="ch">\n</span><span class="st">True positives: '</span>, tp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="80">
+<div class="sourceCode cell-code" id="cb112"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb112-1"><a href="#cb112-1" aria-hidden="true" tabindex="-1"></a>tn, fp, fn, tp <span class="op">=</span> confusion_matrix(test[<span class="st">'buy'</span>], preds2).ravel()</span>
+<span id="cb112-2"><a href="#cb112-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'True negatives: '</span>, tn, <span class="st">'</span><span class="ch">\n</span><span class="st">False positives: '</span>, fp, <span class="st">'</span><span class="ch">\n</span><span class="st">False negatives: '</span>, fn, <span class="st">'</span><span class="ch">\n</span><span class="st">True positives: '</span>, tp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>True negatives:  260 
-False positives:  25 
+<pre><code>True negatives:  262 
+False positives:  23 
 False negatives:  5 
 True positives:  10</code></pre>
 </div>
 </div>
 <p>The classification report.</p>
-<div class="cell" data-execution_count="79">
-<div class="sourceCode cell-code" id="cb112"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb112-1"><a href="#cb112-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(classification_report(test[<span class="st">'buy'</span>], preds2))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="81">
+<div class="sourceCode cell-code" id="cb114"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb114-1"><a href="#cb114-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(classification_report(test[<span class="st">'buy'</span>], preds2))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>              precision    recall  f1-score   support
 
-           0       0.98      0.91      0.95       285
-           1       0.29      0.67      0.40        15
+           0       0.98      0.92      0.95       285
+           1       0.30      0.67      0.42        15
 
-    accuracy                           0.90       300
-   macro avg       0.63      0.79      0.67       300
-weighted avg       0.95      0.90      0.92       300
+    accuracy                           0.91       300
+   macro avg       0.64      0.79      0.68       300
+weighted avg       0.95      0.91      0.92       300
 </code></pre>
 </div>
 </div>
