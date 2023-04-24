@@ -74,7 +74,7 @@ base = importr('base')
 
 * Calling R functions: Once we have imported the R package, we can call its functions using the usual Python function call syntax. For example, to call the `glm` function from R, we can use the following code:
  
-![R from Python Logistic Regression](rfrompy_logreg.png)
+![R from Python Logistic Regression](rfrompy_logireg.png)
 ![R from Python Result 2](r_py_log_result2.png)
 
 * Converting between Python and R objects: "rpy2" provides functions to convert between Python and R objects. For example, we can convert a Python list to an R vector using the robjects.FloatVector() function, like this:
