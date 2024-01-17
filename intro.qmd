@@ -210,6 +210,8 @@ Here are some example tasks:
 + TensorFlow
 + Autoencoders
 + Reinforcement learning
++ Data science ethics
++ Data science communication skills
 
 
 Please use the following table to sign up.
