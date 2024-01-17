@@ -1,0 +1,258 @@
+## Calling R from Python and Vice Versa
+
+
+### Introduction
+
+R and Python are two common programming languages for statistics, data analysis, and machine learning in research. While both languages have their respective strengths and weaknesses, there are various aspects where combining the two provides a more efficient progress. Python is a versatile and widely-used programming language with a rich base of libraries for data manipulation, machine learning, and visualization. R, on the other hand, is a specialized language for statistical computing and graphics, widely used by statisticians and data scientists.
+
+In this section, we will explore simply how to call R functions from Python using the 'rpy2' package and how to call Python functions from R using the 'reticulate' package. The dataset NYC Crash Data will be used in examples to illustrate the methods. Only the first 1000 rows was used for the efficiency of the examples' purproses.
+
+To install 'rpy2' with terminal on mac: 
+
+```{python}
+#| eval: false
+!pip install rpy2
+```
+
+Note: If you are using Jupyter Notebook or JupyterLab, you can prefix the command with an exclamation mark to run it as a shell command.
+
+To install 'reticulate' in RStudio for R:
+
+```{r}
+#| eval: false
+options(repos = c(CRAN = "https://cloud.r-project.org"))
+install.packages("reticulate")
+```
+
+*  Set a mirror so R knows where to find the package
+
+### R and Python - A Brief Overview
+
+Before we delve into the integration of R and Python, let's have a brief overview of both languages.
+
+* R: R is a powerful open-source programming language and environment for statistical computing and graphics. It has a rich ecosystem of packages for data analysis, machine learning, and visualization, making it a popular choice among statisticians and data scientists.
+
+* Python: Python is a versatile, general-purpose programming language known for its simplicity and readability. It has a large ecosystem of libraries for various tasks, including data analysis, machine learning, and scientific computing, making it widely used in academia, industry, and research.
+
+### Motivation for Integration
+
+Aside from utilizing both languages strengths:
+
+* Reusing existing code: Many researchers, analysts, and data scientists may have existing code written in R or Python. By integrating R and Python, we can reuse this code and avoid duplicating efforts, saving time and resources.
+
+* Collaborating across teams: In some organizations or research settings, different teams may prefer to use R or Python for their data analysis tasks. By integrating R and Python, we can facilitate collaboration across teams and enable seamless communication and sharing of code and results.
+
+### Calling R from Python
+
+Now, let's dive into the first tool for integrating R and Python, Python provides several ways to call R code from within a Python script. Here are three popular methods:
+
+* RPy2: RPy2 is a Python package that provides a simple and efficient interface for calling R functions from Python code. It allows you to execute R code within your Python script, pass data between Python and R, and even create R plots from Python.
+
+Example usage:
+
+![Method1](item1.png)
+
+* subprocess: The subprocess module in Python allows you to spawn new processes, which can include calling R scripts or R executables. You can pass arguments and data to the R process, and capture the output or errors.
+
+Example usage:
+
+![Method2](item2.png)
+
+We will focus on the usage of the RPy2 package as this is the most common method.
+
+#### Basic Usage of "rpy2"
+
+Now, let's take a look at and explain in more detail the basic usage of "rpy2".
+
+* Importing R functions: We can import R functions into Python using the importr function from "rpy2.robjects" module. For example, to import the "base" package from R, we can use the following code:
+
+```{python}
+#| eval: false
+from rpy2.robjects.packages import importr
+base = importr('base')
+```
+
+* Calling R functions: Once we have imported the R package, we can call its functions using the usual Python function call syntax. For example, to call the `glm` function from R, we can use the following code:
+ 
+![R from Python Logistic Regression](rfrompy_logireg.png)
+![R from Python Result 2](r_py_log_result2.png)
+
+* Converting between Python and R objects: "rpy2" provides functions to convert between Python and R objects. For example, we can convert a Python list to an R vector using the robjects.FloatVector() function, like this:
+
+```{python}
+#| eval: false
+from rpy2.robjects import FloatVector
+my_list = [1.2, 2.3, 3.4, 4.5]
+r_vector = FloatVector(my_list)
+```
+
+* Handling R data frames: "rpy2" provides a convenient way to handle R data frames in Python. We can convert an R data frame to a Pandas DataFrame using the pandas.DataFrame() function, like this:
+
+```{python}
+#| eval: false
+from rpy2.robjects import r
+import pandas as pd
+
+r_dataframe = r.data_frame(A=[1, 2, 3], B=[4, 5, 6])
+pandas_dataframe = pd.DataFrame(r_dataframe)
+```
+
+#### Advanced Usage of "rpy2"
+
+Apart from the basic usage, "rpy2" also offers advanced features for more complex scenarios.
+
+* Passing data between Python and R: We can pass data between Python and R using the robjects.globalenv object, which represents the global environment in R.
+
+* Using R plots in Python: "rpy2" allows us to use R's powerful plotting capabilities in Python. We can create R plots and display them in Python using the r.plot() function.
+
+* Managing R sessions: "rpy2" allows us to manage R sessions from Python. We can start and stop R sessions, and even run R scripts from Python using the rpy2.robjects.r function.
+
+### Calling Python from R
+
+Similarly, you can call Python code from R using the "reticulate" package, which provides an interface for embedding Python code within R scripts. Here's an example:
+
+![Python from R](pyfromr_logreg.png)
+![Python from R Result ](py_r_log_result.png)
+
+#### Basic Usage of "reticulate"
+
+Now, let's take a look at the basic usage of "reticulate".
+
+* Importing Python modules: We can import Python modules into R using the import function from "reticulate". For example, to import the numpy module in R, we can use the following code:
+
+```{r}
+#| eval: false
+library(reticulate)
+numpy <- import("numpy")
+```
+
+* Calling Python functions: Once we have imported a Python module, we can call its functions using the usual R function call syntax. For example, to call the mean() function from the numpy module, we can use the following code:
+
+```{r}
+#| eval: false
+result <- numpy$mean(c(1, 2, 3, 4, 5))
+print(result)
+```
+
+* Converting between R and Python objects: "reticulate" provides functions to convert between R and Python objects. For example, we can convert an R vector to a Python list using the $py operator, like this:
+
+```{r}
+#| eval: false
+my_vector <- c(1.2, 2.3, 3.4, 4.5)
+python_list <- my_vector$py
+```
+
+* Using Python objects in R: We can use Python objects directly in R code. For example, we can use a Python list in an R for loop, like this:
+
+```{r}
+#| eval: false
+my_list <- list(1, 2, 3, 4, 5)
+for (num in my_list) {
+  print(num)
+}
+```
+
+#### Advanced Usage of "reticulate"
+
+Apart from the basic usage, "reticulate" also offers advanced features for more complex scenarios.
+
+* Managing Python environments: "reticulate" allows us to manage Python environments within R. We can create, activate, and deactivate Python environments, and even install Python packages from R using the virtualenv_create(), virtualenv_activate(), and py_install() functions, respectively.
+
+* Customizing Python configurations: We can customize various Python configurations within R using the use_python() function. For example, we can specify the path to the Python interpreter, set environment variables, and configure the use of virtual environments.
+
+* Using Python in R Markdown documents: "reticulate" allows us to use Python code chunks in R Markdown documents, which combines the power of both R and Python for creating dynamic and interactive reports.
+
+### Data Exchange between Python and R
+
+One of the powerful features of calling R from Python or vice versa is the ability to exchange data seamlessly between the two languages. Here are some common ways to exchange data between Python and R:
+
+* Passing data as arguments: You can pass data as arguments from Python to R or vice versa when calling functions. For example, you can pass data frames, arrays, or other data structures as arguments and use them directly in R or Python code.
+
+Example usage in Python:
+
+```{python}
+#| eval: false
+import rpy2.robjects as robjects
+import pandas as pd
+
+# Convert a pandas DataFrame to an R data frame
+df = pd.DataFrame({'x': [1, 2, 3], 'y': [4, 5, 6]})
+r_df = robjects.conversion.py2rpy(df)
+
+# Pass the R data frame as an argument to an R function
+rfunc = robjects.r('function(df) {return(sum(df$x) + sum(df$y))}')
+result = rfunc(r_df)
+print(result[0])
+```
+
+Example usage in R:
+
+```{r}
+#| eval: false
+library(reticulate)
+
+# Pass a vector from R to Python
+r_vector <- c(1, 2, 3)
+py$my_vector <- r_vector
+
+# Access the Python vector in R
+py_func <- py$my_function
+result <- py_func(py$my_vector)
+print(result)
+```
+
+* Saving and loading data: You can save data to a file in one language and load it in the other language. For example, you can save a data frame as a CSV file in Python and read it in R, or save an R data frame as an RDS file and load it in Python.
+
+Example usage in Python:
+
+```{python}
+#| eval: false
+import pandas as pd
+
+# Save a pandas DataFrame as a CSV file
+df = pd.DataFrame({'x': [1, 2, 3], 'y': [4, 5, 6]})
+df.to_csv('data.csv', index=False)
+```
+
+Example usage in R:
+
+```{r}
+#| eval: false
+# Load a CSV file as a data frame in R
+df <- read.csv('data.csv')
+print(df)
+```
+
+* Shared data structures: Some packages, such as "rpy2" and "reticulate", provide shared data structures that allow you to manipulate data directly in Python or R without the need for data exchange. For example, you can create a shared data frame in Python and access it directly in R, or create a shared array in R and use it in Python.
+
+### Managing Dependencies
+
+When integrating R and Python code, it's important to manage dependencies effectively. Ensure that all the necessary libraries and packages are installed in both R and Python environments. You may need to install additional packages or configure paths for smooth interoperability.
+
+* Example usage with "reticulate" in R for managing dependencies:
+
+```{r}
+#| eval: false
+library(reticulate)
+
+# Install required Python packages
+py_install("pandas")
+py_install("numpy")
+
+# Load Python libraries in R
+py <- import("pandas")
+df <- py$DataFrame(list(x = c(1, 2, 3), y = c(4, 5, 6)))
+print(df)
+
+```
+
+### Conclusion
+
+R and Python differ in many aspects such as syntax, coding styles, functions (R represents more of the statistical analysis and data visualization front while Python for web development, scientific computing and machine learning), types of packages and data structures. In this lecture, we learned how to call R functions from Python and Python functions from R using the 'rpy2' and 'reticulate' packages, respectively. We also saw how to load and manipulate data in both languages, and how to integrate R and Python code within the same document using Quarto in VSCode. By combining the strengths of R and Python, we can create more powerful and efficient data analysis workflows.
+
+### References
+
+- rpy2 documentation: https://rpy2.github.io/
+- reticulate documentation: https://rstudio.github.io/reticulate/
+- Wickham, H. (2018). reticulate: Interface to 'Python'. R package version 1.13.
+- Müller, M. (2020). Python for Data Science Handbook. O'Reilly Media.
